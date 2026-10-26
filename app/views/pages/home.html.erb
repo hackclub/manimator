@@ -1,0 +1,262 @@
+<div data-controller="timeline menu" data-timeline-total-value="194.15" data-action="keydown.esc@window->menu#close">
+
+<section id="hero" class="hero"
+         data-controller="particles pi"
+         data-timeline-target="chapter" data-chapter="Intro"
+         data-action="pointerdown->particles#press pointermove->particles#move pointerleave->particles#leave click->particles#scatter particles:hover->pi#stir particles:scatter->pi#scattered"
+         data-pi-variant-value="hero" data-pi-poses-value="<%= pi_pose_urls %>">
+  <canvas class="hero__canvas" data-particles-target="canvas"></canvas>
+
+  <nav class="hero__nav">
+    <a href="#how-it-works" class="muted wide-only">how it works</a>
+    <a href="#examples" class="muted wide-only">examples</a>
+    <a href="#faq" class="muted wide-only">faq</a>
+    <a href="<%= start_path %>" class="wide-only">sign in</a>
+    <button class="pill narrow-only" aria-label="Open menu" aria-expanded="false" data-menu-target="toggle" data-action="menu#open">menu</button>
+  </nav>
+
+  <div class="hero__center">
+    <div class="lockup">
+      <span class="lockup__item"><img src="https://assets.hackclub.com/icon-rounded.svg" alt=""><span class="lockup__hc">Hack Club</span></span>
+      <span class="lockup__x">×</span>
+      <span class="lockup__item"><%= image_tag "3b1b-logo.png", alt: "", class: "round" %><span class="lockup__3b1b">3Blue1Brown</span></span>
+    </div>
+    <h1 class="hero__title" data-particles-target="title">Manimator</h1>
+    <p class="hero__lede">Animate a math idea in <span class="mono c-blue">manim</span>. Ship the video. We’ll mail you something back.</p>
+    <div class="hero__ctas">
+      <a href="<%= start_path %>" class="btn btn--primary" data-action="mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a>
+      <a href="#examples" class="btn btn--ghost">See examples</a>
+    </div>
+    <div class="hero__hint"><span class="wide-only">move to stir · click to scatter</span><span class="narrow-only">drag to stir · tap to scatter</span> · free · 18 &amp; under</div>
+  </div>
+
+  <div class="hero__foot">
+    <span class="hero__scroll wide-only">↓ scroll to play</span>
+    <div class="pi">
+      <div class="bubble" data-pi-target="bubble"></div>
+      <div class="pi__bob">
+        <div class="pi__hop" title="poke π" data-pi-target="hop" data-action="click->pi#poke">
+          <%= image_tag "pi_creature/plain.svg", alt: "π, the Manimator mascot", draggable: false, data: { pi_target: "img" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <% 2.times do %>
+      <div class="marquee__run">
+        <span>free</span><span class="c-yellow">π</span><span>animate a math idea</span><span class="c-blue">∫</span><span>in manim</span><span class="c-green">Σ</span><span>runs in your browser</span><span class="c-red">θ</span><span>ship the video</span><span class="c-purple">∞</span><span>we mail you something back</span><span class="c-teal">√</span><span>18 &amp; under</span><span class="c-yellow">Δ</span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<section id="how-it-works" class="section section--how" data-timeline-target="chapter" data-chapter="How it works">
+  <div class="section__head">
+    <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">HowItWorks</span>(Scene):</div>
+    <h2 class="section__title">How it works</h2>
+    <p class="section__lede">Three steps, one video. The hours you track decide what we send.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step__num c-yellow">1</span>
+      <div class="step__body">
+        <h3>Pick an idea.</h3>
+        <p>Anything you can explain with a picture: a proof, a pattern, a paradox, a physics trick. Stuck? Steal one from the examples below.</p>
+      </div>
+      <code class="step__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"why 0.999… = 1"</span>)</code>
+    </div>
+    <div class="step">
+      <span class="step__num c-blue">2</span>
+      <div class="step__body">
+        <h3>Animate it in manim.</h3>
+        <p>Open the web editor. Nothing to install. Write Python, render, watch, fix, render again. You don’t need to know manim yet.</p>
+      </div>
+      <code class="step__code">self.<span class="c-teal">play</span>(<span class="c-teal">Write</span>(idea), run_time=<span class="c-purple">PI</span>)</code>
+    </div>
+    <div class="step">
+      <span class="step__num c-green">3</span>
+      <div class="step__body">
+        <h3>Ship it.</h3>
+        <p>Post the video and your code. A real person watches it, then we mail you something back.</p>
+      </div>
+      <code class="step__code">self.<span class="c-teal">ship</span>(video, repo)</code>
+    </div>
+  </div>
+</section>
+
+<section id="examples" class="section" data-controller="sketch" data-timeline-target="chapter" data-chapter="Examples">
+  <div class="section__head">
+    <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">Examples</span>(Scene):</div>
+    <h2 class="section__title">Things worth animating</h2>
+    <p class="section__lede">Hover one to replay it. Take any of them for your first scene.</p>
+  </div>
+  <div class="cards">
+    <%= render "pages/example", title: "Odd numbers make squares",
+          body: "1 + 3 + 5 + 7 = 4². Each odd number is one more L wrapped around the square.",
+          apis: "VGroup · LaggedStart · MathTex" do %>
+      <g transform="translate(-24,0)">
+        <path data-d="sf" d="M104,34 L132,34 L132,62 L104,62 Z" fill="#F4D345" fill-opacity=".3" stroke="#F4D345" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="sf" d="M132,34 L160,34 L160,90 L104,90 L104,62 L132,62 Z" fill="#58C4DD" fill-opacity=".3" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="sf" d="M160,34 L188,34 L188,118 L104,118 L104,90 L160,90 Z" fill="#83C167" fill-opacity=".3" stroke="#83C167" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="sf" d="M188,34 L216,34 L216,146 L104,146 L104,118 L188,118 Z" fill="#FC6255" fill-opacity=".3" stroke="#FC6255" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <text data-d="o" x="236" y="98" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="28" fill="#ece9e2">= 4²</text>
+      </g>
+    <% end %>
+
+    <%= render "pages/example", title: "Where sine comes from",
+          body: "Spin a point around a circle and trace its height. That’s the whole wave.",
+          apis: "TracedPath · always_redraw" do %>
+      <line x1="20" y1="90" x2="306" y2="90" stroke="#3a3e45" stroke-width="1.5"></line>
+      <circle data-d="s" cx="70" cy="90" r="40" fill="none" stroke="#58C4DD" stroke-width="3" pathLength="1" stroke-dasharray="1"></circle>
+      <line data-d="s" x1="70" y1="90" x2="70" y2="50" stroke="#ece9e2" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></line>
+      <line data-d="o" x1="70" y1="50" x2="130" y2="50" stroke="#F4D345" stroke-width="1.5" stroke-dasharray="4 4"></line>
+      <path data-d="s" d="M130,50 C162,50 178,130 210,130 S258,50 290,50" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+      <circle data-d="o" cx="70" cy="50" r="5" fill="#F4D345"></circle>
+    <% end %>
+
+    <%= render "pages/example", title: "Euler’s identity",
+          body: "Five constants, one line. Show why turning by π lands you on −1.",
+          apis: "MathTex · Write · Rotate" do %>
+      <text data-d="t" x="160" y="106" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="46" fill="#ece9e2" stroke="#ece9e2" stroke-width="1" style="stroke-dasharray:600">e<tspan dy="-18" font-size="28">iπ</tspan><tspan dy="18"> + 1 = 0</tspan></text>
+    <% end %>
+
+    <%= render "pages/example", title: "Pythagoras, rearranged",
+          body: "Slide four triangles around a square and a² + b² turns into c² in front of you.",
+          apis: "Transform · Rotate · Polygon" do %>
+      <g transform="translate(-14,-12)">
+        <path data-d="sf" d="M150,120 L198,120 L198,168 L150,168 Z" fill="#F4D345" fill-opacity=".3" stroke="#F4D345" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="sf" d="M114,84 L150,84 L150,120 L114,120 Z" fill="#58C4DD" fill-opacity=".3" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="sf" d="M150,84 L198,120 L234,72 L186,36 Z" fill="#FC6255" fill-opacity=".3" stroke="#FC6255" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
+        <path data-d="s" d="M150,120 L198,120 L150,84 Z" fill="none" stroke="#ece9e2" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+        <text data-d="o" x="174" y="150" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">a²</text>
+        <text data-d="o" x="132" y="108" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">b²</text>
+        <text data-d="o" x="192" y="84" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">c²</text>
+      </g>
+    <% end %>
+
+    <%= render "pages/example", title: "Area under a curve",
+          body: "Thinner and thinner rectangles, until they stop being rectangles and become the integral.",
+          apis: "get_riemann_rectangles · ValueTracker" do %>
+      <line x1="40" y1="150" x2="300" y2="150" stroke="#80868e" stroke-width="1.5"></line>
+      <line x1="50" y1="24" x2="50" y2="158" stroke="#80868e" stroke-width="1.5"></line>
+      <% [[70, 134, 16], [100, 122, 28], [130, 104, 46], [160, 86, 64], [190, 70, 80], [220, 58, 92], [250, 51, 99]].each do |x, y, h| %>
+        <rect data-d="o" x="<%= x %>" y="<%= y %>" width="30" height="<%= h %>" fill="#58C4DD" fill-opacity=".28" stroke="#58C4DD" stroke-width="1.5"></rect>
+      <% end %>
+      <path data-d="s" d="M50,146 C120,140 180,60 300,44" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+    <% end %>
+
+    <%= render "pages/example", title: "Fourier epicycles",
+          body: "Circles riding on circles can draw any shape. Even your name.",
+          apis: "Circle · always_redraw · TracedPath" do %>
+      <circle data-d="s" cx="80" cy="90" r="42" fill="none" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
+      <line data-d="s" x1="80" y1="90" x2="110" y2="60.3" stroke="#ece9e2" stroke-width="2" pathLength="1" stroke-dasharray="1"></line>
+      <circle data-d="s" cx="110" cy="60.3" r="20" fill="none" stroke="#5CD0B3" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
+      <line data-d="s" x1="110" y1="60.3" x2="128" y2="69" stroke="#ece9e2" stroke-width="2" pathLength="1" stroke-dasharray="1"></line>
+      <circle data-d="s" cx="128" cy="69" r="9" fill="none" stroke="#9A72AC" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
+      <line data-d="o" x1="128" y1="69" x2="190" y2="69" stroke="#F4D345" stroke-width="1.5" stroke-dasharray="4 4"></line>
+      <path data-d="s" d="M190,69 C200,30 214,30 222,52 S238,128 254,112 S272,48 284,60 S298,100 304,96" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+    <% end %>
+  </div>
+</section>
+
+<section id="faq" class="section section--faq" data-timeline-target="chapter" data-chapter="FAQ">
+  <div class="section__head">
+    <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">FAQ</span>(Scene):</div>
+    <h2 class="section__title">Questions</h2>
+  </div>
+  <div class="faq">
+    <details name="faq" open>
+      <summary>What is manim?</summary>
+      <p>The Python library Grant Sanderson wrote to animate 3Blue1Brown videos. We use the free, open-source <a href="https://www.manim.community/">Manim Community</a> edition.</p>
+    </details>
+    <details name="faq">
+      <summary>Who can join?</summary>
+      <p>Anyone 18 or under, anywhere in the world. It’s free.</p>
+    </details>
+    <details name="faq">
+      <summary>I’ve never written Python. Can I still do this?</summary>
+      <p>Yes. A first scene is about ten lines. Get a circle on screen, then make it do something. People in the Slack will help you debug.</p>
+    </details>
+    <details name="faq">
+      <summary>What counts as math?</summary>
+      <p>Anything you can explain with a picture: proofs, patterns, probability, physics, algorithms, even the math inside a game you like.</p>
+    </details>
+    <details name="faq">
+      <summary>How do my hours get counted?</summary>
+      <p>The web editor tracks your time automatically while you work on your scene, so there’s nothing to set up.</p>
+    </details>
+    <details name="faq">
+      <summary>What do I get?</summary>
+      <p>Something real in the mail, picked from a list once you ship. More hours unlock bigger rewards. The full list is coming soon.</p>
+    </details>
+    <details name="faq">
+      <summary>Where do I get help?</summary>
+      <p>Ask in the <a href="https://hackclub.com/slack/">Hack Club Slack</a>. Someone there has hit your error before.</p>
+    </details>
+  </div>
+</section>
+
+<footer id="credits" class="footer"
+        data-controller="pi" data-pi-variant-value="end" data-pi-poses-value="<%= pi_pose_urls %>"
+        data-timeline-target="chapter" data-chapter="Credits">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__cta">
+        <div class="section__kicker">self.<span class="c-teal">wait</span>(<span class="c-yellow">you</span>)</div>
+        <h2 class="footer__title">Your turn.</h2>
+        <p class="footer__lede">Pick an idea, open your editor, and make the first frame move.</p>
+        <div><a href="<%= start_path %>" class="btn btn--primary" data-action="mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a></div>
+      </div>
+      <div class="pi">
+        <div class="bubble" data-pi-target="bubble"></div>
+        <div class="pi__hop" title="poke π" data-pi-target="hop" data-action="click->pi#poke">
+          <%= image_tag "pi_creature/plain.svg", alt: "π waving", draggable: false, data: { pi_target: "img" } %>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>Made with ♥ by teenagers, for teenagers at <a href="https://hackclub.com/">Hack Club</a>, a 501(c)(3) nonprofit and a network of 100k+ technical high schoolers. In partnership with <a href="https://www.3blue1brown.com/">3Blue1Brown</a>.</p>
+      <nav>
+        <a href="https://hackclub.com/slack/">slack</a>
+        <a href="https://hackclub.com/clubs/">clubs</a>
+        <a href="https://hackatime.hackclub.com/">hackatime</a>
+        <a href="https://www.manim.community/">manim</a>
+        <a href="https://hackclub.com/privacy-and-terms">privacy</a>
+        <a href="https://forms.hackclub.com/bounty">fulfillment</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<div class="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-menu-target="panel">
+  <div class="menu__top">
+    <span class="menu__brand">Manimator</span>
+    <button class="pill" aria-label="Close menu" data-action="menu#close">close</button>
+  </div>
+  <nav class="menu__links">
+    <a href="#how-it-works" data-action="menu#close">How it works</a>
+    <a href="#examples" data-action="menu#close">Examples</a>
+    <a href="#faq" data-action="menu#close">FAQ</a>
+    <a href="<%= start_path %>" class="menu__signin">Sign in</a>
+  </nav>
+  <a href="<%= start_path %>" class="btn btn--primary menu__cta">Start animating →</a>
+  <div class="menu__foot">Hack Club × 3Blue1Brown · free · 18 &amp; under</div>
+</div>
+
+<div class="timeline">
+  <div class="timeline__bar" data-timeline-target="bar">
+    <button class="timeline__play" aria-label="Play the page" data-timeline-target="play" data-action="timeline#toggle">▶</button>
+    <span class="timeline__time wide-only"><span data-timeline-target="time">00:00.00</span><span class="c-faint"> / 03:14.15</span></span>
+    <div class="timeline__track" data-timeline-target="track"
+         data-action="pointerdown->timeline#down pointermove->timeline#hover pointerup->timeline#up pointerleave->timeline#leave">
+      <span class="timeline__head" data-timeline-target="head"></span>
+      <span class="timeline__tip" data-timeline-target="tip" hidden></span>
+    </div>
+    <span class="timeline__chapter"><span class="c-faint" data-timeline-target="index">1/5</span> <span data-timeline-target="label">Intro</span></span>
+  </div>
+</div>
+
+</div>
