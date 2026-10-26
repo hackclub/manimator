@@ -68,6 +68,7 @@ export default class extends Controller {
   poke() {
     this.hop()
     this.pokes++
+    this.dispatch("poke", { detail: { variant: this.variantValue } })
     if (!this.isHero) return this.sequence(DANCE, 190)
     this.flash(POKE[this.pokes % 4], 900)
     this.line = (this.line + 1) % LINES.length

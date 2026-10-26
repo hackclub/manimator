@@ -1,4 +1,6 @@
-<div data-controller="timeline menu" data-timeline-total-value="194.15" data-action="keydown.esc@window->menu#close">
+<div data-controller="timeline menu sound" data-timeline-total-value="194.15"
+     data-sound-bed-value="<%= audio_path "bed.mp3" %>" data-sound-scatter-value="<%= audio_path "scatter.mp3" %>" data-sound-poke-value="<%= audio_path "poke.mp3" %>"
+     data-action="keydown.esc@window->menu#close particles:scatter->sound#scatter pi:poke->sound#poke">
 
 <section id="hero" class="hero"
          data-controller="particles pi"
@@ -12,6 +14,7 @@
     <a href="#examples" class="muted wide-only">examples</a>
     <a href="#faq" class="muted wide-only">faq</a>
     <a href="<%= start_path %>" class="wide-only">sign in</a>
+    <button class="pill pill--sound" aria-pressed="true" aria-label="Turn sound off" data-sound-target="toggle" data-action="sound#toggle">sound on</button>
     <button class="pill narrow-only" aria-label="Open menu" aria-expanded="false" data-menu-target="toggle" data-action="menu#open">menu</button>
   </nav>
 

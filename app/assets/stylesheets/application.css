@@ -74,6 +74,11 @@ a:hover { color: #9fdcec; }
   height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid var(--line-hover);
   background: rgba(14, 15, 17, .8); color: var(--ink); font-family: var(--mono); font-size: 15px; cursor: pointer;
 }
+/* Sound toggle: muted until on */
+.pill--sound { color: var(--ink-muted); }
+.pill--sound:hover { border-color: var(--ink); color: var(--ink); }
+.pill--sound[aria-pressed="true"] { border-color: var(--yellow); color: var(--yellow); }
+@media (max-width: 719.98px) { .hero__nav { column-gap: 10px; } }
 
 /* Full-screen mobile menu */
 .menu {
