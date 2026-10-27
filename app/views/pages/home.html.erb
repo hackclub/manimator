@@ -53,30 +53,38 @@
     <h2 class="section__title">How it works</h2>
     <p class="section__lede">Three steps, one video. The hours you track decide what we send.</p>
   </div>
-  <div class="steps">
-    <div class="step">
-      <span class="step__num c-yellow">1</span>
-      <div class="step__body">
-        <h3>Pick an idea.</h3>
-        <p>Anything you can explain with a picture: a proof, a pattern, a paradox, a physics trick. Stuck? Steal one from the examples below.</p>
+  <div class="how" data-controller="scene">
+    <figure class="stage" aria-label="A small manim scene that follows the steps">
+      <canvas data-scene-target="canvas"></canvas>
+      <figcaption class="stage__caption" data-scene-target="caption"></figcaption>
+    </figure>
+    <div class="steps">
+      <div class="step" data-scene-target="step">
+        <span class="step__num c-yellow">1</span>
+        <div class="step__body">
+          <h3>Pick an idea.</h3>
+          <p>Anything you can explain with a picture: a proof, a pattern, a paradox, a physics trick. Stuck? Steal one from the examples below.</p>
+          <code class="step__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="code-input" value="why 0.999… = 1" maxlength="40" spellcheck="false" autocomplete="off" aria-label="Your idea" data-scene-target="idea" data-action="input->scene#retype focus->scene#showIdea">"</span>)</code>
+          <p class="step__hint">Type your own idea.</p>
+        </div>
       </div>
-      <code class="step__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"why 0.999… = 1"</span>)</code>
-    </div>
-    <div class="step">
-      <span class="step__num c-blue">2</span>
-      <div class="step__body">
-        <h3>Animate it in manim.</h3>
-        <p>Open the web editor. Nothing to install. Write Python, render, watch, fix, render again. You don’t need to know manim yet.</p>
+      <div class="step" data-scene-target="step">
+        <span class="step__num c-blue">2</span>
+        <div class="step__body">
+          <h3>Animate it in manim.</h3>
+          <p>Open the web editor. Nothing to install. Write Python, render, watch, fix, render again. You don’t need to know manim yet.</p>
+          <code class="step__code">self.<span class="c-teal">play</span>(<button type="button" class="code-token c-teal" data-scene-target="anim" data-action="scene#nextAnim" aria-label="Animation: Write. Click for another">Write</button>(idea), run_time=<button type="button" class="code-token code-drag c-purple" data-scene-target="runTime" data-action="pointerdown->scene#dragStart keydown->scene#nudge" aria-label="run_time in seconds; drag or use arrow keys">PI</button>)</code>
+          <p class="step__hint">Click <em>Write</em> to swap the animation. Drag the number to change how long it runs.</p>
+        </div>
       </div>
-      <code class="step__code">self.<span class="c-teal">play</span>(<span class="c-teal">Write</span>(idea), run_time=<span class="c-purple">PI</span>)</code>
-    </div>
-    <div class="step">
-      <span class="step__num c-green">3</span>
-      <div class="step__body">
-        <h3>Ship it.</h3>
-        <p>Post the video and your code. A real person watches it, then we mail you something back.</p>
+      <div class="step" data-scene-target="step">
+        <span class="step__num c-green">3</span>
+        <div class="step__body">
+          <h3>Ship it.</h3>
+          <p>Post the video and your code. A real person watches it, then we mail you something back.</p>
+          <code class="step__code">self.<span class="c-teal">ship</span>(video, repo)</code>
+        </div>
       </div>
-      <code class="step__code">self.<span class="c-teal">ship</span>(video, repo)</code>
     </div>
   </div>
 </section>

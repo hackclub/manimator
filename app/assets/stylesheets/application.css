@@ -189,20 +189,53 @@ html.menu-open { overflow: hidden; }
 .section__title { margin: 0; font-size: clamp(44px, 5.4vw, 76px); font-weight: 400; line-height: 1; }
 .section__lede { margin: 0; max-width: 620px; font-size: 21px; line-height: 1.45; color: var(--ink-muted); text-wrap: pretty; }
 
-/* How it works */
+/* How it works: the steps on the left, one small scene on the right that follows them */
+.how { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0 56px; align-items: start; }
+.how .steps { grid-column: 1; grid-row: 1; }
+.stage { grid-column: 2; grid-row: 1; position: sticky; top: 18vh; margin: 32px 0 0; }
+.stage canvas { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: #000; border: 1px solid var(--line); }
+.stage__caption { margin-top: 10px; min-height: 1.4em; font-style: italic; font-size: 16px; color: var(--ink-faint); }
+
 .steps { display: flex; flex-direction: column; border-bottom: 1px solid var(--line-strong); }
+/* The number shares a grid row with the step's title so the two stay centered on each other */
 .step {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 18px 40px; padding: 32px 0;
-  border-top: 1px solid var(--line-strong);
+  display: grid; grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-areas: "num title" ". text" ". code" ". hint";
+  align-items: center; gap: 8px 28px; padding: 32px 0; border-top: 1px solid var(--line-strong);
 }
-.step__num { flex: 0 0 64px; font-size: 60px; font-style: italic; line-height: 1; }
-.step__body { flex: 1 1 340px; display: flex; flex-direction: column; gap: 8px; }
-.step__body h3 { margin: 0; font-size: 30px; font-weight: 400; }
-.step__body p { margin: 0; max-width: 520px; font-size: 19px; line-height: 1.5; color: var(--ink-muted); text-wrap: pretty; }
+.step__num { grid-area: num; font-size: 60px; font-style: italic; line-height: 1; }
+.step__body { display: contents; }
+.step__body h3 { grid-area: title; margin: 0; font-size: 30px; font-weight: 400; }
+.step__body > p:not(.step__hint) { grid-area: text; align-self: start; margin: 0; max-width: 520px; font-size: 19px; line-height: 1.5; color: var(--ink-muted); text-wrap: pretty; }
 .step__code {
-  flex: 1 1 300px; align-self: center; padding: 16px 20px; border-radius: 10px; background: var(--bg-raised);
+  grid-area: code; justify-self: start; margin-top: 10px; padding: 12px 16px; border-radius: 10px; background: var(--bg-raised);
   border: 1px solid var(--line); font-family: var(--mono); font-size: 16px; line-height: 1.5;
   white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink);
+}
+.step__hint { grid-area: hint; margin: 2px 0 0; font-style: italic; font-size: 16px; color: var(--ink-faint); }
+.step__hint em { font-style: normal; }
+
+/* The bits of code you can play with */
+.code-input {
+  font: inherit; color: inherit; background: transparent; border: 0; border-bottom: 1px dashed currentColor;
+  padding: 0; margin: 0; width: 14ch; min-width: 4ch; outline: none;
+}
+.code-input:focus { border-bottom-style: solid; }
+.code-token {
+  font: inherit; background: transparent; border: 0; padding: 0; margin: 0; cursor: pointer;
+  border-bottom: 1px dashed currentColor;
+}
+.code-token:hover, .code-token:focus-visible { border-bottom-style: solid; outline: none; }
+.code-drag { cursor: ew-resize; touch-action: none; user-select: none; }
+
+@media (max-width: 719.98px) {
+  .how { grid-template-columns: minmax(0, 1fr); }
+  .how .steps { grid-row: 2; }
+  /* On phones the scene pins to the top while the steps scroll underneath it */
+  .stage { grid-column: 1; grid-row: 1; top: 8px; z-index: 5; margin: 0; padding-bottom: 6px; background: var(--bg); }
+  .step { grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; }
+  .step__num { font-size: 48px; }
+  .step__body h3 { font-size: 26px; }
 }
 
 /* Examples */
