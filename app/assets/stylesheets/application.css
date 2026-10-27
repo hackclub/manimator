@@ -186,7 +186,6 @@ html.menu-open { overflow: hidden; }
 .section--how { padding-top: clamp(80px, 10vw, 136px); }
 .section--faq { max-width: 960px; gap: 40px; }
 .section__head { display: flex; flex-direction: column; gap: 14px; }
-.section__kicker { font-family: var(--mono); font-size: 16px; color: var(--ink-faint); }
 .section__title { margin: 0; font-size: clamp(44px, 5.4vw, 76px); font-weight: 400; line-height: 1; }
 .section__lede { margin: 0; max-width: 620px; font-size: 21px; line-height: 1.45; color: var(--ink-muted); text-wrap: pretty; }
 
