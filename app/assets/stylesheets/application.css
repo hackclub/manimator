@@ -110,9 +110,11 @@ html.menu-open { overflow: hidden; }
 .pi__hop img { width: 100%; height: 100%; display: block; user-select: none; }
 
 /* Hero */
+/* The hero stops short of the fold so the next section peeks in: that is the scroll cue */
 .hero {
-  position: relative; min-height: 100vh; min-height: 100svh; touch-action: pan-y; display: flex; flex-direction: column;
-  padding: 24px var(--gutter) 64px; overflow: hidden; background: var(--bg); cursor: crosshair;
+  --peek: calc(clamp(80px, 10vw, 136px) + clamp(28px, 3.4vw, 48px));
+  position: relative; min-height: calc(100vh - var(--peek)); min-height: calc(100svh - var(--peek)); touch-action: pan-y; display: flex; flex-direction: column;
+  padding: 24px var(--gutter) 36px; overflow: hidden; background: var(--bg); cursor: crosshair;
 }
 .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .hero__nav {
@@ -120,6 +122,7 @@ html.menu-open { overflow: hidden; }
   padding-top: 10px; font-style: italic; font-size: 18px;
 }
 .hero__nav a.muted { color: var(--ink-muted); }
+.hero__credit { margin: 0 auto 0 0; color: var(--ink-muted); }
 .hero__nav a.muted:hover { color: var(--ink); }
 .hero__center {
   position: relative; flex: 1; display: flex; flex-direction: column; align-items: center;
@@ -141,8 +144,7 @@ html.menu-open { overflow: hidden; }
   .lockup__x { font-size: clamp(17px, 5vw, 20px); }
   .lockup__3b1b { font-size: clamp(16px, 4.5vw, 18px); }
 }
-.hero__dates { margin: -8px 0 0; text-wrap: balance; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
-.hero__dates a { color: var(--ink); pointer-events: auto; }
+.hero__dates { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
 .hero__title {
   margin: 0; font-size: clamp(64px, 18vw, 236px); line-height: 1.1; font-style: italic;
   font-weight: 400; color: transparent; user-select: none;
@@ -152,7 +154,6 @@ html.menu-open { overflow: hidden; }
   text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg);
 }
 .hero__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 8px; pointer-events: auto; }
-.hero__hint { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
 .hero__foot {
   position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: flex-end;
   gap: 16px; pointer-events: none;
@@ -311,21 +312,6 @@ html.menu-open { overflow: hidden; }
 }
 
 
-/* Scroll cue at the bottom of the hero: a manim-style arrow that draws itself in, like Create() */
-.scroll-cue {
-  position: absolute; left: 50%; bottom: 16px; z-index: 2; width: 80px; margin-left: -40px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-style: italic; font-size: 16px; line-height: 1; color: var(--ink-muted);
-  text-decoration: none; transition: opacity .4s, color .2s;
-}
-.scroll-cue:hover { color: var(--ink); }
-.scroll-cue svg { width: 14px; height: 40px; overflow: visible; }
-.scroll-cue line { stroke: currentColor; stroke-width: 1.5; stroke-dasharray: 34; animation: scroll-cue-shaft 2.4s cubic-bezier(.45,0,.2,1) infinite; }
-.scroll-cue polygon { fill: currentColor; animation: scroll-cue-tip 2.4s cubic-bezier(.45,0,.2,1) infinite; }
-.scroll-cue.is-gone { opacity: 0; pointer-events: none; }
-@keyframes scroll-cue-shaft { 0% { stroke-dashoffset: 34; opacity: 1; } 40%, 80% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes scroll-cue-tip { 0%, 30% { opacity: 0; transform: translateY(-4px); } 45%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .scroll-cue line, .scroll-cue polygon { animation: none; } }
 
 /* Playable example cards: the handle is the only thing that blocks touch scrolling */
 .card__body .card__hint { font-size: 15px; font-style: italic; color: var(--ink-faint); }
