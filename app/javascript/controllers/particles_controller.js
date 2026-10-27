@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Hero field: ~2400 short strokes that drift in a flow field and settle into
 // the shape of the "Manimator" wordmark. The pointer stirs them; a click scatters them.
+// Without a title target the strokes just drift (the footer).
 export default class extends Controller {
   static targets = ["canvas", "title"]
 
@@ -11,6 +12,9 @@ export default class extends Controller {
     this.cursor = null
     this.visible = true
     this.hovering = false
+    // Trails fade toward the section's own background colour.
+    const [r, g, b] = (getComputedStyle(this.element).backgroundColor.match(/\d+/g) || [14, 15, 17]).map(Number)
+    this.trail = `rgba(${r},${g},${b},.16)`
 
     this.size()
     this.resizeObserver = new ResizeObserver(() => this.size())
@@ -77,6 +81,7 @@ export default class extends Controller {
   // Rasterise the wordmark offscreen and sample its filled pixels as particle homes.
   build() {
     if (!this.width) return
+    if (!this.hasTitleTarget) { this.drift = true; this.count = Math.min(900, Math.round(this.width * this.height / 1600)); return }
     const W = this.width, H = this.height
     const cr = this.canvasTarget.getBoundingClientRect(), k = cr.width / W || 1, r = this.titleTarget.getBoundingClientRect()
     const fs = parseFloat(getComputedStyle(this.titleTarget).fontSize) || 200
@@ -95,14 +100,14 @@ export default class extends Controller {
   }
 
   tick(t) {
-    if (!this.targetsPts.length) return
+    if (!this.drift && !this.targetsPts.length) return
     const ctx = this.canvasTarget.getContext("2d"), W = this.width, H = this.height, cur = this.cursor, dt = 1 / 60
-    ctx.fillStyle = "rgba(14,15,17,.16)"; ctx.fillRect(0, 0, W, H)
+    ctx.fillStyle = this.trail; ctx.fillRect(0, 0, W, H)
     ctx.lineWidth = 1.7; ctx.lineCap = "round"
     for (let i = 0; i < this.count; i++) {
       const p = this.particles[i]
       p.w = Math.min(1, p.w + dt * .5)
-      const w = p.w <= 0 ? 0 : p.w * p.w, tg = this.targetsPts[p.ti] || this.targetsPts[0]
+      const w = this.drift || p.w <= 0 ? 0 : p.w * p.w, tg = this.drift ? [0, 0] : this.targetsPts[p.ti] || this.targetsPts[0]
       const fx = .9 + .35 * Math.sin(p.y / 140 + t * .6) + .3 * Math.sin(p.x / 90 + t)
       const fy = .45 * Math.cos(p.x / 160 - t * .5) + .3 * Math.cos(p.y / 70 - t * .8)
       p.vx = p.vx * .86 + fx * (1 - w) * .5 + (tg[0] - p.x) * .02 * w + fx * .05 * w

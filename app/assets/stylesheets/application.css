@@ -239,7 +239,9 @@ html.menu-open { overflow: hidden; }
 .faq details p { margin: 0 0 26px; max-width: 720px; font-size: 19px; line-height: 1.55; color: var(--ink-muted); text-wrap: pretty; }
 
 /* Footer */
-.footer { border-top: 1px solid var(--line); background: var(--bg-footer); }
+.footer { position: relative; overflow: hidden; border-top: 1px solid var(--line); background: var(--bg-footer); }
+.footer__field { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .45; pointer-events: none; }
+.footer__inner { position: relative; }
 .footer__inner {
   max-width: 1280px; margin: 0 auto; padding: clamp(72px, 9vw, 120px) var(--gutter) 112px;
   display: flex; flex-direction: column; gap: 64px;
@@ -265,6 +267,12 @@ html.menu-open { overflow: hidden; }
 .progress { height: 2px; }
 .progress__fill { display: block; height: 100%; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
 
+/* Headings trace their outline left to right, then fill in, like manim's Write() */
+.write { color: transparent; -webkit-text-stroke: 1px var(--ink); clip-path: inset(-20% 100% -20% -5%); }
+.write.is-written {
+  color: var(--ink); clip-path: inset(-20% -5% -20% -5%);
+  transition: clip-path 1.3s cubic-bezier(.45,0,.2,1), color .7s ease 1s, -webkit-text-stroke-color .7s ease 1.3s;
+  -webkit-text-stroke-color: transparent;
 }
 
 
