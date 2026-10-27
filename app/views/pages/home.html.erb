@@ -1,10 +1,9 @@
-<div data-controller="timeline menu sound" data-timeline-total-value="194.15"
+<div data-controller="menu sound"
      data-sound-bed-value="<%= audio_path "bed.mp3" %>" data-sound-scatter-value="<%= audio_path "scatter.mp3" %>" data-sound-poke-value="<%= audio_path "poke.mp3" %>"
      data-action="keydown.esc@window->menu#close particles:scatter->sound#scatter pi:poke->sound#poke">
 
 <section id="hero" class="hero"
          data-controller="particles pi"
-         data-timeline-target="chapter" data-chapter="Intro"
          data-action="pointerdown->particles#press pointermove->particles#move pointerleave->particles#leave click->particles#scatter particles:hover->pi#stir particles:scatter->pi#scattered"
          data-pi-variant-value="hero" data-pi-poses-value="<%= pi_pose_urls %>">
   <canvas class="hero__canvas" data-particles-target="canvas"></canvas>
@@ -47,7 +46,7 @@
 
 <div class="interlude"><p>Some ideas only click once you see them move.</p></div>
 
-<section id="how-it-works" class="section section--how" data-timeline-target="chapter" data-chapter="How it works">
+<section id="how-it-works" class="section section--how">
   <div class="section__head">
     <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">HowItWorks</span>(Scene):</div>
     <h2 class="section__title">How it works</h2>
@@ -81,7 +80,7 @@
   </div>
 </section>
 
-<section id="examples" class="section" data-controller="sketch" data-timeline-target="chapter" data-chapter="Examples">
+<section id="examples" class="section" data-controller="sketch">
   <div class="section__head">
     <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">Examples</span>(Scene):</div>
     <h2 class="section__title">Things worth animating</h2>
@@ -156,7 +155,7 @@
   </div>
 </section>
 
-<section id="faq" class="section section--faq" data-timeline-target="chapter" data-chapter="FAQ">
+<section id="faq" class="section section--faq">
   <div class="section__head">
     <div class="section__kicker"><span class="c-red">class</span> <span class="c-blue">FAQ</span>(Scene):</div>
     <h2 class="section__title">Questions</h2>
@@ -194,8 +193,7 @@
 </section>
 
 <footer id="credits" class="footer"
-        data-controller="pi" data-pi-variant-value="end" data-pi-poses-value="<%= pi_pose_urls %>"
-        data-timeline-target="chapter" data-chapter="Credits">
+        data-controller="pi" data-pi-variant-value="end" data-pi-poses-value="<%= pi_pose_urls %>">
   <div class="footer__inner">
     <div class="footer__top">
       <div class="footer__cta">
@@ -240,17 +238,8 @@
   <div class="menu__foot">Hack Club × 3Blue1Brown · free · 18 &amp; under</div>
 </div>
 
-<div class="timeline">
-  <div class="timeline__bar" data-timeline-target="bar">
-    <button class="timeline__play" aria-label="Play the page" data-timeline-target="play" data-action="timeline#toggle">▶</button>
-    <span class="timeline__time wide-only"><span data-timeline-target="time">00:00.00</span><span class="c-faint"> / 03:14.15</span></span>
-    <div class="timeline__track" data-timeline-target="track"
-         data-action="pointerdown->timeline#down pointermove->timeline#hover pointerup->timeline#up pointerleave->timeline#leave">
-      <span class="timeline__head" data-timeline-target="head"></span>
-      <span class="timeline__tip" data-timeline-target="tip" hidden></span>
-    </div>
-    <span class="timeline__chapter"><span class="c-faint" data-timeline-target="index">1/5</span> <span data-timeline-target="label">Intro</span></span>
-  </div>
+<div class="progress" data-controller="progress" aria-hidden="true">
+  <span class="progress__fill" data-progress-target="fill"></span>
 </div>
 
 </div>
