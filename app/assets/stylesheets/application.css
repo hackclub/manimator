@@ -112,7 +112,7 @@ html.menu-open { overflow: hidden; }
 /* Hero */
 .hero {
   position: relative; min-height: 100vh; min-height: 100svh; touch-action: pan-y; display: flex; flex-direction: column;
-  padding: 24px var(--gutter) 36px; overflow: hidden; background: var(--bg); cursor: crosshair;
+  padding: 24px var(--gutter) 64px; overflow: hidden; background: var(--bg); cursor: crosshair;
 }
 .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .hero__nav {
@@ -309,18 +309,28 @@ html.menu-open { overflow: hidden; }
 }
 
 
-/* Scroll cue at the bottom of the hero: a dot sliding down a short line */
+/* Scroll cue at the bottom of the hero: a label, then a dot sliding down a line onto a chevron */
 .scroll-cue {
-  position: absolute; left: 50%; bottom: 22px; z-index: 2; width: 24px; height: 44px; margin-left: -12px;
-  display: grid; place-items: center; transition: opacity .4s;
+  position: absolute; left: 50%; bottom: 14px; z-index: 2; width: 80px; margin-left: -40px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font: 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted);
+  text-decoration: none; transition: opacity .4s, color .2s;
 }
-.scroll-cue::before { content: ""; width: 1px; height: 36px; background: var(--line-hover); }
+.scroll-cue:hover { color: var(--ink); }
 .scroll-cue span {
-  position: absolute; top: 4px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
-  background: var(--yellow); animation: scroll-cue 1.8s cubic-bezier(.45,0,.2,1) infinite;
+  position: relative; width: 1px; height: 38px; background: var(--ink-faint);
+}
+.scroll-cue span::before {
+  content: ""; position: absolute; top: 0; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%;
+  background: var(--yellow); box-shadow: 0 0 10px var(--yellow);
+  animation: scroll-cue 1.8s cubic-bezier(.45,0,.2,1) infinite;
+}
+.scroll-cue::after {
+  content: ""; width: 9px; height: 9px; margin-top: -14px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg);
 }
 .scroll-cue.is-gone { opacity: 0; pointer-events: none; }
-@keyframes scroll-cue { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(32px); opacity: 0; } }
+@keyframes scroll-cue { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(30px); opacity: 0; } }
 
 /* Playable example cards: the handle is the only thing that blocks touch scrolling */
 .card__body .card__hint { font-size: 15px; font-style: italic; color: var(--ink-faint); }
