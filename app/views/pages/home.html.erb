@@ -110,8 +110,15 @@
 
     <%= render "pages/example", title: "Euler’s identity",
           body: "Five constants, one line. Show why turning by π lands you on −1.",
-          apis: "MathTex · Write · Rotate" do %>
-      <text data-d="t" x="160" y="106" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="46" fill="#ece9e2" stroke="#ece9e2" stroke-width="1" style="stroke-dasharray:600">e<tspan dy="-18" font-size="28">iπ</tspan><tspan dy="18"> + 1 = 0</tspan></text>
+          apis: "MathTex · Write · Rotate",
+          play: "euler", hint: "Drag the point to −1." do %>
+      <line x1="16" y1="96" x2="148" y2="96" stroke="#3a3e45" stroke-width="1.5"></line>
+      <line x1="82" y1="30" x2="82" y2="162" stroke="#3a3e45" stroke-width="1.5"></line>
+      <g data-d="o" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="14" fill="#80868e">
+        <text x="142" y="112" text-anchor="middle">1</text>
+        <text x="22" y="112" text-anchor="middle">−1</text>
+        <text x="90" y="36">i</text>
+      </g>
     <% end %>
 
     <%= render "pages/example", title: "Pythagoras, rearranged",
