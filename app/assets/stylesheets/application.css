@@ -163,6 +163,15 @@ html.menu-open { overflow: hidden; }
   width: clamp(108px, 16vw, 240px); aspect-ratio: 1; pointer-events: auto;
   animation: pi-bob 2.8s ease-in-out infinite;
 }
+/* On wide screens π sits in the hero's corner instead of below the fold; narrower ones
+   don't have room beside the buttons, so it stays underneath */
+@media (min-width: 1200px) {
+  .hero__foot { position: absolute; right: var(--gutter); bottom: 24px; }
+  .hero .pi { flex-direction: column; align-items: flex-end; gap: 14px; }
+  .hero .pi__bob { width: clamp(120px, 10vw, 180px); }
+  .hero .bubble { margin: 0; max-width: 190px; font-size: 16px; }
+  .hero .bubble::after { right: 36px; bottom: -7px; }
+}
 @keyframes pi-bob { 50% { transform: translateY(-8px); } }
 
 /* A single still line between the hero and the sections */
