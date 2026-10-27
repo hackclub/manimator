@@ -1,0 +1,81 @@
+/* The live editor at /editor, in the landing page's look. Every stylesheet loads on every page, so all of this is scoped under .editor. */
+
+.editor {
+  position: fixed; inset: 0; display: flex; flex-direction: column; gap: 14px;
+  padding: 14px 18px 18px; background: var(--bg); color: var(--ink); font-family: var(--serif);
+}
+
+body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: none; }
+
+/* Top bar */
+.editor__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.editor__brand { margin-right: 10px; font-style: italic; font-size: 28px; line-height: 1; color: var(--ink); }
+.editor__brand:hover { color: var(--yellow); }
+.editor__spacer { flex: 1; }
+.editor .pill {
+  height: 38px; padding: 0 34px 0 16px; appearance: none; font-size: 14px; color: var(--ink);
+  background: rgba(14, 15, 17, .8) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23a9aeb5' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 14px center;
+}
+.editor .pill:hover { border-color: var(--ink); }
+.editor .pill[hidden] { display: none; }
+.editor__fps { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 14px; color: var(--ink-faint); }
+.editor__status { font-family: var(--mono); font-size: 14px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.editor__status[data-kind="ok"] { color: var(--green); }
+.editor__status[data-kind="error"] { color: var(--red); }
+
+/* Panels */
+.editor__layout { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(340px, 42%) 1fr; gap: 14px; }
+.editor__panel {
+  min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+  border-radius: 16px; background: var(--bg-raised); border: 1px solid var(--line);
+}
+.editor__code { flex: 1; min-height: 0; overflow: hidden; }
+.editor__hint { padding: 10px 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 13px; color: var(--ink-faint); }
+
+.editor__error { max-height: 35%; overflow: auto; border-top: 1px solid var(--red); background: rgba(252, 98, 85, .07); }
+.editor__error-head { padding: 12px 16px 6px; font-size: 18px; color: var(--red); cursor: pointer; }
+.editor__error-head:hover { text-decoration: underline; }
+.editor__error pre { margin: 0; padding: 0 16px 14px; font: 13px/1.5 var(--mono); color: #f2b0aa; white-space: pre-wrap; }
+
+/* Stage */
+.editor__panel--stage { gap: 12px; padding: 12px; }
+.editor__stage { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.editor__stage canvas { display: block; border-radius: 10px; }
+.editor__tooltip {
+  position: absolute; padding: 6px 10px; border-radius: 8px; background: var(--ink); color: var(--bg);
+  font: 13px var(--mono); white-space: nowrap; pointer-events: none;
+}
+
+/* Player, same shape as the landing page's scroll timeline */
+.editor__player {
+  display: flex; align-items: center; gap: 14px; padding: 7px 20px 7px 7px; border-radius: 999px;
+  background: rgba(20, 22, 25, .9); border: 1px solid #2a2d33; font-family: var(--mono);
+}
+.editor__play {
+  flex: none; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 0;
+  background: var(--blue); color: var(--bg); font-size: 14px; cursor: pointer; transition: background .15s;
+}
+.editor__play:hover { background: #8bd8ea; }
+.editor__time { flex: none; font-size: 14px; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.editor__track { position: relative; flex: 1; min-width: 80px; height: 30px; cursor: pointer; touch-action: none; }
+.editor__sections { position: absolute; inset: 13px 0; }
+.editor__section { position: absolute; top: 0; bottom: 0; min-width: 2px; border-radius: 2px; background: #33373e; overflow: hidden; }
+.editor__section:hover { background: #454a53; }
+.editor__fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--blue); }
+.editor__head {
+  position: absolute; top: 9px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+  background: var(--yellow); box-shadow: 0 0 0 4px rgba(244, 211, 69, .22); pointer-events: none;
+}
+.editor__chapter { flex: 0 1 auto; min-width: 0; max-width: 34%; overflow: hidden; text-overflow: ellipsis; font-size: 14px; color: var(--ink); white-space: nowrap; }
+
+/* Line marks in the code */
+.editor .cm-line-playing { background: rgba(88, 196, 221, .07); box-shadow: inset 2px 0 0 var(--blue); }
+.editor .cm-line-hover { background: rgba(244, 211, 69, .14) !important; }
+.editor .cm-line-error { background: rgba(252, 98, 85, .12); box-shadow: inset 2px 0 0 var(--red); }
+
+@media (max-width: 800px) {
+  .editor { padding: 10px; gap: 10px; }
+  .editor__layout { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 10px; }
+  .editor__brand { font-size: 24px; }
+  .editor__status { order: 1; width: 100%; }
+}

@@ -1,0 +1,46 @@
+<% content_for :title, "Editor · Manimator" %>
+<% content_for :head do %>
+  <%# The isolation headers only apply on a full page load, not a Turbo visit %>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
+<%# After the layout's import map: a module fetch that starts before it gets the map ignored %>
+<%= javascript_importmap_module_preload_tags entry_point: "editor" %>
+
+<div class="editor" data-controller="editor"
+     data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
+     data-action="keydown@window->editor#key">
+  <header class="editor__bar">
+    <%= link_to "Manimator", root_path, class: "editor__brand" %>
+    <select class="pill" aria-label="Load an example" data-editor-target="examples" data-action="editor#loadExample"></select>
+    <select class="pill" aria-label="Scene to render" hidden data-editor-target="scene" data-action="editor#pickScene"></select>
+    <div class="editor__spacer"></div>
+    <span class="editor__status" data-editor-target="status">loading Python…</span>
+    <label class="editor__fps"><span class="wide-only">fps</span>
+      <select class="pill" aria-label="Frames per second" data-editor-target="fps" data-action="editor#changeFps"><option>15</option><option selected>30</option><option>60</option></select>
+    </label>
+  </header>
+
+  <main class="editor__layout">
+    <section class="editor__panel editor__panel--code">
+      <div class="editor__code" data-editor-target="code"></div>
+      <div class="editor__error" hidden data-editor-target="error"></div>
+      <div class="editor__hint wide-only">⌥/alt + drag a number to scrub it · click the canvas to jump to code</div>
+    </section>
+
+    <section class="editor__panel editor__panel--stage">
+      <div class="editor__stage" data-editor-target="wrap">
+        <canvas data-editor-target="stage" data-action="mousemove->editor#hover mouseleave->editor#unhover click->editor#jump"></canvas>
+        <div class="editor__tooltip" hidden data-editor-target="tooltip"></div>
+      </div>
+      <div class="editor__player">
+        <button class="editor__play" aria-label="Play / pause (space)" data-editor-target="play" data-action="editor#toggle">▶</button>
+        <span class="editor__time" data-editor-target="time">0.00 / 0.00s</span>
+        <div class="editor__track" data-editor-target="timeline" data-action="pointerdown->editor#scrub">
+          <div class="editor__sections" data-editor-target="sections"></div>
+          <div class="editor__head" data-editor-target="playhead"></div>
+        </div>
+        <span class="editor__chapter wide-only" data-editor-target="chapter"></span>
+      </div>
+    </section>
+  </main>
+</div>
