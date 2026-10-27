@@ -260,3 +260,18 @@ html.menu-open { overflow: hidden; }
 .progress__fill { display: block; height: 100%; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
 
 }
+
+
+/* Scroll cue at the bottom of the hero: a dot sliding down a short line */
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 22px; z-index: 2; width: 24px; height: 44px; margin-left: -12px;
+  display: grid; place-items: center; transition: opacity .4s;
+}
+.scroll-cue::before { content: ""; width: 1px; height: 36px; background: var(--line-hover); }
+.scroll-cue span {
+  position: absolute; top: 4px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
+  background: var(--yellow); animation: scroll-cue 1.8s cubic-bezier(.45,0,.2,1) infinite;
+}
+.scroll-cue.is-gone { opacity: 0; pointer-events: none; }
+@keyframes scroll-cue { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(32px); opacity: 0; } }
+
