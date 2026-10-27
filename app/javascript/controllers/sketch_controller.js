@@ -23,6 +23,8 @@ export default class extends Controller {
   replay(event) { this.draw(event.currentTarget) }
 
   draw(card) {
+    // Leave a card alone once someone has played with it, and skip the show for reduced motion.
+    if ("touched" in card.dataset || matchMedia("(prefers-reduced-motion: reduce)").matches) return
     card.querySelectorAll("[data-d]").forEach((el, i) => {
       const kind = el.dataset.d, o = { duration: 900, delay: i * 110, easing: EASE, fill: "both" }
       if (kind === "s") el.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], o)

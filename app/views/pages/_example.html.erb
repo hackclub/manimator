@@ -1,10 +1,11 @@
-<div class="card" data-sketch-target="card" data-action="mouseenter->sketch#replay">
+<div class="card" data-sketch-target="card" data-action="mouseenter->sketch#replay"<% if local_assigns[:play] %> data-controller="<%= play %>"<% end %>>
   <div class="card__stage">
     <svg viewBox="0 0 320 180"><%= yield %></svg>
   </div>
   <div class="card__body">
     <h3><%= title %></h3>
     <p><%= body %></p>
+    <% if local_assigns[:hint] %><p class="card__hint"><%= hint %></p><% end %>
     <code><%= apis %></code>
   </div>
 </div>

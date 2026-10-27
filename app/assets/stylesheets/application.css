@@ -322,3 +322,12 @@ html.menu-open { overflow: hidden; }
 .scroll-cue.is-gone { opacity: 0; pointer-events: none; }
 @keyframes scroll-cue { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(32px); opacity: 0; } }
 
+/* Playable example cards: the handle is the only thing that blocks touch scrolling */
+.card__body .card__hint { font-size: 15px; font-style: italic; color: var(--ink-faint); }
+.knob { cursor: grab; outline: none; touch-action: none; }
+.knob:active { cursor: grabbing; }
+.knob__hit { fill: transparent; pointer-events: all; }
+.knob__ring { fill: var(--yellow); fill-opacity: .2; stroke: var(--ink); stroke-opacity: 0; stroke-width: 1.5; transition: fill-opacity .15s; }
+.knob__dot { fill: var(--yellow); }
+.knob:hover .knob__ring, .card[data-dragging] .knob__ring { fill-opacity: .35; }
+.knob:focus-visible .knob__ring { stroke-opacity: .9; }
