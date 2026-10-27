@@ -97,14 +97,8 @@
   <div class="cards">
     <%= render "pages/example", title: "Odd numbers make squares",
           body: "1 + 3 + 5 + 7 = 4². Each odd number is one more L wrapped around the square.",
-          apis: "VGroup · LaggedStart · MathTex" do %>
-      <g transform="translate(-24,0)">
-        <path data-d="sf" d="M104,34 L132,34 L132,62 L104,62 Z" fill="#F4D345" fill-opacity=".3" stroke="#F4D345" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="sf" d="M132,34 L160,34 L160,90 L104,90 L104,62 L132,62 Z" fill="#58C4DD" fill-opacity=".3" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="sf" d="M160,34 L188,34 L188,118 L104,118 L104,90 L160,90 Z" fill="#83C167" fill-opacity=".3" stroke="#83C167" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="sf" d="M188,34 L216,34 L216,146 L104,146 L104,118 L188,118 Z" fill="#FC6255" fill-opacity=".3" stroke="#FC6255" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <text data-d="o" x="236" y="98" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="28" fill="#ece9e2">= 4²</text>
-      </g>
+          apis: "VGroup · LaggedStart · MathTex",
+          play: "squares", hint: "Drag the corner to wrap another L." do %>
     <% end %>
 
     <%= render "pages/example", title: "Where sine comes from",
