@@ -150,12 +150,11 @@ html.menu-open { overflow: hidden; }
   text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg);
 }
 .hero__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 8px; pointer-events: auto; }
-.hero__hint { font-family: var(--mono); font-size: 15px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
+.hero__hint { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
 .hero__foot {
-  position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: flex-end;
   gap: 16px; pointer-events: none;
 }
-.hero__scroll { font-family: var(--mono); font-size: 14px; color: var(--ink-faint); padding-bottom: 6px; }
 .hero .bubble {
   margin-bottom: clamp(56px, 9vw, 130px); max-width: clamp(170px, 22vw, 250px);
   padding: 10px 16px; font-size: clamp(15px, 1.4vw, 19px);
