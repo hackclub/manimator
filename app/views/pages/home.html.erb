@@ -24,7 +24,7 @@
       <span class="lockup__item"><%= image_tag "3b1b-logo.png", alt: "", class: "round" %><span class="lockup__3b1b">3Blue1Brown</span></span>
     </div>
     <h1 class="hero__title" data-particles-target="title">Manimator</h1>
-    <p class="hero__lede">Animate a math idea in <span class="mono c-blue">manim</span>. Ship the video. We’ll mail you something back.</p>
+    <p class="hero__lede">Animate a piece of math you love in <span class="mono c-blue">manim</span>. Ship the video, and we’ll mail you something back.</p>
     <div class="hero__ctas">
       <a href="<%= start_path %>" class="btn btn--primary" data-action="mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a>
       <a href="#examples" class="btn btn--ghost">See examples</a>
@@ -63,7 +63,7 @@
         <span class="step__num c-yellow">1</span>
         <div class="step__body">
           <h3>Pick an idea.</h3>
-          <p>Anything you can explain with a picture: a proof, a pattern, a paradox, a physics trick. Stuck? Steal one from the examples below.</p>
+          <p>Something you understand well enough to want to show someone: a proof, a pattern, a paradox, a trick from physics. If nothing comes to mind, borrow one from the examples below.</p>
           <code class="step__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="code-input" value="why 0.999… = 1" maxlength="40" spellcheck="false" autocomplete="off" aria-label="Your idea" data-scene-target="idea" data-action="input->scene#retype focus->scene#showIdea">"</span>)</code>
           <p class="step__hint">Type your own idea.</p>
         </div>
@@ -72,7 +72,7 @@
         <span class="step__num c-blue">2</span>
         <div class="step__body">
           <h3>Animate it in manim.</h3>
-          <p>Open the web editor. Nothing to install. Write Python, render, watch, fix, render again. You don’t need to know manim yet.</p>
+          <p>The editor runs in your browser, so there’s nothing to install. Write a little Python, render it, watch, adjust, and render again. You can learn manim as you go.</p>
           <code class="step__code">self.<span class="c-teal">play</span>(<button type="button" class="code-token c-teal" data-scene-target="anim" data-action="scene#nextAnim" aria-label="Animation: Write. Click for another">Write</button>(idea), run_time=<button type="button" class="code-token code-drag c-purple" data-scene-target="runTime" data-action="pointerdown->scene#dragStart keydown->scene#nudge" aria-label="run_time in seconds; drag or use arrow keys">PI</button>)</code>
           <p class="step__hint">Click <em>Write</em> to swap the animation. Drag the number to change how long it runs.</p>
         </div>
@@ -81,7 +81,7 @@
         <span class="step__num c-green">3</span>
         <div class="step__body">
           <h3>Ship it.</h3>
-          <p>Post the video and your code. A real person watches it, then we mail you something back.</p>
+          <p>Share the video and the code behind it. A real person watches it, and we mail you something back.</p>
           <code class="step__code">self.<span class="c-teal">ship</span>(video, repo)</code>
         </div>
       </div>
@@ -92,7 +92,7 @@
 <section id="examples" class="section" data-controller="sketch">
   <div class="section__head">
     <h2 class="section__title">Things worth animating</h2>
-    <p class="section__lede">Drag the yellow dot on any of them. Take one for your first scene.</p>
+    <p class="section__lede">Each one is a question with a picture for an answer. Drag the yellow dot to play with it, or take one for your first scene.</p>
   </div>
   <div class="cards">
     <%= render "pages/example", title: "Odd numbers make squares",
@@ -150,7 +150,7 @@
   <div class="faq">
     <details name="faq" open>
       <summary>What is manim?<span class="faq__icon" aria-hidden="true"></span></summary>
-      <p>The Python library Grant Sanderson wrote to animate 3Blue1Brown videos. We use the free, open-source <a href="https://www.manim.community/">Manim Community</a> edition.</p>
+      <p>The Python library Grant Sanderson wrote to make the 3Blue1Brown videos. We use the free, open-source <a href="https://www.manim.community/">Manim Community</a> edition.</p>
     </details>
     <details name="faq">
       <summary>Who can join?<span class="faq__icon" aria-hidden="true"></span></summary>
@@ -158,11 +158,11 @@
     </details>
     <details name="faq">
       <summary>I’ve never written Python. Can I still do this?<span class="faq__icon" aria-hidden="true"></span></summary>
-      <p>Yes. A first scene is about ten lines. Get a circle on screen, then make it do something. People in the Slack will help you debug.</p>
+      <p>Yes. A first scene is about ten lines: put a circle on screen, then make it do something. People in the Slack will help you debug.</p>
     </details>
     <details name="faq">
       <summary>What counts as math?<span class="faq__icon" aria-hidden="true"></span></summary>
-      <p>Anything you can explain with a picture: proofs, patterns, probability, physics, algorithms, even the math inside a game you like.</p>
+      <p>Anything you can explain with a picture: proofs, patterns, probability, physics, algorithms, even the math hiding inside a game you like.</p>
     </details>
     <details name="faq">
       <summary>What do I get?<span class="faq__icon" aria-hidden="true"></span></summary>
@@ -218,7 +218,7 @@
     <a href="<%= start_path %>" class="menu__signin">Sign in</a>
   </nav>
   <a href="<%= start_path %>" class="btn btn--primary menu__cta">Start animating →</a>
-  <div class="menu__foot">Hack Club × 3Blue1Brown · free · 18 &amp; under</div>
+  <div class="menu__foot">Hack Club × 3Blue1Brown</div>
 </div>
 
 <div class="progress" data-controller="progress" aria-hidden="true">
