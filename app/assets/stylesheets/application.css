@@ -145,18 +145,7 @@ html.menu-open { overflow: hidden; }
   .lockup__3b1b { font-size: clamp(16px, 4.5vw, 18px); }
 }
 .hero__dates, .hero__hint { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
-.hero__dates { margin-top: -16px; }
-.hero__dates--logos { margin-top: -8px; }
-.hero__tag {
-  margin: 0 0 -6px; padding: 5px 14px; border: 1px solid var(--line-hover); border-radius: 999px;
-  background: rgba(14, 15, 17, .8); font-style: italic; font-size: 16px; color: var(--ink-muted);
-}
-/* Only the chosen date placement shows (see the dev date switcher) */
-.hero [data-date] { display: none; }
-.hero[data-date-variant="hint"] [data-date="hint"], .hero[data-date-variant="logos"] [data-date="logos"],
-.hero[data-date-variant="tag"] [data-date="tag"], .hero[data-date-variant="corner"] [data-date="corner"],
-.hero[data-date-variant="lede"] [data-date="lede"] { display: revert; }
-.hero[data-date-variant="lede"] [data-date-not="lede"] { display: none; }
+.hero__dates { margin-top: -8px; }
 .hero__title {
   margin: 0; font-size: clamp(64px, min(18vw, 26svh), 236px); line-height: 1.1; font-style: italic;
   font-weight: 400; color: transparent; user-select: none;
@@ -339,14 +328,3 @@ html.menu-open { overflow: hidden; }
 .card:hover .card__hint { color: var(--ink-muted); }
 .card:hover .knob__ring { fill-opacity: .32; }
 
-/* Dev-only switcher for the hero date placement */
-.date-switcher {
-  position: fixed; left: 16px; bottom: 16px; z-index: 50; display: flex; align-items: center; gap: 6px;
-  padding: 6px 8px; border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg-raised);
-  font: 13px var(--mono); color: var(--ink-faint);
-}
-.date-switcher button {
-  padding: 4px 8px; border: 1px solid transparent; border-radius: 6px; background: none;
-  font: inherit; color: var(--ink-muted); cursor: pointer;
-}
-.date-switcher button[aria-pressed="true"] { border-color: var(--yellow); color: var(--yellow); }
