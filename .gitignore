@@ -34,3 +34,6 @@
 /archive/
 
 .DS_Store
+
+# Python bytecode from running the engine locally
+__pycache__/
