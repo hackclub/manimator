@@ -6,6 +6,8 @@ export class FrameStore {
   frames = []
   strings = []
   sections = []
+  adds = []
+  values = {} // ValueTracker lane name -> value per frame
   background = "#000000"
   fps = 30
   done = false
@@ -22,6 +24,11 @@ export class FrameStore {
     }
     this.strings.push(...meta.strings)
     this.sections.push(...meta.sections)
+    this.adds.push(...meta.adds)
+    for (const [name, { start, values }] of Object.entries(meta.values)) {
+      const arr = (this.values[name] ??= [])
+      values.forEach((v, i) => { arr[start + i] = v })
+    }
     this.background = meta.background
     this.fps = meta.fps
   }

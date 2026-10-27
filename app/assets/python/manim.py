@@ -310,12 +310,36 @@ USER_FILENAME = "<scene>"
 
 
 def _user_line():
+    f = _user_frame()
+    return f.f_lineno if f is not None else 0
+
+
+def _user_frame():
     f = sys._getframe(1)
     while f is not None:
         if f.f_code.co_filename == USER_FILENAME:
-            return f.f_lineno
+            return f
         f = f.f_back
-    return 0
+    return None
+
+
+def _lane(mob, frame):
+    """The timeline lane for a mobject: the user's variable holding it, or one that contains it."""
+    local = frame.f_locals if frame is not None else {}
+    for k, v in local.items():
+        if v is mob:
+            return k, v
+    for k, v in local.items():
+        if isinstance(v, Mobject) and any(x is mob for x in v.get_family()):
+            return k, v
+    return type(mob).__name__, mob
+
+
+def _targets(anim):
+    """The mobjects an animation acts on, looking through groups."""
+    if isinstance(anim, AnimationGroup):
+        return [m for a in anim.animations for m in _targets(a)]
+    return [anim.mobject] if anim.mobject is not None and not isinstance(anim, Wait) else []
 
 
 # ---------------------------------------------------------------------------
@@ -1896,6 +1920,9 @@ class Scene:
         self._strings = {}
         self._new_strings = []
         self._sections = []
+        self._adds = []
+        self._trackers = {}  # lane name -> ValueTracker whose value the timeline plots
+        self._values = {}
 
     def construct(self):
         pass
@@ -1911,11 +1938,21 @@ class Scene:
         return ids
 
     def add(self, *mobs):
+        frame = sys._getframe(1)
+        if frame.f_code.co_filename == USER_FILENAME:
+            for m in mobs:
+                self._adds.append({**self._lane_info(m, frame), "frame": self._frame_count, "line": frame.f_lineno})
         for m in mobs:
             if m in self.mobjects:
                 self.mobjects.remove(m)
             self.mobjects.append(m)
         return self
+
+    def _lane_info(self, mob, frame):
+        name, owner = _lane(mob, frame)
+        if isinstance(owner, ValueTracker):
+            self._trackers.setdefault(name, owner)
+        return {"lane": name, "lane_line": owner._src, "redraw": bool(owner.updaters)}
 
     def remove(self, *mobs):
         for m in mobs:
@@ -1962,10 +1999,20 @@ class Scene:
             if rate_func is not None:
                 a.rate_func = rate_func
         total = max(a.run_time for a in anims)
-        line = _user_line()
+        frame = _user_frame()
+        line = frame.f_lineno if frame is not None else 0
         start = self._frame_count
+        clips, seen = [], set()
+        for a in anims:
+            length = max(1, int(round(a.run_time * self.fps)))
+            for m in _targets(a):
+                info = self._lane_info(m, frame)
+                if (info["lane"], id(a)) in seen:
+                    continue
+                seen.add((info["lane"], id(a)))
+                clips.append({**info, "label": a.label(), "start": start, "end": start + length})
         self._run(anims, total)
-        self._section(start, line, ", ".join(a.label() for a in anims))
+        self._section(start, line, ", ".join(a.label() for a in anims), clips)
 
     def wait(self, duration=1.0, stop_condition=None, frozen_frame=None):
         line = _user_line()
@@ -2060,10 +2107,12 @@ class Scene:
                 parts.append(hdr)
                 parts.append(pts.astype(np.float32).ravel())
         self._frames.append(np.concatenate(parts) if parts else np.zeros(0, dtype=np.float32))
+        for name, tracker in self._trackers.items():
+            self._values.setdefault(name, {"start": self._frame_count, "values": []})["values"].append(tracker.get_value())
         self._frame_count += 1
 
-    def _section(self, start, line, label):
-        self._sections.append({"start": start, "end": self._frame_count, "line": line, "label": label})
+    def _section(self, start, line, label, clips=()):
+        self._sections.append({"start": start, "end": self._frame_count, "line": line, "label": label, "clips": list(clips)})
         self._flush()
 
     def _flush(self):
@@ -2080,11 +2129,15 @@ class Scene:
         meta = {
             "strings": self._new_strings,
             "sections": self._sections,
+            "adds": self._adds,
+            "values": self._values,
             "background": rgb_to_hex(color_to_rgb(self.camera.background_color)),
             "fps": self.fps,
         }
         self._new_strings = []
         self._sections = []
+        self._adds = []
+        self._values = {}
         return json.dumps(meta)
 
     def render(self):

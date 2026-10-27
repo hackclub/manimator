@@ -1,46 +1,173 @@
-<% content_for :title, "Editor · Manimator" %>
+<% content_for :title, "Manimator" %>
 <% content_for :head do %>
   <%# The isolation headers only apply on a full page load, not a Turbo visit %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 <%# After the layout's import map: a module fetch that starts before it gets the map ignored %>
 <%= javascript_importmap_module_preload_tags entry_point: "editor" %>
+<% p = placeholder %>
 
-<div class="editor" data-controller="editor"
+<div class="app" data-controller="shell editor" data-view="home"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
-     data-action="keydown@window->editor#key">
-  <header class="editor__bar">
-    <%= link_to "Manimator", root_path, class: "editor__brand" %>
-    <select class="pill" aria-label="Load an example" data-editor-target="examples" data-action="editor#loadExample"></select>
-    <select class="pill" aria-label="Scene to render" hidden data-editor-target="scene" data-action="editor#pickScene"></select>
-    <div class="editor__spacer"></div>
-    <span class="editor__status" data-editor-target="status">loading Python…</span>
-    <label class="editor__fps"><span class="wide-only">fps</span>
-      <select class="pill" aria-label="Frames per second" data-editor-target="fps" data-action="editor#changeFps"><option>15</option><option selected>30</option><option>60</option></select>
-    </label>
+     data-action="keydown@window->editor#key shell:changed->editor#viewChanged">
+  <header class="app__bar">
+    <%= link_to "Manimator", root_path, class: "app__brand" %>
+    <span class="app__slash">/</span>
+    <span class="app__crumb app__crumb--home">home</span>
+    <span class="app__crumb app__crumb--scene" data-editor-target="sceneName">scene</span>
+    <span class="badge badge--green app__saved">saved</span>
+    <div class="app__spacer"></div>
+    <div class="app__streak wide-only"><span class="app__week"><%= week_dots "app__day" %></span><span><%= p[:streak] %>-day streak</span></div>
+    <div class="app__total wide-only"><span><%= p[:total] %></span><span class="c-faint">total</span></div>
+    <button class="app__ship" title="Shipping opens soon">Ship →</button>
   </header>
 
-  <main class="editor__layout">
-    <section class="editor__panel editor__panel--code">
-      <div class="editor__code" data-editor-target="code"></div>
-      <div class="editor__error" hidden data-editor-target="error"></div>
-      <div class="editor__hint wide-only">⌥/alt + drag a number to scrub it · click the canvas to jump to code</div>
+  <div class="app__main">
+    <nav class="app__rail">
+      <% [ [ "home", "π", "home" ], [ "code", "{ }", "code" ], [ "buddy", "∞", "buddy" ], [ "board", "Σ", "board" ], [ "examples", "∫", "examples" ] ].each do |view, glyph, label| %>
+        <button class="app__rail-item" data-view="<%= view %>" data-action="shell#show" data-shell-view-param="<%= view %>">
+          <span class="app__glyph"><%= glyph %></span><span class="app__rail-label"><%= label %></span>
+          <% if view == "buddy" %><span class="app__rail-dot"></span><% end %>
+        </button>
+      <% end %>
+      <div class="app__spacer"></div>
+      <%= avatar p[:me][:initial], p[:me][:color] %>
+    </nav>
+
+    <section class="app__left">
+      <div class="app__pane app__pane--code">
+        <div class="app__code" data-editor-target="code"></div>
+        <div class="app__error" hidden data-editor-target="error"></div>
+        <div class="app__hint">⌥/alt + drag a number to scrub it · click the canvas to jump to code</div>
+      </div>
+
+      <div class="app__pane app__pane--buddy">
+        <div class="buddy__head">
+          <span class="avatar-pair"><%= avatar p[:me][:initial], p[:me][:color], size: "lg" %><%= avatar p[:buddy][:initial], p[:buddy][:color], size: "lg" %></span>
+          <div class="stack"><span class="buddy__title">You + <%= p[:buddy][:handle] %></span><span class="mono-sm c-faint">buddy pair since <%= p[:buddy][:since] %></span></div>
+        </div>
+        <div class="panel buddy__streak">
+          <div class="row-between"><span class="mono-xs c-faint">buddy streak</span><span class="buddy__days"><%= p[:streak] %> days</span></div>
+          <div class="buddy__grid">
+            <span></span><% p[:week].each_with_index do |d, i| %><span class="buddy__dow <%= "buddy__dow--today" if i == p[:week].size - 1 %>"><%= d %></span><% end %>
+            <span>you</span><% p[:week].each_index do |i| %><span class="buddy__cell buddy__cell--me <%= "buddy__cell--done" if i < p[:streak] %>"></span><% end %>
+            <span><%= p[:buddy][:handle].delete("@") %></span><% p[:week].each_index do %><span class="buddy__cell buddy__cell--them"></span><% end %>
+          </div>
+          <div class="buddy__copy"><%= p[:buddy][:handle] %> already animated today. Animate today and the streak goes to <%= p[:streak] + 1 %>.</div>
+        </div>
+        <div class="mono-sm c-muted buddy__live"><span class="dot dot--green"></span><span><%= p[:buddy][:handle] %> is working on <span class="c-ink"><%= p[:buddy][:working_on] %></span> · <%= p[:buddy][:working_ago] %></span></div>
+        <div class="stack stack--8">
+          <span class="mono-xs c-faint">note on <%= p[:buddy][:note_scene] %> · <%= p[:buddy][:note_at] %>s</span>
+          <div class="bubble bubble--plain"><%= p[:buddy][:note] %></div>
+          <a class="mono-sm" href="#" data-action="editor#seek:prevent shell#show" data-editor-seconds-param="<%= p[:buddy][:note_at] %>" data-shell-view-param="code">jump to <%= p[:buddy][:note_at] %>s</a>
+        </div>
+        <div class="row-10">
+          <button class="btn-sm" disabled>Watch their scene</button>
+          <button class="btn-sm" data-shell-target="nudge" data-action="shell#nudge">nudge</button>
+        </div>
+      </div>
+
+      <div class="app__pane app__pane--board">
+        <div class="row-between"><span class="board__title">Leaderboard</span><span class="mono-xs c-faint">hours in the editor</span></div>
+        <div class="board__tabs">
+          <% [ "this week", "all time", "buddies" ].each_with_index do |scope, i| %>
+            <button class="board__tab <%= "board__tab--on" if i.zero? %>" data-shell-target="tab" data-action="shell#pickTab"><%= scope %></button>
+          <% end %>
+        </div>
+        <%= render "board", rows: p[:board], size: "lg" %>
+        <div class="mono-sm c-faint"><%= p[:board_gap] %></div>
+      </div>
+
+      <div class="app__pane app__pane--examples">
+        <div class="row-between"><span class="board__title">Examples</span><span class="mono-xs c-faint">replaces the code in the editor</span></div>
+        <div class="examples" data-editor-target="examples"></div>
+      </div>
     </section>
 
-    <section class="editor__panel editor__panel--stage">
-      <div class="editor__stage" data-editor-target="wrap">
-        <canvas data-editor-target="stage" data-action="mousemove->editor#hover mouseleave->editor#unhover click->editor#jump"></canvas>
-        <div class="editor__tooltip" hidden data-editor-target="tooltip"></div>
+    <section class="app__stage" data-editor-target="wrap">
+      <canvas data-editor-target="stage" data-action="mousemove->editor#hover mouseleave->editor#unhover click->editor#jump"></canvas>
+      <div class="app__tooltip" hidden data-editor-target="tooltip"></div>
+    </section>
+
+    <section class="app__timeline">
+      <div class="tl__bar">
+        <button class="tl__play" aria-label="Play / pause (space)" data-editor-target="play" data-action="editor#toggle">▶</button>
+        <span class="tl__time"><span data-editor-target="time">0.00</span><span class="c-faint"> / <span data-editor-target="total">0.00</span>s</span></span>
+        <span class="tl__chapter" data-editor-target="chapter"></span>
+        <div class="app__spacer"></div>
+        <span class="tl__status" data-editor-target="status">loading Python…</span>
+        <a href="#" class="tl__reset" hidden data-editor-target="reset" data-action="editor#resetTiming:prevent">reset timing</a>
+        <span class="tl__hint wide-only">drag a clip's right edge to change run_time</span>
+        <select class="tl__select" aria-label="Scene to render" hidden data-editor-target="scene" data-action="editor#pickScene"></select>
+        <select class="tl__select" aria-label="Frames per second" data-editor-target="fps" data-action="editor#changeFps"><option value="15">15 fps</option><option value="30" selected>30 fps</option><option value="60">60 fps</option></select>
       </div>
-      <div class="editor__player">
-        <button class="editor__play" aria-label="Play / pause (space)" data-editor-target="play" data-action="editor#toggle">▶</button>
-        <span class="editor__time" data-editor-target="time">0.00 / 0.00s</span>
-        <div class="editor__track" data-editor-target="timeline" data-action="pointerdown->editor#scrub">
-          <div class="editor__sections" data-editor-target="sections"></div>
-          <div class="editor__head" data-editor-target="playhead"></div>
+      <div class="tl__body">
+        <div class="tl__names" data-editor-target="laneNames"></div>
+        <div class="tl__track" data-editor-target="timeline" data-action="pointerdown->editor#scrub">
+          <div class="tl__waits" data-editor-target="waits"></div>
+          <div class="tl__ruler" data-editor-target="ruler"></div>
+          <div class="tl__lanes" data-editor-target="lanes"></div>
+          <div class="tl__head" data-editor-target="playhead"></div>
         </div>
-        <span class="editor__chapter wide-only" data-editor-target="chapter"></span>
       </div>
     </section>
-  </main>
+
+    <section class="home">
+      <div class="home__main">
+        <div class="home__top">
+          <div class="stack stack--6"><span class="mono-sm c-faint" data-shell-target="date"></span><span class="home__title">Pick up where you left off</span></div>
+          <div class="app__spacer"></div>
+          <button class="btn-md" data-action="editor#newScene shell#show" data-shell-view-param="code">New scene</button>
+        </div>
+        <div class="resume">
+          <div class="resume__code">
+            <div class="resume__head"><span>scene.py</span><span class="c-teal" data-editor-target="sceneName">scene</span><div class="app__spacer"></div><span class="badge badge--yellow">in progress</span></div>
+            <div class="resume__lines" data-editor-target="resume"></div>
+            <div class="resume__meta" data-editor-target="resumeMeta"></div>
+          </div>
+          <div class="resume__side">
+            <canvas class="resume__thumb" data-editor-target="thumb"></canvas>
+            <button class="resume__open" data-action="shell#show" data-shell-view-param="code">Open the editor →</button>
+          </div>
+        </div>
+        <div class="mono-sm c-faint">other scenes</div>
+        <div class="home__scenes">
+          <div class="scene-card">
+            <div class="scene-card__thumb"></div>
+            <div class="stack stack--6"><span class="scene-card__name"><%= p[:shipped][:name] %></span><span class="mono-sm c-faint"><%= p[:shipped][:status] %></span></div>
+          </div>
+          <button class="scene-card scene-card--new" data-action="shell#show" data-shell-view-param="examples"><span class="scene-card__plus">+</span>start blank or from an example</button>
+        </div>
+      </div>
+
+      <aside class="home__side">
+        <div class="panel home__streak">
+          <div class="row-base"><span class="home__big"><%= p[:streak] %></span><span class="home__unit">day streak</span><div class="app__spacer"></div><span class="mono-sm c-faint"><%= p[:total] %> total</span></div>
+          <div class="home__week">
+            <div class="home__week-line"></div>
+            <% p[:week].each_with_index do |d, i| %>
+              <div class="home__weekday"><span class="home__pip <%= "home__pip--done" if i < p[:streak] %>"></span><span class="mono-xs c-faint"><%= d %></span></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row-12">
+            <span class="avatar-pair"><%= avatar p[:me][:initial], p[:me][:color] %><%= avatar p[:buddy][:initial], p[:buddy][:color] %></span>
+            <div class="stack"><span class="home__buddy">You + <%= p[:buddy][:handle] %></span><span class="mono-xs c-faint">buddy streak · <%= p[:streak] %> days</span></div>
+          </div>
+          <div class="bubble bubble--plain bubble--sm"><%= p[:buddy][:note] %></div>
+          <div class="row-12 mono-sm">
+            <a href="#" data-action="editor#seek:prevent shell#show" data-editor-seconds-param="<%= p[:buddy][:note_at] %>" data-shell-view-param="code">jump to <%= p[:buddy][:note_at] %>s</a>
+            <span class="c-faint">on <%= p[:buddy][:note_scene] %></span>
+            <div class="app__spacer"></div>
+            <button class="btn-xs" data-shell-target="nudge" data-action="shell#nudge">nudge</button>
+          </div>
+        </div>
+        <div class="panel panel--tight">
+          <div class="row-between"><span class="home__board">Leaderboard</span><span class="mono-xs c-faint">this week · hours</span></div>
+          <%= render "board", rows: p[:board], size: "sm" %>
+        </div>
+      </aside>
+    </section>
+  </div>
 </div>

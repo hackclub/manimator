@@ -1,0 +1,11 @@
+<div class="board board--<%= size %>">
+  <% rows.each do |r| %>
+    <div class="board__row <%= "board__row--me" if r[:me] %>">
+      <span class="board__rank"><%= r[:rank] %></span>
+      <%= avatar r[:initial], r[:color], size: (size == "lg" ? "md" : "sm") %>
+      <span class="board__handle"><%= r[:handle] %><% if r[:buddy] %> <span class="board__tag">buddy</span><% end %></span>
+      <% if size == "lg" %><span class="board__streak"><%= r[:streak] %></span><% end %>
+      <span class="board__hours"><%= r[:hours] %></span>
+    </div>
+  <% end %>
+</div>

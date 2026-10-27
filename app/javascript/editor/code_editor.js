@@ -160,6 +160,20 @@ export function createEditor(parent, doc, hooks) {
     lineText(line) {
       return view.state.doc.line(Math.min(line, view.state.doc.lines)).text
     },
+    // Rewrites the duration of the play()/wait() call on a line. Returns false if it can't.
+    setRunTime(line, seconds) {
+      if (line < 1 || line > view.state.doc.lines) return false
+      const l = view.state.doc.line(line)
+      const value = Number.isInteger(seconds) ? String(seconds) : seconds.toFixed(1)
+      let text = l.text
+      if (/run_time\s*=\s*[\d.]+/.test(text)) text = text.replace(/(run_time\s*=\s*)[\d.]+/, `$1${value}`)
+      else if (/\.wait\(\s*\)/.test(text)) text = text.replace(/\.wait\(\s*\)/, `.wait(${value})`)
+      else if (/\.wait\(\s*[\d.]+/.test(text)) text = text.replace(/(\.wait\(\s*)[\d.]+/, `$1${value}`)
+      else if (/\.play\(.*\)\s*$/.test(text)) text = text.replace(/\)\s*$/, `, run_time=${value})`)
+      else return false
+      if (text !== l.text) view.dispatch({ changes: { from: l.from, to: l.to, insert: text } })
+      return true
+    },
     setDoc(text) {
       view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text } })
     },
