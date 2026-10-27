@@ -42,14 +42,64 @@ export default class extends Controller {
     this.layer = el(this.svg, "g", { class: "live" })
     this.build()
     this.render()
+    this.demoTimers = []
+    // Show that the handle moves: a few steps out and back once the card has drawn itself in,
+    // and again when you hover a card you haven't touched yet.
+    this.observer = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return
+      this.observer.disconnect()
+      this.demoTimers.push(setTimeout(() => this.demo(), 1700))
+    }, { threshold: .6 })
+    this.observer.observe(this.element)
+    this.onHover = () => this.demoTimers.push(setTimeout(() => this.demo(), 900))
+    this.element.addEventListener("mouseenter", this.onHover)
   }
 
-  disconnect() { this.layer?.remove() }
+  disconnect() {
+    this.layer?.remove()
+    this.observer?.disconnect()
+    this.element.removeEventListener("mouseenter", this.onHover)
+    this.demoTimers.forEach(clearTimeout)
+  }
+
+  // Steps the real state up to three times one way and back the same number, like someone nudging it,
+  // so it ends where it began. At the top of its range it goes the other way.
+  demo() {
+    if (calm() || this.demoing || "touched" in this.element.dataset) return
+    if (performance.now() - (this.lastDemo ?? -Infinity) < 4000) return
+    this.demoing = true
+    this.element.dataset.demo = ""
+    const value = () => this.handle.getAttribute("aria-valuenow")
+    let dir = 1, moved = 0, back = 0
+    const step = () => {
+      if ("touched" in this.element.dataset) return this.endDemo()
+      if (moved < 3 && back === 0) {
+        const before = value()
+        this.nudge(dir, 0); this.render()
+        if (value() !== before) moved++
+        else if (moved === 0 && dir === 1) dir = -1
+        else back = moved || -1
+      } else if (back > 0) {
+        this.nudge(-dir, 0); this.render()
+        if (--back === 0) return this.endDemo()
+      } else return this.endDemo()
+      if (moved === 3 && back === 0) back = 3
+      this.demoTimers.push(setTimeout(step, 160))
+    }
+    step()
+  }
+
+  endDemo() {
+    this.demoing = false
+    this.lastDemo = performance.now()
+    delete this.element.dataset.demo
+  }
 
   // A yellow dot with a halo, inside a much larger invisible hit area.
   knob(label) {
     const g = this.handle = el(this.layer, "g", { class: "knob", tabindex: 0, role: "slider", "aria-label": label, "data-d": "o" })
     el(g, "circle", { class: "knob__hit", r: 25 })
+    el(g, "circle", { class: "knob__pulse", r: 10 })
     el(g, "circle", { class: "knob__ring", r: 10 })
     el(g, "circle", { class: "knob__dot", r: 5 })
     g.addEventListener("pointerdown", e => this.down(e))

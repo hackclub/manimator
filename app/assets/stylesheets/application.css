@@ -331,3 +331,11 @@ html.menu-open { overflow: hidden; }
 .knob__dot { fill: var(--yellow); }
 .knob:hover .knob__ring, .card[data-dragging] .knob__ring { fill-opacity: .35; }
 .knob:focus-visible .knob__ring { stroke-opacity: .9; }
+/* Until you touch a card, its handle sends out a slow ripple and the hint is in the handle's yellow */
+.knob__pulse { fill: none; stroke: var(--yellow); stroke-width: 1.5; opacity: 0; transform-box: fill-box; transform-origin: center; pointer-events: none; }
+.card:not([data-touched]) .knob__pulse { animation: knob-pulse 2.2s ease-out infinite; }
+@keyframes knob-pulse { 0% { opacity: .7; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(2.4); } }
+.card__body .card__hint { color: var(--yellow); opacity: .85; }
+.card__body .card__hint::before { content: "●"; margin-right: 7px; font-size: .6em; vertical-align: .2em; font-style: normal; }
+.card[data-touched] .card__hint { color: var(--ink-faint); opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .card:not([data-touched]) .knob__pulse { animation: none; opacity: .5; transform: scale(1.6); } }
