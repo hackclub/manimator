@@ -137,14 +137,8 @@
 
     <%= render "pages/example", title: "Fourier epicycles",
           body: "Circles riding on circles can draw any shape. Even your name.",
-          apis: "Circle · always_redraw · TracedPath" do %>
-      <circle data-d="s" cx="80" cy="90" r="42" fill="none" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
-      <line data-d="s" x1="80" y1="90" x2="110" y2="60.3" stroke="#ece9e2" stroke-width="2" pathLength="1" stroke-dasharray="1"></line>
-      <circle data-d="s" cx="110" cy="60.3" r="20" fill="none" stroke="#5CD0B3" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
-      <line data-d="s" x1="110" y1="60.3" x2="128" y2="69" stroke="#ece9e2" stroke-width="2" pathLength="1" stroke-dasharray="1"></line>
-      <circle data-d="s" cx="128" cy="69" r="9" fill="none" stroke="#9A72AC" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></circle>
-      <line data-d="o" x1="128" y1="69" x2="190" y2="69" stroke="#F4D345" stroke-width="1.5" stroke-dasharray="4 4"></line>
-      <path data-d="s" d="M190,69 C200,30 214,30 222,52 S238,128 254,112 S272,48 284,60 S298,100 304,96" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+          apis: "Circle · always_redraw · TracedPath",
+          play: "fourier", hint: "Drag the dot to add circles." do %>
     <% end %>
   </div>
 </section>
