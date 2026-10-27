@@ -123,16 +123,8 @@
 
     <%= render "pages/example", title: "Pythagoras, rearranged",
           body: "Slide four triangles around a square and a² + b² turns into c² in front of you.",
-          apis: "Transform · Rotate · Polygon" do %>
-      <g transform="translate(-14,-12)">
-        <path data-d="sf" d="M150,120 L198,120 L198,168 L150,168 Z" fill="#F4D345" fill-opacity=".3" stroke="#F4D345" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="sf" d="M114,84 L150,84 L150,120 L114,120 Z" fill="#58C4DD" fill-opacity=".3" stroke="#58C4DD" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="sf" d="M150,84 L198,120 L234,72 L186,36 Z" fill="#FC6255" fill-opacity=".3" stroke="#FC6255" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></path>
-        <path data-d="s" d="M150,120 L198,120 L150,84 Z" fill="none" stroke="#ece9e2" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
-        <text data-d="o" x="174" y="150" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">a²</text>
-        <text data-d="o" x="132" y="108" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">b²</text>
-        <text data-d="o" x="192" y="84" text-anchor="middle" font-family="Computer Modern Serif, Georgia, serif" font-style="italic" font-size="17" fill="#ece9e2">c²</text>
-      </g>
+          apis: "Transform · Rotate · Polygon",
+          play: "pythagoras", hint: "Drag the top corner of the triangle." do %>
     <% end %>
 
     <%= render "pages/example", title: "Area under a curve",
