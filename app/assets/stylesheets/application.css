@@ -145,7 +145,7 @@ html.menu-open { overflow: hidden; }
   .lockup__3b1b { font-size: clamp(16px, 4.5vw, 18px); }
 }
 .hero__dates, .hero__hint { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
-.hero__dates { margin-top: -8px; }
+.hero__dates { margin-top: -16px; }
 .hero__title {
   margin: 0; font-size: clamp(64px, 18vw, 236px); line-height: 1.1; font-style: italic;
   font-weight: 400; color: transparent; user-select: none;
