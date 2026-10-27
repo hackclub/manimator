@@ -228,8 +228,14 @@ html.menu-open { overflow: hidden; }
 }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary:hover { color: var(--yellow); }
-.faq summary::after { content: "+"; font-family: var(--mono); font-size: 22px; color: var(--blue); }
-.faq details[open] summary::after { content: "−"; }
+.faq__icon { flex: none; position: relative; width: 14px; height: 14px; align-self: center; }
+.faq__icon::before, .faq__icon::after { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; border-radius: 1px; background: var(--blue); }
+.faq__icon::after { transform: rotate(90deg); }
+.faq details[open] .faq__icon::after { transform: rotate(0deg); }
+/* The + turns into a − and the answer fades up into place, like FadeIn(shift=UP) */
+.faq__icon::after { transition: transform .3s cubic-bezier(.45,0,.2,1); }
+.faq details[open] p { animation: fade-in-up .45s cubic-bezier(.2,.7,.2,1); }
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(12px); } }
 .faq details p { margin: 0 0 26px; max-width: 720px; font-size: 19px; line-height: 1.55; color: var(--ink-muted); text-wrap: pretty; }
 
 /* Footer */
