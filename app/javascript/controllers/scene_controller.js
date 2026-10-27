@@ -18,6 +18,7 @@ const RED = "#FC6255", YELLOW = "#F4D345"
 // animation and run_time picked in the code, step 3 ships it and mails something back.
 export default class extends Controller {
   static targets = ["canvas", "caption", "step", "idea", "anim", "runTime"]
+  static values = { whoamiUrl: String }
 
   connect() {
     this.phase = 0
@@ -27,6 +28,7 @@ export default class extends Controller {
     this.visible = false
     this.name = "you"
     this.fitIdea()
+    this.askWhoami()
 
     this.resizeObserver = new ResizeObserver(() => this.size())
     this.resizeObserver.observe(this.canvasTarget)
@@ -48,6 +50,18 @@ export default class extends Controller {
     this.resizeObserver?.disconnect()
     this.stepObserver?.disconnect()
     this.viewObserver?.disconnect()
+  }
+
+  // Hack Club Auth's whoami, as hackclub/wrong-tool asks it: the first name of whoever's signed in there, so
+  // the heart can be for them. Off a hackclub.com subdomain (or not signed in) it says nothing and it stays "you".
+  async askWhoami() {
+    if (!this.whoamiUrlValue) return
+    try {
+      const response = await fetch(this.whoamiUrlValue, { credentials: "include" })
+      const { signed_in: signedIn, first_name: firstName } = await response.json()
+      const name = (firstName || "").trim().slice(0, 24)
+      if (signedIn && name) this.name = name
+    } catch {}
   }
 
   setPhase(i) {
