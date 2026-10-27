@@ -112,7 +112,7 @@ html.menu-open { overflow: hidden; }
 /* Hero */
 /* The hero stops short of the fold so the next section peeks in: that is the scroll cue */
 .hero {
-  --peek: calc(clamp(80px, 10vw, 136px) + clamp(28px, 3.4vw, 48px));
+  --peek: 52px;
   position: relative; min-height: calc(100vh - var(--peek)); min-height: calc(100svh - var(--peek)); touch-action: pan-y; display: flex; flex-direction: column;
   padding: 24px var(--gutter) 36px; overflow: hidden; background: var(--bg); cursor: crosshair;
 }
@@ -126,7 +126,7 @@ html.menu-open { overflow: hidden; }
 .hero__nav a.muted:hover { color: var(--ink); }
 .hero__center {
   position: relative; flex: 1; display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 22px; padding: 56px 0 20px; text-align: center; pointer-events: none;
+  justify-content: center; gap: 22px; padding: clamp(24px, 6svh, 56px) 0 20px; text-align: center; pointer-events: none;
 }
 .lockup { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 16px; }
 .lockup__item { display: flex; align-items: center; gap: 10px; }
@@ -147,7 +147,7 @@ html.menu-open { overflow: hidden; }
 .hero__dates, .hero__hint { margin: 0; font-style: italic; font-size: 18px; color: var(--ink-muted); text-shadow: 0 0 10px var(--bg); }
 .hero__dates { margin-top: -16px; }
 .hero__title {
-  margin: 0; font-size: clamp(64px, 18vw, 236px); line-height: 1.1; font-style: italic;
+  margin: 0; font-size: clamp(64px, min(18vw, 26svh), 236px); line-height: 1.1; font-style: italic;
   font-weight: 400; color: transparent; user-select: none;
 }
 .hero__lede {
