@@ -129,13 +129,10 @@
 
     <%= render "pages/example", title: "Area under a curve",
           body: "Thinner and thinner rectangles, until they stop being rectangles and become the integral.",
-          apis: "get_riemann_rectangles · ValueTracker" do %>
+          apis: "get_riemann_rectangles · ValueTracker",
+          play: "riemann", hint: "Drag the dot to add rectangles." do %>
       <line x1="40" y1="150" x2="300" y2="150" stroke="#80868e" stroke-width="1.5"></line>
-      <line x1="50" y1="24" x2="50" y2="158" stroke="#80868e" stroke-width="1.5"></line>
-      <% [[70, 134, 16], [100, 122, 28], [130, 104, 46], [160, 86, 64], [190, 70, 80], [220, 58, 92], [250, 51, 99]].each do |x, y, h| %>
-        <rect data-d="o" x="<%= x %>" y="<%= y %>" width="30" height="<%= h %>" fill="#58C4DD" fill-opacity=".28" stroke="#58C4DD" stroke-width="1.5"></rect>
-      <% end %>
-      <path data-d="s" d="M50,146 C120,140 180,60 300,44" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
+      <line x1="50" y1="24" x2="50" y2="156" stroke="#80868e" stroke-width="1.5"></line>
     <% end %>
 
     <%= render "pages/example", title: "Fourier epicycles",
