@@ -103,13 +103,9 @@
 
     <%= render "pages/example", title: "Where sine comes from",
           body: "Spin a point around a circle and trace its height. That’s the whole wave.",
-          apis: "TracedPath · always_redraw" do %>
+          apis: "TracedPath · always_redraw",
+          play: "sine", hint: "Drag the point around the circle." do %>
       <line x1="20" y1="90" x2="306" y2="90" stroke="#3a3e45" stroke-width="1.5"></line>
-      <circle data-d="s" cx="70" cy="90" r="40" fill="none" stroke="#58C4DD" stroke-width="3" pathLength="1" stroke-dasharray="1"></circle>
-      <line data-d="s" x1="70" y1="90" x2="70" y2="50" stroke="#ece9e2" stroke-width="2.5" pathLength="1" stroke-dasharray="1"></line>
-      <line data-d="o" x1="70" y1="50" x2="130" y2="50" stroke="#F4D345" stroke-width="1.5" stroke-dasharray="4 4"></line>
-      <path data-d="s" d="M130,50 C162,50 178,130 210,130 S258,50 290,50" fill="none" stroke="#F4D345" stroke-width="3" pathLength="1" stroke-dasharray="1"></path>
-      <circle data-d="o" cx="70" cy="50" r="5" fill="#F4D345"></circle>
     <% end %>
 
     <%= render "pages/example", title: "Euler’s identity",
