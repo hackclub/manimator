@@ -49,7 +49,7 @@ export default class extends Controller {
   // A yellow dot with a halo, inside a much larger invisible hit area.
   knob(label) {
     const g = this.handle = el(this.layer, "g", { class: "knob", tabindex: 0, role: "slider", "aria-label": label, "data-d": "o" })
-    el(g, "circle", { class: "knob__hit", r: 22 })
+    el(g, "circle", { class: "knob__hit", r: 25 })
     el(g, "circle", { class: "knob__ring", r: 10 })
     el(g, "circle", { class: "knob__dot", r: 5 })
     g.addEventListener("pointerdown", e => this.down(e))
