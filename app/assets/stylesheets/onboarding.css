@@ -53,6 +53,24 @@
 }
 .own__input::placeholder { color: color-mix(in srgb, var(--yellow) 45%, transparent); }
 
+/* Prizes: a photo card each, from the 3Blue1Brown store */
+.prizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.prize {
+  display: flex; flex-direction: column; gap: 4px; padding: 0 0 14px; overflow: hidden; border-radius: 14px; text-align: left; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--bg-raised); color: var(--ink); font: inherit; transition: border-color .15s, transform .15s;
+}
+.prize:hover { border-color: var(--ink); transform: translateY(-2px); }
+.prize[aria-pressed="true"] { border-color: var(--yellow); box-shadow: 0 0 0 1px var(--yellow); }
+.prize__photo { position: relative; display: block; aspect-ratio: 1; margin-bottom: 8px; background: #fff; }
+.prize__image { width: 100%; height: 100%; object-fit: contain; }
+.prize__kind {
+  position: absolute; top: 10px; left: 10px; padding: 2px 8px; border-radius: 999px;
+  background: rgba(14, 15, 17, .75); color: #fff;
+}
+.prize__name { padding: 0 14px; font-size: 19px; line-height: 1.2; }
+.prize__hours { padding: 0 14px; color: var(--ink-faint); }
+.prize[aria-pressed="true"] .prize__hours { color: var(--yellow); }
+
 .choices { display: flex; flex-direction: column; gap: 10px; max-width: 520px; }
 .choices--row { flex-direction: row; flex-wrap: wrap; max-width: none; }
 .choice {

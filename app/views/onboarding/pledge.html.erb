@@ -1,6 +1,6 @@
 <% content_for :title, "Start · Manimator" %>
 
-<%# Pledge first, after wrong-tool's onboarding: what you'll animate, how much you know, when you'll work on it,
+<%# Pledge first, after wrong-tool's onboarding: what you'll animate, the prize you're after, when you'll work on it,
     then sign a pledge that adds it all up. Answered steps fold into a line you can reopen. %>
 <div class="onboard" data-controller="pledge"
      data-pledge-poses-value="<%= pi_pose_urls %>"
@@ -39,15 +39,24 @@
         </div>
       </section>
 
-      <section class="ostep" data-pledge-target="step" data-name="experience">
+      <section class="ostep" data-pledge-target="step" data-name="prize">
         <button class="ostep__summary" data-action="pledge#reopen" data-pledge-step-param="1">
-          <span class="ostep__label">manim</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
+          <span class="ostep__label">prize</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
         </button>
         <div class="ostep__body">
-          <h2 class="ostep__q">Have you used manim before?</h2>
-          <div class="choices">
-            <% onboarding_experience.each do |key, label| %>
-              <button class="choice" data-action="pledge#pickExperience" data-pledge-key-param="<%= key %>" data-pledge-label-param="<%= label %>"><%= label %></button>
+          <h2 class="ostep__q">Ship it and we’ll mail you one.</h2>
+          <p class="ostep__hint">From the 3Blue1Brown store. Hours count while you’re animating in the editor.</p>
+          <div class="prizes">
+            <% onboarding_prizes.each do |prize| %>
+              <button class="prize" aria-pressed="false" data-pledge-target="prize" data-prize="<%= prize[:id] %>"
+                      data-action="pledge#pickPrize" data-pledge-id-param="<%= prize[:id] %>" data-pledge-name-param="<%= prize[:name] %>" data-pledge-hours-param="<%= prize[:hours] %>">
+                <span class="prize__photo">
+                  <%= image_tag prize[:image], alt: prize[:name], class: "prize__image", loading: "lazy" %>
+                  <span class="prize__kind mono-xs"><%= prize[:kind] %></span>
+                </span>
+                <span class="prize__name"><%= prize[:name] %></span>
+                <span class="prize__hours mono-xs">about <%= prize[:hours] %> hrs of animating</span>
+              </button>
             <% end %>
           </div>
         </div>
@@ -82,6 +91,7 @@
             <p class="pledge-card__text">
               I’ll animate <em data-pledge-target="pledgeIdea"></em> in <span class="mono c-blue">manim</span>,
               <span data-pledge-target="pledgeRhythm"></span>, and ship it so someone else gets it too.
+              Then the <em data-pledge-target="pledgePrize"></em> is mine.
             </p>
             <div class="pledge-card__sign">
               <input class="pledge-card__name" placeholder="your name" maxlength="40" autocomplete="given-name" aria-label="Your name" data-pledge-target="name" data-action="input->pledge#named">

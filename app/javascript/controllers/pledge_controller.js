@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { capture } from "analytics"
 import { Mascot } from "mascot"
 
-// Pledge-first onboarding: an idea, how much manim you know, when you'll work on it, then a pledge you hold to
+// Pledge-first onboarding: an idea, the prize you're after, when you'll work on it, then a pledge you hold to
 // sign. Answers live in this tab (sessionStorage), so a refresh or a trip to sign in doesn't lose them.
 const ANSWERS_KEY = "manimator:onboarding"
 const CODE_KEY = "manimator:code"
@@ -11,20 +11,16 @@ const PICK_DELAY = 360
 const HOLD_MS = 1300
 const REWIND_MS = 350
 const TAP_MS = 260
-const STEPS = ["idea", "experience", "rhythm", "pledge"]
+const STEPS = ["idea", "prize", "rhythm", "pledge"]
 
 const LINES = {
   idea: ["Hi, I’m π. What do you want to animate?", "wave"],
-  experience: ["Have you used manim before?", "thinking"],
+  prize: ["Ship it and one of these is yours.", "thinking"],
   rhythm: ["When do you usually have time?", "speaking"],
   pledge: ["Sign it, and it’s official.", "happy"],
 }
 const PICKED_IDEA = idea => `${idea}. Good one.`
-const PICKED_EXPERIENCE = {
-  new: "Good. A first scene is about ten lines, and I’ll be right there.",
-  python: "Then you’re halfway there already.",
-  manim: "Then you know the drill.",
-}
+const PICKED_PRIZE = (name, hours) => `Nice pick! The ${name} is about ${hours} hours of animating.`
 
 function load(storage, key) {
   try { return JSON.parse(storage.getItem(key)) ?? {} } catch { return {} }
@@ -54,7 +50,7 @@ class MyScene(Scene):
 
 export default class extends Controller {
   static targets = ["step", "value", "dot", "own", "ownSubmit", "when", "days", "rhythmNext", "pledgeIdea", "pledgeRhythm",
-    "name", "today", "hold", "holdFill", "holdLabel", "signed", "open", "bubble", "pi"]
+    "name", "today", "hold", "holdFill", "holdLabel", "signed", "open", "bubble", "pi", "prize", "pledgePrize"]
   static values = { poses: Object, whoamiUrl: String, editorUrl: String }
 
   connect() {
@@ -84,8 +80,8 @@ export default class extends Controller {
     if (idea) this.answer("idea", { idea, ownIdea: true }, PICKED_IDEA(idea))
   }
 
-  pickExperience({ params: { key, label } }) {
-    this.answer("experience", { experience: key, experienceLabel: label }, PICKED_EXPERIENCE[key])
+  pickPrize({ params: { id, name, hours } }) {
+    this.answer("prize", { prize: id, prizeName: name, prizeHours: hours }, PICKED_PRIZE(name, hours))
   }
 
   pickWhen({ params: { when } }) { this.answers.when = when; this.render() }
@@ -196,7 +192,7 @@ export default class extends Controller {
       el.dataset.state = i === current ? "open" : i < a.step ? "done" : "todo"
     })
     this.dotTargets.forEach((el, i) => el.classList.toggle("onboard__dot--on", i < a.step || (i === 3 && !!a.signed)))
-    const values = [a.idea, a.experienceLabel, a.step > 2 && rhythm(a)]
+    const values = [a.idea, a.prizeName, a.step > 2 && rhythm(a)]
     this.valueTargets.forEach((el, i) => { el.textContent = values[i] || "" })
 
     this.whenTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeWhenParam === a.when))
@@ -204,7 +200,9 @@ export default class extends Controller {
     this.rhythmNextTarget.disabled = !(a.when && (a.days || a.when === "weekends"))
     this.daysTargets.forEach(el => { el.disabled = a.when === "weekends" })
 
+    this.prizeTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.prize === a.prize))
     this.pledgeIdeaTarget.textContent = a.idea || "something"
+    this.pledgePrizeTarget.textContent = a.prizeName || "prize"
     this.pledgeRhythmTarget.textContent = a.when ? rhythm(a) : ""
     this.holdTarget.disabled = !a.name || !!a.signed
     if (!a.signed) this.holdLabelTarget.textContent = a.name ? "Hold to sign" : "Write your name first"
