@@ -1,6 +1,6 @@
 import { basicSetup, EditorView } from "codemirror"
 import { python } from "@codemirror/lang-python"
-import { HighlightStyle, syntaxHighlighting } from "@codemirror/language"
+import { HighlightStyle, indentUnit, syntaxHighlighting } from "@codemirror/language"
 import { tags as t } from "@lezer/highlight"
 import { EditorState, StateEffect, StateField } from "@codemirror/state"
 import { Decoration, keymap } from "@codemirror/view"
@@ -122,6 +122,9 @@ export function createEditor(parent, doc, hooks) {
         basicSetup,
         keymap.of([indentWithTab]),
         python(),
+        // Python's four spaces. CodeMirror's default unit is two, so a new line under a def or a for came out short.
+        indentUnit.of("    "),
+        EditorState.tabSize.of(4),
         theme,
         syntaxHighlighting(highlight),
         marksField,
