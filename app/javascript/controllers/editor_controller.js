@@ -8,6 +8,9 @@ const STORAGE_KEY = "manimator:code"
 const EDITED_KEY = "manimator:edited"
 const CURSOR_KEY = "manimator:cursor"
 const FIRST_EXAMPLE = EXAMPLES[Object.keys(EXAMPLES)[0]]
+// Half-typed code doesn't run, so an error only shows once typing has stopped for this long. A render that works
+// in the meantime means it never shows.
+const ERROR_QUIET_MS = 1200
 const BLANK = `from manim import *
 
 
@@ -105,6 +108,8 @@ export default class extends Controller {
     this.editor = createEditor(this.codeTarget, load(STORAGE_KEY, FIRST_EXAMPLE), {
       onChange: code => {
         this.dispatch("changed", { detail: { code } })
+        this.editedAt = Date.now()
+        clearTimeout(this.errorTimer)
         store(STORAGE_KEY, code)
         store(EDITED_KEY, String(Date.now()))
         clearTimeout(this.debounce)
@@ -130,6 +135,7 @@ export default class extends Controller {
   disconnect() {
     cancelAnimationFrame(this.raf)
     clearTimeout(this.debounce)
+    clearTimeout(this.errorTimer)
     this.resizeObserver.disconnect()
     this.worker?.terminate()
     this.editor?.destroy()
@@ -409,6 +415,7 @@ export default class extends Controller {
       case "done":
         this.busy = false
         if (msg.id === this.runSeq && this.incoming) {
+          clearTimeout(this.errorTimer)
           this.incoming.done = true
           this.store = this.incoming
           this.clearError()
@@ -428,10 +435,7 @@ export default class extends Controller {
         return
       case "error":
         this.busy = false
-        if (msg.id === this.runSeq || msg.id === -1) {
-          this.showError(msg.message, msg.line, msg.traceback)
-          this.dispatch("failed", { detail: { message: msg.message, line: msg.line } })
-        }
+        if (msg.id === this.runSeq || msg.id === -1) this.showErrorWhenQuiet(msg)
         this.dispatchRun()
         return
     }
@@ -440,6 +444,17 @@ export default class extends Controller {
   setStatus(text, kind) {
     this.statusTarget.textContent = text
     this.statusTarget.dataset.kind = kind
+  }
+
+  showErrorWhenQuiet({ message, line, traceback }) {
+    clearTimeout(this.errorTimer)
+    const show = () => {
+      this.showError(message, line, traceback)
+      this.dispatch("failed", { detail: { message, line } })
+    }
+    const wait = ERROR_QUIET_MS - (Date.now() - (this.editedAt ?? 0))
+    if (wait > 0) this.errorTimer = setTimeout(show, wait)
+    else show()
   }
 
   showError(message, line, traceback) {
