@@ -2,8 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 import { capture } from "analytics"
 import { Mascot } from "mascot"
 
-// Pledge-first onboarding: an idea (drawn for your math class, and nobody else's: Idea), the prize you're after, when you'll work on it, then a pledge you hold to
-// sign. Answers live in this tab (sessionStorage), so a refresh or a trip to sign in doesn't lose them.
+// Pledge-first onboarding (onboarding/pledge.html.erb): an idea and who it's for, the prize you're after, when and how
+// long you'll work on it, then a pledge you hold to sign. Answers live in this tab (sessionStorage), so a refresh or
+// a trip to sign in doesn't lose them; signing keeps them on the server too (Pledge), for nudges.
 const ANSWERS_KEY = "manimator:onboarding"
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
@@ -11,19 +12,21 @@ const PICK_DELAY = 360
 const HOLD_MS = 1300
 const REWIND_MS = 350
 const TAP_MS = 260
+const STAGE_WIDTH = 1360
 const STEPS = ["idea", "prize", "rhythm", "pledge"]
 
 const LINES = {
   idea: ["Hi, I’m π! I’ll help you make your first animation.", "wave"],
+  who: ["That’s your first frame. Who’s it for?", "awe"],
   prize: ["Ship it and one of these is yours.", "thinking"],
   rhythm: ["When do you usually have time?", "speaking"],
   pledge: ["Sign it, and it’s official.", "happy"],
 }
-const PICKED_IDEA = "Ooh, good one. I want to see that."
 const TOOK_IDEA = "It’s yours. Nobody else gets this one."
 const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
 const IDEA_GONE = "Someone just took that idea, sorry! Here’s the idea step again."
+const PICKED_FOR = you => `Then let’s make it so ${you} gets it.`
 const PICKED_PRIZE = (name, videos) => `Nice pick! The ${name} is about ${videos}.`
 
 function load(storage, key) {
@@ -34,10 +37,8 @@ function save(storage, key, value) {
   try { storage.setItem(key, typeof value === "string" ? value : JSON.stringify(value)) } catch { /* storage unavailable */ }
 }
 
-function rhythm({ when, days }) {
-  const often = days === 7 ? "every day" : `${days} days a week`
-  return when === "weekends" ? "on weekends" : `${often}, ${when === "evening" ? "in the evening" : when}`
-}
+const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1)
+const shortDate = date => date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
 
 // The first scene for an idea: the idea itself, written on screen.
 function starter(idea) {
@@ -55,17 +56,19 @@ class MyScene(Scene):
 }
 
 export default class extends Controller {
-  static targets = ["step", "value", "dot", "own", "ownSubmit", "when", "days", "rhythmNext", "pledgeIdea", "pledgeRhythm",
-    "name", "today", "hold", "holdFill", "holdLabel", "signed", "open", "bubble", "pi", "prize", "pledgePrize",
-    "klass", "drawn", "drawnIdeas", "drawnTemplate", "another"]
-  static values = { poses: Object, whoamiUrl: String, editorUrl: String, drawUrl: String, claimUrl: String }
+  static targets = ["step", "value", "dot", "own", "ownSubmit", "klass", "drawn", "drawnIdeas", "drawnTemplate", "another",
+    "stageText", "forWhom", "prize", "when", "days", "minutes", "ship", "rhythmNext",
+    "pledgeIdea", "pledgeRhythm", "pledgeShipBy", "pledgeFor", "pledgePrize", "dmTime", "dmText",
+    "name", "today", "hold", "holdFill", "holdLabel", "signed", "bubble", "pi"]
+  static values = { poses: Object, whoamiUrl: String, drawUrl: String, claimUrl: String, pledgeUrl: String,
+    for: Object, slots: Object, sessions: Object, hoursPerVideo: Number }
 
   connect() {
     this.answers = { step: 0, ...load(sessionStorage, ANSWERS_KEY) }
     if (!Array.isArray(this.answers.drawn)) delete this.answers.drawn
     this.mascot = new Mascot(this.piTarget, this.bubbleTarget, this.posesValue)
     this.progress = 0
-    this.todayTarget.textContent = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }).toLowerCase()
+    this.todayTarget.textContent = shortDate(new Date()).toLowerCase()
     this.ownTarget.addEventListener("input", () => { this.ownSubmitTarget.disabled = !this.ownTarget.value.trim() })
     if (this.answers.name) this.nameTarget.value = this.answers.name
     this.render()
@@ -79,10 +82,9 @@ export default class extends Controller {
     this.mascot.stop()
   }
 
-  // Answering
+  // The idea: your own, or one of three from your math class. "Show me others" lets them go back in the pool, and
+  // skips the ones you've already seen. Either way it writes itself on screen next, and asks who it's for.
 
-  // Your class, then three ideas from it to pick from. "Show me others" lets them go back in the pool, and skips the
-  // ones you've already seen.
   pickClass({ params: { klass } }) {
     this.answers.klass = klass
     capture("onboarding_class_picked", { variant: "pledge", klass })
@@ -106,21 +108,71 @@ export default class extends Controller {
 
   takeIdea({ params: { id } }) {
     const idea = this.answers.drawn?.find(drawn => drawn.id === id)
-    if (idea) this.answer("idea", { idea: idea.title, ideaId: idea.id, ownIdea: false }, TOOK_IDEA)
+    if (idea) this.chooseIdea({ idea: idea.title, ideaId: idea.id, ownIdea: false }, TOOK_IDEA)
   }
 
   ownIdea() {
     const idea = this.ownTarget.value.trim()
-    if (idea) this.answer("idea", { idea, ideaId: null, ownIdea: true }, PICKED_IDEA)
+    if (idea) this.chooseIdea({ idea, ideaId: null, ownIdea: true })
+  }
+
+  chooseIdea(values, reply) {
+    Object.assign(this.answers, values, { ideaPhase: "who" })
+    capture("onboarding_idea_chosen", { variant: "pledge", ...values })
+    this.render()
+    this.mascot.say(reply ?? LINES.who[0], reply ? "happy" : LINES.who[1])
+    clearTimeout(this.pickTimer)
+    if (reply) this.pickTimer = setTimeout(() => this.mascot.say(...LINES.who), PICK_DELAY * 4)
+  }
+
+  changeIdea() {
+    this.answers.ideaPhase = "what"
+    this.render()
+    this.greet()
+  }
+
+  pickFor({ params: { for: forWhom } }) {
+    this.answer("idea", { forWhom, ideaPhase: null }, PICKED_FOR(this.forValue[forWhom].you))
   }
 
   pickPrize({ params: { id, name, videos } }) {
     this.answer("prize", { prize: id, prizeName: name, prizeVideos: videos }, PICKED_PRIZE(name, videos))
   }
 
+  // When, how often and how long: enough to say when a first video ships.
+
   pickWhen({ params: { when } }) { this.answers.when = when; this.render() }
   pickDays({ params: { days } }) { this.answers.days = days; this.render() }
-  rhythmDone() { this.answer("rhythm", {}, `${rhythm(this.answers)}. I’ll hold you to that.`) }
+  pickMinutes({ params: { minutes } }) { this.answers.minutes = minutes; this.render() }
+
+  rhythmDone() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    this.answer("rhythm", { timezone, shipBy: this.shipBy().toISOString().slice(0, 10) },
+      `${shortDate(this.shipBy())} it is. I’ll hold you to that.`)
+  }
+
+  get daysPerWeek() {
+    return this.answers.when === "weekends" ? 2 : this.answers.days
+  }
+
+  get rhythmReady() {
+    return !!(this.answers.when && this.daysPerWeek && this.answers.minutes)
+  }
+
+  // A first video's hours, in sessions at your pace, spread over the days a week you said.
+  shipBy() {
+    const sessions = Math.ceil(this.hoursPerVideoValue * 60 / this.answers.minutes)
+    const days = Math.max(sessions - 1, Math.ceil(sessions / this.daysPerWeek * 7))
+    const date = new Date()
+    date.setDate(date.getDate() + days)
+    return date
+  }
+
+  rhythmText() {
+    const { when, days, minutes } = this.answers
+    const often = when === "weekends" ? "on weekends" : `${days === 7 ? "every day" : `${days} days a week`}, ${when === "evening" ? "in the evening" : when}`
+    return minutes ? `${often}, ${this.sessionsValue[minutes]} at a time` : often
+  }
 
   answer(step, values, reply) {
     Object.assign(this.answers, values)
@@ -137,6 +189,7 @@ export default class extends Controller {
   reopen({ params: { step } }) {
     if (this.answers.signed) return
     this.answers.open = step
+    if (step === 0) this.answers.ideaPhase = "what"
     this.render()
     this.greet()
   }
@@ -188,14 +241,15 @@ export default class extends Controller {
   async sign() {
     this.holding = false
     if (this.answers.ideaId && !(await this.claimIdea())) {
-      Object.assign(this.answers, { step: 0, open: 0, idea: null, ideaId: null, drawn: null })
+      Object.assign(this.answers, { step: 0, open: 0, idea: null, ideaId: null, drawn: null, ideaPhase: "what" })
       this.progress = 0
       this.holdFillTarget.style.transform = "scaleX(0)"
       this.render()
       return this.mascot.say(IDEA_GONE, "erm")
     }
     this.answers.signed = new Date().toISOString()
-    capture("onboarding_pledge_signed", { variant: "pledge", ...this.answers })
+    capture("onboarding_pledge_signed", { variant: "pledge", ...this.answers, drawn: undefined, seen: undefined })
+    this.keepPledge()
     save(localStorage, CODE_KEY, starter(this.answers.idea))
     save(localStorage, VIEW_KEY, "code")
     this.render()
@@ -208,6 +262,17 @@ export default class extends Controller {
       const response = await this.post(this.claimUrlValue.replace("ID", this.answers.ideaId))
       return response.ok
     } catch { return true /* offline: the hold keeps it a while, and the pledge is still theirs */ }
+  }
+
+  // For nudges. If it doesn't get through, the pledge still stands for them.
+  async keepPledge() {
+    const a = this.answers
+    try {
+      await this.post(this.pledgeUrlValue, { pledge: {
+        name: a.name, idea: a.idea, idea_record_id: a.ideaId, for_whom: a.forWhom, prize: a.prize, build_time: a.when,
+        days_per_week: this.daysPerWeek, session_minutes: a.minutes, timezone: a.timezone, ship_by: a.shipBy,
+      } })
+    } catch { /* offline */ }
   }
 
   post(url, body = {}) {
@@ -235,10 +300,11 @@ export default class extends Controller {
 
   greet() {
     if (this.answers.signed) return this.mascot.say("Your editor’s ready.", "happy")
-    const [line, pose] = LINES[STEPS[this.current]]
+    const name = STEPS[this.current]
+    const [line, pose] = LINES[name === "idea" && this.answers.ideaPhase === "who" ? "who" : name]
     if (pose === "wave") { this.mascot.say(line, "plain"); this.mascot.wave("speaking") }
     else this.mascot.say(line, pose)
-    capture("onboarding_step_viewed", { variant: "pledge", step: STEPS[this.current] })
+    capture("onboarding_step_viewed", { variant: "pledge", step: name })
   }
 
   render() {
@@ -248,15 +314,23 @@ export default class extends Controller {
     this.stepTargets.forEach((el, i) => {
       el.dataset.state = i === current ? "open" : i < a.step ? "done" : "todo"
     })
+    this.stepTargets[0].dataset.phase = a.ideaPhase === "who" && a.idea ? "who" : "what"
     this.dotTargets.forEach((el, i) => el.classList.toggle("onboard__dot--on", i < a.step || (i === 3 && !!a.signed)))
-    const values = [a.idea, a.prizeName, a.step > 2 && rhythm(a)]
+    const forWhom = this.forValue[a.forWhom]
+    const values = [a.idea && [a.idea, forWhom && `for ${forWhom.label.toLowerCase()}`].filter(Boolean).join(" · "), a.prizeName,
+      a.step > 2 && this.rhythmReady && `${this.rhythmText()} · ship by ${shortDate(this.shipBy())}`]
     this.valueTargets.forEach((el, i) => { el.textContent = values[i] || "" })
 
-    this.whenTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeWhenParam === a.when))
-    this.daysTargets.forEach(el => el.setAttribute("aria-pressed", Number(el.dataset.pledgeDaysParam) === a.days))
-    this.rhythmNextTarget.disabled = !(a.when && (a.days || a.when === "weekends"))
-    this.daysTargets.forEach(el => { el.disabled = a.when === "weekends" })
+    this.renderIdeas()
+    this.writeIdea()
+    this.forWhomTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeForParam === a.forWhom))
+    this.prizeTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.prize === a.prize))
+    this.renderRhythm()
+    this.renderPledge()
+  }
 
+  renderIdeas() {
+    const a = this.answers
     this.klassTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeKlassParam === a.klass))
     this.drawnTarget.hidden = !a.drawn
     this.drawnIdeasTarget.replaceChildren(...(a.drawn ?? []).map(idea => {
@@ -268,15 +342,70 @@ export default class extends Controller {
       card.querySelector(".drawn-idea__topic").textContent = idea.topic || ""
       return card
     }))
-    this.prizeTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.prize === a.prize))
+  }
+
+  // The idea on the stage, sized to fit, written in again whenever it changes (the stroke draws, then it fills).
+  writeIdea() {
+    const idea = this.answers.idea || ""
+    if (idea === this.written) return
+    this.written = idea
+    const text = this.stageTextTarget
+    text.textContent = idea
+    text.style.fontSize = "120px"
+    const width = text.getComputedTextLength?.() || 0
+    if (idea && !width) { this.written = null; return } // not on screen yet: write it in once it is
+    if (width > STAGE_WIDTH) text.style.fontSize = `${Math.floor(120 * STAGE_WIDTH / width)}px`
+    text.classList.remove("first-frame__text--write")
+    void text.getBBox?.()
+    text.classList.add("first-frame__text--write")
+  }
+
+  renderRhythm() {
+    const a = this.answers
+    this.whenTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeWhenParam === a.when))
+    this.daysTargets.forEach(el => {
+      el.setAttribute("aria-pressed", Number(el.dataset.pledgeDaysParam) === a.days)
+      el.disabled = a.when === "weekends"
+    })
+    this.minutesTargets.forEach(el => el.setAttribute("aria-pressed", Number(el.dataset.pledgeMinutesParam) === a.minutes))
+    this.rhythmNextTarget.disabled = !this.rhythmReady
+    this.shipTarget.hidden = !this.rhythmReady
+    if (this.rhythmReady) {
+      this.shipTarget.replaceChildren("At that pace, your first video ships by ",
+        Object.assign(document.createElement("b"), { textContent: shortDate(this.shipBy()) }), ".")
+    }
+  }
+
+  renderPledge() {
+    const a = this.answers
+    const forWhom = this.forValue[a.forWhom]
     this.pledgeIdeaTarget.textContent = a.idea || "something"
+    this.pledgeRhythmTarget.textContent = a.when ? this.rhythmText() : ""
+    this.pledgeShipByTarget.textContent = this.rhythmReady ? shortDate(this.shipBy()) : ""
+    this.pledgeForTarget.textContent = forWhom?.pledge ?? "someone"
     this.pledgePrizeTarget.textContent = a.prizeName || "prize"
-    this.pledgeRhythmTarget.textContent = a.when ? rhythm(a) : ""
+    this.renderMessage()
+
     this.holdTarget.disabled = !a.name || !!a.signed
     if (!a.signed) this.holdLabelTarget.textContent = a.name ? "Hold to sign" : "Write your name first"
     this.holdTarget.hidden = !!a.signed
     this.nameTarget.disabled = !!a.signed
     this.signedTarget.hidden = !a.signed
+  }
+
+  // The message π will send: the next time they said they'd work, with their idea, who it's for and their pace.
+  renderMessage() {
+    const a = this.answers
+    if (!a.when || !a.minutes) return
+    const [hour, minute] = this.slotsValue[a.when].split(":").map(Number)
+    const at = new Date()
+    at.setHours(hour, minute, 0, 0)
+    while (at <= new Date() || (a.when === "weekends" && ![0, 6].includes(at.getDay()))) at.setDate(at.getDate() + 1)
+    const day = at.toDateString() === new Date().toDateString() ? "today" : at.toLocaleDateString("en-US", { weekday: "short" })
+    this.dmTimeTarget.textContent = `${day} ${at.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).toLowerCase()}`
+    const you = this.forValue[a.forWhom]?.you
+    const session = capitalize(this.sessionsValue[a.minutes])
+    this.dmTextTarget.textContent = `It’s the time you picked. “${a.idea}” is waiting${you ? `, and so is ${you}` : ""}. ${session} now?`
   }
 
   // The first name of whoever's signed in to Hack Club Auth, to sign with.

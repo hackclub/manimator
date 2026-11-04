@@ -61,6 +61,35 @@
 }
 .own__input::placeholder { color: color-mix(in srgb, var(--yellow) 45%, transparent); }
 
+/* The idea step's two phases: what you'll animate, then (once there's an idea) who it's for */
+.ostep[data-phase="what"] .ostep__body--who, .ostep[data-phase="who"] .ostep__body--what { display: none; }
+.ostep__back { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--ink-faint); cursor: pointer; }
+.ostep__back:hover { color: var(--ink); }
+
+/* Your idea, written in on a little manim stage: the outline draws, then it fills (like Write) */
+.first-frame { position: relative; margin: 0; max-width: 620px; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--line-strong); }
+.first-frame__svg { display: block; width: 100%; height: auto; }
+.first-frame__text { font-family: var(--serif); fill: transparent; stroke: #fff; stroke-width: 2px; }
+.first-frame__text--write { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: stage-draw 1.6s ease-in-out forwards, stage-fill .6s 1.3s ease-out forwards; }
+@keyframes stage-draw { to { stroke-dashoffset: 0; } }
+@keyframes stage-fill { to { fill: #fff; stroke-width: 0; } }
+@media (prefers-reduced-motion: reduce) { .first-frame__text--write { animation: none; fill: #fff; stroke-width: 0; } }
+.first-frame__caption { position: absolute; left: 14px; bottom: 10px; color: rgba(255, 255, 255, .4); }
+
+/* When the first video ships, at the pace you picked */
+.ship { margin: 0; font-size: 19px; }
+.ship[hidden] { display: none; }
+.ship b { color: var(--yellow); font-weight: 400; }
+
+/* The message π will send you, on the pledge step */
+.dm { display: flex; flex-direction: column; gap: 10px; max-width: 620px; }
+.dm .ostep__hint { font-size: 17px; }
+.dm__message { display: flex; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--bg-raised); border: 1px solid var(--line-strong); }
+.dm__avatar { width: 36px; height: 36px; flex: none; border-radius: 8px; background: var(--bg); padding: 2px; }
+.dm__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.dm__head { font-size: 16px; }
+.dm__text { margin: 0; font-size: 17px; line-height: 1.4; }
+
 /* Prizes: a photo card each, from the 3Blue1Brown store */
 .prizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
 .prize {

@@ -1,13 +1,19 @@
 <% content_for :title, "Start · Manimator" %>
 
-<%# Pledge first, after wrong-tool's onboarding: what you'll animate (your own idea, or one only you get: Idea), the prize you're after, when you'll work on it,
-    then sign a pledge that adds it all up. Answered steps fold into a line you can reopen. %>
+<%# Pledge first, after wrong-tool's onboarding. Four steps, each folding into a line you can reopen once answered:
+    what you'll animate (your own idea, or one only you get: Idea) and who it's for; the prize; when, how often and
+    how long you'll work, which gives a ship date; then π shows the message it'll send you, and you sign. What you
+    sign is kept as a Pledge, for nudges. %>
 <div class="onboard" data-controller="pledge"
      data-pledge-poses-value="<%= pi_pose_urls %>"
      data-pledge-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
-     data-pledge-editor-url-value="<%= editor_path %>"
      data-pledge-draw-url-value="<%= draw_ideas_path %>"
      data-pledge-claim-url-value="<%= claim_idea_path("ID") %>"
+     data-pledge-pledge-url-value="<%= pledge_path %>"
+     data-pledge-for-value="<%= onboarding_for.to_json %>"
+     data-pledge-slots-value="<%= Pledge::SLOTS.to_json %>"
+     data-pledge-sessions-value="<%= onboarding_sessions.to_json %>"
+     data-pledge-hours-per-video-value="<%= Pledge::HOURS_PER_VIDEO %>"
      data-action="pagehide@window->pledge#abandoned">
   <header class="onboard__bar">
     <%= link_to "Manimator", root_path, class: "onboard__brand" %>
@@ -23,7 +29,7 @@
         <button class="ostep__summary" data-action="pledge#reopen" data-pledge-step-param="0">
           <span class="ostep__label">idea</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
         </button>
-        <div class="ostep__body">
+        <div class="ostep__body ostep__body--what">
           <h2 class="ostep__q">What do you want to animate?</h2>
           <p class="ostep__hint">Anything you can explain with moving pictures: a proof, a physics idea, how transformers
             work. Plan on 3 hours or more for one video.</p>
@@ -50,6 +56,24 @@
               <span class="drawn-idea__topic mono-xs"></span>
             </button>
           </template>
+        </div>
+
+        <%# Once there's an idea: it writes itself on screen, the way manim's Write does, then who it's for. %>
+        <div class="ostep__body ostep__body--who">
+          <figure class="first-frame">
+            <svg class="first-frame__svg" viewBox="0 0 1600 900" aria-hidden="true">
+              <text class="first-frame__text" x="800" y="470" text-anchor="middle" dominant-baseline="middle" data-pledge-target="stageText"></text>
+            </svg>
+            <figcaption class="first-frame__caption mono-xs">your first frame</figcaption>
+          </figure>
+          <h2 class="ostep__q">Who are you making it for?</h2>
+          <p class="ostep__hint">The best explanations are for someone. Who should finally get it?</p>
+          <div class="choices choices--row">
+            <% onboarding_for.each do |key, who| %>
+              <button class="choice choice--chip" data-pledge-target="forWhom" data-action="pledge#pickFor" data-pledge-for-param="<%= key %>"><%= who[:label] %></button>
+            <% end %>
+          </div>
+          <button class="ostep__back mono-xs" data-action="pledge#changeIdea">← a different idea</button>
         </div>
       </section>
 
@@ -93,6 +117,13 @@
               <button class="choice choice--chip" data-pledge-target="days" data-action="pledge#pickDays" data-pledge-days-param="<%= days %>"><%= days == 7 ? "every day" : days %></button>
             <% end %>
           </div>
+          <p class="ostep__hint">How long is a session?</p>
+          <div class="choices choices--row">
+            <% onboarding_sessions.each do |minutes, label| %>
+              <button class="choice choice--chip" data-pledge-target="minutes" data-action="pledge#pickMinutes" data-pledge-minutes-param="<%= minutes %>"><%= label %></button>
+            <% end %>
+          </div>
+          <p class="ship" data-pledge-target="ship" hidden></p>
           <button class="btn-pill btn-pill--yellow" data-pledge-target="rhythmNext" data-action="pledge#rhythmDone" disabled>Next</button>
         </div>
       </section>
@@ -104,7 +135,8 @@
           <div class="pledge-card">
             <p class="pledge-card__text">
               I’ll animate <em data-pledge-target="pledgeIdea"></em> in <span class="mono c-blue">manim</span>,
-              <span data-pledge-target="pledgeRhythm"></span>, and ship it so someone else gets it too.
+              <span data-pledge-target="pledgeRhythm"></span>, and ship it by <em data-pledge-target="pledgeShipBy"></em>
+              so <span data-pledge-target="pledgeFor"></span> finally gets it.
               Then I get the <em data-pledge-target="pledgePrize"></em>.
             </p>
             <div class="pledge-card__sign">
@@ -113,13 +145,27 @@
               <span class="mono-xs c-faint">signed <span data-pledge-target="today"></span></span>
             </div>
           </div>
+
+          <%# The message π will send at the time they picked, so they know what they're signing up for. %>
+          <div class="dm">
+            <p class="ostep__hint">I’ll keep you to it. At the time you picked, I’ll send you something like:</p>
+            <div class="dm__message">
+              <%= image_tag "pi_creature/happy.svg", alt: "", class: "dm__avatar", draggable: false %>
+              <div class="dm__body">
+                <div class="dm__head"><b>π</b> <span class="mono-xs c-faint" data-pledge-target="dmTime"></span></div>
+                <p class="dm__text" data-pledge-target="dmText"></p>
+              </div>
+            </div>
+            <p class="mono-xs c-faint">On the Hack Club Slack, once you sign in. You can mute me anytime.</p>
+          </div>
+
           <button class="hold" data-pledge-target="hold" disabled
                   data-action="pointerdown->pledge#holdStart pointerup->pledge#holdEnd pointerleave->pledge#holdEnd pointercancel->pledge#holdEnd keydown->pledge#holdKey keyup->pledge#holdKeyUp">
             <span class="hold__fill" data-pledge-target="holdFill"></span>
             <span class="hold__label" data-pledge-target="holdLabel">Hold to sign</span>
           </button>
           <div class="signed" data-pledge-target="signed" hidden>
-            <a class="btn btn--primary" data-pledge-target="open" href="<%= editor_path %>" data-action="pledge#open">Open the editor →</a>
+            <a class="btn btn--primary" href="<%= editor_path %>" data-action="pledge#open">Open the editor →</a>
             <p class="mono-sm c-faint">Your scene starts with your idea on screen.</p>
           </div>
         </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_04_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_170000) do
   create_table "ideas", force: :cascade do |t|
     t.string "key", null: false
     t.string "standard", null: false
@@ -29,4 +29,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_04_150000) do
     t.index ["holder"], name: "index_ideas_on_holder"
     t.index ["key"], name: "index_ideas_on_key", unique: true
   end
+
+  create_table "pledges", force: :cascade do |t|
+    t.string "visitor_id", null: false
+    t.string "name"
+    t.string "idea", null: false
+    t.integer "idea_record_id"
+    t.string "for_whom"
+    t.string "prize"
+    t.string "build_time", null: false
+    t.integer "days_per_week", null: false
+    t.integer "session_minutes", null: false
+    t.string "timezone"
+    t.date "ship_by"
+    t.datetime "signed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_record_id"], name: "index_pledges_on_idea_record_id"
+    t.index ["visitor_id"], name: "index_pledges_on_visitor_id"
+  end
+
+  add_foreign_key "pledges", "ideas", column: "idea_record_id"
 end

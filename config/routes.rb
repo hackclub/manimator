@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "start" => "onboarding#show", as: :onboarding
+  resource :pledge, only: :create
   resources :ideas, only: [] do
     post :draw, on: :collection
     post :claim, on: :member

@@ -10,12 +10,10 @@ module OnboardingHelper
     { id: "hoodie", name: "3Blue1Brown Hoodie", kind: "hoodie", price: 40, videos: "2–3 good videos" }
   ].map { |prize| prize.merge(image: "prizes/#{prize[:id]}.jpg") }.freeze
 
-  # When people say they'll animate, as wrong-tool asks it (its nudges send at these times).
-  WHEN = [ "after school", "evening", "late night", "weekends" ].freeze
-  DAYS = [ 2, 3, 5, 7 ].freeze
-
   def onboarding_classes = Idea::CLASSES
   def onboarding_prizes = PRIZES
-  def onboarding_when = WHEN
-  def onboarding_days = DAYS
+  def onboarding_when = Pledge::SLOTS.keys
+  def onboarding_days = Pledge::DAYS
+  def onboarding_sessions = Pledge::SESSIONS
+  def onboarding_for = Pledge::FOR
 end
