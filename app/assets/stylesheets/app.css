@@ -88,6 +88,12 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
   position: relative; flex: 1; min-height: 0; display: grid;
   grid-template-columns: var(--rail) var(--left) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) var(--tl);
 }
+/* Writing: while the code has focus it gets most of the screen, and the timeline shrinks. Clicking the canvas,
+   the timeline or the rail hands the room back to the animation. */
+@media (min-width: 961px) {
+  .app__main { transition: grid-template-columns .3s ease, grid-template-rows .3s ease; }
+  .app:has(.app__pane--code:focus-within) { --left: clamp(520px, 58vw, 960px); --tl: 150px; }
+}
 .app__rail { grid-row: 1 / 3; display: flex; flex-direction: column; gap: 2px; padding: 10px 0 16px; border-right: 1px solid var(--line); background: var(--bg-footer); }
 .app__rail .avatar { align-self: center; }
 .app__rail-item {
