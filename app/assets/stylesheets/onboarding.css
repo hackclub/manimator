@@ -37,16 +37,20 @@
 .ostep__hint { margin: 0; font-size: 18px; color: var(--ink-muted); }
 
 
-/* An idea drawn for your class (Idea) */
-.drawn {
-  display: flex; flex-direction: column; gap: 8px; max-width: 620px; padding: 22px 24px; border-radius: 16px;
-  border: 1px solid var(--yellow); background: var(--bg-raised); animation: ostep-in .3s ease-out;
-}
+/* Ideas drawn for your class (Idea): three to pick from */
+.drawn { display: flex; flex-direction: column; gap: 14px; animation: ostep-in .3s ease-out; }
 .drawn[hidden] { display: none; }
-.drawn__standard { color: var(--ink-faint); }
-.drawn__title { font-size: 28px; line-height: 1.15; color: var(--yellow); }
-.drawn__line { font-size: 18px; line-height: 1.4; color: var(--ink-muted); }
-.drawn__actions { display: flex; gap: 10px; margin-top: 8px; }
+.drawn__ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.drawn-idea {
+  display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 14px; text-align: left; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--bg-raised); color: var(--ink); font: inherit;
+  transition: border-color .15s, transform .15s;
+}
+.drawn-idea:hover { border-color: var(--yellow); transform: translateY(-2px); }
+.drawn-idea[aria-pressed="true"] { border-color: var(--yellow); }
+.drawn-idea__title { font-size: 22px; line-height: 1.15; color: var(--yellow); }
+.drawn-idea__line { flex: 1; font-size: 16px; line-height: 1.4; color: var(--ink-muted); }
+.drawn-idea__topic { color: var(--ink-faint); }
 
 .own { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .own__code { font: 17px var(--mono); color: var(--ink-muted); }

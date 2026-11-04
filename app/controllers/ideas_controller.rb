@@ -1,8 +1,8 @@
 # Handing out ideas during the pledge (Idea). Until there are accounts, whoever's asking is a random id in a cookie.
 class IdeasController < ApplicationController
   def draw
-    idea = Idea.draw(holder:, klass: params[:klass].to_s, except: Array(params[:except]).map(&:to_i).last(50))
-    idea ? render(json: idea) : head(:no_content)
+    ideas = Idea.draw(holder:, klass: params[:klass].to_s, except: Array(params[:except]).map(&:to_i).last(60))
+    ideas.any? ? render(json: ideas) : head(:no_content)
   end
 
   def claim

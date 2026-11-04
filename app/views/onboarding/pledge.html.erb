@@ -24,22 +24,26 @@
           <span class="ostep__label">idea</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
         </button>
         <div class="ostep__body">
-          <h2 class="ostep__q">Which math class are you in?</h2>
-          <p class="ostep__hint">I’ll find you an idea from it that nobody else has.</p>
+          <h2 class="ostep__q">Let’s find you something to animate.</h2>
+          <p class="ostep__hint">You’ll make a short animation that explains one idea from math class, the way 3Blue1Brown
+            videos do. Which class are you in?</p>
           <div class="choices choices--row">
             <% onboarding_classes.each do |key, klass| %>
               <button class="choice choice--chip" data-pledge-target="klass" data-action="pledge#pickClass" data-pledge-klass-param="<%= key %>"><%= klass[:label] %></button>
             <% end %>
           </div>
           <div class="drawn" data-pledge-target="drawn" hidden>
-            <span class="drawn__standard mono-xs" data-pledge-target="drawnStandard"></span>
-            <span class="drawn__title" data-pledge-target="drawnTitle"></span>
-            <span class="drawn__line" data-pledge-target="drawnLine"></span>
-            <div class="drawn__actions">
-              <button class="btn-pill btn-pill--yellow" data-action="pledge#takeIdea">This one</button>
-              <button class="btn-pill" data-pledge-target="another" data-action="pledge#drawIdea">Another</button>
-            </div>
+            <p class="ostep__hint">Pick one. Whichever you pick, nobody else gets it.</p>
+            <div class="drawn__ideas" data-pledge-target="drawnIdeas"></div>
+            <button class="btn-pill" data-pledge-target="another" data-action="pledge#drawIdea">Show me others</button>
           </div>
+          <template data-pledge-target="drawnTemplate">
+            <button class="drawn-idea" data-action="pledge#takeIdea">
+              <span class="drawn-idea__title"></span>
+              <span class="drawn-idea__line"></span>
+              <span class="drawn-idea__topic mono-xs"></span>
+            </button>
+          </template>
           <form class="own" data-action="pledge#ownIdea:prevent">
             <code class="own__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="own__input" maxlength="60" spellcheck="false" autocomplete="off" placeholder="or my own idea" aria-label="Your own idea" data-pledge-target="own">"</span>)</code>
             <button class="btn-pill" data-pledge-target="ownSubmit" disabled>Use mine</button>

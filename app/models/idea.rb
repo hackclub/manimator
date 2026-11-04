@@ -1,6 +1,6 @@
 # Animation ideas from the Common Core math standards (db/seeds/ideas.json, built by script/ideas), handed out so no
-# two people ever get the same one. Asking for an idea holds one for HOLD; asking again lets it go back in the pool;
-# signing the pledge claims it for good.
+# two people ever get the same one. Asking for ideas holds a few for HOLD; asking again lets them go back in the pool;
+# signing the pledge claims the one you picked for good, and lets the others go.
 #
 # Rails runs SQLite transactions as BEGIN IMMEDIATE, so a draw's read and write can't interleave with another one's.
 class Idea < ApplicationRecord
@@ -18,22 +18,31 @@ class Idea < ApplicationRecord
 
   scope :free, -> { where(claimed_at: nil).where("held_until IS NULL OR held_until < ?", Time.current) }
 
-  # One idea for this holder from their class's bands, not one they've just seen (once they've seen them all, round
-  # again, but never the same one twice running). Lets go of what they were holding. Standards with the fewest claimed ideas come first, so ideas
-  # spread across topics. nil once everything for the class is taken.
-  def self.draw(holder:, klass:, except: [])
+  # A few ideas for this holder to choose from, from their class's bands, each from a different standard where it can.
+  # Not ones they've just seen (once they've seen them all, round again, but not the last few twice running). Lets go
+  # of what they were holding. Standards with the fewest claimed ideas come first, so ideas spread across topics.
+  # Empty once everything for the class is taken.
+  def self.draw(holder:, klass:, except: [], count: 3)
     bands = CLASSES.fetch(klass, CLASSES["calculus"])[:bands]
     transaction do
       release(holder)
-      idea = pick(bands, except) || pick(bands, except.last(1)) || pick(bands, [])
-      idea&.update!(holder:, held_until: HOLD.from_now)
-      idea
+      ideas = []
+      count.times do
+        taken = ideas.map(&:id)
+        idea = pick(bands, except + taken, ideas.map(&:standard)) || pick(bands, except + taken) ||
+          pick(bands, except.last(count) + taken) || pick(bands, taken)
+        break unless idea
+
+        ideas << idea
+      end
+      where(id: ideas.map(&:id)).update_all(holder:, held_until: HOLD.from_now)
+      ideas
     end
   end
 
-  def self.pick(bands, except)
+  def self.pick(bands, except, standards = [])
     bands.lazy.filter_map do |band|
-      free.where(band:, drawable: true).where.not(id: except)
+      free.where(band:, drawable: true).where.not(id: except).where.not(standard: standards)
         .order(Arel.sql("(SELECT COUNT(*) FROM ideas c WHERE c.standard = ideas.standard AND c.claimed_at IS NOT NULL), RANDOM()"))
         .first
     end.first

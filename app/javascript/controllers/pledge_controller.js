@@ -14,14 +14,14 @@ const TAP_MS = 260
 const STEPS = ["idea", "prize", "rhythm", "pledge"]
 
 const LINES = {
-  idea: ["Hi, I’m π. Let’s find you something to animate.", "wave"],
+  idea: ["Hi, I’m π! I’ll help you make your first animation.", "wave"],
   prize: ["Ship it and one of these is yours.", "thinking"],
   rhythm: ["When do you usually have time?", "speaking"],
   pledge: ["Sign it, and it’s official.", "happy"],
 }
 const PICKED_IDEA = idea => `${idea}. Good one.`
 const TOOK_IDEA = "It’s yours. Nobody else gets this one."
-const DREW_IDEA = "How about this?"
+const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
 const IDEA_GONE = "Someone just took that idea, sorry! Here’s the idea step again."
 const PICKED_PRIZE = (name, hours) => `Nice pick! The ${name} is about ${hours} hours of animating.`
@@ -55,11 +55,12 @@ class MyScene(Scene):
 export default class extends Controller {
   static targets = ["step", "value", "dot", "own", "ownSubmit", "when", "days", "rhythmNext", "pledgeIdea", "pledgeRhythm",
     "name", "today", "hold", "holdFill", "holdLabel", "signed", "open", "bubble", "pi", "prize", "pledgePrize",
-    "klass", "drawn", "drawnStandard", "drawnTitle", "drawnLine", "another"]
+    "klass", "drawn", "drawnIdeas", "drawnTemplate", "another"]
   static values = { poses: Object, whoamiUrl: String, editorUrl: String, drawUrl: String, claimUrl: String }
 
   connect() {
     this.answers = { step: 0, ...load(sessionStorage, ANSWERS_KEY) }
+    if (!Array.isArray(this.answers.drawn)) delete this.answers.drawn
     this.mascot = new Mascot(this.piTarget, this.bubbleTarget, this.posesValue)
     this.progress = 0
     this.todayTarget.textContent = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }).toLowerCase()
@@ -78,8 +79,8 @@ export default class extends Controller {
 
   // Answering
 
-  // Your class, then an idea from it. Every "another" lets the last one go back in the pool, and skips the ones
-  // you've already seen.
+  // Your class, then three ideas from it to pick from. "Show me others" lets them go back in the pool, and skips the
+  // ones you've already seen.
   pickClass({ params: { klass } }) {
     this.answers.klass = klass
     capture("onboarding_class_picked", { variant: "pledge", klass })
@@ -87,14 +88,12 @@ export default class extends Controller {
   }
 
   async drawIdea() {
-    const seen = this.answers.seen ?? []
-    if (this.answers.drawn) seen.push(this.answers.drawn.id)
-    this.answers.seen = seen.slice(-50)
+    this.answers.seen = [...(this.answers.seen ?? []), ...(this.answers.drawn ?? []).map(idea => idea.id)].slice(-60)
     this.anotherTarget.disabled = true
     try {
       const response = await this.post(this.drawUrlValue, { klass: this.answers.klass, except: this.answers.seen })
       this.answers.drawn = response.status === 200 ? await response.json() : null
-      capture("onboarding_idea_drawn", { variant: "pledge", klass: this.answers.klass, idea: this.answers.drawn?.id, out: !this.answers.drawn })
+      capture("onboarding_idea_drawn", { variant: "pledge", klass: this.answers.klass, ideas: this.answers.drawn?.map(idea => idea.id), out: !this.answers.drawn })
       this.mascot.say(this.answers.drawn ? DREW_IDEA : OUT_OF_IDEAS, this.answers.drawn ? "speaking" : "erm")
     } catch {
       this.answers.drawn = null
@@ -103,9 +102,9 @@ export default class extends Controller {
     this.render()
   }
 
-  takeIdea() {
-    const { id, title } = this.answers.drawn ?? {}
-    if (id) this.answer("idea", { idea: title, ideaId: id, ownIdea: false }, TOOK_IDEA)
+  takeIdea({ params: { id } }) {
+    const idea = this.answers.drawn?.find(drawn => drawn.id === id)
+    if (idea) this.answer("idea", { idea: idea.title, ideaId: idea.id, ownIdea: false }, TOOK_IDEA)
   }
 
   ownIdea() {
@@ -258,11 +257,15 @@ export default class extends Controller {
 
     this.klassTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.pledgeKlassParam === a.klass))
     this.drawnTarget.hidden = !a.drawn
-    if (a.drawn) {
-      this.drawnTitleTarget.textContent = a.drawn.title
-      this.drawnLineTarget.textContent = a.drawn.line
-      this.drawnStandardTarget.textContent = [a.drawn.standard, a.drawn.topic].filter(Boolean).join(" · ")
-    }
+    this.drawnIdeasTarget.replaceChildren(...(a.drawn ?? []).map(idea => {
+      const card = this.drawnTemplateTarget.content.firstElementChild.cloneNode(true)
+      card.dataset.pledgeIdParam = idea.id
+      card.setAttribute("aria-pressed", idea.id === a.ideaId)
+      card.querySelector(".drawn-idea__title").textContent = idea.title
+      card.querySelector(".drawn-idea__line").textContent = idea.line
+      card.querySelector(".drawn-idea__topic").textContent = idea.topic || ""
+      return card
+    }))
     this.prizeTargets.forEach(el => el.setAttribute("aria-pressed", el.dataset.prize === a.prize))
     this.pledgeIdeaTarget.textContent = a.idea || "something"
     this.pledgePrizeTarget.textContent = a.prizeName || "prize"
