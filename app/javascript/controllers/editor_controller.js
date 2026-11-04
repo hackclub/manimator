@@ -529,16 +529,6 @@ export default class extends Controller {
     if (EXAMPLES[name]) this.replaceCode(EXAMPLES[name])
   }
 
-  // From the onboarding coach (coach_controller): its scene, and the line it's pointing at.
-  load({ detail: { code } }) {
-    this.replaceCode(code)
-  }
-
-  mark({ detail: { line } }) {
-    this.editor?.setMarks({ coach: line })
-    if (line) this.editor?.showLine(line)
-  }
-
   newScene() {
     this.replaceCode(BLANK)
   }

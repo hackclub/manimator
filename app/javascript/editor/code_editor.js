@@ -53,7 +53,6 @@ const marksField = StateField.define({
       add(e.value.error, "cm-line-error")
       add(e.value.playing, "cm-line-playing")
       add(e.value.hover, "cm-line-hover")
-      add(e.value.coach, "cm-line-coach")
       ranges.sort((a, b) => a.from - b.from)
       deco = Decoration.set(ranges, true)
     }
@@ -139,7 +138,7 @@ export function createEditor(parent, doc, hooks) {
     }),
   })
 
-  let marks = { playing: null, hover: null, error: null, coach: null }
+  let marks = { playing: null, hover: null, error: null }
   return {
     view,
     get code() {
@@ -160,11 +159,6 @@ export function createEditor(parent, doc, hooks) {
         effects: EditorView.scrollIntoView(l.from, { y: "center" }),
       })
       view.focus()
-    },
-    // Scrolls a line into view, without moving the cursor or taking focus.
-    showLine(line) {
-      if (line < 1 || line > view.state.doc.lines) return
-      view.dispatch({ effects: EditorView.scrollIntoView(view.state.doc.line(line).from, { y: "nearest", yMargin: 40 }) })
     },
     lineText(line) {
       return view.state.doc.line(Math.min(line, view.state.doc.lines)).text

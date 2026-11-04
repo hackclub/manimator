@@ -13,7 +13,5 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "start" => "onboarding#show", as: :onboarding
-  # Where the coached onboardings end up: the pledge, to pick what you'll make for real.
-  get "start/pledge" => "onboarding#pledge", as: :onboarding_pledge
   resource :editor, only: :show
 end

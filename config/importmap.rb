@@ -8,7 +8,6 @@ pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/editor", under: "editor", preload: "editor"
-pin_all_from "app/javascript/coach", under: "coach", preload: false
 
 # CodeMirror and its dependencies, only preloaded on the editor page
 pin "@codemirror/commands", to: "@codemirror--commands.js", preload: "editor" # @6.11.1
