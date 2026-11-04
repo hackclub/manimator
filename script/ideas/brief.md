@@ -24,7 +24,7 @@ Write a JSON array to the output path you're given. One object per idea:
 ## What makes a good idea
 - Something MOVES and the motion is the explanation: pieces slide, a shape morphs, a point traces a path, a number
   counts up as an area fills. If it would be just as good as a still picture, it's a weak idea.
-- Small enough for a beginner to finish in ~10–20 hours: one scene, one idea, 20–60 seconds.
+- Worth at least 3 hours of a beginner's work, and small enough to finish: one idea, a minute or two of video.
 - Specific: name actual numbers or shapes ("a 3×4 rectangle of dots splits into...") rather than "show that...".
 - Each idea for a standard must be clearly different from the others for that standard (different picture or
   different angle), and avoid repeating ideas you've already written for other standards in your batch.

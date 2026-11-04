@@ -19,7 +19,7 @@ const LINES = {
   rhythm: ["When do you usually have time?", "speaking"],
   pledge: ["Sign it, and it’s official.", "happy"],
 }
-const PICKED_IDEA = idea => `${idea}. Good one.`
+const PICKED_IDEA = "Ooh, good one. I want to see that."
 const TOOK_IDEA = "It’s yours. Nobody else gets this one."
 const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
@@ -47,6 +47,8 @@ function starter(idea) {
 class MyScene(Scene):
     def construct(self):
         title = Text(${JSON.stringify(idea)}, font_size=48)
+        if title.width > 12:
+            title.scale_to_fit_width(12)
         self.play(Write(title))
         self.wait()
 `
@@ -109,7 +111,7 @@ export default class extends Controller {
 
   ownIdea() {
     const idea = this.ownTarget.value.trim()
-    if (idea) this.answer("idea", { idea, ideaId: null, ownIdea: true }, PICKED_IDEA(idea))
+    if (idea) this.answer("idea", { idea, ideaId: null, ownIdea: true }, PICKED_IDEA)
   }
 
   pickPrize({ params: { id, name, hours } }) {

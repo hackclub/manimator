@@ -53,9 +53,10 @@
 .drawn-idea__topic { color: var(--ink-faint); }
 
 .own { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-.own__code { font: 17px var(--mono); color: var(--ink-muted); }
+.own__code { font: 17px var(--mono); color: var(--ink-muted); overflow-wrap: anywhere; }
+.ostep__hint--gap { margin-top: 18px; }
 .own__input {
-  width: 22ch; padding: 0; border: 0; border-bottom: 1px dashed var(--yellow); background: none;
+  width: min(36ch, 60vw); padding: 0; border: 0; border-bottom: 1px dashed var(--yellow); background: none;
   font: inherit; color: var(--yellow); outline: none;
 }
 .own__input::placeholder { color: color-mix(in srgb, var(--yellow) 45%, transparent); }
