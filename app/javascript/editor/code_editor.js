@@ -53,6 +53,7 @@ const marksField = StateField.define({
       add(e.value.error, "cm-line-error")
       add(e.value.playing, "cm-line-playing")
       add(e.value.hover, "cm-line-hover")
+      add(e.value.coach, "cm-line-coach")
       ranges.sort((a, b) => a.from - b.from)
       deco = Decoration.set(ranges, true)
     }
@@ -135,7 +136,7 @@ export function createEditor(parent, doc, hooks) {
     }),
   })
 
-  let marks = { playing: null, hover: null, error: null }
+  let marks = { playing: null, hover: null, error: null, coach: null }
   return {
     view,
     get code() {
@@ -143,7 +144,7 @@ export function createEditor(parent, doc, hooks) {
     },
     setMarks(patch) {
       const next = { ...marks, ...patch }
-      if (next.playing === marks.playing && next.hover === marks.hover && next.error === marks.error) return
+      if (Object.keys(next).every(k => next[k] === marks[k])) return
       marks = next
       view.dispatch({ effects: setMarks.of(marks) })
     },

@@ -7,9 +7,10 @@
 <%= javascript_importmap_module_preload_tags entry_point: "editor" %>
 <% p = placeholder %>
 
-<div class="app" data-controller="shell editor" data-view="home"
+<div class="app" data-controller="shell editor<%= " coach" if @coach %>" data-view="<%= @coach ? "code" : "home" %>"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
-     data-action="keydown@window->editor#key shell:changed->editor#viewChanged">
+     data-action="keydown@window->editor#key shell:changed->editor#viewChanged<%= " #{EditorsHelper::COACH_ACTIONS}" if @coach %>"
+     <% if @coach %>data-shell-coached-value="true" data-coach-lesson-value="<%= @coach %>" data-coach-poses-value="<%= pi_pose_urls %>"<% end %>>
   <header class="app__bar">
     <%= link_to "Manimator", root_path, class: "app__brand" %>
     <span class="app__slash">/</span>
@@ -170,6 +171,22 @@
       </aside>
     </section>
   </div>
+
+  <% if @coach %>
+    <%# π, coaching a first scene (coach_controller). Shown once the lesson and the editor are both loaded. %>
+    <aside class="coach" data-coach-target="card" hidden>
+      <div class="bubble coach__bubble" data-coach-target="bubble"></div>
+      <div class="coach__foot">
+        <div class="coach__controls">
+          <span class="mono-xs c-faint" data-coach-target="count"></span>
+          <button class="btn-xs" data-coach-target="show" data-action="coach#showMe" hidden>show me</button>
+          <button class="coach__skip mono-xs" data-coach-target="skip" data-action="coach#skip">skip</button>
+          <%= link_to "", onboarding_pledge_path, class: "coach__finish", hidden: true, data: { coach_target: "finish" } %>
+        </div>
+        <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
+      </div>
+    </aside>
+  <% end %>
 </div>
 
 <%= render "onboarding/switcher" %>

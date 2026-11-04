@@ -1,4 +1,9 @@
 module EditorsHelper
+  # How the editor and π's coach talk (see coach_controller.js).
+  COACH_ACTIONS = %w[
+    editor:ready->coach#ready editor:changed->coach#changed editor:rendered->coach#rendered editor:failed->coach#failed
+    coach:load->editor#load coach:mark->editor#mark
+  ].join(" ").freeze
   # Placeholder platform data from the "3a" design. There are no accounts yet, so the
   # streak, hours, buddy and leaderboard are fixed until a backend exists.
   PLACEHOLDER = {

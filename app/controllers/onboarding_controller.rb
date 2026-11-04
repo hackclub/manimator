@@ -6,6 +6,10 @@ class OnboardingController < ApplicationController
     case variant
     when "pledge" then render :pledge
     when "none" then redirect_to editor_path
+    else redirect_to editor_path(coach: variant)
     end
+  end
+
+  def pledge
   end
 end

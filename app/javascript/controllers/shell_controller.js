@@ -6,10 +6,13 @@ const VIEWS = ["home", "code", "buddy", "board", "examples"]
 // The app shell: the rail switches between home and the editor's side panels.
 export default class extends Controller {
   static targets = ["date", "nudge", "tab"]
+  static values = { coached: Boolean }
 
   connect() {
     let view = "home"
     try { view = localStorage.getItem(VIEW_KEY) ?? view } catch { /* storage unavailable */ }
+    // Being coached through a first scene happens in the code view.
+    if (this.coachedValue) view = "code"
     this.set(VIEWS.includes(view) ? view : "home")
     const now = new Date()
     const day = now.toLocaleDateString("en-US", { weekday: "long" }).toLowerCase()

@@ -104,6 +104,7 @@ export default class extends Controller {
     if (!this.element.isConnected) return
     this.editor = createEditor(this.codeTarget, load(STORAGE_KEY, FIRST_EXAMPLE), {
       onChange: code => {
+        this.dispatch("changed", { detail: { code } })
         store(STORAGE_KEY, code)
         store(EDITED_KEY, String(Date.now()))
         clearTimeout(this.debounce)
@@ -123,6 +124,7 @@ export default class extends Controller {
     })
     this.requestRun(this.editor.code)
     this.renderHome()
+    this.dispatch("ready")
   }
 
   disconnect() {
@@ -379,6 +381,7 @@ export default class extends Controller {
     const id = ++this.runSeq
     this.busy = true
     this.incoming = new FrameStore(id)
+    this.runCode = this.pendingCode
     this.worker.postMessage({ type: "run", id, code: this.pendingCode, fps: Number(this.fpsTarget.value), scene: this.sceneName })
     this.pendingCode = null
     this.setStatus("rendering…", "busy")
@@ -415,6 +418,7 @@ export default class extends Controller {
           this.timelineDirty = true
           this.dirty = true
           if (this.view === "home") this.renderHome()
+          this.dispatch("rendered", { detail: { code: this.runCode, frames: msg.frames } })
         }
         this.dispatchRun()
         return
@@ -424,7 +428,10 @@ export default class extends Controller {
         return
       case "error":
         this.busy = false
-        if (msg.id === this.runSeq || msg.id === -1) this.showError(msg.message, msg.line, msg.traceback)
+        if (msg.id === this.runSeq || msg.id === -1) {
+          this.showError(msg.message, msg.line, msg.traceback)
+          this.dispatch("failed", { detail: { message: msg.message, line: msg.line } })
+        }
         this.dispatchRun()
         return
     }
@@ -505,6 +512,15 @@ export default class extends Controller {
 
   loadExample({ params: { name } }) {
     if (EXAMPLES[name]) this.replaceCode(EXAMPLES[name])
+  }
+
+  // From the onboarding coach (coach_controller): its scene, and the line it's pointing at.
+  load({ detail: { code } }) {
+    this.replaceCode(code)
+  }
+
+  mark({ detail: { line } }) {
+    this.editor?.setMarks({ coach: line })
   }
 
   newScene() {

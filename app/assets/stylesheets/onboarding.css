@@ -115,3 +115,29 @@
   .mascot__bubble::after { right: auto; left: -7px; bottom: 16px; }
 }
 .hold[hidden] { display: none; }
+
+/* π coaching a first scene, over the editor's stage (coach_controller) */
+.app .cm-line-coach { background: rgba(244, 211, 69, .1); box-shadow: inset 3px 0 0 var(--yellow); }
+.coach {
+  position: fixed; right: 20px; bottom: calc(var(--tl, 250px) + 16px); z-index: 20;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px; max-width: 340px; pointer-events: none;
+}
+.coach[hidden] { display: none; }
+.coach > * { pointer-events: auto; }
+.coach__bubble { font-size: 18px; }
+.coach__bubble::after { right: 54px; bottom: -7px; }
+.coach__foot { display: flex; align-items: flex-end; gap: 14px; }
+.coach__controls { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
+.coach__pi { width: 110px; height: auto; user-select: none; }
+.coach__skip { padding: 0; border: 0; background: none; color: var(--ink-faint); cursor: pointer; }
+.coach__skip:hover { color: var(--ink); }
+.coach__finish {
+  display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 12px;
+  background: var(--yellow); color: var(--bg); font-weight: 700; font-size: 18px;
+}
+.coach__finish:hover { color: var(--bg); transform: translateY(-1px); }
+.coach__finish[hidden] { display: none; }
+@media (max-width: 900px) {
+  .coach { left: 12px; right: 12px; bottom: 12px; max-width: none; }
+  .coach__pi { width: 72px; }
+}
