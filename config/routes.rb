@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#home"
 
+  get "start" => "onboarding#show", as: :onboarding
   resource :editor, only: :show
 end

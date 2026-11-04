@@ -1,9 +1,9 @@
 module PagesHelper
   PI_POSES = %w[plain happy hooray wave_1 wave_2 wave_3 speaking surprised tease awe thinking erm dance_1 dance_2 dance_3].freeze
 
-  # Every "Start animating" / "sign in" link opens the editor until onboarding exists.
+  # Every "Start animating" / "sign in" link goes through onboarding (Onboarding picks which one).
   def start_path
-    editor_path
+    onboarding_path
   end
 
   def pi_pose_urls

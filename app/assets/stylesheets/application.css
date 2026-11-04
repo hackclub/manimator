@@ -328,3 +328,12 @@ html.menu-open { overflow: hidden; }
 .card:hover .card__hint { color: var(--ink-muted); }
 .card:hover .knob__ring { fill-opacity: .32; }
 
+
+/* Dev-only switcher between the onboarding variants (onboarding/_switcher) */
+.onboarding-switcher {
+  position: fixed; left: 16px; bottom: 16px; z-index: 100; display: flex; align-items: center; gap: 6px;
+  padding: 6px 8px; border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg-raised);
+  font: 13px var(--mono); color: var(--ink-faint);
+}
+.onboarding-switcher a { padding: 4px 8px; border: 1px solid transparent; border-radius: 6px; color: var(--ink-muted); }
+.onboarding-switcher a[aria-current="true"] { border-color: var(--yellow); color: var(--yellow); }
