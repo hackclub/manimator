@@ -7,10 +7,11 @@ module Onboarding
   VARIANTS = {
     "pledge" => "Pledge first: pick an idea and a pace, sign a pledge, then open the editor",
     "remix" => "Remix first: a scene already playing in the editor, and π asks for three small changes",
+    "wave" => "Make π wave: build the mascot from shapes in four steps, in the editor",
     "none" => "No onboarding: straight into the editor"
   }.freeze
   # The ones that coach you in the editor (app/javascript/coach) rather than having a page of their own.
-  COACHED = %w[remix].freeze
+  COACHED = %w[remix wave].freeze
   COOKIE = :onboarding
 
   def self.pick(cookie: nil, requested: nil)
