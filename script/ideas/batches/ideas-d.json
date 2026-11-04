@@ -1,0 +1,872 @@
+[
+ {
+  "standard": "HSG-MG.A.3",
+  "band": "geometry",
+  "title": "Fencing the biggest pen",
+  "line": "A rectangle of 40 m fence slides its width from 1 to 19 while the area counter climbs, peaks at 100, then falls.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-MG.A.3",
+  "band": "geometry",
+  "title": "The cheapest soup can",
+  "line": "A can holding 500 cm³ morphs from tall and skinny to short and wide as a metal-used graph dips to its lowest point.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-MG.A.3",
+  "band": "geometry",
+  "title": "The lifeguard's fastest path",
+  "line": "A lifeguard runs on sand then swims; the water entry point slides along the shore until the time readout bottoms out.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-MG.A.3",
+  "band": "geometry",
+  "title": "A page grid from squares",
+  "line": "A page rectangle keeps snipping off squares, each leftover a smaller copy of the page, while the side ratio settles at 1.618.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-MG.A.2",
+  "band": "geometry",
+  "title": "Same crowd, smaller town",
+  "line": "100 dots spread over a 10×10 grid squeeze into a 5×5 corner and the people-per-square counter jumps from 1 to 4.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-MG.A.2",
+  "band": "geometry",
+  "title": "Pepperoni per square inch",
+  "line": "A 10-inch and a 14-inch pizza each get 20 pepperonis, and the bigger pizza's toppings-per-square-inch readout drops to about half.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-MG.A.1",
+  "band": "geometry",
+  "title": "Measuring a lake with circles",
+  "line": "A wobbly lake outline gets covered by three circles whose areas add up, then the estimate is compared with a grid-square count.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-MG.A.1",
+  "band": "geometry",
+  "title": "A person made of rectangles",
+  "line": "A stick-figure outline fills in with a circle head and rectangle torso and limbs, each labeled, while a total area counter adds up.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.B.4",
+  "band": "geometry",
+  "title": "Slicing a cone sideways",
+  "line": "A knife line tilts through a cone drawn from the side while the slice beside it morphs from circle to ellipse to parabola.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.B.4",
+  "band": "geometry",
+  "title": "Spinning a semicircle into a ball",
+  "line": "A semicircle flips around its diameter like a spinning coin, squashing and stretching, and its ghost copies pile up into a sphere's outline.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.B.4",
+  "band": "geometry",
+  "title": "A hexagon hiding in a cube",
+  "line": "A slicing plane tilts through a cube and the cut face changes from triangle to square to a perfect hexagon.",
+  "needs": [
+   "3d"
+  ]
+ },
+ {
+  "standard": "HSG-GMD.A.3",
+  "band": "geometry",
+  "title": "Three cones fill a can",
+  "line": "A cone-shaped cup pours sand into a cylinder of matching height and radius, filling it exactly after three pours.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.A.3",
+  "band": "geometry",
+  "title": "A ball in a tin can",
+  "line": "A ball of radius 3 drops into a snug can full of water; the water spills, leaving 18π of the can's 54π behind.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GMD.A.3",
+  "band": "geometry",
+  "title": "Double the cone",
+  "line": "A cone's radius doubles and its volume counter jumps 4×, then its height doubles and the counter jumps 2× more.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.A.2",
+  "band": "geometry",
+  "title": "Shoving a stack of coins",
+  "line": "A neat stack of 12 coins gets pushed into a leaning tower, and the volume counter never changes as each coin slides.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.A.2",
+  "band": "geometry",
+  "title": "Hemisphere slices match rings",
+  "line": "A slice line rises through a hemisphere and a cone-hollowed cylinder, and the disk and ring slices always have equal areas.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GMD.A.2",
+  "band": "geometry",
+  "title": "Sliding strips of a triangle",
+  "line": "A triangle cut into 10 thin horizontal strips gets sheared sideways strip by strip, and its area stays 12 the whole time.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GMD.A.1",
+  "band": "geometry",
+  "title": "Pizza into a rectangle",
+  "line": "A circle of radius 2 splits into 16 slices that unzip and interlock into a near-rectangle measuring πr by r.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GMD.A.1",
+  "band": "geometry",
+  "title": "Rolling out pi",
+  "line": "A circle with diameter 1 rolls one full turn along a number line, its rim peeling off flat to land past 3.14.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GMD.A.1",
+  "band": "geometry",
+  "title": "Onion rings into a triangle",
+  "line": "A disk made of 20 thin rings has each ring snipped and straightened, stacking into a triangle with base 2πr and height r.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.7",
+  "band": "geometry",
+  "title": "Perimeter with hidden staircases",
+  "line": "Each side of a pentagon on a grid sprouts its right-triangle legs, its length gets computed, and the perimeter total adds up.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.7",
+  "band": "geometry",
+  "title": "Box it and subtract",
+  "line": "A triangle at (1,1), (6,2), (3,5) gets boxed in a 5×4 rectangle, three corner triangles peel off, and 20 drops to 9.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.7",
+  "band": "geometry",
+  "title": "Lacing up the shoelace formula",
+  "line": "A polygon's coordinates stack in a column, crossing arrows lace between them like shoelaces, and the products sum to twice the area.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.6",
+  "band": "geometry",
+  "title": "Two-fifths of the way",
+  "line": "A dot slides from (−4,−1) toward (6,4) with a ratio counter and stops at 2:3, landing exactly on (0,1).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.6",
+  "band": "geometry",
+  "title": "Balancing the seesaw",
+  "line": "Weights of 3 and 2 sit at a segment's ends, and a pivot slides until the bar levels at the 2:3 point.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GPE.B.6",
+  "band": "geometry",
+  "title": "Splitting the staircase",
+  "line": "A segment's rise and run chop into 5 equal steps, and the partition point hops step by step to the second one.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.5",
+  "band": "geometry",
+  "title": "Turning a slope sideways",
+  "line": "A line with slope 2/3 and its rise-run triangle rotate 90°, the legs swap and one flips sign, and the slope reads −3/2.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.5",
+  "band": "geometry",
+  "title": "The product stuck at −1",
+  "line": "A line spins around the origin with a perpendicular partner; both slope readouts change wildly while their product stays at −1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.5",
+  "band": "geometry",
+  "title": "Sliding to the point",
+  "line": "A line y = 2x − 3 slides upward, keeping its slope triangle, until it passes through (1,4), and its equation updates live.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.4",
+  "band": "geometry",
+  "title": "Midpoints always make a parallelogram",
+  "line": "A lopsided quadrilateral's corners wander around; joining its side midpoints always gives a parallelogram whose matching slope readouts stay equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.B.4",
+  "band": "geometry",
+  "title": "The hypotenuse midpoint",
+  "line": "A right triangle at (0,0), (2a,0), (0,2b) reshapes as a and b change; three distances from the hypotenuse midpoint stay equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.A.3",
+  "band": "geometry",
+  "title": "String and two pins",
+  "line": "A pencil pulls a string loop around two pins, tracing an ellipse while its two distances change but always sum to 10.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GPE.A.3",
+  "band": "geometry",
+  "title": "The difference stays 4",
+  "line": "A dot traces both branches of a hyperbola as its distances to two foci change, but their difference readout never leaves 4.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GPE.A.3",
+  "band": "geometry",
+  "title": "Pulling a circle apart",
+  "line": "Two foci start together at a circle's center and drift apart, squashing the circle into a flatter and flatter ellipse.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GPE.A.2",
+  "band": "geometry",
+  "title": "Equal distances make a parabola",
+  "line": "A dot slides along a curve with segments to the focus (0,1) and the line y = −1, always equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.A.2",
+  "band": "geometry",
+  "title": "Circles meet lines",
+  "line": "Circles grow around the focus while matching horizontal lines rise, and each crossing drops a dot until a parabola appears.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.A.2",
+  "band": "geometry",
+  "title": "Folding paper into a parabola",
+  "line": "Fold lines appear one by one, each folding a directrix point onto the focus, and together they hug out a parabola.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-GPE.A.1",
+  "band": "geometry",
+  "title": "Pythagoras sweeps a circle",
+  "line": "A right triangle with hypotenuse 5 spins around (2,−1), its legs relabel as x−2 and y+1, and its tip traces a circle.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.A.1",
+  "band": "geometry",
+  "title": "Completing the square with tiles",
+  "line": "An x² tile and a 6x strip split into two 3x strips around the square, and a missing 3×3 corner tile completes it.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-GPE.A.1",
+  "band": "geometry",
+  "title": "Twelve points at distance 5",
+  "line": "Grid points at distance 5 from the origin light up, (3,4), (4,3), (5,0) and nine more, all on one circle.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-C.B.5",
+  "band": "geometry",
+  "title": "Wrapping radii around a circle",
+  "line": "A radius-length string bends onto the rim again and again; six fit with a sliver left over, and the counter reads 6.28.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.B.5",
+  "band": "geometry",
+  "title": "Same angle, bigger arc",
+  "line": "A 60° wedge cuts circles of radius 1, 2, and 3; their arc lengths count up while arc ÷ radius stays 1.047.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.B.5",
+  "band": "geometry",
+  "title": "Growing a sector",
+  "line": "An angle opens from 0 to 2π, the pie slice fills in, and its area counter tracks ½r²θ the whole way.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-C.A.4",
+  "band": "geometry",
+  "title": "A circle finds the tangent",
+  "line": "A circle drawn on OP as diameter crosses the original circle at two points, and lines from P through them just touch it.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.4",
+  "band": "geometry",
+  "title": "Two crossings merge into one",
+  "line": "A line from an outside point swings down, and its two crossing points on the circle slide together into one tangent point.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.4",
+  "band": "geometry",
+  "title": "Two tangents, equal lengths",
+  "line": "A point outside a circle wanders around while its two tangent segments are drawn, and their length readouts always match.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.3",
+  "band": "geometry",
+  "title": "Growing the incircle",
+  "line": "Three angle bisectors meet at a point, and a circle inflates from it until it kisses all three sides at once.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.3",
+  "band": "geometry",
+  "title": "Chasing the circumcenter",
+  "line": "Perpendicular bisectors meet and a circle passes through all three corners; dragging one vertex pushes the center outside an obtuse triangle.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.3",
+  "band": "geometry",
+  "title": "Opposite angles add to 180",
+  "line": "Four points slide around a circle; the quadrilateral's angles A and C keep changing, but their sum readout stays 180°.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.2",
+  "band": "geometry",
+  "title": "The inscribed angle is half",
+  "line": "A point slides around the circle's rim; its inscribed angle reads 35° everywhere while the central angle on the same arc stays 70°.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.2",
+  "band": "geometry",
+  "title": "Right angles in a semicircle",
+  "line": "A point slides along a semicircle, and the angle it makes with the diameter's ends stays locked at a right angle.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.2",
+  "band": "geometry",
+  "title": "Crossing chords, equal products",
+  "line": "Two chords cross inside a circle and wiggle; their pieces keep changing, but piece times piece on each chord always matches.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.1",
+  "band": "geometry",
+  "title": "Slide and scale a circle",
+  "line": "A circle of radius 1 slides onto a bigger circle's center and dilates by 3 until it fits exactly over it.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-C.A.1",
+  "band": "geometry",
+  "title": "Shining a circle bigger",
+  "line": "Rays from a point outside two circles pass through matching points, showing a single dilation carries the small circle onto the big one.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.D.11",
+  "band": "geometry",
+  "title": "Measuring across a river",
+  "line": "Two surveyors 50 m apart sight a tree across a river at 70° and 60°, the triangle closes, and the distance appears.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.D.11",
+  "band": "geometry",
+  "title": "Opening a hinge",
+  "line": "Sides of 5 and 7 hinge open from 0° to 180°, the third side grows from 2 to 12, passing √74 at 90°.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.D.11",
+  "band": "geometry",
+  "title": "Two forces, one push",
+  "line": "Arrows of 30 N and 40 N at 60° slide tip to tail, and the resultant arrow measures about 60.8 N.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.D.10",
+  "band": "geometry",
+  "title": "Pythagoras with a correction",
+  "line": "As angle C opens past 90°, the squares on a and b stop filling c's square, and a 2ab cos C strip appears.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.D.10",
+  "band": "geometry",
+  "title": "One height, two ways",
+  "line": "An altitude drops inside a triangle, labeled b sin A from one side and a sin B from the other: the law of sines.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.D.10",
+  "band": "geometry",
+  "title": "The ratio that is the diameter",
+  "line": "A triangle's vertices slide around a circle of radius 3 while a ÷ sin A stays fixed at 6, the diameter.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.D.9",
+  "band": "geometry",
+  "title": "Tilting the side",
+  "line": "Sides 6 and 4 meet at angle C, the dropped height 4 sin C grows and shrinks, and the area peaks at 12.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.D.9",
+  "band": "geometry",
+  "title": "Two copies make a parallelogram",
+  "line": "A triangle spins half a turn about a side's midpoint into a parallelogram of area ab sin C, twice the triangle.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.C.8",
+  "band": "geometry",
+  "title": "How tall is the tree",
+  "line": "A sightline from 20 m away tilts up 35° to a treetop, a right triangle fills in, and the height counts to 14 m.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.C.8",
+  "band": "geometry",
+  "title": "The sliding ladder",
+  "line": "A 5 m ladder slides down a wall; its base and height readouts trade off while base² plus height² stays 25.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.C.7",
+  "band": "geometry",
+  "title": "Swapping the corners",
+  "line": "A 30°-60°-90° triangle flips so its acute angles trade places, and the side labeled sin 30° becomes cos 60°.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.C.7",
+  "band": "geometry",
+  "title": "Mirror across y = x",
+  "line": "A point at angle θ on the unit circle reflects across y = x to angle 90° − θ, and its coordinates swap.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.C.6",
+  "band": "geometry",
+  "title": "Same angle, same ratio",
+  "line": "A 30° right triangle grows from tiny to huge, and its opposite ÷ hypotenuse counter never budges from 0.500.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.C.6",
+  "band": "geometry",
+  "title": "A fan of 40° triangles",
+  "line": "Five right triangles share one 40° corner, nested like a fan, and a table fills with the same 0.839 for every one.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.C.6",
+  "band": "geometry",
+  "title": "Turning the angle dial",
+  "line": "An angle slides from 0° to 90°, the triangle reshapes, and its opposite ÷ hypotenuse ratio climbs smoothly from 0 to 1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-SRT.B.5",
+  "band": "geometry",
+  "title": "A shadow measures the flagpole",
+  "line": "A 2 m person's 3 m shadow triangle slides and scales onto a flagpole's 18 m shadow, showing the pole is 12 m.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.B.5",
+  "band": "geometry",
+  "title": "A mirror on the floor",
+  "line": "A light ray bounces off a floor mirror to your eye, making two similar triangles that reveal how tall the wall is.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.B.4",
+  "band": "geometry",
+  "title": "Pythagoras from three triangles",
+  "line": "A 3-4-5 triangle's altitude splits it into two pieces that rotate and flip to line up perfectly with the big one.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.B.4",
+  "band": "geometry",
+  "title": "A parallel line splits sides",
+  "line": "A line parallel to the base slides up a triangle, and the ratio readouts on the two cut sides stay equal.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.B.4",
+  "band": "geometry",
+  "title": "The bisector's lopsided cut",
+  "line": "An angle bisector between sides 6 and 4 hits the opposite side and splits it into pieces in a 6:4 ratio.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.3",
+  "band": "geometry",
+  "title": "Two angles are enough",
+  "line": "A small triangle with 50° and 70° angles slides onto a big one's corner and dilates until its third side lands exactly.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.3",
+  "band": "geometry",
+  "title": "The third angle comes free",
+  "line": "A triangle's three corners tear off and line up along a straight line, so fixing two angles forces the third.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.2",
+  "band": "geometry",
+  "title": "Is it similar?",
+  "line": "A shape rotates, flips, and scales by 1.5 to land on its twin, then a stretched copy tries and fails to fit.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.2",
+  "band": "geometry",
+  "title": "Ratios lock together",
+  "line": "Triangles 3-4-5 and 6-8-10 color-match their sides, the ratios 2, 2, 2 count in, and matching angle arcs overlap.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.1",
+  "band": "geometry",
+  "title": "Rays from the center",
+  "line": "A triangle dilates by 2 from a center point, rays through each corner, and each new side stays parallel and doubles.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.1",
+  "band": "geometry",
+  "title": "The line that stays put",
+  "line": "Under a dilation, a line through the center slides along itself, while a line missing the center jumps to a parallel copy.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-SRT.A.1",
+  "band": "geometry",
+  "title": "Scaling through zero",
+  "line": "The scale factor sweeps from 2 to −1, the shape shrinks into the center point, then comes out the other side upside down.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.D.13",
+  "band": "geometry",
+  "title": "Six radii around a circle",
+  "line": "A compass set to the radius steps around a circle exactly 6 times; the marks join into a hexagon, every other into a triangle.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.D.13",
+  "band": "geometry",
+  "title": "A square from two diameters",
+  "line": "A diameter is drawn, its perpendicular bisector crosses it, and the four rim points connect into a square inscribed in the circle.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.D.12",
+  "band": "geometry",
+  "title": "Two arcs find the midpoint",
+  "line": "Arcs swing from both ends of a segment and cross twice, and the line through the crossings cuts it in half at 90°.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.D.12",
+  "band": "geometry",
+  "title": "Copying an angle",
+  "line": "Compass arcs measure a 40° angle's opening, carry it to a new ray, and a copy appears that overlaps the original exactly.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.D.12",
+  "band": "geometry",
+  "title": "Folding the angle in half",
+  "line": "One ray of an angle folds onto the other like paper, and the crease left behind is the angle bisector.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.11",
+  "band": "geometry",
+  "title": "Diagonals cut each other in half",
+  "line": "A parallelogram shears and stretches, and its diagonals' four color-matched halves stay equal in pairs the whole time.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.11",
+  "band": "geometry",
+  "title": "Half a turn onto itself",
+  "line": "A parallelogram spins 180° around its center and lands on itself, carrying each side onto its opposite to prove they match.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.11",
+  "band": "geometry",
+  "title": "When diagonals become equal",
+  "line": "A parallelogram's angles tilt toward 90°, and at the exact moment it becomes a rectangle the two diagonal readouts match.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.10",
+  "band": "geometry",
+  "title": "Tear off the corners",
+  "line": "A triangle's three corners snip off and slide together, lining up into a straight 180° line.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.10",
+  "band": "geometry",
+  "title": "The midsegment is half",
+  "line": "A segment joining two side midpoints stays parallel to the base as the triangle reshapes, with a length ratio fixed at 0.5.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.10",
+  "band": "geometry",
+  "title": "Medians meet at the balance point",
+  "line": "Three medians cross at one point that cuts each into a 2:1 split, and the triangle balances there on a pin.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.10",
+  "band": "geometry",
+  "title": "Folding an isosceles triangle",
+  "line": "An isosceles triangle folds along its altitude, the halves overlap exactly, and the base angles land on each other.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.9",
+  "band": "geometry",
+  "title": "Vertical angles stay matched",
+  "line": "Two crossing lines rotate around their meeting point, and the opposite angle readouts change together but always match.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.9",
+  "band": "geometry",
+  "title": "Sliding along the transversal",
+  "line": "An angle at one parallel line slides down the transversal and drops exactly onto its matching angle at the other line.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.C.9",
+  "band": "geometry",
+  "title": "Walking the perpendicular bisector",
+  "line": "A dot walks along a segment's perpendicular bisector, and its two distance readouts to the segment's ends stay equal.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.8",
+  "band": "geometry",
+  "title": "SAS snaps into place",
+  "line": "A triangle slides, turns, and flips onto one with the same two sides and angle, and its last corner has one place to land.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.8",
+  "band": "geometry",
+  "title": "Three sides, two circles",
+  "line": "Circles of radius 4 and 6 around the ends of a 7-long side cross at two mirror points, so the triangle is fixed.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.8",
+  "band": "geometry",
+  "title": "Why SSA fails",
+  "line": "A side of length 4 swings from an angle of 30° and hits the base line twice, building two different triangles.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.7",
+  "band": "geometry",
+  "title": "Landing piece by piece",
+  "line": "As one triangle slides, turns, and flips onto another, each pair of sides and angles lights up when it lands.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.6",
+  "band": "geometry",
+  "title": "Which shape fits",
+  "line": "An L-shaped tile tries slides, turns, and flips to land on four targets; three fit perfectly and one needs a stretch.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.B.6",
+  "band": "geometry",
+  "title": "Predict the flip",
+  "line": "A flag shape shows a ghost guess for its reflection across y = x, then actually flips and checks the guess.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-CO.A.5",
+  "band": "geometry",
+  "title": "Three moves to land",
+  "line": "An arrow shape reaches a target by a slide, a 90° turn, and a flip, each move tracing its path on the grid.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-CO.A.5",
+  "band": "geometry",
+  "title": "Two flips make a turn",
+  "line": "A shape reflects across two mirror lines that meet at 40°, and the result is the same shape rotated 80°.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.5",
+  "band": "geometry",
+  "title": "Two parallel flips make a slide",
+  "line": "Reflecting a shape across two parallel mirrors 3 units apart slides it 6 units, with no turn at all.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.4",
+  "band": "geometry",
+  "title": "Rotation as circles",
+  "line": "Each corner of a triangle rides its own circle around a center point, sweeping identical 60° arcs.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.4",
+  "band": "geometry",
+  "title": "The mirror line as bisector",
+  "line": "Segments join each point to its reflection, and the mirror line cuts every one at its midpoint at a right angle.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.4",
+  "band": "geometry",
+  "title": "Translation as parallel arrows",
+  "line": "Every point of a shape gets the same arrow, all parallel and equal length, and the shape glides along them.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.3",
+  "band": "geometry",
+  "title": "Twelve ways to move a hexagon",
+  "line": "A hexagon with colored corners runs through 6 rotations and 6 flips, landing on itself each time while a counter climbs to 12.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.3",
+  "band": "geometry",
+  "title": "Rectangle versus square",
+  "line": "A rectangle and a square both try a 90° turn; the square lands on itself, the rectangle sticks out awkwardly.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.3",
+  "band": "geometry",
+  "title": "The parallelogram's only trick",
+  "line": "A parallelogram flips across each diagonal and misses itself, then spins 180° and lands perfectly.",
+  "needs": []
+ },
+ {
+  "standard": "HSG-CO.A.2",
+  "band": "geometry",
+  "title": "Stretch versus slide",
+  "line": "A circle on a grid slides and stays a circle, then a horizontal stretch squashes it into an ellipse as a ruler readout changes.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-CO.A.2",
+  "band": "geometry",
+  "title": "Points in, points out",
+  "line": "Points fly through a 90° rotation machine, and a table fills in: (2,1) becomes (−1,2), (3,0) becomes (0,3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSG-CO.A.1",
+  "band": "geometry",
+  "title": "A circle is a fixed string",
+  "line": "A segment of length 2 pinned at one end spins around, and its free end leaves a trail that closes into a circle.",
+  "needs": []
+ }
+]

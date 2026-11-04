@@ -1,0 +1,978 @@
+[
+ {
+  "standard": "3.NF.A.3",
+  "band": "elementary",
+  "title": "Halves into quarters",
+  "line": "A bar cut in half gets sliced again, and 1/2 turns into 2/4 while the shaded part stays exactly the same size.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.3",
+  "band": "elementary",
+  "title": "Bigger bottom, smaller slice",
+  "line": "Three identical pizzas split into 3, 4 and 8 slices, then one slice from each lines up to show 1/3 > 1/4 > 1/8.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.3",
+  "band": "elementary",
+  "title": "Same spot on the line",
+  "line": "Dots for 2/3 and 4/6 drop onto a number line cut in thirds and one cut in sixths, landing at the same point.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.3",
+  "band": "elementary",
+  "title": "Fractions that equal one",
+  "line": "Bars for 2/2, 3/3, 4/4 and 6/6 fill one piece at a time, and every one of them finishes as a full whole.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.2",
+  "band": "elementary",
+  "title": "Marching by thirds",
+  "line": "A hop of length 1/3 copies itself along a number line from 0, landing on 1/3, 2/3, 3/3, then past 1 at 4/3.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.2",
+  "band": "elementary",
+  "title": "A bar becomes a line",
+  "line": "A fraction bar shaded 5/8 squashes flat onto a number line, and its right edge turns into the point 5/8.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.1",
+  "band": "elementary",
+  "title": "Building three fifths",
+  "line": "A ribbon splits into 5 equal pieces, one piece lifts out labeled 1/5, then 3 copies line up into 3/5.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.1",
+  "band": "elementary",
+  "title": "That's not a fourth",
+  "line": "A square cut into 4 uneven strips is labeled 1/4, the strips slide together to show they differ, then the cuts even out.",
+  "needs": []
+ },
+ {
+  "standard": "3.NF.A.1",
+  "band": "elementary",
+  "title": "The shrinking slice",
+  "line": "As the bottom number ticks from 2 up to 12, a circle gets more slices and the one highlighted slice keeps getting thinner.",
+  "needs": []
+ },
+ {
+  "standard": "3.G.A.2",
+  "band": "elementary",
+  "title": "Four ways to halve a square",
+  "line": "A square is halved four different ways, and each time one half spins onto the other and fits exactly.",
+  "needs": []
+ },
+ {
+  "standard": "3.G.A.2",
+  "band": "elementary",
+  "title": "Hexagon into sixths",
+  "line": "A hexagon splits into 6 triangles, then 3 rhombuses, then 2 trapezoids, and every piece gets its fraction label.",
+  "needs": []
+ },
+ {
+  "standard": "3.G.A.2",
+  "band": "elementary",
+  "title": "Weird-looking quarters",
+  "line": "A 4×4 grid splits into 4 zigzag pieces of 4 squares each, and counting squares proves each strange piece is 1/4.",
+  "needs": []
+ },
+ {
+  "standard": "3.G.A.1",
+  "band": "elementary",
+  "title": "Quadrilateral family circles",
+  "line": "Shapes drop into a big quadrilateral circle, and a square slides into the overlap where the rectangle and rhombus circles meet.",
+  "needs": []
+ },
+ {
+  "standard": "3.G.A.1",
+  "band": "elementary",
+  "title": "Squash a square",
+  "line": "A square's corners get dragged: lean it and it's a rhombus, stretch it and it's a rectangle, tug one corner and it's neither.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.D.8",
+  "band": "elementary",
+  "title": "Same fence, different yards",
+  "line": "A loop of 20 fence units reshapes into 1×9, 2×8, 3×7, 4×6 and 5×5 rectangles while an area counter climbs to 25.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.D.8",
+  "band": "elementary",
+  "title": "Twelve squares, many fences",
+  "line": "Twelve unit squares rearrange into 1×12, 2×6 and 3×4 rectangles, and the perimeter counter drops from 26 to 14.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.D.8",
+  "band": "elementary",
+  "title": "The missing side",
+  "line": "A pentagon's perimeter reads 30, four sides light up as 5, 7, 6 and 4, and the last side counts out as 8.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.7",
+  "band": "elementary",
+  "title": "Tile, then multiply",
+  "line": "Unit squares tile a 4×6 rectangle row by row, the counter hits 24, then the rows collapse into the label 4 × 6.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.7",
+  "band": "elementary",
+  "title": "Splitting a rectangle",
+  "line": "A 3×7 rectangle pulls apart into 3×5 and 3×2 pieces showing 15 + 6, then snaps back together as 21.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.7",
+  "band": "elementary",
+  "title": "The L-shaped room",
+  "line": "An L-shaped floor plan slices into two rectangles, each area counts up, then a different slice gives the same total.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.6",
+  "band": "elementary",
+  "title": "Big squares, small squares",
+  "line": "A rectangle measures 6 big squares, then each big square splits into 4 small ones and the count jumps to 24.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.5",
+  "band": "elementary",
+  "title": "No gaps, no overlaps",
+  "line": "Unit squares try to cover a 3×3 square, first with gaps, then overlapping, then snap into a clean grid that counts 9.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.C.5",
+  "band": "elementary",
+  "title": "Six squares, any shape",
+  "line": "Six unit squares slide from a 2×3 rectangle into a cross, a staircase and a long line, and the area stays 6.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.B.4",
+  "band": "elementary",
+  "title": "Pencils to a line plot",
+  "line": "Ten pencils line up against a ruler marked in quarter inches, and each length drops an X onto a line plot above it.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "3.MD.B.3",
+  "band": "elementary",
+  "title": "Pictures melt into bars",
+  "line": "Fruit icons worth 2 votes each stack into a picture graph, melt into bars, and a brace measures how many more chose apples.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "3.MD.A.2",
+  "band": "elementary",
+  "title": "Filling the liter jug",
+  "line": "Beakers holding 250, 400 and 350 mL pour into a 1 liter jug, and the water climbs to exactly the 1 L mark.",
+  "needs": []
+ },
+ {
+  "standard": "3.MD.A.1",
+  "band": "elementary",
+  "title": "Minutes on a number line",
+  "line": "A clock's minute hand sweeps from 2:15 to 3:05 while a number line below hops 45 minutes, then 5 more, totaling 50.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.3",
+  "band": "elementary",
+  "title": "Nine groups of eighty",
+  "line": "Nine stacks of 8 ten-rods regroup into 72 tens, then bundle into 7 hundred-squares and 2 rods, showing 9 × 80 = 720.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.3",
+  "band": "elementary",
+  "title": "Squares become strips",
+  "line": "A 6×4 rectangle of 24 squares stretches into 6×40 as every square becomes a strip of ten, and 24 becomes 240.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.2",
+  "band": "elementary",
+  "title": "Blocks that regroup",
+  "line": "Base-ten blocks for 347 and 285 merge, 12 ones snap into a ten, 13 tens snap into a hundred, and 632 is left.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.2",
+  "band": "elementary",
+  "title": "Back 200, forward 2",
+  "line": "On an open number line, 523 − 198 becomes one big jump back 200 and a small hop forward 2, landing on 325.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.2",
+  "band": "elementary",
+  "title": "Cracking a hundred",
+  "line": "To take 268 from 503, a hundred block cracks into tens, a ten cracks into ones, and 235 is left standing.",
+  "needs": []
+ },
+ {
+  "standard": "3.NBT.A.1",
+  "band": "elementary",
+  "title": "Rolling to the nearest ten",
+  "line": "A ball at 47 sits on a hilly number line with valleys at every ten, and it rolls downhill into 50.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "3.NBT.A.1",
+  "band": "elementary",
+  "title": "Zoom out to hundreds",
+  "line": "The number 683 sits on a line marked in tens, the line zooms out to hundreds, and 683 snaps to 700.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.D.9",
+  "band": "elementary",
+  "title": "Squares on the diagonal",
+  "line": "A 10×10 times table lights up its diagonal 1, 4, 9, 16, and each number grows into an actual square of dots.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.D.9",
+  "band": "elementary",
+  "title": "Where the evens live",
+  "line": "Every even product in the times table turns blue, rows for 2, 4, 6 and 8 fill completely, and odd × odd stays white.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.D.9",
+  "band": "elementary",
+  "title": "The nines trick",
+  "line": "Multiples of 9 stack up, the tens digit climbs 1, 2, 3 while the ones digit falls 8, 7, 6, always summing to 9.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.D.8",
+  "band": "elementary",
+  "title": "Bags of marbles",
+  "line": "Three bags of 8 marbles stack into a bar of 24, a piece of 5 snips off, and the unknown n fills in as 19.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.C.7",
+  "band": "elementary",
+  "title": "One array, four facts",
+  "line": "A 40-dot array rotates and regroups so one picture reads as 8 × 5, 5 × 8, 40 ÷ 5 and 40 ÷ 8.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.C.7",
+  "band": "elementary",
+  "title": "Nines from tens",
+  "line": "A 10×7 array appears and one column fades out, turning 70 into 63 and showing 9 × 7 without memorizing it.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.C.7",
+  "band": "elementary",
+  "title": "Doubling up to eights",
+  "line": "A 2×6 array copies itself into 4×6, then 8×6, and the counter doubles each time: 12, 24, 48.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.B.6",
+  "band": "elementary",
+  "title": "Division as a missing side",
+  "line": "A rectangle of 56 squares has one side labeled 8, and the other side grows one column at a time until it reads 7.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.B.5",
+  "band": "elementary",
+  "title": "Turn the array",
+  "line": "A 3×5 array of dots rotates a quarter turn into 5×3, and the counter beside it never budges from 15.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.B.5",
+  "band": "elementary",
+  "title": "Two ways to group 24",
+  "line": "Two 3×4 dot grids slide together into one 6×4 grid, showing (2 × 3) × 4 and 2 × (3 × 4) both make 24.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.4",
+  "band": "elementary",
+  "title": "What's in the cups",
+  "line": "For ? ÷ 4 = 9, four cups of 9 dots pour into one pile that counts up to 36.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.3",
+  "band": "elementary",
+  "title": "Eggs into cartons",
+  "line": "Forty-two eggs roll in and fill cartons of 6, and the carton count reaches 7 as the last egg settles.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.3",
+  "band": "elementary",
+  "title": "Cutting the ribbon",
+  "line": "A 24 cm ribbon gets cut into 3 cm pieces that hop off one at a time, and the counter stops at 8.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.2",
+  "band": "elementary",
+  "title": "Dealing 56 cards",
+  "line": "Fifty-six cards deal out one at a time to 8 players around a table until each player holds 7.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.2",
+  "band": "elementary",
+  "title": "Scoops of eight",
+  "line": "A pile of 56 marbles loses 8 at a time to a scoop, and a tally counts 7 scoops until the pile is gone.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.1",
+  "band": "elementary",
+  "title": "Five bags of seven",
+  "line": "Five bags each spill 7 dots, the dots line up into a 5×7 array, and a counter ticks up to 35.",
+  "needs": []
+ },
+ {
+  "standard": "3.OA.A.1",
+  "band": "elementary",
+  "title": "Frog jumps of seven",
+  "line": "A frog makes 5 jumps of 7 along a number line, landing on 7, 14, 21, 28 and finally 35.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.C.7",
+  "band": "elementary",
+  "title": "Decimal grid face-off",
+  "line": "0.4 and 0.38 shade on two hundred-grids, and 0.4's four full columns beat 0.38's three columns plus 8 squares.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.C.7",
+  "band": "elementary",
+  "title": "Check the whole first",
+  "line": "0.3 of a huge square and 0.5 of a tiny square shade side by side, and the smaller decimal covers more area.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.C.6",
+  "band": "elementary",
+  "title": "Tenths on a meter stick",
+  "line": "A meter-long bar splits into 10 pieces, then 100, and a marker sliding along it reads 0.7, then 0.73.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.C.5",
+  "band": "elementary",
+  "title": "Tenths into hundredths",
+  "line": "A grid with 3/10 shaded has each column cut into 10 squares, becoming 30/100, then 25/100 more makes 55/100.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.B.4",
+  "band": "elementary",
+  "title": "Three helpings of two thirds",
+  "line": "Three bars each shaded 2/3 slide their pieces into one row of thirds, which counts to 6/3 and fills exactly 2 wholes.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.B.4",
+  "band": "elementary",
+  "title": "Five scoops of flour",
+  "line": "A 3/4 cup scoop pours 5 times into a jug marked in quarters, and the level climbs to 15/4, which is 3 3/4.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.B.3",
+  "band": "elementary",
+  "title": "Many ways to make 5/8",
+  "line": "Five one-eighth pieces split as 1/8 + 4/8, then 2/8 + 3/8, then 1/8 + 1/8 + 3/8, a gap sliding along the bar.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.B.3",
+  "band": "elementary",
+  "title": "Unpacking a mixed number",
+  "line": "The mixed number 2 1/3 unpacks as two whole bars burst into thirds, and all the pieces count up to 7/3.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.B.3",
+  "band": "elementary",
+  "title": "Quarters make a whole",
+  "line": "Bars for 1 3/4 and 2 2/4 join, four loose quarters snap into an extra whole, and the total reads 4 1/4.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.A.2",
+  "band": "elementary",
+  "title": "Race to one half",
+  "line": "Points for 3/8 and 5/9 slide along a number line toward a flag at 1/2, and one stops short while the other passes it.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.A.2",
+  "band": "elementary",
+  "title": "Cut both into twelfths",
+  "line": "Bars for 2/3 and 3/4 get sliced into twelfths, become 8/12 and 9/12, and 3/4 wins by one thin sliver.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.A.2",
+  "band": "elementary",
+  "title": "Crossed cuts",
+  "line": "Squares showing 2/5 in columns and 3/7 in rows each borrow the other's cuts, so both count in 35ths: 14 versus 15.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.A.1",
+  "band": "elementary",
+  "title": "Slice it the other way",
+  "line": "A square with 2 of 3 columns shaded gets cut into 4 rows, so 2/3 becomes 8/12 while the shaded area holds still.",
+  "needs": []
+ },
+ {
+  "standard": "4.NF.A.1",
+  "band": "elementary",
+  "title": "Equivalent fractions in a line",
+  "line": "2/3, 4/6, 6/9 and 8/12 plot as dots at (bottom, top) on a grid, and they all land on one straight line through zero.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "4.G.A.3",
+  "band": "elementary",
+  "title": "Flip along the fold",
+  "line": "A heart, a letter A and a hexagon each flip across a dashed line, and their halves land exactly on each other.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.3",
+  "band": "elementary",
+  "title": "Counting mirror lines",
+  "line": "A dashed line spins inside a triangle, square, pentagon and hexagon, flashing at each symmetry line: 3, 4, 5, then 6 flashes.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.3",
+  "band": "elementary",
+  "title": "The fake symmetry",
+  "line": "A parallelogram tries flipping across its diagonal and its middle line, and both times the halves miss each other.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.2",
+  "band": "elementary",
+  "title": "Right angle detector",
+  "line": "A small square corner slides around a pile of triangles, glowing green at right angles, then the triangles sort into two groups.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.2",
+  "band": "elementary",
+  "title": "Parallel side hunt",
+  "line": "Pairs of parallel arrows sweep across a trapezoid, a parallelogram, a rectangle and a kite, lighting up sides that never meet.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.1",
+  "band": "elementary",
+  "title": "Segment, ray, line",
+  "line": "A dot stretches into a segment, one end shoots off as a ray, then both ends run forever as a line.",
+  "needs": []
+ },
+ {
+  "standard": "4.G.A.1",
+  "band": "elementary",
+  "title": "Opening angle",
+  "line": "Two rays share an endpoint and one swings open, its label switching from acute to right at 90° to obtuse past it.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.7",
+  "band": "elementary",
+  "title": "Angles snap together",
+  "line": "A 30° wedge and a 45° wedge slide together at a shared corner, and the arc label counts up to 75°.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.7",
+  "band": "elementary",
+  "title": "What's left of a line",
+  "line": "A straight line has 130° marked, and the leftover gap fills in as its counter ticks down from 180 to 50°.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.7",
+  "band": "elementary",
+  "title": "The opening fan",
+  "line": "A fan of six 15° wedges opens one wedge at a time, the total reading 15, 30, 45 all the way to 90.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.6",
+  "band": "elementary",
+  "title": "Reading the protractor",
+  "line": "A protractor slides onto an angle, centers on the corner, and a needle sweeps along the scale from 0 to read 127°.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.5",
+  "band": "elementary",
+  "title": "360 tiny slices",
+  "line": "A circle splits into 360 thin slices, then 90 of them light up together and form a perfect right angle.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.C.5",
+  "band": "elementary",
+  "title": "An angle is a turn",
+  "line": "A ray turns around its endpoint, tracing an arc, while the arc's fraction of the full circle counts up in degrees.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.B.4",
+  "band": "elementary",
+  "title": "The snail race plot",
+  "line": "Ten snails crawl distances like 3/8, 1/2 and 5/8 inch, each dropping an X on a line plot, then a brace measures the spread.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "4.MD.A.3",
+  "band": "elementary",
+  "title": "Width on a slider",
+  "line": "A rectangle's width slides from 2 to 8 while its height stays 3, and both area and perimeter readouts update as it moves.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.A.2",
+  "band": "elementary",
+  "title": "Pouring two liters",
+  "line": "A 2 L bottle relabels itself as 2000 mL, then pours into 8 equal cups that each read 250 mL.",
+  "needs": []
+ },
+ {
+  "standard": "4.MD.A.1",
+  "band": "elementary",
+  "title": "Zooming into a meter",
+  "line": "A meter bar zooms in to 100 centimeters, one centimeter zooms in to 10 millimeters, and a two-column table fills in.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.B.6",
+  "band": "elementary",
+  "title": "Dealing out 157",
+  "line": "Base-ten blocks for 157 deal into 4 equal piles, a hundred cracks into tens along the way, and 1 leftover stays out.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.B.6",
+  "band": "elementary",
+  "title": "Building the missing width",
+  "line": "A rectangle of area 852 and height 4 builds its width in chunks of 200, then 10, then 3, reaching 213.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.B.5",
+  "band": "elementary",
+  "title": "Four boxes make 23 × 14",
+  "line": "A 23×14 rectangle splits into 20×10, 20×4, 3×10 and 3×4 pieces whose areas 200, 80, 30 and 12 add to 322.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.B.5",
+  "band": "elementary",
+  "title": "Four copies of 1,236",
+  "line": "Four copies of 1,236 in base-ten blocks merge, ones and tens regroup upward, and the pile settles at 4,944.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.B.4",
+  "band": "elementary",
+  "title": "The odometer",
+  "line": "An odometer rolls 4,689 forward by 1,527, each wheel nudging the next as it passes 9, and stops at 6,216.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.A.3",
+  "band": "elementary",
+  "title": "Round to any place",
+  "line": "The point 47,382 sits on a number line that zooms out three times, snapping to 47,380, then 47,400, then 47,000.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.A.2",
+  "band": "elementary",
+  "title": "Expanded form burst",
+  "line": "The number 6,047 bursts into 6000 + 0 + 40 + 7, each piece flying out of its digit's column and back again.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.A.2",
+  "band": "elementary",
+  "title": "Digit-by-digit duel",
+  "line": "58,312 and 58,293 compare from the left, matching digits turn grey one by one, until 3 beats 2 in the hundreds.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.A.1",
+  "band": "elementary",
+  "title": "Ten makes the next",
+  "line": "Ten ones snap into a rod, ten rods into a flat, ten flats into a long bar, each step ten times bigger.",
+  "needs": []
+ },
+ {
+  "standard": "4.NBT.A.1",
+  "band": "elementary",
+  "title": "A 3 moving left",
+  "line": "The digit 3 slides left through 3, 30, 300 and 3000, and a bar beside it grows ten times longer at each step.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.C.5",
+  "band": "elementary",
+  "title": "Odd, even, odd, even",
+  "line": "The rule add 3 from 1 builds 1, 4, 7, 10, and the numbers flash odd, even, odd, even, which the rule never said.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.C.5",
+  "band": "elementary",
+  "title": "Matchstick triangles",
+  "line": "Matchstick triangles in a row grow one at a time, sharing sides, and the stick count goes 3, 5, 7, 9.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.C.5",
+  "band": "elementary",
+  "title": "Staircases become rectangles",
+  "line": "Dot staircases grow 1, 3, 6, 10, and two copies of each one flip and snap together into a rectangle.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.B.4",
+  "band": "elementary",
+  "title": "Every rectangle of 24",
+  "line": "Twenty-four tiles rearrange into every rectangle they can, 1×24, 2×12, 3×8, 4×6, listing all the factor pairs.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.B.4",
+  "band": "elementary",
+  "title": "Primes won't fit",
+  "line": "Thirteen tiles try every rectangle and keep leaving one tile sticking out, while 12 tiles snap neatly into rows.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.B.4",
+  "band": "elementary",
+  "title": "The sieve to 100",
+  "line": "A 10×10 grid of 1 to 100 crosses out multiples of 2, 3, 5 and 7 in waves, leaving the primes glowing.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.A.3",
+  "band": "elementary",
+  "title": "One more van",
+  "line": "Twenty-nine kids board vans that seat 6, four vans fill up, 5 kids are left standing, and a fifth van rolls in.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.A.2",
+  "band": "elementary",
+  "title": "Three times vs three more",
+  "line": "A bar of 4 gets two partners, one 3 times as long and one 3 longer, and 12 and 7 line up side by side.",
+  "needs": []
+ },
+ {
+  "standard": "4.OA.A.1",
+  "band": "elementary",
+  "title": "Stretching to 35",
+  "line": "A bar of 7 stretches to 5 times its length, reaching 35, then a bar of 5 stretches 7 times to the same mark.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.7",
+  "band": "elementary",
+  "title": "Fifths in three pizzas",
+  "line": "Three pizzas cut into fifths, the slices pop out and line up, and the counter reaches 15 for 3 ÷ 1/5.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.7",
+  "band": "elementary",
+  "title": "Sharing half a cake",
+  "line": "Half a cake gets split among 3 people, the cuts extend across the whole cake, and each slice turns out to be 1/6.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.6",
+  "band": "elementary",
+  "title": "One and a half recipes",
+  "line": "A bar of 2/3 cup sugar grows by half of itself again for 1 1/2 recipes and lands on exactly 1 cup.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.5",
+  "band": "elementary",
+  "title": "The scaling slider",
+  "line": "A bar of length 6 gets multiplied by a sliding factor, shrinking when the factor drops under 1 and stretching when it's over.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.5",
+  "band": "elementary",
+  "title": "Which side of 9",
+  "line": "Arrows for 9 × 4/5 and 9 × 5/4 land on opposite sides of 9 on a number line before any arithmetic happens.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.4",
+  "band": "elementary",
+  "title": "A fraction of a fraction",
+  "line": "A square shaded 3/4 across gets cut 2/3 down, and the overlap of 6 small boxes out of 12 is 3/4 × 2/3.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.4",
+  "band": "elementary",
+  "title": "Tiny tiles",
+  "line": "A 2/3 by 5/2 rectangle fills with tiles 1/3 wide and 1/2 tall, and the tiles count up to 10 sixths.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.4",
+  "band": "elementary",
+  "title": "Two thirds of twelve",
+  "line": "Twelve dots split into 3 equal groups, 2 groups light up, and their 8 dots slide out as 2/3 of 12.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.3",
+  "band": "elementary",
+  "title": "Three pizzas, four friends",
+  "line": "Three pizzas get shared by 4 friends, each pizza cut in quarters, and every friend collects 3 quarters, so 3 ÷ 4 = 3/4.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.B.3",
+  "band": "elementary",
+  "title": "Seven meters in three",
+  "line": "A 7 meter ribbon is cut into 3 equal parts, and each piece lands on a ruler at 2 1/3 meters.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.A.2",
+  "band": "elementary",
+  "title": "Estimate, then check",
+  "line": "Bars for 2/5 and 1/2 snap to nearby benchmarks, the estimate lands just under 1, then the exact 9/10 confirms it.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.A.1",
+  "band": "elementary",
+  "title": "Halves meet thirds",
+  "line": "Pieces of 1/2 and 1/3 join end to end, and only after both get recut into sixths does the total read 5/6.",
+  "needs": []
+ },
+ {
+  "standard": "5.NF.A.1",
+  "band": "elementary",
+  "title": "Breaking a whole to subtract",
+  "line": "From 3 1/4 take 1 2/3: a whole cracks into twelfths, pieces disappear, and 1 7/12 is left.",
+  "needs": []
+ },
+ {
+  "standard": "5.G.B.4",
+  "band": "elementary",
+  "title": "Shape family tree",
+  "line": "A tree grows from polygon down to quadrilateral, parallelogram, rectangle, rhombus and square, each branch showing a shape morphing into the next.",
+  "needs": []
+ },
+ {
+  "standard": "5.G.B.3",
+  "band": "elementary",
+  "title": "Inherited properties",
+  "line": "A parallelogram's tag 'opposite sides parallel' copies itself down onto a rectangle, a rhombus and a square as each one appears.",
+  "needs": []
+ },
+ {
+  "standard": "5.G.A.2",
+  "band": "elementary",
+  "title": "Plant growth plot",
+  "line": "A plant's height each week drops a dot onto a grid, and connecting the dots shows which week it grew fastest.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "5.G.A.2",
+  "band": "elementary",
+  "title": "Treasure map path",
+  "line": "A pirate walks a grid from (1, 2) to (4, 2) to (4, 6), and the distance of each leg counts out as it goes.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "5.G.A.1",
+  "band": "elementary",
+  "title": "Walking to a point",
+  "line": "A dot walks 3 units along the x-axis, then 5 units up, leaving a trail, and lands on the label (3, 5).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "5.G.A.1",
+  "band": "elementary",
+  "title": "Order matters",
+  "line": "Two dots follow the directions (2, 5) and (5, 2) at the same time and end up in completely different places.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "5.MD.C.5",
+  "band": "elementary",
+  "title": "Layer by layer",
+  "line": "A 4×3 base of squares appears, then copies stack upward as layers of a box drawn at an angle until 5 layers make 60.",
+  "needs": []
+ },
+ {
+  "standard": "5.MD.C.5",
+  "band": "elementary",
+  "title": "Two boxes make an L",
+  "line": "An L-shaped block splits into a 3×2×4 box and a 2×2×2 box, whose volumes 24 and 8 add to 32.",
+  "needs": []
+ },
+ {
+  "standard": "5.MD.C.4",
+  "band": "elementary",
+  "title": "Big cubes, small cubes",
+  "line": "A box packs with 8 big cubes, then each big cube splits into 8 small ones, and the count jumps to 64.",
+  "needs": []
+ },
+ {
+  "standard": "5.MD.B.2",
+  "band": "elementary",
+  "title": "Evening out the beakers",
+  "line": "Eight beakers with 1/8, 1/4 and 1/2 liter make a line plot, then all the water pours together and shares out evenly.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "5.NBT.B.7",
+  "band": "elementary",
+  "title": "Overflowing grids",
+  "line": "1.35 + 0.78 shades onto hundred-grids, hundredths overflow into a tenth, tenths overflow into a whole, giving 2.13.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.B.7",
+  "band": "elementary",
+  "title": "Decimal times decimal",
+  "line": "A 0.6 by 0.4 rectangle is cut from a unit square, and its overlap covers exactly 24 hundredths, so 0.6 × 0.4 = 0.24.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.B.7",
+  "band": "elementary",
+  "title": "Quarters in two",
+  "line": "A ruler of length 0.25 hops along a 2-unit bar, the counter reaching 8, so 2 ÷ 0.25 = 8.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.B.6",
+  "band": "elementary",
+  "title": "Chipping away at 1,000",
+  "line": "Groups of 32 peel off 1,000 in chunks of ten groups, then one at a time, tallying 31 groups with 8 left over.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.B.5",
+  "band": "elementary",
+  "title": "Area model to algorithm",
+  "line": "The area model for 327 × 46 splits into rows of 1,962 and 13,080, which slide into the standard algorithm and add to 15,042.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.A.3",
+  "band": "elementary",
+  "title": "More digits, not bigger",
+  "line": "0.7, 0.65 and 0.649 build as bars of tenths, hundredths and thousandths, and the one with fewest digits is longest.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.A.2",
+  "band": "elementary",
+  "title": "Piling up zeros",
+  "line": "7 gets multiplied by 10, then 100, then 1000, a bar grows each time, and the powers of ten count the zeros.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "5.NBT.A.2",
+  "band": "elementary",
+  "title": "The point holds still",
+  "line": "In 4.56 × 10, the decimal point stays put while every digit slides one place left, making 45.6, then 456.",
+  "needs": []
+ },
+ {
+  "standard": "5.NBT.A.1",
+  "band": "elementary",
+  "title": "Zooming into a hundred",
+  "line": "A hundred-square zooms in: one strip is a tenth of it, one square of that strip is a tenth again, and so on.",
+  "needs": []
+ },
+ {
+  "standard": "5.OA.B.3",
+  "band": "elementary",
+  "title": "Two rules, one line",
+  "line": "Rules add 3 and add 6 build two lists from 0, and their pairs (3, 6), (6, 12) plot on one straight line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "5.OA.A.2",
+  "band": "elementary",
+  "title": "Three times as big",
+  "line": "The expression 3 × (18,932 + 921) draws as one long bar, then three copies stack up so it's clearly triple, with nothing calculated.",
+  "needs": []
+ },
+ {
+  "standard": "5.OA.A.1",
+  "band": "elementary",
+  "title": "Parentheses change the answer",
+  "line": "2 + 3 × 4 builds as 2 dots plus 3 rows of 4, then (2 + 3) × 4 rebuilds as 5 rows: 14 vs 20.",
+  "needs": []
+ }
+]

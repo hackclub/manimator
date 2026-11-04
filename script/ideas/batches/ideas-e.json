@@ -1,0 +1,883 @@
+[
+ {
+  "standard": "HSA-APR.D.7",
+  "band": "algebra2",
+  "title": "Adding polynomial fractions",
+  "line": "Two fractions 1/x and 1/(x+1) slide together, grow a shared bottom x(x+1), and their tops merge into (2x+1).",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.D.7",
+  "band": "algebra2",
+  "title": "Same rules as 1/2 + 1/3",
+  "line": "The sum 1/x + 1/(x+1) sits beside 1/2 + 1/3, then x becomes 2 and every piece turns into its number twin.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.D.6",
+  "band": "algebra2",
+  "title": "Polynomial division is number division",
+  "line": "Dividing x² + 3x + 5 by x + 1 runs beside 135 ÷ 11, and setting x = 10 shows identical steps.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.D.6",
+  "band": "algebra2",
+  "title": "The leftover that shrinks",
+  "line": "The curve (x² + 1)/x is split into the line y = x plus 1/x, and the gap between them shrinks as x grows.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.C.5",
+  "band": "algebra2",
+  "title": "Sorting strings of x and y",
+  "line": "All 16 four-letter words of x and y, like xyyx, drop into piles by number of y's, stacking 1, 4, 6, 4, 1.",
+  "needs": []
+ },
+ {
+  "standard": "HSA-APR.C.5",
+  "band": "algebra2",
+  "title": "Pascal's triangle by pegs",
+  "line": "Balls bounce down a peg board and each slot's number is the sum of the two above, building Pascal's triangle row by row.",
+  "needs": []
+ },
+ {
+  "standard": "HSA-APR.C.5",
+  "band": "algebra2",
+  "title": "Powers of eleven",
+  "line": "The numbers 121, 1331 and 14641 line up as Pascal rows, then 11 becomes (10 + 1) and the 11⁵ carries break the pattern.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.C.5",
+  "band": "algebra2",
+  "title": "Squaring x + y with tiles",
+  "line": "A square of side x + y splits into x², two xy rectangles and y², which slide apart and label themselves.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.C.4",
+  "band": "algebra2",
+  "title": "Difference of squares cut and slide",
+  "line": "A 7×7 square loses a 3×3 corner, and the leftover L is cut and slid into a 10×4 rectangle: 49 − 9 = 40.",
+  "needs": []
+ },
+ {
+  "standard": "HSA-APR.C.4",
+  "band": "algebra2",
+  "title": "Odd numbers stack into squares",
+  "line": "L-shaped layers of 1, 3, 5 and 7 dots nest into a 4×4 square, one odd number per layer.",
+  "needs": []
+ },
+ {
+  "standard": "HSA-APR.C.4",
+  "band": "algebra2",
+  "title": "A machine for right triangles",
+  "line": "Picking whole numbers x and y in (x² − y²)² + (2xy)² = (x² + y²)² spits out right triangles 3-4-5, 5-12-13 and 8-15-17.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.C.4",
+  "band": "algebra2",
+  "title": "49 squared in your head",
+  "line": "A 50×50 square loses two 1×50 strips and gets back a tiny corner, so the counter ticks 2500 − 100 + 1 = 2401.",
+  "needs": []
+ },
+ {
+  "standard": "HSA-APR.B.3",
+  "band": "algebra2",
+  "title": "Walking the sign chart",
+  "line": "A dot walks the x-axis as factors (x + 2), (x − 1), (x − 3) flip sign at each zero, pushing the curve over or under.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSA-APR.B.3",
+  "band": "algebra2",
+  "title": "Bounce or cross",
+  "line": "At x = 1, the graph of (x − 1) crosses, (x − 1)² bounces, and (x − 1)³ flattens out before crossing.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSA-APR.B.3",
+  "band": "algebra2",
+  "title": "Dragging a root",
+  "line": "In (x + 1)(x − 2)(x − a), the zero a slides from −3 to 3 and the curve wiggles to stay on all three dots.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSA-APR.B.2",
+  "band": "algebra2",
+  "title": "The remainder is the height",
+  "line": "As a slides along x³ − 2x + 1, the remainder from dividing by (x − a) always matches the curve's height there.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.B.2",
+  "band": "algebra2",
+  "title": "Divide or plug in",
+  "line": "Synthetic division of x³ − 4x² + x + 6 by (x − 2) races plugging in 2, and both land on 0.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.A.1",
+  "band": "algebra2",
+  "title": "Area model meets 13 × 12",
+  "line": "An (x + 3) by (x + 2) rectangle splits into x², 3x, 2x and 6, then x becomes 10 and the tiles total 156.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.A.1",
+  "band": "algebra2",
+  "title": "Polynomials as base-x numbers",
+  "line": "Adding (x² + 2x + 3) and (4x² + 5x + 6) column by column matches 123 + 456 when x is 10.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSA-APR.A.1",
+  "band": "algebra2",
+  "title": "Zero pairs vanish",
+  "line": "Algebra tiles for 2x² + x − 3 meet flipped tiles for x² − 2x + 1, and matching opposite pairs pop out of existence.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-TF.C.9",
+  "band": "precalc",
+  "title": "Two angles in a rectangle",
+  "line": "A triangle with angle β stacks on one with angle α inside a rectangle, and matching opposite sides spell out sin(α + β).",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSF-TF.C.9",
+  "band": "precalc",
+  "title": "Rotate, then rotate again",
+  "line": "A unit-circle point at angle α turns another β, and its new x-coordinate splits into cos α cos β − sin α sin β.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSF-TF.C.9",
+  "band": "precalc",
+  "title": "Two waves make a shifted one",
+  "line": "The waves 0.5 sin x and 0.87 cos x add point by point and land exactly on sin(x + π/3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.C.8",
+  "band": "precalc",
+  "title": "Squares on a spinning triangle",
+  "line": "As a point spins around the unit circle, squares on the cos θ and sin θ legs trade area but always total 1.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-TF.C.8",
+  "band": "precalc",
+  "title": "Two waves stack flat",
+  "line": "The area under sin² x is shaded, then cos² x stacks on top, and together they fill exactly up to y = 1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.C.8",
+  "band": "precalc",
+  "title": "The quadrant picks the sign",
+  "line": "Knowing sin θ = 3/5 lights two circle points at height 0.6, with cos θ = ±4/5, and the quadrant picks one.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSF-TF.B.7",
+  "band": "precalc",
+  "title": "Ferris wheel at 30 meters",
+  "line": "A line at 30 m cuts the rider's height wave, arcsin finds the first crossing, and symmetry and the period find all the rest.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.B.6",
+  "band": "precalc",
+  "title": "Trimming sine to flip it",
+  "line": "The sine wave fades everywhere outside −π/2 to π/2, and the piece that survives flips across y = x into arcsin.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.B.6",
+  "band": "precalc",
+  "title": "Cosine needs another window",
+  "line": "A horizontal line slides up the cosine wave hitting it many times, until everything outside 0 to π is erased and it hits once.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.B.5",
+  "band": "precalc",
+  "title": "Three dials on a wave",
+  "line": "Dials for amplitude, period and midline twist a sine wave until it fits day lengths of 9 hours in December and 15 in June.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.B.5",
+  "band": "precalc",
+  "title": "Unrolling a Ferris wheel",
+  "line": "A seat circles a 20 m wheel while its height is traced to the right, drawing a wave centered at the hub.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.4",
+  "band": "algebra2",
+  "title": "Mirror points on the circle",
+  "line": "Points at θ and −θ mirror across the x-axis, so heights flip sign while x stays put, making sine odd and cosine even.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.4",
+  "band": "algebra2",
+  "title": "Twice around, same wave",
+  "line": "A point loops the unit circle twice, and the second lap's height graph is an exact copy of the first, shifted 2π.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.3",
+  "band": "algebra2",
+  "title": "Half a square, half a triangle",
+  "line": "A unit square cut on its diagonal and an equilateral triangle cut in half slide into the circle at π/4, π/6 and π/3.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.3",
+  "band": "algebra2",
+  "title": "One angle, four reflections",
+  "line": "The point at π/6 mirrors to π − x, π + x and 2π − x, and the same two coordinates reappear with flipped signs.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.2",
+  "band": "algebra2",
+  "title": "Wrapping the number line",
+  "line": "A number line wraps around the unit circle like thread, with 1, 2, 3 up to 6.28 landing in order and negatives wrapping clockwise.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-TF.A.2",
+  "band": "algebra2",
+  "title": "Sine past 90 degrees",
+  "line": "A right triangle's angle grows until the triangle breaks at 90°, but the point on the circle keeps going and its height keeps graphing.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-TF.A.1",
+  "band": "algebra2",
+  "title": "Bending the radius",
+  "line": "A circle's radius peels off and bends onto the edge, marking one radian, then copies follow until six fit with a sliver left over.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-TF.A.1",
+  "band": "algebra2",
+  "title": "Same angle, any circle",
+  "line": "A 60° slice cuts circles of radius 1, 2 and 3, and the arc divided by the radius reads 1.05 every time.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-BF.B.5",
+  "band": "algebra2",
+  "title": "Log counts the doublings",
+  "line": "One cell splits into 2, 4, 8 up to 1024 while a counter ticks the doublings, landing near 9.97 when it passes 1000.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-BF.B.5",
+  "band": "algebra2",
+  "title": "Exponent in the mirror",
+  "line": "The curve 2ˣ reflects across y = x into log₂ x, and the point (3, 8) visibly swaps into (8, 3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-BF.B.5",
+  "band": "algebra2",
+  "title": "Slide rule multiplication",
+  "line": "Two rulers marked in log spacing slide past each other, and adding the lengths for 2 and 3 lands on the mark for 6.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-BF.B.4",
+  "band": "algebra2",
+  "title": "The undo machine",
+  "line": "The number 3 goes through 'times 2, plus 1' to make 7, then runs backward through 'minus 1, divide by 2' to 3.",
+  "needs": []
+ },
+ {
+  "standard": "HSF-BF.B.4",
+  "band": "algebra2",
+  "title": "Folding along y = x",
+  "line": "The parabola y = x² flips across y = x and fails the vertical line test until its left half is erased.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-BF.B.3",
+  "band": "algebra2",
+  "title": "Four knobs on a parabola",
+  "line": "As k changes, y = x² shifts up, stretches, slides sideways and squeezes for f(x) + k, kf(x), f(x + k) and f(kx).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-BF.B.3",
+  "band": "algebra2",
+  "title": "Why plus moves left",
+  "line": "In f(x + 2), the output from input 0 now appears at x = −2, so every dot slides two steps left.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSF-BF.B.3",
+  "band": "algebra2",
+  "title": "Even and odd by folding",
+  "line": "The graph of x² folds onto itself along the y-axis, x³ spins half a turn onto itself, and x³ + 1 fails both moves.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.12",
+  "band": "precalc",
+  "title": "The determinant is the area",
+  "line": "A grid bends under the matrix [[2, 1], [0, 1.5]], and the unit square becomes a parallelogram whose area counter reads 3.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.12",
+  "band": "precalc",
+  "title": "Squashed flat",
+  "line": "A matrix morphs until its columns line up, the parallelogram flattens into a segment, and the area counter drops to 0.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.12",
+  "band": "precalc",
+  "title": "Flipping the plane over",
+  "line": "A square with colored corners goes through a matrix with determinant −2, doubling in area with its color order reversed.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.11",
+  "band": "precalc",
+  "title": "Follow the basis arrows",
+  "line": "A matrix moves the two basis arrows, and 2 of the new first plus 1 of the new second lands on the image of (2, 1).",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.11",
+  "band": "precalc",
+  "title": "Four quarter turns",
+  "line": "The matrix [[0, −1], [1, 0]] turns the arrow (3, 1) a quarter turn each time, and after four turns it's back home.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.10",
+  "band": "precalc",
+  "title": "The do-nothing matrix",
+  "line": "The identity matrix leaves the grid where it was, then the zero matrix pulls every point into the origin.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.10",
+  "band": "precalc",
+  "title": "Some squashes can't be undone",
+  "line": "A shear is undone by its inverse, but a determinant 0 matrix crushes the grid onto a line that can't be spread back.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.9",
+  "band": "precalc",
+  "title": "Order matters for moves",
+  "line": "Two copies of an F shape get the same rotate and shear, in opposite orders, and end up pointing in clearly different directions.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.8",
+  "band": "precalc",
+  "title": "Row meets column",
+  "line": "A row of one 2×2 matrix tips onto a column of the other, the pairs multiply and add, and one answer entry fills in.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.7",
+  "band": "precalc",
+  "title": "Tripling a matrix",
+  "line": "Every entry of a matrix triples while the parallelogram it makes from the unit square grows 3 times each way, 9 times the area.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.C.6",
+  "band": "precalc",
+  "title": "Counting routes with a matrix",
+  "line": "Roads between 4 towns light up 1s in a grid, and squaring that grid counts every two-road trip between each pair of towns.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-VM.B.5",
+  "band": "precalc",
+  "title": "Stretch, shrink, flip",
+  "line": "As c slides from 2 to −1.5, the arrow cv stretches, shrinks to a dot, then flips, its length reading |c| times |v|.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.B.5",
+  "band": "precalc",
+  "title": "Doubling the staircase",
+  "line": "The arrow (3, 2), drawn as 3 steps right and 2 up, doubles to 6 right and 4 up, pointing the same way.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.B.4",
+  "band": "precalc",
+  "title": "Tip to tail",
+  "line": "Arrows (3, 1) and (1, 2) chain tip to tail, then in the other order, closing up a parallelogram with one diagonal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.B.4",
+  "band": "precalc",
+  "title": "Lengths don't just add",
+  "line": "Arrows of length 3 and 4 swing open, and their sum's length slides from 7 down to 1, passing 5 at a right angle.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.B.4",
+  "band": "precalc",
+  "title": "Subtraction joins the tips",
+  "line": "The arrow w flips into −w and chains onto v, then slides to show v − w runs from w's tip to v's tip.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.A.3",
+  "band": "precalc",
+  "title": "Rowing across a river",
+  "line": "A boat rows across at 4 m/s, a 3 m/s current drags it along a 5 m/s diagonal, then it angles upstream instead.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.A.3",
+  "band": "precalc",
+  "title": "Two tugboats, one barge",
+  "line": "Two tugs pull a barge with ropes at different angles, their force arrows join tip to tail, and the barge moves along the sum.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.A.2",
+  "band": "precalc",
+  "title": "Subtract the starting point",
+  "line": "An arrow from (1, 2) to (5, 5) slides until its tail sits at the origin, and its tip lands on (4, 3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-VM.A.1",
+  "band": "precalc",
+  "title": "The arrow that moves around",
+  "line": "One arrow of length 2 pointing northeast is copied all over the plane, and every copy is the same vector, whatever its position.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.C.9",
+  "band": "algebra2",
+  "title": "Where the roots go",
+  "line": "A parabola rises off the x-axis, and its two roots slide together, meet, then split up and down into the complex plane.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.C.9",
+  "band": "algebra2",
+  "title": "A loop that must hit zero",
+  "line": "A circle of inputs shrinks while its image under z² + 1 is drawn, and somewhere the output loop has to sweep across 0.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.C.8",
+  "band": "algebra2",
+  "title": "Factoring a sum of squares",
+  "line": "The tiles of (x + 2i)(x − 2i) multiply out, the i tiles cancel, and the −4i² corner flips to +4.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-CN.C.7",
+  "band": "algebra2",
+  "title": "Finding the hidden roots",
+  "line": "The parabola x² − 2x + 5 misses the axis, its upside-down twin hits at 1 ± 2, and the roots are 1 ± 2i.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.6",
+  "band": "precalc",
+  "title": "Distance as a difference",
+  "line": "Points 1 + 2i and 4 + 6i are joined, the difference 3 + 4i slides to the origin, and its length reads 5.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.6",
+  "band": "precalc",
+  "title": "The midpoint is the average",
+  "line": "Two complex points pull toward each other at the same speed and meet at their average, which is the middle of the segment.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.5",
+  "band": "precalc",
+  "title": "Times i is a quarter turn",
+  "line": "The point 3 + i, multiplied by i again and again, spins a quarter turn each time and returns after four.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.5",
+  "band": "precalc",
+  "title": "Multiplying spins the plane",
+  "line": "Multiplying the whole complex grid by 1 + i turns it 45° and stretches it by about 1.41, every square staying a square.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.5",
+  "band": "precalc",
+  "title": "The conjugate is a mirror",
+  "line": "A point flips across the real axis to its conjugate, and adding the two pulls a sum straight down onto the real line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.B.4",
+  "band": "precalc",
+  "title": "Two addresses for one point",
+  "line": "The point 1 + √3i is reached by walking 1 right and √3 up, then again by turning 60° and walking 2.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-CN.A.3",
+  "band": "algebra2",
+  "title": "Conjugates cancel the turn",
+  "line": "Multiplying by 3 + 4i turns 53° and multiplying by 3 − 4i turns back, so the product lands on 25.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSN-CN.A.2",
+  "band": "algebra2",
+  "title": "FOIL with i",
+  "line": "A 2×2 grid multiplies out (2 + 3i)(1 + 4i), and the 12i² box flips to −12, leaving −10 + 11i.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "standard": "HSN-CN.A.1",
+  "band": "algebra2",
+  "title": "Halfway to a flip",
+  "line": "Times −1 spins the number line half a turn, so a number whose square is −1 must be a quarter turn: i.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "standard": "HSS-MD.B.7",
+  "band": "precalc",
+  "title": "1000 people take a test",
+  "line": "In a grid of 1000 dots with 10 sick, a 95% accurate test lights up about 60, and only 10 are sick.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-MD.B.7",
+  "band": "precalc",
+  "title": "Pull the goalie",
+  "line": "A team down one goal pulls its goalie, and bars for tying the game grow faster than bars for giving up another.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-MD.B.6",
+  "band": "precalc",
+  "title": "Fair flips, bent coin",
+  "line": "A coin landing heads 70% of the time is flipped twice, and the HT and TH boxes in a probability square match exactly.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-MD.B.5",
+  "band": "precalc",
+  "title": "Is this game worth $1",
+  "line": "A spinner pays $5, $1 or nothing, and its running average payout over 500 spins settles at $0.80, below the $1 price.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-MD.A.4",
+  "band": "precalc",
+  "title": "Tallies become a distribution",
+  "line": "Fifty family-size dots stack into bars, the bars rescale until they sum to 1, and a marker slides to the expected value of 3.2.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-MD.A.3",
+  "band": "precalc",
+  "title": "Two dice make a triangle",
+  "line": "All 36 cells of a 6×6 dice grid slide into columns by their sum, piling into a triangle with 7 at the peak.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-MD.A.3",
+  "band": "precalc",
+  "title": "Waiting for a six",
+  "line": "Bars for rolling the first six on try 1, 2, 3 each shrink by 5/6, and the balance point lands on 6 rolls.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-MD.A.2",
+  "band": "precalc",
+  "title": "Expected value balances the seesaw",
+  "line": "Probability bars sit on a seesaw, and the pivot slides until the seesaw stops tipping, at exactly the expected value.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-MD.A.1",
+  "band": "precalc",
+  "title": "Outcomes become numbers",
+  "line": "Each of the 36 dice pairs sends an arrow to the gap between its numbers, and the arrows pile into bars.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.B.9",
+  "band": "algebra2",
+  "title": "The birthday surprise",
+  "line": "People enter a room one by one, the chance of no shared birthday shrinks each time, and dips below 50% at 23.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.B.9",
+  "band": "algebra2",
+  "title": "Counting pairs of marbles",
+  "line": "Lines join every pair among 3 red and 5 blue marbles, 28 in all, and the 3 red-red lines glow to give 3/28.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.B.8",
+  "band": "algebra2",
+  "title": "Splitting a bar twice",
+  "line": "A bar splits 3/5 for a red first draw, the red part splits 2/4 for a second red, and the leftover sliver is 6/20.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.B.7",
+  "band": "algebra2",
+  "title": "Don't count the overlap twice",
+  "line": "Hearts and face cards fill two circles, 3 cards glow because they're counted twice, and subtracting them leaves 22 out of 52.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.B.6",
+  "band": "algebra2",
+  "title": "Zooming into a condition",
+  "line": "On a 6×6 dice grid, every cell except the 5 that sum to 8 fades away, and the 5 survivors become the new whole.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.A.4",
+  "band": "algebra2",
+  "title": "A table becomes a picture",
+  "line": "A two-way table of 100 students becomes a square cut into strips, whose lines only line up straight if independent.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-CP.A.3",
+  "band": "algebra2",
+  "title": "Rescaling the B region",
+  "line": "In a unit square, region B grows to fill the frame, and the part of A inside it becomes P(A given B).",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.A.2",
+  "band": "algebra2",
+  "title": "Independence is a straight cut",
+  "line": "A square cut 0.3 across and 0.6 down leaves a corner of area 0.18, matching 0.3 × 0.6, until the cut bends.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-CP.A.1",
+  "band": "algebra2",
+  "title": "Sorting a die into circles",
+  "line": "The faces 1 to 6 float into circles for 'even' and 'bigger than 3', and the union, overlap and outside light up in turn.",
+  "needs": []
+ },
+ {
+  "standard": "HSS-IC.B.5",
+  "band": "algebra2",
+  "title": "Shuffle the labels",
+  "line": "Twenty plants get their 'fertilized' labels reshuffled 200 times, the gaps pile into a hill, and the real 3 cm gap sits far out.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-IC.B.4",
+  "band": "algebra2",
+  "title": "Bigger polls, tighter guesses",
+  "line": "Polls of 25, 100 and 400 people from a crowd that's 40% blue pile into histograms that get narrower each time the size quadruples.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-IC.B.3",
+  "band": "algebra2",
+  "title": "Coin flips pick the groups",
+  "line": "Sixteen people, some secretly athletes, are split by hand and every athlete lands in one group, then coin flips split them evenly.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-IC.A.2",
+  "band": "algebra2",
+  "title": "Is this coin fair",
+  "line": "A coin gave 16 heads in 20 flips, but 500 runs of 20 fair flips show 16 or more barely ever happens.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "standard": "HSS-IC.A.1",
+  "band": "algebra2",
+  "title": "Tasting the soup",
+  "line": "One scoop of 100 dots from a jar of 10,000 guesses 27% red, then the jar is revealed to be 30% red.",
+  "needs": [
+   "data"
+  ]
+ }
+]

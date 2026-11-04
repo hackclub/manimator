@@ -1,0 +1,5546 @@
+[
+ {
+  "key": "3.NF.A.3/halves-into-quarters",
+  "standard": "3.NF.A.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Halves into quarters",
+  "line": "A bar cut in half gets sliced again, and 1/2 turns into 2/4 while the shaded part stays exactly the same size.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.3/bigger-bottom-smaller-slice",
+  "standard": "3.NF.A.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Bigger bottom, smaller slice",
+  "line": "Three identical pizzas split into 3, 4 and 8 slices, then one slice from each lines up to show 1/3 > 1/4 > 1/8.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.3/same-spot-on-the-line",
+  "standard": "3.NF.A.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Same spot on the line",
+  "line": "Dots for 2/3 and 4/6 drop onto a number line cut in thirds and one cut in sixths, landing at the same point.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.3/fractions-that-equal-one",
+  "standard": "3.NF.A.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Fractions that equal one",
+  "line": "Bars for 2/2, 3/3, 4/4 and 6/6 fill one piece at a time, and every one of them finishes as a full whole.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.2/marching-by-thirds",
+  "standard": "3.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Marching by thirds",
+  "line": "A hop of length 1/3 copies itself along a number line from 0, landing on 1/3, 2/3, 3/3, then past 1 at 4/3.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.2/a-bar-becomes-a-line",
+  "standard": "3.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "A bar becomes a line",
+  "line": "A fraction bar shaded 5/8 squashes flat onto a number line, and its right edge turns into the point 5/8.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.1/building-three-fifths",
+  "standard": "3.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Building three fifths",
+  "line": "A ribbon splits into 5 equal pieces, one piece lifts out labeled 1/5, then 3 copies line up into 3/5.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.1/that-s-not-a-fourth",
+  "standard": "3.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "That's not a fourth",
+  "line": "A square cut into 4 uneven strips is labeled 1/4, the strips slide together to show they differ, then the cuts even out.",
+  "needs": []
+ },
+ {
+  "key": "3.NF.A.1/the-shrinking-slice",
+  "standard": "3.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "The shrinking slice",
+  "line": "As the bottom number ticks from 2 up to 12, a circle gets more slices and the one highlighted slice keeps getting thinner.",
+  "needs": []
+ },
+ {
+  "key": "3.G.A.2/four-ways-to-halve-a-square",
+  "standard": "3.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Four ways to halve a square",
+  "line": "A square is halved four different ways, and each time one half spins onto the other and fits exactly.",
+  "needs": []
+ },
+ {
+  "key": "3.G.A.2/hexagon-into-sixths",
+  "standard": "3.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Hexagon into sixths",
+  "line": "A hexagon splits into 6 triangles, then 3 rhombuses, then 2 trapezoids, and every piece gets its fraction label.",
+  "needs": []
+ },
+ {
+  "key": "3.G.A.2/weird-looking-quarters",
+  "standard": "3.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Weird-looking quarters",
+  "line": "A 4×4 grid splits into 4 zigzag pieces of 4 squares each, and counting squares proves each strange piece is 1/4.",
+  "needs": []
+ },
+ {
+  "key": "3.G.A.1/quadrilateral-family-circles",
+  "standard": "3.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Quadrilateral family circles",
+  "line": "Shapes drop into a big quadrilateral circle, and a square slides into the overlap where the rectangle and rhombus circles meet.",
+  "needs": []
+ },
+ {
+  "key": "3.G.A.1/squash-a-square",
+  "standard": "3.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Squash a square",
+  "line": "A square's corners get dragged: lean it and it's a rhombus, stretch it and it's a rectangle, tug one corner and it's neither.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.D.8/same-fence-different-yards",
+  "standard": "3.MD.D.8",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Same fence, different yards",
+  "line": "A loop of 20 fence units reshapes into 1×9, 2×8, 3×7, 4×6 and 5×5 rectangles while an area counter climbs to 25.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.D.8/twelve-squares-many-fences",
+  "standard": "3.MD.D.8",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Twelve squares, many fences",
+  "line": "Twelve unit squares rearrange into 1×12, 2×6 and 3×4 rectangles, and the perimeter counter drops from 26 to 14.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.D.8/the-missing-side",
+  "standard": "3.MD.D.8",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "The missing side",
+  "line": "A pentagon's perimeter reads 30, four sides light up as 5, 7, 6 and 4, and the last side counts out as 8.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.7/tile-then-multiply",
+  "standard": "3.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Tile, then multiply",
+  "line": "Unit squares tile a 4×6 rectangle row by row, the counter hits 24, then the rows collapse into the label 4 × 6.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.7/splitting-a-rectangle",
+  "standard": "3.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Splitting a rectangle",
+  "line": "A 3×7 rectangle pulls apart into 3×5 and 3×2 pieces showing 15 + 6, then snaps back together as 21.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.7/the-l-shaped-room",
+  "standard": "3.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "The L-shaped room",
+  "line": "An L-shaped floor plan slices into two rectangles, each area counts up, then a different slice gives the same total.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.6/big-squares-small-squares",
+  "standard": "3.MD.C.6",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Big squares, small squares",
+  "line": "A rectangle measures 6 big squares, then each big square splits into 4 small ones and the count jumps to 24.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.5/no-gaps-no-overlaps",
+  "standard": "3.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "No gaps, no overlaps",
+  "line": "Unit squares try to cover a 3×3 square, first with gaps, then overlapping, then snap into a clean grid that counts 9.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.C.5/six-squares-any-shape",
+  "standard": "3.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Six squares, any shape",
+  "line": "Six unit squares slide from a 2×3 rectangle into a cross, a staircase and a long line, and the area stays 6.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.B.4/pencils-to-a-line-plot",
+  "standard": "3.MD.B.4",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Pencils to a line plot",
+  "line": "Ten pencils line up against a ruler marked in quarter inches, and each length drops an X onto a line plot above it.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "3.MD.B.3/pictures-melt-into-bars",
+  "standard": "3.MD.B.3",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Pictures melt into bars",
+  "line": "Fruit icons worth 2 votes each stack into a picture graph, melt into bars, and a brace measures how many more chose apples.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "3.MD.A.2/filling-the-liter-jug",
+  "standard": "3.MD.A.2",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Filling the liter jug",
+  "line": "Beakers holding 250, 400 and 350 mL pour into a 1 liter jug, and the water climbs to exactly the 1 L mark.",
+  "needs": []
+ },
+ {
+  "key": "3.MD.A.1/minutes-on-a-number-line",
+  "standard": "3.MD.A.1",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Minutes on a number line",
+  "line": "A clock's minute hand sweeps from 2:15 to 3:05 while a number line below hops 45 minutes, then 5 more, totaling 50.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.3/nine-groups-of-eighty",
+  "standard": "3.NBT.A.3",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Nine groups of eighty",
+  "line": "Nine stacks of 8 ten-rods regroup into 72 tens, then bundle into 7 hundred-squares and 2 rods, showing 9 × 80 = 720.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.3/squares-become-strips",
+  "standard": "3.NBT.A.3",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Squares become strips",
+  "line": "A 6×4 rectangle of 24 squares stretches into 6×40 as every square becomes a strip of ten, and 24 becomes 240.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.2/blocks-that-regroup",
+  "standard": "3.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Blocks that regroup",
+  "line": "Base-ten blocks for 347 and 285 merge, 12 ones snap into a ten, 13 tens snap into a hundred, and 632 is left.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.2/back-200-forward-2",
+  "standard": "3.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Back 200, forward 2",
+  "line": "On an open number line, 523 − 198 becomes one big jump back 200 and a small hop forward 2, landing on 325.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.2/cracking-a-hundred",
+  "standard": "3.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Cracking a hundred",
+  "line": "To take 268 from 503, a hundred block cracks into tens, a ten cracks into ones, and 235 is left standing.",
+  "needs": []
+ },
+ {
+  "key": "3.NBT.A.1/rolling-to-the-nearest-ten",
+  "standard": "3.NBT.A.1",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Rolling to the nearest ten",
+  "line": "A ball at 47 sits on a hilly number line with valleys at every ten, and it rolls downhill into 50.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "3.NBT.A.1/zoom-out-to-hundreds",
+  "standard": "3.NBT.A.1",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Zoom out to hundreds",
+  "line": "The number 683 sits on a line marked in tens, the line zooms out to hundreds, and 683 snaps to 700.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.D.9/squares-on-the-diagonal",
+  "standard": "3.OA.D.9",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Squares on the diagonal",
+  "line": "A 10×10 times table lights up its diagonal 1, 4, 9, 16, and each number grows into an actual square of dots.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.D.9/where-the-evens-live",
+  "standard": "3.OA.D.9",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Where the evens live",
+  "line": "Every even product in the times table turns blue, rows for 2, 4, 6 and 8 fill completely, and odd × odd stays white.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.D.9/the-nines-trick",
+  "standard": "3.OA.D.9",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "The nines trick",
+  "line": "Multiples of 9 stack up, the tens digit climbs 1, 2, 3 while the ones digit falls 8, 7, 6, always summing to 9.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.D.8/bags-of-marbles",
+  "standard": "3.OA.D.8",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Bags of marbles",
+  "line": "Three bags of 8 marbles stack into a bar of 24, a piece of 5 snips off, and the unknown n fills in as 19.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.C.7/one-array-four-facts",
+  "standard": "3.OA.C.7",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "One array, four facts",
+  "line": "A 40-dot array rotates and regroups so one picture reads as 8 × 5, 5 × 8, 40 ÷ 5 and 40 ÷ 8.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.C.7/nines-from-tens",
+  "standard": "3.OA.C.7",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Nines from tens",
+  "line": "A 10×7 array appears and one column fades out, turning 70 into 63 and showing 9 × 7 without memorizing it.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.C.7/doubling-up-to-eights",
+  "standard": "3.OA.C.7",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Doubling up to eights",
+  "line": "A 2×6 array copies itself into 4×6, then 8×6, and the counter doubles each time: 12, 24, 48.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.B.6/division-as-a-missing-side",
+  "standard": "3.OA.B.6",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Division as a missing side",
+  "line": "A rectangle of 56 squares has one side labeled 8, and the other side grows one column at a time until it reads 7.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.B.5/turn-the-array",
+  "standard": "3.OA.B.5",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Turn the array",
+  "line": "A 3×5 array of dots rotates a quarter turn into 5×3, and the counter beside it never budges from 15.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.B.5/two-ways-to-group-24",
+  "standard": "3.OA.B.5",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Two ways to group 24",
+  "line": "Two 3×4 dot grids slide together into one 6×4 grid, showing (2 × 3) × 4 and 2 × (3 × 4) both make 24.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.4/what-s-in-the-cups",
+  "standard": "3.OA.A.4",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "What's in the cups",
+  "line": "For ? ÷ 4 = 9, four cups of 9 dots pour into one pile that counts up to 36.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.3/eggs-into-cartons",
+  "standard": "3.OA.A.3",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Eggs into cartons",
+  "line": "Forty-two eggs roll in and fill cartons of 6, and the carton count reaches 7 as the last egg settles.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.3/cutting-the-ribbon",
+  "standard": "3.OA.A.3",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Cutting the ribbon",
+  "line": "A 24 cm ribbon gets cut into 3 cm pieces that hop off one at a time, and the counter stops at 8.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.2/dealing-56-cards",
+  "standard": "3.OA.A.2",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Dealing 56 cards",
+  "line": "Fifty-six cards deal out one at a time to 8 players around a table until each player holds 7.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.2/scoops-of-eight",
+  "standard": "3.OA.A.2",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Scoops of eight",
+  "line": "A pile of 56 marbles loses 8 at a time to a scoop, and a tally counts 7 scoops until the pile is gone.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.1/five-bags-of-seven",
+  "standard": "3.OA.A.1",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Five bags of seven",
+  "line": "Five bags each spill 7 dots, the dots line up into a 5×7 array, and a counter ticks up to 35.",
+  "needs": []
+ },
+ {
+  "key": "3.OA.A.1/frog-jumps-of-seven",
+  "standard": "3.OA.A.1",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Frog jumps of seven",
+  "line": "A frog makes 5 jumps of 7 along a number line, landing on 7, 14, 21, 28 and finally 35.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.C.7/decimal-grid-face-off",
+  "standard": "4.NF.C.7",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Decimal grid face-off",
+  "line": "0.4 and 0.38 shade on two hundred-grids, and 0.4's four full columns beat 0.38's three columns plus 8 squares.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.C.7/check-the-whole-first",
+  "standard": "4.NF.C.7",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Check the whole first",
+  "line": "0.3 of a huge square and 0.5 of a tiny square shade side by side, and the smaller decimal covers more area.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.C.6/tenths-on-a-meter-stick",
+  "standard": "4.NF.C.6",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Tenths on a meter stick",
+  "line": "A meter-long bar splits into 10 pieces, then 100, and a marker sliding along it reads 0.7, then 0.73.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.C.5/tenths-into-hundredths",
+  "standard": "4.NF.C.5",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Tenths into hundredths",
+  "line": "A grid with 3/10 shaded has each column cut into 10 squares, becoming 30/100, then 25/100 more makes 55/100.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.B.4/three-helpings-of-two-thirds",
+  "standard": "4.NF.B.4",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Three helpings of two thirds",
+  "line": "Three bars each shaded 2/3 slide their pieces into one row of thirds, which counts to 6/3 and fills exactly 2 wholes.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.B.4/five-scoops-of-flour",
+  "standard": "4.NF.B.4",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Five scoops of flour",
+  "line": "A 3/4 cup scoop pours 5 times into a jug marked in quarters, and the level climbs to 15/4, which is 3 3/4.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.B.3/many-ways-to-make-5-8",
+  "standard": "4.NF.B.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Many ways to make 5/8",
+  "line": "Five one-eighth pieces split as 1/8 + 4/8, then 2/8 + 3/8, then 1/8 + 1/8 + 3/8, a gap sliding along the bar.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.B.3/unpacking-a-mixed-number",
+  "standard": "4.NF.B.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Unpacking a mixed number",
+  "line": "The mixed number 2 1/3 unpacks as two whole bars burst into thirds, and all the pieces count up to 7/3.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.B.3/quarters-make-a-whole",
+  "standard": "4.NF.B.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Quarters make a whole",
+  "line": "Bars for 1 3/4 and 2 2/4 join, four loose quarters snap into an extra whole, and the total reads 4 1/4.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.A.2/race-to-one-half",
+  "standard": "4.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Race to one half",
+  "line": "Points for 3/8 and 5/9 slide along a number line toward a flag at 1/2, and one stops short while the other passes it.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.A.2/cut-both-into-twelfths",
+  "standard": "4.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Cut both into twelfths",
+  "line": "Bars for 2/3 and 3/4 get sliced into twelfths, become 8/12 and 9/12, and 3/4 wins by one thin sliver.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.A.2/crossed-cuts",
+  "standard": "4.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Crossed cuts",
+  "line": "Squares showing 2/5 in columns and 3/7 in rows each borrow the other's cuts, so both count in 35ths: 14 versus 15.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.A.1/slice-it-the-other-way",
+  "standard": "4.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Slice it the other way",
+  "line": "A square with 2 of 3 columns shaded gets cut into 4 rows, so 2/3 becomes 8/12 while the shaded area holds still.",
+  "needs": []
+ },
+ {
+  "key": "4.NF.A.1/equivalent-fractions-in-a-line",
+  "standard": "4.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Equivalent fractions in a line",
+  "line": "2/3, 4/6, 6/9 and 8/12 plot as dots at (bottom, top) on a grid, and they all land on one straight line through zero.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "4.G.A.3/flip-along-the-fold",
+  "standard": "4.G.A.3",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Flip along the fold",
+  "line": "A heart, a letter A and a hexagon each flip across a dashed line, and their halves land exactly on each other.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.3/counting-mirror-lines",
+  "standard": "4.G.A.3",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Counting mirror lines",
+  "line": "A dashed line spins inside a triangle, square, pentagon and hexagon, flashing at each symmetry line: 3, 4, 5, then 6 flashes.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.3/the-fake-symmetry",
+  "standard": "4.G.A.3",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "The fake symmetry",
+  "line": "A parallelogram tries flipping across its diagonal and its middle line, and both times the halves miss each other.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.2/right-angle-detector",
+  "standard": "4.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Right angle detector",
+  "line": "A small square corner slides around a pile of triangles, glowing green at right angles, then the triangles sort into two groups.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.2/parallel-side-hunt",
+  "standard": "4.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Parallel side hunt",
+  "line": "Pairs of parallel arrows sweep across a trapezoid, a parallelogram, a rectangle and a kite, lighting up sides that never meet.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.1/segment-ray-line",
+  "standard": "4.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Segment, ray, line",
+  "line": "A dot stretches into a segment, one end shoots off as a ray, then both ends run forever as a line.",
+  "needs": []
+ },
+ {
+  "key": "4.G.A.1/opening-angle",
+  "standard": "4.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Opening angle",
+  "line": "Two rays share an endpoint and one swings open, its label switching from acute to right at 90° to obtuse past it.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.7/angles-snap-together",
+  "standard": "4.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Angles snap together",
+  "line": "A 30° wedge and a 45° wedge slide together at a shared corner, and the arc label counts up to 75°.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.7/what-s-left-of-a-line",
+  "standard": "4.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "What's left of a line",
+  "line": "A straight line has 130° marked, and the leftover gap fills in as its counter ticks down from 180 to 50°.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.7/the-opening-fan",
+  "standard": "4.MD.C.7",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "The opening fan",
+  "line": "A fan of six 15° wedges opens one wedge at a time, the total reading 15, 30, 45 all the way to 90.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.6/reading-the-protractor",
+  "standard": "4.MD.C.6",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Reading the protractor",
+  "line": "A protractor slides onto an angle, centers on the corner, and a needle sweeps along the scale from 0 to read 127°.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.5/360-tiny-slices",
+  "standard": "4.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "360 tiny slices",
+  "line": "A circle splits into 360 thin slices, then 90 of them light up together and form a perfect right angle.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.C.5/an-angle-is-a-turn",
+  "standard": "4.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "An angle is a turn",
+  "line": "A ray turns around its endpoint, tracing an arc, while the arc's fraction of the full circle counts up in degrees.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.B.4/the-snail-race-plot",
+  "standard": "4.MD.B.4",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "The snail race plot",
+  "line": "Ten snails crawl distances like 3/8, 1/2 and 5/8 inch, each dropping an X on a line plot, then a brace measures the spread.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "4.MD.A.3/width-on-a-slider",
+  "standard": "4.MD.A.3",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Width on a slider",
+  "line": "A rectangle's width slides from 2 to 8 while its height stays 3, and both area and perimeter readouts update as it moves.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.A.2/pouring-two-liters",
+  "standard": "4.MD.A.2",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Pouring two liters",
+  "line": "A 2 L bottle relabels itself as 2000 mL, then pours into 8 equal cups that each read 250 mL.",
+  "needs": []
+ },
+ {
+  "key": "4.MD.A.1/zooming-into-a-meter",
+  "standard": "4.MD.A.1",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Zooming into a meter",
+  "line": "A meter bar zooms in to 100 centimeters, one centimeter zooms in to 10 millimeters, and a two-column table fills in.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.B.6/dealing-out-157",
+  "standard": "4.NBT.B.6",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Dealing out 157",
+  "line": "Base-ten blocks for 157 deal into 4 equal piles, a hundred cracks into tens along the way, and 1 leftover stays out.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.B.6/building-the-missing-width",
+  "standard": "4.NBT.B.6",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Building the missing width",
+  "line": "A rectangle of area 852 and height 4 builds its width in chunks of 200, then 10, then 3, reaching 213.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.B.5/four-boxes-make-23-14",
+  "standard": "4.NBT.B.5",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Four boxes make 23 × 14",
+  "line": "A 23×14 rectangle splits into 20×10, 20×4, 3×10 and 3×4 pieces whose areas 200, 80, 30 and 12 add to 322.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.B.5/four-copies-of-1-236",
+  "standard": "4.NBT.B.5",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Four copies of 1,236",
+  "line": "Four copies of 1,236 in base-ten blocks merge, ones and tens regroup upward, and the pile settles at 4,944.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.B.4/the-odometer",
+  "standard": "4.NBT.B.4",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "The odometer",
+  "line": "An odometer rolls 4,689 forward by 1,527, each wheel nudging the next as it passes 9, and stops at 6,216.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.A.3/round-to-any-place",
+  "standard": "4.NBT.A.3",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Round to any place",
+  "line": "The point 47,382 sits on a number line that zooms out three times, snapping to 47,380, then 47,400, then 47,000.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.A.2/expanded-form-burst",
+  "standard": "4.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Expanded form burst",
+  "line": "The number 6,047 bursts into 6000 + 0 + 40 + 7, each piece flying out of its digit's column and back again.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.A.2/digit-by-digit-duel",
+  "standard": "4.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Digit-by-digit duel",
+  "line": "58,312 and 58,293 compare from the left, matching digits turn grey one by one, until 3 beats 2 in the hundreds.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.A.1/ten-makes-the-next",
+  "standard": "4.NBT.A.1",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Ten makes the next",
+  "line": "Ten ones snap into a rod, ten rods into a flat, ten flats into a long bar, each step ten times bigger.",
+  "needs": []
+ },
+ {
+  "key": "4.NBT.A.1/a-3-moving-left",
+  "standard": "4.NBT.A.1",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "A 3 moving left",
+  "line": "The digit 3 slides left through 3, 30, 300 and 3000, and a bar beside it grows ten times longer at each step.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.C.5/odd-even-odd-even",
+  "standard": "4.OA.C.5",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Odd, even, odd, even",
+  "line": "The rule add 3 from 1 builds 1, 4, 7, 10, and the numbers flash odd, even, odd, even, which the rule never said.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.C.5/matchstick-triangles",
+  "standard": "4.OA.C.5",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Matchstick triangles",
+  "line": "Matchstick triangles in a row grow one at a time, sharing sides, and the stick count goes 3, 5, 7, 9.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.C.5/staircases-become-rectangles",
+  "standard": "4.OA.C.5",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Staircases become rectangles",
+  "line": "Dot staircases grow 1, 3, 6, 10, and two copies of each one flip and snap together into a rectangle.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.B.4/every-rectangle-of-24",
+  "standard": "4.OA.B.4",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Every rectangle of 24",
+  "line": "Twenty-four tiles rearrange into every rectangle they can, 1×24, 2×12, 3×8, 4×6, listing all the factor pairs.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.B.4/primes-won-t-fit",
+  "standard": "4.OA.B.4",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Primes won't fit",
+  "line": "Thirteen tiles try every rectangle and keep leaving one tile sticking out, while 12 tiles snap neatly into rows.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.B.4/the-sieve-to-100",
+  "standard": "4.OA.B.4",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "The sieve to 100",
+  "line": "A 10×10 grid of 1 to 100 crosses out multiples of 2, 3, 5 and 7 in waves, leaving the primes glowing.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.A.3/one-more-van",
+  "standard": "4.OA.A.3",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "One more van",
+  "line": "Twenty-nine kids board vans that seat 6, four vans fill up, 5 kids are left standing, and a fifth van rolls in.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.A.2/three-times-vs-three-more",
+  "standard": "4.OA.A.2",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Three times vs three more",
+  "line": "A bar of 4 gets two partners, one 3 times as long and one 3 longer, and 12 and 7 line up side by side.",
+  "needs": []
+ },
+ {
+  "key": "4.OA.A.1/stretching-to-35",
+  "standard": "4.OA.A.1",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Stretching to 35",
+  "line": "A bar of 7 stretches to 5 times its length, reaching 35, then a bar of 5 stretches 7 times to the same mark.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.7/fifths-in-three-pizzas",
+  "standard": "5.NF.B.7",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Fifths in three pizzas",
+  "line": "Three pizzas cut into fifths, the slices pop out and line up, and the counter reaches 15 for 3 ÷ 1/5.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.7/sharing-half-a-cake",
+  "standard": "5.NF.B.7",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Sharing half a cake",
+  "line": "Half a cake gets split among 3 people, the cuts extend across the whole cake, and each slice turns out to be 1/6.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.6/one-and-a-half-recipes",
+  "standard": "5.NF.B.6",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "One and a half recipes",
+  "line": "A bar of 2/3 cup sugar grows by half of itself again for 1 1/2 recipes and lands on exactly 1 cup.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.5/the-scaling-slider",
+  "standard": "5.NF.B.5",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "The scaling slider",
+  "line": "A bar of length 6 gets multiplied by a sliding factor, shrinking when the factor drops under 1 and stretching when it's over.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.5/which-side-of-9",
+  "standard": "5.NF.B.5",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Which side of 9",
+  "line": "Arrows for 9 × 4/5 and 9 × 5/4 land on opposite sides of 9 on a number line before any arithmetic happens.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.4/a-fraction-of-a-fraction",
+  "standard": "5.NF.B.4",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "A fraction of a fraction",
+  "line": "A square shaded 3/4 across gets cut 2/3 down, and the overlap of 6 small boxes out of 12 is 3/4 × 2/3.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.4/tiny-tiles",
+  "standard": "5.NF.B.4",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Tiny tiles",
+  "line": "A 2/3 by 5/2 rectangle fills with tiles 1/3 wide and 1/2 tall, and the tiles count up to 10 sixths.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.4/two-thirds-of-twelve",
+  "standard": "5.NF.B.4",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Two thirds of twelve",
+  "line": "Twelve dots split into 3 equal groups, 2 groups light up, and their 8 dots slide out as 2/3 of 12.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.3/three-pizzas-four-friends",
+  "standard": "5.NF.B.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Three pizzas, four friends",
+  "line": "Three pizzas get shared by 4 friends, each pizza cut in quarters, and every friend collects 3 quarters, so 3 ÷ 4 = 3/4.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.B.3/seven-meters-in-three",
+  "standard": "5.NF.B.3",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Seven meters in three",
+  "line": "A 7 meter ribbon is cut into 3 equal parts, and each piece lands on a ruler at 2 1/3 meters.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.A.2/estimate-then-check",
+  "standard": "5.NF.A.2",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Estimate, then check",
+  "line": "Bars for 2/5 and 1/2 snap to nearby benchmarks, the estimate lands just under 1, then the exact 9/10 confirms it.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.A.1/halves-meet-thirds",
+  "standard": "5.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Halves meet thirds",
+  "line": "Pieces of 1/2 and 1/3 join end to end, and only after both get recut into sixths does the total read 5/6.",
+  "needs": []
+ },
+ {
+  "key": "5.NF.A.1/breaking-a-whole-to-subtract",
+  "standard": "5.NF.A.1",
+  "topic": "Number and Operations—Fractions",
+  "band": "elementary",
+  "title": "Breaking a whole to subtract",
+  "line": "From 3 1/4 take 1 2/3: a whole cracks into twelfths, pieces disappear, and 1 7/12 is left.",
+  "needs": []
+ },
+ {
+  "key": "5.G.B.4/shape-family-tree",
+  "standard": "5.G.B.4",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Shape family tree",
+  "line": "A tree grows from polygon down to quadrilateral, parallelogram, rectangle, rhombus and square, each branch showing a shape morphing into the next.",
+  "needs": []
+ },
+ {
+  "key": "5.G.B.3/inherited-properties",
+  "standard": "5.G.B.3",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Inherited properties",
+  "line": "A parallelogram's tag 'opposite sides parallel' copies itself down onto a rectangle, a rhombus and a square as each one appears.",
+  "needs": []
+ },
+ {
+  "key": "5.G.A.2/plant-growth-plot",
+  "standard": "5.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Plant growth plot",
+  "line": "A plant's height each week drops a dot onto a grid, and connecting the dots shows which week it grew fastest.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "5.G.A.2/treasure-map-path",
+  "standard": "5.G.A.2",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Treasure map path",
+  "line": "A pirate walks a grid from (1, 2) to (4, 2) to (4, 6), and the distance of each leg counts out as it goes.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "5.G.A.1/walking-to-a-point",
+  "standard": "5.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Walking to a point",
+  "line": "A dot walks 3 units along the x-axis, then 5 units up, leaving a trail, and lands on the label (3, 5).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "5.G.A.1/order-matters",
+  "standard": "5.G.A.1",
+  "topic": "Geometry",
+  "band": "elementary",
+  "title": "Order matters",
+  "line": "Two dots follow the directions (2, 5) and (5, 2) at the same time and end up in completely different places.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "5.MD.C.5/layer-by-layer",
+  "standard": "5.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Layer by layer",
+  "line": "A 4×3 base of squares appears, then copies stack upward as layers of a box drawn at an angle until 5 layers make 60.",
+  "needs": []
+ },
+ {
+  "key": "5.MD.C.5/two-boxes-make-an-l",
+  "standard": "5.MD.C.5",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Two boxes make an L",
+  "line": "An L-shaped block splits into a 3×2×4 box and a 2×2×2 box, whose volumes 24 and 8 add to 32.",
+  "needs": []
+ },
+ {
+  "key": "5.MD.C.4/big-cubes-small-cubes",
+  "standard": "5.MD.C.4",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Big cubes, small cubes",
+  "line": "A box packs with 8 big cubes, then each big cube splits into 8 small ones, and the count jumps to 64.",
+  "needs": []
+ },
+ {
+  "key": "5.MD.B.2/evening-out-the-beakers",
+  "standard": "5.MD.B.2",
+  "topic": "Measurement and Data",
+  "band": "elementary",
+  "title": "Evening out the beakers",
+  "line": "Eight beakers with 1/8, 1/4 and 1/2 liter make a line plot, then all the water pours together and shares out evenly.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "5.NBT.B.7/overflowing-grids",
+  "standard": "5.NBT.B.7",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Overflowing grids",
+  "line": "1.35 + 0.78 shades onto hundred-grids, hundredths overflow into a tenth, tenths overflow into a whole, giving 2.13.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.B.7/decimal-times-decimal",
+  "standard": "5.NBT.B.7",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Decimal times decimal",
+  "line": "A 0.6 by 0.4 rectangle is cut from a unit square, and its overlap covers exactly 24 hundredths, so 0.6 × 0.4 = 0.24.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.B.7/quarters-in-two",
+  "standard": "5.NBT.B.7",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Quarters in two",
+  "line": "A ruler of length 0.25 hops along a 2-unit bar, the counter reaching 8, so 2 ÷ 0.25 = 8.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.B.6/chipping-away-at-1-000",
+  "standard": "5.NBT.B.6",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Chipping away at 1,000",
+  "line": "Groups of 32 peel off 1,000 in chunks of ten groups, then one at a time, tallying 31 groups with 8 left over.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.B.5/area-model-to-algorithm",
+  "standard": "5.NBT.B.5",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Area model to algorithm",
+  "line": "The area model for 327 × 46 splits into rows of 1,962 and 13,080, which slide into the standard algorithm and add to 15,042.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.A.3/more-digits-not-bigger",
+  "standard": "5.NBT.A.3",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "More digits, not bigger",
+  "line": "0.7, 0.65 and 0.649 build as bars of tenths, hundredths and thousandths, and the one with fewest digits is longest.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.A.2/piling-up-zeros",
+  "standard": "5.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Piling up zeros",
+  "line": "7 gets multiplied by 10, then 100, then 1000, a bar grows each time, and the powers of ten count the zeros.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "5.NBT.A.2/the-point-holds-still",
+  "standard": "5.NBT.A.2",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "The point holds still",
+  "line": "In 4.56 × 10, the decimal point stays put while every digit slides one place left, making 45.6, then 456.",
+  "needs": []
+ },
+ {
+  "key": "5.NBT.A.1/zooming-into-a-hundred",
+  "standard": "5.NBT.A.1",
+  "topic": "Number and Operations in Base Ten",
+  "band": "elementary",
+  "title": "Zooming into a hundred",
+  "line": "A hundred-square zooms in: one strip is a tenth of it, one square of that strip is a tenth again, and so on.",
+  "needs": []
+ },
+ {
+  "key": "5.OA.B.3/two-rules-one-line",
+  "standard": "5.OA.B.3",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Two rules, one line",
+  "line": "Rules add 3 and add 6 build two lists from 0, and their pairs (3, 6), (6, 12) plot on one straight line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "5.OA.A.2/three-times-as-big",
+  "standard": "5.OA.A.2",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Three times as big",
+  "line": "The expression 3 × (18,932 + 921) draws as one long bar, then three copies stack up so it's clearly triple, with nothing calculated.",
+  "needs": []
+ },
+ {
+  "key": "5.OA.A.1/parentheses-change-the-answer",
+  "standard": "5.OA.A.1",
+  "topic": "Operations and Algebraic Thinking",
+  "band": "elementary",
+  "title": "Parentheses change the answer",
+  "line": "2 + 3 × 4 builds as 2 dots plus 3 rows of 4, then (2 + 3) × 4 rebuilds as 5 rows: 14 vs 20.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.B.5/mean-as-a-balance-point",
+  "standard": "6.SP.B.5",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Mean as a balance point",
+  "line": "Seven dots sit on a seesaw number line, and the pivot slides back and forth until it balances exactly at the mean, 6.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.B.5/one-outlier-drags-the-mean",
+  "standard": "6.SP.B.5",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "One outlier drags the mean",
+  "line": "A tenth dot flies out to 95, dragging the mean marker far to the right while the median marker barely twitches.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.B.5/mean-distance-laid-end-to-end",
+  "standard": "6.SP.B.5",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Mean distance, laid end to end",
+  "line": "Each dot drops a segment to the mean, the segments line up end to end, then split evenly into the MAD.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.B.4/dot-plot-becomes-a-box-plot",
+  "standard": "6.SP.B.4",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Dot plot becomes a box plot",
+  "line": "Fifteen dots split at the median and quartiles, then a box and whiskers grow around them as the dots fade away.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.B.4/dots-melt-into-a-histogram",
+  "standard": "6.SP.B.4",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Dots melt into a histogram",
+  "line": "Twenty stacked dots slide into bins of width 5 and fuse into solid bars, turning a dot plot into a histogram.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.A.3/same-mean-different-spread",
+  "standard": "6.SP.A.3",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Same mean, different spread",
+  "line": "Two rows of five dots both balance at 10, then one row stretches outward while its mean marker stays frozen.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.A.3/nine-values-one-number",
+  "standard": "6.SP.A.3",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Nine values, one number",
+  "line": "Nine dots slide together and merge into a single dot at their mean, then a bracket grows back out showing their spread.",
+  "needs": []
+ },
+ {
+  "key": "6.SP.A.2/dice-sums-build-a-hill",
+  "standard": "6.SP.A.2",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Dice sums build a hill",
+  "line": "Two dice roll again and again, each sum dropping a dot above 2 through 12, until a triangle-shaped pile peaks at 7.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "6.SP.A.2/dragging-out-a-tail",
+  "standard": "6.SP.A.2",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Dragging out a tail",
+  "line": "A symmetric hill of dots gets pulled one dot at a time to the right until it leans with a long right tail.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.C.9/taxi-fare-table-becomes-a-line",
+  "standard": "6.EE.C.9",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Taxi fare table becomes a line",
+  "line": "Rows of a taxi fare table, 3 dollars plus 2 per mile, fly onto axes as dots until a straight line appears.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.EE.C.9/filling-tank-climbing-graph",
+  "standard": "6.EE.C.9",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Filling tank, climbing graph",
+  "line": "Water fills a tank at 4 liters a minute while a dot climbs beside it, tracing y = 4x as the tank rises.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.EE.B.8/every-number-bigger-than-3",
+  "standard": "6.EE.B.8",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Every number bigger than 3",
+  "line": "Dots land at 3.5, 4, 10, 3.01 and more, packing tighter until they melt into a solid arrow from an open circle.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.8/open-circle-or-closed",
+  "standard": "6.EE.B.8",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Open circle or closed",
+  "line": "A point creeps toward 5 under x < 5 and the circle stays hollow, then the sign becomes ≤ and the circle fills in.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.7/balance-scale-algebra",
+  "standard": "6.EE.B.7",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Balance scale algebra",
+  "line": "A mystery box and 3 weights balance 8 weights, 3 come off each side, and the box is left balancing 5.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.7/tape-diagram-for-4x-28",
+  "standard": "6.EE.B.7",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Tape diagram for 4x = 28",
+  "line": "A 28-unit bar splits into 4 equal pieces, then one piece lifts out and its length counts up to 7.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.6/x-is-every-number-at-once",
+  "standard": "6.EE.B.6",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "x is every number at once",
+  "line": "The letter x flickers through 1, 2, 3, 4 while 3x + 1 beside it updates, one expression covering every case.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.6/perimeter-of-any-square",
+  "standard": "6.EE.B.6",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Perimeter of any square",
+  "line": "A square grows and shrinks with side s, and its perimeter 4s counts along as a dot traces the border.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.5/testing-candidates",
+  "standard": "6.EE.B.5",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Testing candidates",
+  "line": "Numbers 1 through 6 drop into 2x + 3 = 11, each wrong one bouncing off red until 4 locks in green.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.B.5/a-trail-of-true-values",
+  "standard": "6.EE.B.5",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "A trail of true values",
+  "line": "A point slides from 0 to 6 while the inequality glows green then red, leaving a green trail that becomes the solution set.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.4/always-the-same-number",
+  "standard": "6.EE.A.4",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Always the same number",
+  "line": "3(x + 2) and 3x + 6 sit side by side while x spins through 0, 1, 5, and 12, and both outputs always match.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.4/fooled-by-one-value",
+  "standard": "6.EE.A.4",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Fooled by one value",
+  "line": "2x and x² both give 4 when x is 2, then x slides to 3 and the match breaks apart: 6 versus 9.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.3/distributing-with-a-rectangle",
+  "standard": "6.EE.A.3",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Distributing with a rectangle",
+  "line": "A 3 by (x + 2) rectangle splits into a 3x piece and a 6 piece, so 3(x + 2) becomes 3x + 6.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.3/sorting-like-terms",
+  "standard": "6.EE.A.3",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Sorting like terms",
+  "line": "Scattered tiles for x + 3 + 2x + 1 slide into two piles, x tiles with x tiles and ones with ones, giving 3x + 4.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.2/order-of-operations-tree",
+  "standard": "6.EE.A.2",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Order of operations tree",
+  "line": "2 + 3 × 4² collapses one step at a time as a tree, exponent first, then times, then plus, ending at 50.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.2/celsius-to-fahrenheit-machine",
+  "standard": "6.EE.A.2",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Celsius to Fahrenheit machine",
+  "line": "Temperatures 0, 20, and 100 drop into a machine labeled F = 9C/5 + 32 and come out 32, 68, and 212 on a thermometer.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.1/doubling-by-folding",
+  "standard": "6.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Doubling by folding",
+  "line": "A square splits in half, then every piece splits again, ten times over, while a counter climbs 2, 4, 8 up to 1024.",
+  "needs": []
+ },
+ {
+  "key": "6.EE.A.1/three-cubed-from-three-squared",
+  "standard": "6.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Three cubed from three squared",
+  "line": "A 3 by 3 grid of dots shows 3², then two more copies slide in beside it to make 3³ = 27 dots.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.C.8/counting-steps-across-zero",
+  "standard": "6.NS.C.8",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Counting steps across zero",
+  "line": "A dot walks from (−3, 2) to (4, 2) one step at a time while a counter ticks to 7, which is 3 + 4.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.NS.C.8/rectangle-across-four-quadrants",
+  "standard": "6.NS.C.8",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Rectangle across four quadrants",
+  "line": "Four points, one in each quadrant, connect into a rectangle, and each side length pops out from its coordinates as a brace.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.NS.C.7/absolute-value-as-distance",
+  "standard": "6.NS.C.7",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Absolute value as distance",
+  "line": "Points at −6 and 4 each stretch a band back to 0, then the bands lie side by side and −6's is longer.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.C.7/bigger-but-less",
+  "standard": "6.NS.C.7",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Bigger but less",
+  "line": "10 > 2 on a number line, then both points flip to −10 and −2, swapping order as the inequality sign flips too.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.C.6/opposite-of-the-opposite",
+  "standard": "6.NS.C.6",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Opposite of the opposite",
+  "line": "A point at 3 flips over 0 to −3, then flips again and lands back on 3 as −(−3) = 3 writes itself.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.C.6/signs-flip-point-reflects",
+  "standard": "6.NS.C.6",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Signs flip, point reflects",
+  "line": "Point (2, 3) mirrors across the y-axis to (−2, 3), then across the x-axis to (−2, −3), its signs changing as it lands.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.NS.C.6/two-number-lines-make-a-plane",
+  "standard": "6.NS.C.6",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Two number lines make a plane",
+  "line": "A number line copies itself, the copy swings up to vertical through 0, and a grid fills in to make the coordinate plane.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.NS.C.5/sea-level-is-zero",
+  "standard": "6.NS.C.5",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Sea level is zero",
+  "line": "A vertical number line becomes the sea: a diver sinks to −20, a gull rises to 15, and 0 is the waterline.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.B.4/gcf-by-chopping-squares",
+  "standard": "6.NS.B.4",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "GCF by chopping squares",
+  "line": "A 24 by 36 rectangle chops off the biggest squares it can, until 12 by 12 squares tile the leftover exactly: GCF 12.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.B.4/two-frogs-meet-at-the-lcm",
+  "standard": "6.NS.B.4",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Two frogs meet at the LCM",
+  "line": "Two frogs hop along a number line, one by 4s and one by 6s, until both land on the same spot at 12.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.B.4/pulling-out-a-common-factor",
+  "standard": "6.NS.B.4",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Pulling out a common factor",
+  "line": "36 dots and 8 dots each arrange into rows of 4, then join into one block showing 36 + 8 = 4(9 + 2).",
+  "needs": []
+ },
+ {
+  "key": "6.NS.B.3/decimal-multiplication-as-area",
+  "standard": "6.NS.B.3",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Decimal multiplication as area",
+  "line": "A 1.3 by 2.4 rectangle on a grid breaks into ones, tenths, and hundredths pieces that add up to 3.12.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.B.2/long-division-as-sharing",
+  "standard": "6.NS.B.2",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Long division as sharing",
+  "line": "672 blocks get shared among 3 groups: hundreds split first, leftovers break into tens and ones, and each group ends with 224.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.A.1/how-many-3-4s-fit-in-2",
+  "standard": "6.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "How many 3/4s fit in 2",
+  "line": "Copies of a 3/4 bar slide along a 2-unit bar: two fit, and the leftover 1/2 is 2/3 of another, so 2 2/3.",
+  "needs": []
+ },
+ {
+  "key": "6.NS.A.1/dividing-by-1-3-triples",
+  "standard": "6.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Dividing by 1/3 triples",
+  "line": "A 2-unit bar gets chopped into thirds and the piece count climbs to 6, then into fifths and it climbs to 10.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.3/double-number-line",
+  "standard": "6.RP.A.3",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Double number line",
+  "line": "Miles and hours number lines stretch in lockstep, 60 above 1, 120 above 2, as a slider finds 150 above 2.5.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.3/thirty-out-of-a-hundred",
+  "standard": "6.RP.A.3",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Thirty out of a hundred",
+  "line": "A 10 by 10 grid fills 30 squares, then rearranges onto a row of 50 people and 15 of them light up.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.3/finding-the-whole-from-40",
+  "standard": "6.RP.A.3",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Finding the whole from 40%",
+  "line": "A bar worth 12 is marked 40%, splits into four 3s, then six more 3s appear and the whole reads 30.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.2/price-of-one-apple",
+  "standard": "6.RP.A.2",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Price of one apple",
+  "line": "A $6 bag of 4 apples splits open into 4 single apples, the price tag splitting with them into four $1.50 tags.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.2/which-bag-is-the-better-deal",
+  "standard": "6.RP.A.2",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Which bag is the better deal",
+  "line": "Bags of 5 for $3 and 8 for $4.40 each shrink down to one item, revealing 60 cents against 55 cents.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.1/three-to-two-forever",
+  "standard": "6.RP.A.1",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Three to two, forever",
+  "line": "Three red and two blue squares copy themselves into rows, 6 to 4, then 9 to 6, while the color mix never changes.",
+  "needs": []
+ },
+ {
+  "key": "6.RP.A.1/same-shade-of-green",
+  "standard": "6.RP.A.1",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Same shade of green",
+  "line": "A cup mixes 2 scoops of blue with 3 of yellow; doubling both keeps the exact green, but one extra blue darkens it.",
+  "needs": []
+ },
+ {
+  "key": "6.G.A.4/box-net-face-by-face",
+  "standard": "6.G.A.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Box net, face by face",
+  "line": "A flat net of six rectangles lights one face at a time, each area counting into a running surface area total.",
+  "needs": []
+ },
+ {
+  "key": "6.G.A.4/pyramid-net-petals",
+  "standard": "6.G.A.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Pyramid net petals",
+  "line": "A square base with four triangle flaps: each flap swings out flat, its area adds to the base, and the total counts up.",
+  "needs": []
+ },
+ {
+  "key": "6.G.A.3/polygon-from-coordinates",
+  "standard": "6.G.A.3",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Polygon from coordinates",
+  "line": "Six points drop onto a grid and connect into an L-shaped hexagon, and each side length is read off by subtracting coordinates.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "6.G.A.1/parallelogram-into-rectangle",
+  "standard": "6.G.A.1",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Parallelogram into rectangle",
+  "line": "A triangle slices off one end of a parallelogram and slides to the other end, making a rectangle with equal base and height.",
+  "needs": []
+ },
+ {
+  "key": "6.G.A.1/triangle-is-half-a-parallelogram",
+  "standard": "6.G.A.1",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Triangle is half a parallelogram",
+  "line": "A triangle gets a copy that spins 180 degrees and snaps on, forming a parallelogram exactly twice its area.",
+  "needs": []
+ },
+ {
+  "key": "6.G.A.1/trapezoid-doubled",
+  "standard": "6.G.A.1",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Trapezoid doubled",
+  "line": "A trapezoid with bases 3 and 7 copies itself, flips, and joins to make a parallelogram with base 10, so half of that.",
+  "needs": []
+ },
+ {
+  "key": "7.SP.C.8/three-coin-flips-as-a-tree",
+  "standard": "7.SP.C.8",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Three coin flips as a tree",
+  "line": "A coin flip branches into H and T three times, and the 3 of 8 leaves with exactly two heads light up.",
+  "needs": []
+ },
+ {
+  "key": "7.SP.C.8/double-sixes-in-36-cells",
+  "standard": "7.SP.C.8",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Double sixes in 36 cells",
+  "line": "A 6 by 6 grid of dice pairs fills in, then only one corner cell lights up for double sixes: 1 in 36.",
+  "needs": []
+ },
+ {
+  "key": "7.SP.C.7/spinner-versus-the-tally",
+  "standard": "7.SP.C.7",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Spinner versus the tally",
+  "line": "A spinner split 1/2, 1/4, 1/4 spins 40 times while bars of real counts wobble near the predicted heights.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.C.7/catching-a-loaded-die",
+  "standard": "7.SP.C.7",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Catching a loaded die",
+  "line": "A die rolls 60 times, bars grow, one face towers over the rest, and the fair 1/6 model gets crossed out.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.C.6/coin-flips-settle-down",
+  "standard": "7.SP.C.6",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Coin flips settle down",
+  "line": "A coin flips 500 times while a graph of the fraction of heads swings wildly at first, then settles onto 0.5.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "7.SP.C.6/raindrops-estimate-pi",
+  "standard": "7.SP.C.6",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Raindrops estimate pi",
+  "line": "Random dots rain onto a square with a circle inside, and the fraction landing in the circle creeps toward 0.785, which is π/4.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.C.5/from-impossible-to-certain",
+  "standard": "7.SP.C.5",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "From impossible to certain",
+  "line": "Events slide onto a 0 to 1 line: rolling 7 on one die at 0, heads at 1/2, sunrise at 1.",
+  "needs": []
+ },
+ {
+  "key": "7.SP.C.5/swapping-marbles",
+  "standard": "7.SP.C.5",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Swapping marbles",
+  "line": "Ten marbles swap from red to blue one by one while a pointer on a 0 to 1 line tracks the chance of red.",
+  "needs": []
+ },
+ {
+  "key": "7.SP.B.4/sun-plants-versus-shade-plants",
+  "standard": "7.SP.B.4",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Sun plants versus shade plants",
+  "line": "Two dot plots of plant heights stack up, mean markers drop onto each, and the gap between them reads 5 cm.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.B.3/pulling-two-piles-apart",
+  "standard": "7.SP.B.3",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Pulling two piles apart",
+  "line": "Two matching dot plots start on top of each other, then one slides right while the gap counts up in MADs: 1, 2, 3.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.A.2/sample-results-pile-up",
+  "standard": "7.SP.A.2",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Sample results pile up",
+  "line": "Twenty random samples of 10 beads are scooped from a jar, and each sample's percent red drops as a dot, piling up near 40%.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.SP.A.1/a-biased-scoop",
+  "standard": "7.SP.A.1",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "A biased scoop",
+  "line": "From a grid of 100 dots, a sample grabbed from one corner shows 90% blue, while a scattered random sample shows the true 60%.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "7.EE.B.4/running-the-machine-backward",
+  "standard": "7.EE.B.4",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Running the machine backward",
+  "line": "x passes through times 3, then plus 5, and comes out 20; the arrows reverse and carry 20 back to 5.",
+  "needs": []
+ },
+ {
+  "key": "7.EE.B.4/dividing-by-a-negative",
+  "standard": "7.EE.B.4",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Dividing by a negative",
+  "line": "Solving −2x > 6, both sides divide by −2, the number line mirrors across 0, and the solution arrow flips to x < −3.",
+  "needs": []
+ },
+ {
+  "key": "7.EE.A.2/a-5-raise-is-1-05a",
+  "standard": "7.EE.A.2",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "A 5% raise is 1.05a",
+  "line": "A bar of length a gets a 5% sliver glued to its end, then the whole bar relabels from a + 0.05a to 1.05a.",
+  "needs": []
+ },
+ {
+  "key": "7.EE.A.1/zero-pairs-vanish",
+  "standard": "7.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Zero pairs vanish",
+  "line": "Tiles for 2x + 3 and −x − 5 pile together, opposite tiles pair up and vanish with a pop, leaving x − 2.",
+  "needs": []
+ },
+ {
+  "key": "7.EE.A.1/factoring-6x-9",
+  "standard": "7.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Factoring 6x + 9",
+  "line": "Six x tiles and nine unit tiles regroup into 3 identical rows of 2x + 3, so 6x + 9 becomes 3(2x + 3).",
+  "needs": []
+ },
+ {
+  "key": "7.NS.A.2/negative-times-negative",
+  "standard": "7.NS.A.2",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Negative times negative",
+  "line": "−3 times 3, 2, 1, 0, −1 gives dots at −9, −6, −3, 0, then 3, climbing by 3 each time, forcing a positive.",
+  "needs": []
+ },
+ {
+  "key": "7.NS.A.2/why-1-7-repeats",
+  "standard": "7.NS.A.2",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Why 1/7 repeats",
+  "line": "Long division of 1 by 7 runs on screen, the remainders cycle 3, 2, 6, 4, 5, 1, and the digits 142857 loop forever.",
+  "needs": []
+ },
+ {
+  "key": "7.NS.A.1/adding-as-an-arrow",
+  "standard": "7.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Adding as an arrow",
+  "line": "An arrow for −8 snaps onto a number line starting at 5 and ends at −3, then a +8 arrow carries it straight back.",
+  "needs": []
+ },
+ {
+  "key": "7.NS.A.1/subtracting-is-adding-the-opposite",
+  "standard": "7.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Subtracting is adding the opposite",
+  "line": "7 − 3 and 7 + (−3) play out as arrows on two number lines side by side and finish at the same spot.",
+  "needs": []
+ },
+ {
+  "key": "7.NS.A.1/distance-is-the-difference",
+  "standard": "7.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Distance is the difference",
+  "line": "Points at −4 and 3 have a brace between them reading 7, and as both points slide around, the brace keeps matching |a − b|.",
+  "needs": []
+ },
+ {
+  "key": "7.RP.A.3/20-off-then-20-on",
+  "standard": "7.RP.A.3",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "20% off, then 20% on",
+  "line": "A $100 bar shrinks 20% to 80, then grows 20% to 96, falling short because the second 20% is of a smaller bar.",
+  "needs": []
+ },
+ {
+  "key": "7.RP.A.2/straight-through-the-origin",
+  "standard": "7.RP.A.2",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Straight through the origin",
+  "line": "Points for 3 cups of flour per 2 eggs line up through (0, 0), while points for y = 2x + 1 miss it.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "7.RP.A.2/unit-rate-at-x-1",
+  "standard": "7.RP.A.2",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Unit rate at x = 1",
+  "line": "A dot slides along y = 2.5x to x = 1, and a dashed line drops to show the unit rate 2.5 sitting right there.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "7.RP.A.1/half-mile-quarter-hour",
+  "standard": "7.RP.A.1",
+  "topic": "Ratios and Proportional Relationships",
+  "band": "middle",
+  "title": "Half mile, quarter hour",
+  "line": "A walker covers 1/2 mile in 1/4 hour, then the trip copies itself 4 times along the track: 2 miles per hour.",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.6/one-l-shape-three-ways",
+  "standard": "7.G.B.6",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "One L-shape, three ways",
+  "line": "An L-shaped floor is cut across, cut down, then seen as a 6 by 5 rectangle minus a corner: 26 every time.",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.5/vertical-angles-stay-twins",
+  "standard": "7.G.B.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Vertical angles stay twins",
+  "line": "Two crossing lines turn while the opposite angles of the X show matching readouts, 50 and 50, then 70 and 70.",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.5/sweeping-across-a-straight-line",
+  "standard": "7.G.B.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Sweeping across a straight line",
+  "line": "A ray sweeps across a straight line, one angle growing as the other shrinks, and their sum stays stuck at 180.",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.4/circle-into-a-rectangle",
+  "standard": "7.G.B.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Circle into a rectangle",
+  "line": "A circle cut into 16 wedges rearranges into a near-rectangle of width πr and height r, so the area is πr².",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.4/rolling-out-pi",
+  "standard": "7.G.B.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Rolling out pi",
+  "line": "A circle with diameter 1 rolls along a number line, its rim leaving a trail that ends just past 3.14.",
+  "needs": []
+ },
+ {
+  "key": "7.G.B.4/peeling-rings-into-a-triangle",
+  "standard": "7.G.B.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Peeling rings into a triangle",
+  "line": "A circle's thin rings peel off, straighten into strips, and stack into a triangle with base 2πr and height r.",
+  "needs": []
+ },
+ {
+  "key": "7.G.A.2/sticks-that-can-t-close",
+  "standard": "7.G.A.2",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Sticks that can't close",
+  "line": "Sticks of 3, 4, and 9 swing on hinges but never meet, then the 9 shrinks to 6 and the triangle snaps shut.",
+  "needs": []
+ },
+ {
+  "key": "7.G.A.2/one-swing-two-triangles",
+  "standard": "7.G.A.2",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "One swing, two triangles",
+  "line": "A side of length 5 swings from a fixed corner and crosses the base line in two places, giving two different triangles.",
+  "needs": []
+ },
+ {
+  "key": "7.G.A.1/double-scale-four-times-floor",
+  "standard": "7.G.A.1",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Double scale, four times floor",
+  "line": "A 2 by 3 room plan doubles to 4 by 6, and exactly four copies of the original slide in to fill it.",
+  "needs": []
+ },
+ {
+  "key": "8.F.B.5/bike-ride-as-a-graph",
+  "standard": "8.F.B.5",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Bike ride as a graph",
+  "line": "A rider goes out, stops, and comes home while a distance graph draws beside it: steep when fast, flat when stopped, falling back.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.B.5/filling-a-flask",
+  "standard": "8.F.B.5",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Filling a flask",
+  "line": "Water fills a flask with a narrow neck, and the height graph bends upward as the level speeds up in the neck.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.B.4/two-points-make-a-line",
+  "standard": "8.F.B.4",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Two points make a line",
+  "line": "Points (2, 7) and (5, 13) get a rise-over-run staircase of slope 2, then the line extends back to hit the y-axis at 3.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.B.4/burning-candle",
+  "standard": "8.F.B.4",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Burning candle",
+  "line": "A 12 cm candle shrinks 1.5 cm each hour beside a graph whose line starts at 12 and hits zero at hour 8.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.A.3/equal-steps-or-growing-steps",
+  "standard": "8.F.A.3",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Equal steps or growing steps",
+  "line": "y = 2x and y = x² plot together, and equal steps right give equal climbs for one and bigger climbs for the other.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.A.3/dialing-m-and-b",
+  "standard": "8.F.A.3",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "Dialing m and b",
+  "line": "In y = mx + b, dialing m from −2 to 3 tilts the line, then dialing b slides it up and down without turning.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.A.2/a-table-races-a-graph",
+  "standard": "8.F.A.2",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "A table races a graph",
+  "line": "Runner A is a table and runner B is a graphed line; both race on a track and B overtakes at second 4.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.F.A.1/one-input-one-output",
+  "standard": "8.F.A.1",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "One input, one output",
+  "line": "Inputs drop into a machine and each pops out one output, then a broken machine spits two outputs for one input and turns red.",
+  "needs": []
+ },
+ {
+  "key": "8.F.A.1/the-vertical-line-test",
+  "standard": "8.F.A.1",
+  "topic": "Functions",
+  "band": "middle",
+  "title": "The vertical line test",
+  "line": "A vertical line sweeps across a parabola touching it once each time, then across a sideways parabola where it hits twice.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.SP.A.4/two-way-table-in-percents",
+  "standard": "8.SP.A.4",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Two-way table in percents",
+  "line": "A table of 100 students by pet and phone fills in, then each row converts to percents and the rows clearly differ.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "8.SP.A.3/reading-the-trend-line",
+  "standard": "8.SP.A.3",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Reading the trend line",
+  "line": "Plant heights by week get the line y = 2x + 3, a slider at week 7 reads 17 cm, and the 3 means starting height.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "8.SP.A.2/spin-the-line-to-fit",
+  "standard": "8.SP.A.2",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Spin the line to fit",
+  "line": "A line rotates through a scatter plot while vertical gaps to each point stretch and shrink, and a total-gap counter bottoms out.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "8.SP.A.1/scatter-plots-that-change-shape",
+  "standard": "8.SP.A.1",
+  "topic": "Statistics and Probability",
+  "band": "middle",
+  "title": "Scatter plots that change shape",
+  "line": "A cloud of points morphs from rising, to falling, to no pattern, to a curve, with a label appearing for each shape.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "8.EE.C.8/where-two-lines-cross",
+  "standard": "8.EE.C.8",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Where two lines cross",
+  "line": "Lines y = 2x + 1 and y = −x + 7 draw on axes, a dot rides each one, and the two dots meet at (2, 5).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.EE.C.8/parallel-then-the-same-line",
+  "standard": "8.EE.C.8",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Parallel, then the same line",
+  "line": "Two lines with slope 3 never meet, then one slides its intercept until it merges with the other, giving infinitely many solutions.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.EE.C.7/three-ways-an-equation-ends",
+  "standard": "8.EE.C.7",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Three ways an equation ends",
+  "line": "Three equations simplify side by side and land on x = 4, then 5 = 5, then 3 = 7, each ending glowing a different color.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.EE.C.7/expand-collect-solve",
+  "standard": "8.EE.C.7",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Expand, collect, solve",
+  "line": "3(x + 2) = x + 14 expands, x terms slide left and numbers slide right, until it shrinks to x = 4.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.EE.B.6/slope-triangles-anywhere",
+  "standard": "8.EE.B.6",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Slope triangles anywhere",
+  "line": "A rise-run triangle slides along y = 2x + 1, stretching as it goes but staying similar, so rise over run always reads 2.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.EE.B.5/slope-is-the-price-per-pound",
+  "standard": "8.EE.B.5",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Slope is the price per pound",
+  "line": "On the graph of $4 per pound, a step of 1 right and 4 up repeats into a staircase hugging the line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.EE.A.4/multiplying-in-scientific-notation",
+  "standard": "8.EE.A.4",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Multiplying in scientific notation",
+  "line": "(3 × 10⁴)(2 × 10⁵) splits apart, the 3 and 2 multiply, the exponents add, and 6 × 10⁹ assembles.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.EE.A.3/powers-of-ten-zoom-out",
+  "standard": "8.EE.A.3",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Powers of ten zoom out",
+  "line": "A number line zooms out tenfold each step, from 1 to 10 to 100 all the way to 10⁹, as the exponent ticks up.",
+  "needs": []
+ },
+ {
+  "key": "8.EE.A.3/building-a-million-dots",
+  "standard": "8.EE.A.3",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Building a million dots",
+  "line": "A 10 by 10 grid of dots shrinks into one dot of a new 10 by 10 grid, three times over, reaching a million.",
+  "needs": []
+ },
+ {
+  "key": "8.EE.A.2/square-roots-as-sides",
+  "standard": "8.EE.A.2",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Square roots as sides",
+  "line": "Squares of area 1, 4, 9, 16 line up by side length, then a square of area 2 squeezes in between 1 and 2.",
+  "needs": []
+ },
+ {
+  "key": "8.EE.A.2/swinging-the-diagonal-down",
+  "standard": "8.EE.A.2",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Swinging the diagonal down",
+  "line": "The diagonal of a unit square swings down onto a number line like a compass arm and lands at 1.414.",
+  "needs": []
+ },
+ {
+  "key": "8.EE.A.1/exponents-add-by-counting",
+  "standard": "8.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Exponents add by counting",
+  "line": "2³ × 2⁴ unpacks into three 2s and four 2s, the times sign dissolves, and seven 2s regroup into 2⁷.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.EE.A.1/why-2-is-1",
+  "standard": "8.EE.A.1",
+  "topic": "Expressions and Equations",
+  "band": "middle",
+  "title": "Why 2⁰ is 1",
+  "line": "A column of 16, 8, 4, 2 halves at each step down, so 2⁰ lands on 1 and 2⁻¹ lands on 1/2.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.NS.A.2/closing-in-on-2",
+  "standard": "8.NS.A.2",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Closing in on √2",
+  "line": "A zoom box narrows from 1.4 to 1.5, then 1.41 to 1.42, trapping √2 one digit at a time on a number line.",
+  "needs": []
+ },
+ {
+  "key": "8.NS.A.2/ordering-3-15-and-10",
+  "standard": "8.NS.A.2",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "Ordering π, 3.15, and √10",
+  "line": "π, 3.15, and √10 drop onto a number line near 3, and a zoom reveals the order: π, then 3.15, then √10.",
+  "needs": []
+ },
+ {
+  "key": "8.NS.A.1/0-2727-becomes-3-11",
+  "standard": "8.NS.A.1",
+  "topic": "The Number System",
+  "band": "middle",
+  "title": "0.2727... becomes 3/11",
+  "line": "x = 0.272727... copies itself as 100x, the endless tails line up and cancel, leaving 99x = 27, so x = 3/11.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "8.G.C.9/three-cones-fill-a-cylinder",
+  "standard": "8.G.C.9",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Three cones fill a cylinder",
+  "line": "Side views of a cone and cylinder with the same base and height: the cone pours three times and the cylinder fills exactly.",
+  "needs": []
+ },
+ {
+  "key": "8.G.B.8/distance-by-a-hidden-triangle",
+  "standard": "8.G.B.8",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Distance by a hidden triangle",
+  "line": "Points (1, 2) and (7, 10) sprout a right triangle with legs 6 and 8, and the hypotenuse measures 10.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.G.B.8/every-point-5-away",
+  "standard": "8.G.B.8",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Every point 5 away",
+  "line": "A point sweeps around the origin at distance 5, and each time it hits a grid point like (3, 4) a right triangle flashes.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.G.B.7/sliding-ladder",
+  "standard": "8.G.B.7",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Sliding ladder",
+  "line": "A 13-foot ladder slides down a wall, and when its foot is 5 feet out, a right triangle shows the top at 12 feet.",
+  "needs": []
+ },
+ {
+  "key": "8.G.B.6/pythagoras-by-rearranging",
+  "standard": "8.G.B.6",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Pythagoras by rearranging",
+  "line": "Four copies of a right triangle sit inside a big square, then slide around so the empty space changes from c² into a² + b².",
+  "needs": []
+ },
+ {
+  "key": "8.G.B.6/tiles-refill-the-big-square",
+  "standard": "8.G.B.6",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Tiles refill the big square",
+  "line": "Squares on legs 3 and 4 break into unit tiles that fly over and exactly refill the 5 by 5 square on the hypotenuse.",
+  "needs": []
+ },
+ {
+  "key": "8.G.B.6/the-converse-on-a-hinge",
+  "standard": "8.G.B.6",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "The converse on a hinge",
+  "line": "Sticks of 3 and 4 hinged together open until the gap between their ends is exactly 5, and the angle reads 90 degrees.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.5/torn-corners-make-a-line",
+  "standard": "8.G.A.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Torn corners make a line",
+  "line": "A triangle's three corners tear off and slide together along a line, fitting exactly into a straight 180 degree angle.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.5/sliding-transversal",
+  "standard": "8.G.A.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Sliding transversal",
+  "line": "A transversal crosses two parallel lines and tilts back and forth, and its eight angles only ever show two values that add to 180.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.5/exterior-angle-filled",
+  "standard": "8.G.A.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Exterior angle filled",
+  "line": "One side of a triangle extends past a corner, and the two far angles slide over to exactly fill the outside angle.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.5/two-angles-are-enough",
+  "standard": "8.G.A.5",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Two angles are enough",
+  "line": "Two triangles with angles 30 and 70 start at different sizes, and one dilates until it lands exactly on the other.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.4/dilate-turn-land",
+  "standard": "8.G.A.4",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Dilate, turn, land",
+  "line": "A small triangle dilates by 2 from a center point, turns 90 degrees, and slides to land exactly on a larger triangle.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.3/moves-with-live-coordinates",
+  "standard": "8.G.A.3",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Moves with live coordinates",
+  "line": "A triangle on a grid reflects, rotates, and dilates while its corner coordinates update live: (x, y) to (−x, y) to (2x, 2y).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.G.A.3/rotating-swaps-coordinates",
+  "standard": "8.G.A.3",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Rotating swaps coordinates",
+  "line": "Point (3, 1) rotates 90 degrees around the origin to (−1, 3), and a triangle traced through it turns along with it.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "8.G.A.2/snapping-one-shape-onto-another",
+  "standard": "8.G.A.2",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Snapping one shape onto another",
+  "line": "Two matching arrow shapes sit on a plane, and the first slides, turns 120 degrees, then flips to snap exactly onto the second.",
+  "needs": []
+ },
+ {
+  "key": "8.G.A.1/rotations-keep-everything",
+  "standard": "8.G.A.1",
+  "topic": "Geometry",
+  "band": "middle",
+  "title": "Rotations keep everything",
+  "line": "Two parallel segments rotate around a point, and live readouts show their lengths and the angle between them never change.",
+  "needs": []
+ },
+ {
+  "key": "HSA-REI.D.12/shading-the-half-plane",
+  "standard": "HSA-REI.D.12",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Shading the half-plane",
+  "line": "A dot wanders the plane, turning green when 2x + y < 4 and red otherwise, until green paints one whole side of the line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.12/two-shadows-overlap",
+  "standard": "HSA-REI.D.12",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Two shadows overlap",
+  "line": "The half-planes y > x - 1 and y < -x + 3 shade in blue and yellow, and the wedge where they overlap turns green.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.12/dashed-or-solid-boundary",
+  "standard": "HSA-REI.D.12",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Dashed or solid boundary",
+  "line": "The line y = 2x + 1 flips between dashed and solid as < becomes ≤, and dots sitting on the line switch on and off.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.11/zooming-in-on-a-crossing",
+  "standard": "HSA-REI.D.11",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Zooming in on a crossing",
+  "line": "y = 2^x and y = x + 3 cross near x = 2.44, and each zoom into the crossing adds one more correct digit.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.11/the-gap-shrinks-to-zero",
+  "standard": "HSA-REI.D.11",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "The gap shrinks to zero",
+  "line": "A vertical bar measures the gap between y = x² and y = 6 - x, shrinking to nothing exactly at x = 2 and x = -3.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.10/solutions-fuse-into-a-line",
+  "standard": "HSA-REI.D.10",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Solutions fuse into a line",
+  "line": "Pairs that solve x + y = 5 pop in as dots, (0,5), (1,4), (2.5,2.5), until hundreds of them merge into a solid line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.10/points-that-pass-the-test",
+  "standard": "HSA-REI.D.10",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Points that pass the test",
+  "line": "Random points flash across the plane, and only those with x² + y² = 25 stay, slowly drawing a circle of radius 5.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.D.10/a-dot-that-must-obey",
+  "standard": "HSA-REI.D.10",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "A dot that must obey",
+  "line": "A dot slides along y = x² with its coordinates checked live, and the check turns red the moment it steps off the curve.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.9/undoing-a-matrix",
+  "standard": "HSA-REI.C.9",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Undoing a matrix",
+  "line": "A grid gets sheared and stretched by a 2×2 matrix, then the inverse matrix runs it backwards and every square snaps home.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.9/pulling-the-answer-back",
+  "standard": "HSA-REI.C.9",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Pulling the answer back",
+  "line": "A matrix sends a mystery point to (5, 3), then the inverse transform drags (5, 3) back to reveal the answer (2, 1).",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.8/two-equations-one-matrix",
+  "standard": "HSA-REI.C.8",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Two equations, one matrix",
+  "line": "The numbers in 2x + 3y = 8 and x - y = -1 lift into a 2×2 box, and x and y slide into a column.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.7/a-line-slicing-a-parabola",
+  "standard": "HSA-REI.C.7",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "A line slicing a parabola",
+  "line": "A line slides upward past y = x², touching it at zero, then one, then two points, with the crossing count shown on screen.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.7/substitute-and-watch",
+  "standard": "HSA-REI.C.7",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Substitute and watch",
+  "line": "x + 2 flies into y = x², giving x² - x - 2 = 0, which factors and drops two dots at x = 2 and -1.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.7/a-ball-lands-on-a-ramp",
+  "standard": "HSA-REI.C.7",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "A ball lands on a ramp",
+  "line": "A ball flies along y = -x² + 4x over a ramp y = x and touches down where they meet, at x = 3.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.6/tilting-until-parallel",
+  "standard": "HSA-REI.C.6",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Tilting until parallel",
+  "line": "One line rotates while the other stays put, and their crossing point races off screen as the slopes match: no solution.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.6/nickels-and-dimes-by-sliding",
+  "standard": "HSA-REI.C.6",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Nickels and dimes by sliding",
+  "line": "Ten coins worth 65 cents: a slider trades dimes for nickels, the total counts down, and it hits 65 at 7 nickels.",
+  "needs": []
+ },
+ {
+  "key": "HSA-REI.C.6/the-y-s-collide",
+  "standard": "HSA-REI.C.6",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "The y's collide",
+  "line": "3x + 2y = 16 stacks over x - 2y = 0, the +2y and -2y crash together and vanish, leaving 4x = 16, so x = 4.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.5/adding-keeps-the-crossing",
+  "standard": "HSA-REI.C.5",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Adding keeps the crossing",
+  "line": "Lines x + y = 4 and x - y = 2 cross at (3, 1), and their sum 2x = 6 swings in through that same point.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.5/a-line-pinned-to-a-point",
+  "standard": "HSA-REI.C.5",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "A line pinned to a point",
+  "line": "As k slides from -3 to 3, the line (x + y - 4) + k(x - y - 2) = 0 spins like a clock hand around (3, 1).",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.C.5/stacking-two-balanced-scales",
+  "standard": "HSA-REI.C.5",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Stacking two balanced scales",
+  "line": "Two balanced scales pour their contents onto one bigger scale, which stays perfectly level because both sides grew by equal amounts.",
+  "needs": []
+ },
+ {
+  "key": "HSA-REI.B.4/completing-an-actual-square",
+  "standard": "HSA-REI.B.4",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Completing an actual square",
+  "line": "x² + 6x is a square plus two 3-wide strips; the strips fold onto two sides and a missing 3×3 corner fills in.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.B.4/the-formula-builds-itself",
+  "standard": "HSA-REI.B.4",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "The formula builds itself",
+  "line": "ax² + bx + c = 0 changes line by line, terms sliding across the equals sign, until the quadratic formula drops into place.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.B.4/when-the-parabola-misses",
+  "standard": "HSA-REI.B.4",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "When the parabola misses",
+  "line": "y = x² + 2x + c rises as c grows, its two roots slide together, merge at c = 1, then leave the x-axis entirely.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.B.4/two-answers-for-49",
+  "standard": "HSA-REI.B.4",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Two answers for 49",
+  "line": "A 7×7 square of dots shows x² = 49, then both 7 and -7 light up, since (-7)² is also 49.",
+  "needs": []
+ },
+ {
+  "key": "HSA-REI.B.3/why-the-inequality-flips",
+  "standard": "HSA-REI.B.3",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Why the inequality flips",
+  "line": "-2x > 6 shades a number line, then multiplying by -1 mirrors the whole line around zero and the arrow swings to x < -3.",
+  "needs": []
+ },
+ {
+  "key": "HSA-REI.B.3/letters-instead-of-numbers",
+  "standard": "HSA-REI.B.3",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Letters instead of numbers",
+  "line": "Sliders change a, b, c in ax + b = c, and (c - b)/a updates as a dot tracks it on a number line.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.A.2/the-square-root-that-lied",
+  "standard": "HSA-REI.A.2",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "The square root that lied",
+  "line": "Squaring √(x + 2) = x gives roots 2 and -1, but plugging -1 back in makes √1 = -1 flash red: a fake answer.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.A.2/an-answer-that-divides-by-zero",
+  "standard": "HSA-REI.A.2",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "An answer that divides by zero",
+  "line": "Solving x/(x - 3) = 3/(x - 3) gives x = 3, then the denominator counts down to 0 and the answer cracks apart.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.A.1/each-line-keeps-the-promise",
+  "standard": "HSA-REI.A.1",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Each line keeps the promise",
+  "line": "2x + 3 = 11 changes one step at a time, both sides getting the same move, with arrows linking each line back to the last.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-REI.A.1/running-the-machine-backwards",
+  "standard": "HSA-REI.A.1",
+  "topic": "Reasoning with Equations and Inequalities",
+  "band": "algebra1",
+  "title": "Running the machine backwards",
+  "line": "A number goes through ×3 then -5 and comes out 16; the solver runs it backwards, +5 then ÷3, and 7 pops out.",
+  "needs": []
+ },
+ {
+  "key": "HSA-CED.A.4/pulling-r-out-of-a-r",
+  "standard": "HSA-CED.A.4",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "Pulling r out of A = πr²",
+  "line": "The r slides free, π peels off to divide, a square root wraps A/π, then a circle's radius tracks its growing area.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-CED.A.4/flipping-the-thermometer-formula",
+  "standard": "HSA-CED.A.4",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "Flipping the thermometer formula",
+  "line": "F = 9/5 C + 32 rearranges into C, then two thermometers sit side by side and moving one drags the other along.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-CED.A.3/pizza-and-soda-on-20",
+  "standard": "HSA-CED.A.3",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "Pizza and soda on $20",
+  "line": "A grid of (pizza, soda) dots lights up green where 3p + s ≤ 20 and crosses out every combo that costs too much.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-CED.A.3/filling-a-theater",
+  "standard": "HSA-CED.A.3",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "Filling a theater",
+  "line": "Adult tickets $8, kids $5, at least $400 but only 60 seats: two shaded regions overlap, and a dragged dot shows which mixes work.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-CED.A.2/a-square-s-area-becomes-a-curve",
+  "standard": "HSA-CED.A.2",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "A square's area becomes a curve",
+  "line": "A square grows from side 0 to 5 while its area counts up, each size dropping a point that traces out y = x².",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-CED.A.1/doubling-past-1000",
+  "standard": "HSA-CED.A.1",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "Doubling past 1000",
+  "line": "One dot splits into 2, then 4, then 8, the count climbing until it passes 1000 at step 10, solving 2^n = 1024.",
+  "needs": []
+ },
+ {
+  "key": "HSA-CED.A.1/the-catch-up-race",
+  "standard": "HSA-CED.A.1",
+  "topic": "Creating Equations",
+  "band": "algebra1",
+  "title": "The catch-up race",
+  "line": "Runner A starts 30 m ahead at 3 m/s, B runs 5 m/s, and the gap hits zero at 15 seconds.",
+  "needs": []
+ },
+ {
+  "key": "HSA-SSE.B.4/halves-filling-a-square",
+  "standard": "HSA-SSE.B.4",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Halves filling a square",
+  "line": "1/2, then 1/4, then 1/8 of a square fill in, and the unfilled corner always measures exactly 1/2^n.",
+  "needs": []
+ },
+ {
+  "key": "HSA-SSE.B.4/shift-and-subtract",
+  "standard": "HSA-SSE.B.4",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Shift and subtract",
+  "line": "S = 1 + 3 + 9 + 27 + 81 sits above 3S shifted one slot, and subtracting wipes out everything except 243 and 1.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.B.4/rice-on-a-chessboard",
+  "standard": "HSA-SSE.B.4",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Rice on a chessboard",
+  "line": "Bars double on each square, and the running total always lands one grain short of the next square's pile.",
+  "needs": []
+ },
+ {
+  "key": "HSA-SSE.B.3/finding-the-lowest-point",
+  "standard": "HSA-SSE.B.3",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Finding the lowest point",
+  "line": "y = x² - 6x + 11 rewrites as (x - 3)² + 2, and the parabola's bottom lights up at (3, 2) as each part is highlighted.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.B.3/factor-to-find-the-zeros",
+  "standard": "HSA-SSE.B.3",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Factor to find the zeros",
+  "line": "x² - x - 6 splits into (x - 3)(x + 2), and dots drop at x = 3 and x = -2 where each factor hits zero.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.B.3/yearly-growth-in-monthly-steps",
+  "standard": "HSA-SSE.B.3",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Yearly growth in monthly steps",
+  "line": "A bar grows 15% in one jump, then a second bar takes 12 small 1.17% jumps and lands at the same height.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.A.2/a-square-minus-a-square",
+  "standard": "HSA-SSE.A.2",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "A square minus a square",
+  "line": "A 7×7 square loses a 3×3 corner, and the leftover L is cut and slid into a 10×4 rectangle: 49 - 9 = 40.",
+  "needs": []
+ },
+ {
+  "key": "HSA-SSE.A.2/spotting-the-hidden-squares",
+  "standard": "HSA-SSE.A.2",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Spotting the hidden squares",
+  "line": "In x⁴ - 16, x⁴ glows as (x²)² and 16 as 4², it splits into two factors, then x² - 4 splits again.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.A.1/one-chunk-as-a-single-block",
+  "standard": "HSA-SSE.A.1",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "One chunk as a single block",
+  "line": "In 3(x + 2)² - 5, the (x + 2) becomes one pulsing block, and the value bottoms out at -5 when the block hits 0.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-SSE.A.1/two-ways-around-a-rectangle",
+  "standard": "HSA-SSE.A.1",
+  "topic": "Seeing Structure in Expressions",
+  "band": "algebra1",
+  "title": "Two ways around a rectangle",
+  "line": "A rectangle's sides unroll into a line, regrouping as L + W twice, then as two L's plus two W's, same length both ways.",
+  "needs": []
+ },
+ {
+  "key": "HSF-LE.B.5/what-the-3-and-2-mean",
+  "standard": "HSF-LE.B.5",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "What the 3 and 2 mean",
+  "line": "For a phone plan y = 3 + 2x, dragging the 3 slides the line up and down, dragging the 2 tilts it steeper.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.B.5/starting-amount-and-halving",
+  "standard": "HSF-LE.B.5",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Starting amount and halving",
+  "line": "100 mg of medicine halves each hour as bars shrink, then changing 100 stretches the curve while changing 0.5 changes how fast it drops.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.4/between-two-doublings",
+  "standard": "HSF-LE.A.4",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Between two doublings",
+  "line": "5·2^t steps through 5, 10, 20, 40, 80, then 100 falls between steps, and a log pins it at t ≈ 4.32 on the curve.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.4/counting-zeros-with-logs",
+  "standard": "HSF-LE.A.4",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Counting zeros with logs",
+  "line": "1, 10, 100, 1000, 10000 sit evenly spaced on a line, and 3000 slides in at position 3.48, solving 10^t = 3000.",
+  "needs": []
+ },
+ {
+  "key": "HSF-LE.A.3/the-slow-starter-wins",
+  "standard": "HSF-LE.A.3",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "The slow starter wins",
+  "line": "y = 100x zooms ahead while 2^x crawls, then at x = 10 the curve blasts past and the axes keep rescaling to hold it.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.3/the-table-that-flips",
+  "standard": "HSF-LE.A.3",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "The table that flips",
+  "line": "Rows of n, n², and 2^n fill in; they tie at 16 when n = 4, then the 2^n column runs away.",
+  "needs": []
+ },
+ {
+  "key": "HSF-LE.A.2/two-points-one-curve",
+  "standard": "HSF-LE.A.2",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Two points, one curve",
+  "line": "From (1, 6) to (3, 54) is ×9 over two steps, so ×3 each step, and y = 2·3^x snaps through both points.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.1/adding-stairs-vs-multiplying-stairs",
+  "standard": "HSF-LE.A.1",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Adding stairs vs multiplying stairs",
+  "line": "Two staircases climb side by side, one adding 3 per step and one doubling, with each step's height shown as its own bar.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.1/a-sliding-window",
+  "standard": "HSF-LE.A.1",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "A sliding window",
+  "line": "A window 1 unit wide slides along y = 3·2^x and a line; the line's difference stays fixed, the curve's ratio stays exactly 2.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-LE.A.1/bounces-that-lose-20",
+  "standard": "HSF-LE.A.1",
+  "topic": "Linear, Quadratic, and Exponential Models",
+  "band": "algebra1",
+  "title": "Bounces that lose 20%",
+  "line": "A ball bounces 100, 80, 64, 51.2 cm high, each bounce dropping by the same percent rather than the same amount.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.A.2/toothpick-triangles",
+  "standard": "HSF-BF.A.2",
+  "topic": "Building Functions",
+  "band": "algebra1",
+  "title": "Toothpick triangles",
+  "line": "Triangles join in a row using 3, 5, 7, 9 toothpicks, with +2 arrows between terms and 2n + 1 for jumping straight ahead.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.A.2/triangles-splitting-in-three",
+  "standard": "HSF-BF.A.2",
+  "topic": "Building Functions",
+  "band": "algebra1",
+  "title": "Triangles splitting in three",
+  "line": "Each triangle splits into 3 smaller ones, counting 1, 3, 9, 27, with the ×3 rule on one side and 3^n on the other.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.A.2/piggy-bank-shortcut",
+  "standard": "HSF-BF.A.2",
+  "topic": "Building Functions",
+  "band": "algebra1",
+  "title": "Piggy bank shortcut",
+  "line": "A piggy bank starts at $10 and gains $5 weekly; arrows hop week by week, then one formula leaps straight to week 20: $110.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.A.1/order-matters-for-machines",
+  "standard": "HSF-BF.A.1",
+  "topic": "Building Functions",
+  "band": "algebra1",
+  "title": "Order matters for machines",
+  "line": "4 goes through ×2 then +3 and becomes 11; swap the machines and the same 4 comes out as 14.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.A.1/stacking-two-graphs",
+  "standard": "HSF-BF.A.1",
+  "topic": "Building Functions",
+  "band": "algebra1",
+  "title": "Stacking two graphs",
+  "line": "At each x, a bar from y = 2x stacks on a bar from y = x², and the tops trace y = x² + 2x.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.9/table-vs-graph-showdown",
+  "standard": "HSF-IF.C.9",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Table vs graph showdown",
+  "line": "A table of rising values turns into dots beside a drawn line, and slope triangles on each show which one climbs faster.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.8/three-faces-of-one-parabola",
+  "standard": "HSF-IF.C.8",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Three faces of one parabola",
+  "line": "y = x² - 2x - 8 cycles through factored and vertex forms, and each form lights up its feature: roots, intercept, vertex at (1, -9).",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.8/folding-the-parabola",
+  "standard": "HSF-IF.C.8",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Folding the parabola",
+  "line": "y = (x - 1)² - 9 folds along x = 1, the two halves land on each other, and the roots -2 and 4 meet.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.7/absolute-value-as-a-fold",
+  "standard": "HSF-IF.C.7",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Absolute value as a fold",
+  "line": "The part of y = x - 2 below the x-axis flips up like a hinge, making a V with its tip at (2, 0).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.7/parking-meter-staircase",
+  "standard": "HSF-IF.C.7",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Parking meter staircase",
+  "line": "A clock runs while the parking fee jumps $3 at each new hour, building a staircase of open and closed dots.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.7/half-a-sideways-parabola",
+  "standard": "HSF-IF.C.7",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Half a sideways parabola",
+  "line": "y = x² flips across the line y = x, the bottom half fades away, and what's left is y = √x.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.C.7/racing-toward-an-asymptote",
+  "standard": "HSF-IF.C.7",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Racing toward an asymptote",
+  "line": "A dot slides along y = 1/(x - 2) toward x = 2 and shoots upward as its height reads 10, 100, 1000.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.B.6/slopes-of-a-ball-s-flight",
+  "standard": "HSF-IF.B.6",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Slopes of a ball's flight",
+  "line": "On h = -5t² + 20t, secant lines over each second show average speeds 15, 5, then -5 m/s as the ball rises and falls.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.B.6/the-steady-ghost-car",
+  "standard": "HSF-IF.B.6",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "The steady ghost car",
+  "line": "A car lurches 120 km in 2 hours with stops and bursts, while a ghost car at a steady 60 km/h arrives alongside it.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.B.5/where-the-fence-graph-lives",
+  "standard": "HSF-IF.B.5",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Where the fence graph lives",
+  "line": "A 20 m fence rectangle widens from 0 to 10 m, collapsing flat at both ends, so its area graph lives only between.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.B.5/you-can-t-buy-half-a-ticket",
+  "standard": "HSF-IF.B.5",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "You can't buy half a ticket",
+  "line": "A line for $12 tickets breaks apart into separate dots at 1, 2, 3 tickets, since 2.5 tickets isn't a thing.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.B.4/ferris-wheel-height",
+  "standard": "HSF-IF.B.4",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Ferris wheel height",
+  "line": "A rider circles a Ferris wheel while their height traces a wave beside it, peaking at the top and bottoming out at boarding.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.A.3/fibonacci-squares-spiral",
+  "standard": "HSF-IF.A.3",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Fibonacci squares spiral",
+  "line": "Squares of side 1, 1, 2, 3, 5, 8 spiral outward, each side the sum of the last two, while dots mark f(n).",
+  "needs": []
+ },
+ {
+  "key": "HSF-IF.A.3/triangular-numbers-stack-up",
+  "standard": "HSF-IF.A.3",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Triangular numbers stack up",
+  "line": "Dots stack into triangles of 1, 3, 6, 10, each new row adding n more dots, so T(n) = T(n - 1) + n.",
+  "needs": []
+ },
+ {
+  "key": "HSF-IF.A.2/two-inputs-one-output",
+  "standard": "HSF-IF.A.2",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Two inputs, one output",
+  "line": "3 drops into f(x) = x² - 1 and 8 comes out, -3 also gives 8, and each output lands as a point on the graph.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-IF.A.1/arrows-from-inputs-to-outputs",
+  "standard": "HSF-IF.A.1",
+  "topic": "Interpreting Functions",
+  "band": "algebra1",
+  "title": "Arrows from inputs to outputs",
+  "line": "Arrows link students to birthdays; two students sharing a birthday is fine, but one student with two arrows turns red.",
+  "needs": []
+ },
+ {
+  "key": "HSN-Q.A.1/units-cancel-like-fractions",
+  "standard": "HSN-Q.A.1",
+  "topic": "Quantities",
+  "band": "algebra1",
+  "title": "Units cancel like fractions",
+  "line": "60 miles/hour × 3 hours: the hours on top and bottom strike each other out, leaving 180 miles.",
+  "needs": []
+ },
+ {
+  "key": "HSN-Q.A.1/same-data-scary-axis",
+  "standard": "HSN-Q.A.1",
+  "topic": "Quantities",
+  "band": "algebra1",
+  "title": "Same data, scary axis",
+  "line": "A rise from 96 to 98 looks flat on a 0 to 100 axis, then the axis restarts at 95 and it looks huge.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-RN.B.3/rational-plus-irrational",
+  "standard": "HSN-RN.B.3",
+  "topic": "The Real Number System",
+  "band": "algebra1",
+  "title": "Rational plus irrational",
+  "line": "Pretend 1/2 + √2 is a fraction, slide the 1/2 over, and √2 ends up a fraction too, which flashes red: impossible.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-RN.A.2/8-to-the-two-thirds",
+  "standard": "HSN-RN.A.2",
+  "topic": "The Real Number System",
+  "band": "algebra1",
+  "title": "8 to the two-thirds",
+  "line": "8 splits into three groups as 2·2·2, the cube root keeps one 2, squaring it gives 4, so 8^(2/3) = 4.",
+  "needs": []
+ },
+ {
+  "key": "HSN-RN.A.2/50-from-squares",
+  "standard": "HSN-RN.A.2",
+  "topic": "The Real Number System",
+  "band": "algebra1",
+  "title": "√50 from squares",
+  "line": "50 dots rearrange into two 5×5 squares, so √50 pulls out a 5 and leaves √2 behind.",
+  "needs": []
+ },
+ {
+  "key": "HSN-RN.A.1/halfway-between-1-and-9",
+  "standard": "HSN-RN.A.1",
+  "topic": "The Real Number System",
+  "band": "algebra1",
+  "title": "Halfway between 1 and 9",
+  "line": "Exponents 0, 1, 2 map to 1, 9, 81, and the jump from 1 to 9 splits into two ×3 steps, so 9^(1/2) = 3.",
+  "needs": []
+ },
+ {
+  "key": "HSN-RN.A.1/filling-gaps-on-2-x",
+  "standard": "HSN-RN.A.1",
+  "topic": "The Real Number System",
+  "band": "algebra1",
+  "title": "Filling gaps on 2^x",
+  "line": "Dots at 2^0, 2^1, 2^2 sit on a curve, then 2^(1/2) = 1.414 and 2^(1/3) = 1.26 drop in, landing exactly on it.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.C.9/the-hidden-sun",
+  "standard": "HSS-ID.C.9",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "The hidden sun",
+  "line": "Ice cream sales and sunburns rise together month by month, then a sun slides in with arrows to both: it caused each one.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-ID.C.8/watching-r-tighten",
+  "standard": "HSS-ID.C.8",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Watching r tighten",
+  "line": "A cloud of 30 points squeezes onto a line as r climbs from 0.1 to 0.98, then tips downhill and r goes negative.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.C.7/five-points-per-hour",
+  "standard": "HSS-ID.C.7",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Five points per hour",
+  "line": "A fit line y = 5x + 60 over study-hours data steps one hour right, a brace shows +5 points, and 60 marks zero hours.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.B.6/residuals-as-springs",
+  "standard": "HSS-ID.B.6",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Residuals as springs",
+  "line": "Vertical springs join each point to a line; as the line turns, the springs stretch and squeeze until their total settles at its lowest.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.B.6/the-residual-smile",
+  "standard": "HSS-ID.B.6",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "The residual smile",
+  "line": "A line fits curved data, the residuals drop onto their own axis, and they form a U-shape that shows the line was wrong.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.B.5/dots-sort-into-a-table",
+  "standard": "HSS-ID.B.5",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Dots sort into a table",
+  "line": "Fifty dots (cats or dogs, grade 9 or 10) fly into four cells, counts tally up, then one row turns into percentages.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-ID.A.4/pegs-build-a-bell",
+  "standard": "HSS-ID.A.4",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Pegs build a bell",
+  "line": "Balls bounce left or right through rows of pegs, piling into bins that form a bell, then the middle 68% shades in.",
+  "needs": [
+   "data",
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.A.4/68-95-99-7",
+  "standard": "HSS-ID.A.4",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "68, 95, 99.7",
+  "line": "Shading on a normal curve centered at 70 widens one, two, then three spreads out, the percent counting 68, 95, 99.7.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-ID.A.2/same-center-different-spread",
+  "standard": "HSS-ID.A.2",
+  "topic": "Interpreting Categorical and Quantitative Data",
+  "band": "algebra1",
+  "title": "Same center, different spread",
+  "line": "Two dot plots both average 50, but one bunches up and one spreads out, and their standard deviation bars stretch to match.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSG-MG.A.3/fencing-the-biggest-pen",
+  "standard": "HSG-MG.A.3",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "Fencing the biggest pen",
+  "line": "A rectangle of 40 m fence slides its width from 1 to 19 while the area counter climbs, peaks at 100, then falls.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-MG.A.3/the-cheapest-soup-can",
+  "standard": "HSG-MG.A.3",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "The cheapest soup can",
+  "line": "A can holding 500 cm³ morphs from tall and skinny to short and wide as a metal-used graph dips to its lowest point.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-MG.A.3/the-lifeguard-s-fastest-path",
+  "standard": "HSG-MG.A.3",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "The lifeguard's fastest path",
+  "line": "A lifeguard runs on sand then swims; the water entry point slides along the shore until the time readout bottoms out.",
+  "needs": []
+ },
+ {
+  "key": "HSG-MG.A.3/a-page-grid-from-squares",
+  "standard": "HSG-MG.A.3",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "A page grid from squares",
+  "line": "A page rectangle keeps snipping off squares, each leftover a smaller copy of the page, while the side ratio settles at 1.618.",
+  "needs": []
+ },
+ {
+  "key": "HSG-MG.A.2/same-crowd-smaller-town",
+  "standard": "HSG-MG.A.2",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "Same crowd, smaller town",
+  "line": "100 dots spread over a 10×10 grid squeeze into a 5×5 corner and the people-per-square counter jumps from 1 to 4.",
+  "needs": []
+ },
+ {
+  "key": "HSG-MG.A.2/pepperoni-per-square-inch",
+  "standard": "HSG-MG.A.2",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "Pepperoni per square inch",
+  "line": "A 10-inch and a 14-inch pizza each get 20 pepperonis, and the bigger pizza's toppings-per-square-inch readout drops to about half.",
+  "needs": []
+ },
+ {
+  "key": "HSG-MG.A.1/measuring-a-lake-with-circles",
+  "standard": "HSG-MG.A.1",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "Measuring a lake with circles",
+  "line": "A wobbly lake outline gets covered by three circles whose areas add up, then the estimate is compared with a grid-square count.",
+  "needs": []
+ },
+ {
+  "key": "HSG-MG.A.1/a-person-made-of-rectangles",
+  "standard": "HSG-MG.A.1",
+  "topic": "Modeling with Geometry",
+  "band": "geometry",
+  "title": "A person made of rectangles",
+  "line": "A stick-figure outline fills in with a circle head and rectangle torso and limbs, each labeled, while a total area counter adds up.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.B.4/slicing-a-cone-sideways",
+  "standard": "HSG-GMD.B.4",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Slicing a cone sideways",
+  "line": "A knife line tilts through a cone drawn from the side while the slice beside it morphs from circle to ellipse to parabola.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.B.4/spinning-a-semicircle-into-a-ball",
+  "standard": "HSG-GMD.B.4",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Spinning a semicircle into a ball",
+  "line": "A semicircle flips around its diameter like a spinning coin, squashing and stretching, and its ghost copies pile up into a sphere's outline.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.B.4/a-hexagon-hiding-in-a-cube",
+  "standard": "HSG-GMD.B.4",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "A hexagon hiding in a cube",
+  "line": "A slicing plane tilts through a cube and the cut face changes from triangle to square to a perfect hexagon.",
+  "needs": [
+   "3d"
+  ]
+ },
+ {
+  "key": "HSG-GMD.A.3/a-ball-in-a-tin-can",
+  "standard": "HSG-GMD.A.3",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "A ball in a tin can",
+  "line": "A ball of radius 3 drops into a snug can full of water; the water spills, leaving 18π of the can's 54π behind.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GMD.A.3/double-the-cone",
+  "standard": "HSG-GMD.A.3",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Double the cone",
+  "line": "A cone's radius doubles and its volume counter jumps 4×, then its height doubles and the counter jumps 2× more.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.A.2/shoving-a-stack-of-coins",
+  "standard": "HSG-GMD.A.2",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Shoving a stack of coins",
+  "line": "A neat stack of 12 coins gets pushed into a leaning tower, and the volume counter never changes as each coin slides.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.A.2/hemisphere-slices-match-rings",
+  "standard": "HSG-GMD.A.2",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Hemisphere slices match rings",
+  "line": "A slice line rises through a hemisphere and a cone-hollowed cylinder, and the disk and ring slices always have equal areas.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GMD.A.2/sliding-strips-of-a-triangle",
+  "standard": "HSG-GMD.A.2",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Sliding strips of a triangle",
+  "line": "A triangle cut into 10 thin horizontal strips gets sheared sideways strip by strip, and its area stays 12 the whole time.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GMD.A.1/pizza-into-a-rectangle",
+  "standard": "HSG-GMD.A.1",
+  "topic": "Geometric Measurement and Dimension",
+  "band": "geometry",
+  "title": "Pizza into a rectangle",
+  "line": "A circle of radius 2 splits into 16 slices that unzip and interlock into a near-rectangle measuring πr by r.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.7/perimeter-with-hidden-staircases",
+  "standard": "HSG-GPE.B.7",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Perimeter with hidden staircases",
+  "line": "Each side of a pentagon on a grid sprouts its right-triangle legs, its length gets computed, and the perimeter total adds up.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.7/box-it-and-subtract",
+  "standard": "HSG-GPE.B.7",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Box it and subtract",
+  "line": "A triangle at (1,1), (6,2), (3,5) gets boxed in a 5×4 rectangle, three corner triangles peel off, and 20 drops to 9.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.7/lacing-up-the-shoelace-formula",
+  "standard": "HSG-GPE.B.7",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Lacing up the shoelace formula",
+  "line": "A polygon's coordinates stack in a column, crossing arrows lace between them like shoelaces, and the products sum to twice the area.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.6/two-fifths-of-the-way",
+  "standard": "HSG-GPE.B.6",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Two-fifths of the way",
+  "line": "A dot slides from (−4,−1) toward (6,4) with a ratio counter and stops at 2:3, landing exactly on (0,1).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.6/balancing-the-seesaw",
+  "standard": "HSG-GPE.B.6",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Balancing the seesaw",
+  "line": "Weights of 3 and 2 sit at a segment's ends, and a pivot slides until the bar levels at the 2:3 point.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GPE.B.6/splitting-the-staircase",
+  "standard": "HSG-GPE.B.6",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Splitting the staircase",
+  "line": "A segment's rise and run chop into 5 equal steps, and the partition point hops step by step to the second one.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.5/turning-a-slope-sideways",
+  "standard": "HSG-GPE.B.5",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Turning a slope sideways",
+  "line": "A line with slope 2/3 and its rise-run triangle rotate 90°, the legs swap and one flips sign, and the slope reads −3/2.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.5/the-product-stuck-at-1",
+  "standard": "HSG-GPE.B.5",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "The product stuck at −1",
+  "line": "A line spins around the origin with a perpendicular partner; both slope readouts change wildly while their product stays at −1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.5/sliding-to-the-point",
+  "standard": "HSG-GPE.B.5",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Sliding to the point",
+  "line": "A line y = 2x − 3 slides upward, keeping its slope triangle, until it passes through (1,4), and its equation updates live.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.4/midpoints-always-make-a-parallelogram",
+  "standard": "HSG-GPE.B.4",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Midpoints always make a parallelogram",
+  "line": "A lopsided quadrilateral's corners wander around; joining its side midpoints always gives a parallelogram whose matching slope readouts stay equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.B.4/the-hypotenuse-midpoint",
+  "standard": "HSG-GPE.B.4",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "The hypotenuse midpoint",
+  "line": "A right triangle at (0,0), (2a,0), (0,2b) reshapes as a and b change; three distances from the hypotenuse midpoint stay equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.A.3/string-and-two-pins",
+  "standard": "HSG-GPE.A.3",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "String and two pins",
+  "line": "A pencil pulls a string loop around two pins, tracing an ellipse while its two distances change but always sum to 10.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GPE.A.3/the-difference-stays-4",
+  "standard": "HSG-GPE.A.3",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "The difference stays 4",
+  "line": "A dot traces both branches of a hyperbola as its distances to two foci change, but their difference readout never leaves 4.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GPE.A.3/pulling-a-circle-apart",
+  "standard": "HSG-GPE.A.3",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Pulling a circle apart",
+  "line": "Two foci start together at a circle's center and drift apart, squashing the circle into a flatter and flatter ellipse.",
+  "needs": []
+ },
+ {
+  "key": "HSG-GPE.A.2/equal-distances-make-a-parabola",
+  "standard": "HSG-GPE.A.2",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Equal distances make a parabola",
+  "line": "A dot slides along a curve with segments to the focus (0,1) and the line y = −1, always equal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.A.2/circles-meet-lines",
+  "standard": "HSG-GPE.A.2",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Circles meet lines",
+  "line": "Circles grow around the focus while matching horizontal lines rise, and each crossing drops a dot until a parabola appears.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-GPE.A.1/pythagoras-sweeps-a-circle",
+  "standard": "HSG-GPE.A.1",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Pythagoras sweeps a circle",
+  "line": "A right triangle with hypotenuse 5 spins around (2,−1), its legs relabel as x−2 and y+1, and its tip traces a circle.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-GPE.A.1/twelve-points-at-distance-5",
+  "standard": "HSG-GPE.A.1",
+  "topic": "Expressing Geometric Properties with Equations",
+  "band": "geometry",
+  "title": "Twelve points at distance 5",
+  "line": "Grid points at distance 5 from the origin light up, (3,4), (4,3), (5,0) and nine more, all on one circle.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-C.B.5/wrapping-radii-around-a-circle",
+  "standard": "HSG-C.B.5",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Wrapping radii around a circle",
+  "line": "A radius-length string bends onto the rim again and again; six fit with a sliver left over, and the counter reads 6.28.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.B.5/same-angle-bigger-arc",
+  "standard": "HSG-C.B.5",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Same angle, bigger arc",
+  "line": "A 60° wedge cuts circles of radius 1, 2, and 3; their arc lengths count up while arc ÷ radius stays 1.047.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.B.5/growing-a-sector",
+  "standard": "HSG-C.B.5",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Growing a sector",
+  "line": "An angle opens from 0 to 2π, the pie slice fills in, and its area counter tracks ½r²θ the whole way.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-C.A.4/a-circle-finds-the-tangent",
+  "standard": "HSG-C.A.4",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "A circle finds the tangent",
+  "line": "A circle drawn on OP as diameter crosses the original circle at two points, and lines from P through them just touch it.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.4/two-crossings-merge-into-one",
+  "standard": "HSG-C.A.4",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Two crossings merge into one",
+  "line": "A line from an outside point swings down, and its two crossing points on the circle slide together into one tangent point.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.4/two-tangents-equal-lengths",
+  "standard": "HSG-C.A.4",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Two tangents, equal lengths",
+  "line": "A point outside a circle wanders around while its two tangent segments are drawn, and their length readouts always match.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.3/growing-the-incircle",
+  "standard": "HSG-C.A.3",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Growing the incircle",
+  "line": "Three angle bisectors meet at a point, and a circle inflates from it until it kisses all three sides at once.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.3/chasing-the-circumcenter",
+  "standard": "HSG-C.A.3",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Chasing the circumcenter",
+  "line": "Perpendicular bisectors meet and a circle passes through all three corners; dragging one vertex pushes the center outside an obtuse triangle.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.3/opposite-angles-add-to-180",
+  "standard": "HSG-C.A.3",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Opposite angles add to 180",
+  "line": "Four points slide around a circle; the quadrilateral's angles A and C keep changing, but their sum readout stays 180°.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.2/the-inscribed-angle-is-half",
+  "standard": "HSG-C.A.2",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "The inscribed angle is half",
+  "line": "A point slides around the circle's rim; its inscribed angle reads 35° everywhere while the central angle on the same arc stays 70°.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.2/right-angles-in-a-semicircle",
+  "standard": "HSG-C.A.2",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Right angles in a semicircle",
+  "line": "A point slides along a semicircle, and the angle it makes with the diameter's ends stays locked at a right angle.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.2/crossing-chords-equal-products",
+  "standard": "HSG-C.A.2",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Crossing chords, equal products",
+  "line": "Two chords cross inside a circle and wiggle; their pieces keep changing, but piece times piece on each chord always matches.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.1/slide-and-scale-a-circle",
+  "standard": "HSG-C.A.1",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Slide and scale a circle",
+  "line": "A circle of radius 1 slides onto a bigger circle's center and dilates by 3 until it fits exactly over it.",
+  "needs": []
+ },
+ {
+  "key": "HSG-C.A.1/shining-a-circle-bigger",
+  "standard": "HSG-C.A.1",
+  "topic": "Circles",
+  "band": "geometry",
+  "title": "Shining a circle bigger",
+  "line": "Rays from a point outside two circles pass through matching points, showing a single dilation carries the small circle onto the big one.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.D.11/measuring-across-a-river",
+  "standard": "HSG-SRT.D.11",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Measuring across a river",
+  "line": "Two surveyors 50 m apart sight a tree across a river at 70° and 60°, the triangle closes, and the distance appears.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.D.11/opening-a-hinge",
+  "standard": "HSG-SRT.D.11",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Opening a hinge",
+  "line": "Sides of 5 and 7 hinge open from 0° to 180°, the third side grows from 2 to 12, passing √74 at 90°.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-SRT.D.11/two-forces-one-push",
+  "standard": "HSG-SRT.D.11",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Two forces, one push",
+  "line": "Arrows of 30 N and 40 N at 60° slide tip to tail, and the resultant arrow measures about 60.8 N.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.D.10/pythagoras-with-a-correction",
+  "standard": "HSG-SRT.D.10",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Pythagoras with a correction",
+  "line": "As angle C opens past 90°, the squares on a and b stop filling c's square, and a 2ab cos C strip appears.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-SRT.D.10/one-height-two-ways",
+  "standard": "HSG-SRT.D.10",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "One height, two ways",
+  "line": "An altitude drops inside a triangle, labeled b sin A from one side and a sin B from the other: the law of sines.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-SRT.D.10/the-ratio-that-is-the-diameter",
+  "standard": "HSG-SRT.D.10",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "The ratio that is the diameter",
+  "line": "A triangle's vertices slide around a circle of radius 3 while a ÷ sin A stays fixed at 6, the diameter.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.D.9/tilting-the-side",
+  "standard": "HSG-SRT.D.9",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Tilting the side",
+  "line": "Sides 6 and 4 meet at angle C, the dropped height 4 sin C grows and shrinks, and the area peaks at 12.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSG-SRT.C.8/how-tall-is-the-tree",
+  "standard": "HSG-SRT.C.8",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "How tall is the tree",
+  "line": "A sightline from 20 m away tilts up 35° to a treetop, a right triangle fills in, and the height counts to 14 m.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.C.7/swapping-the-corners",
+  "standard": "HSG-SRT.C.7",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Swapping the corners",
+  "line": "A 30°-60°-90° triangle flips so its acute angles trade places, and the side labeled sin 30° becomes cos 60°.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.C.7/mirror-across-y-x",
+  "standard": "HSG-SRT.C.7",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Mirror across y = x",
+  "line": "A point at angle θ on the unit circle reflects across y = x to angle 90° − θ, and its coordinates swap.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-SRT.C.6/same-angle-same-ratio",
+  "standard": "HSG-SRT.C.6",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Same angle, same ratio",
+  "line": "A 30° right triangle grows from tiny to huge, and its opposite ÷ hypotenuse counter never budges from 0.500.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.C.6/a-fan-of-40-triangles",
+  "standard": "HSG-SRT.C.6",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "A fan of 40° triangles",
+  "line": "Five right triangles share one 40° corner, nested like a fan, and a table fills with the same 0.839 for every one.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.C.6/turning-the-angle-dial",
+  "standard": "HSG-SRT.C.6",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Turning the angle dial",
+  "line": "An angle slides from 0° to 90°, the triangle reshapes, and its opposite ÷ hypotenuse ratio climbs smoothly from 0 to 1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-SRT.B.5/a-shadow-measures-the-flagpole",
+  "standard": "HSG-SRT.B.5",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "A shadow measures the flagpole",
+  "line": "A 2 m person's 3 m shadow triangle slides and scales onto a flagpole's 18 m shadow, showing the pole is 12 m.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.B.5/a-mirror-on-the-floor",
+  "standard": "HSG-SRT.B.5",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "A mirror on the floor",
+  "line": "A light ray bounces off a floor mirror to your eye, making two similar triangles that reveal how tall the wall is.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.B.4/pythagoras-from-three-triangles",
+  "standard": "HSG-SRT.B.4",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Pythagoras from three triangles",
+  "line": "A 3-4-5 triangle's altitude splits it into two pieces that rotate and flip to line up perfectly with the big one.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.B.4/a-parallel-line-splits-sides",
+  "standard": "HSG-SRT.B.4",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "A parallel line splits sides",
+  "line": "A line parallel to the base slides up a triangle, and the ratio readouts on the two cut sides stay equal.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.B.4/the-bisector-s-lopsided-cut",
+  "standard": "HSG-SRT.B.4",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "The bisector's lopsided cut",
+  "line": "An angle bisector between sides 6 and 4 hits the opposite side and splits it into pieces in a 6:4 ratio.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.3/the-third-angle-comes-free",
+  "standard": "HSG-SRT.A.3",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "The third angle comes free",
+  "line": "A triangle's three corners tear off and line up along a straight line, so fixing two angles forces the third.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.2/is-it-similar",
+  "standard": "HSG-SRT.A.2",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Is it similar?",
+  "line": "A shape rotates, flips, and scales by 1.5 to land on its twin, then a stretched copy tries and fails to fit.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.2/ratios-lock-together",
+  "standard": "HSG-SRT.A.2",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Ratios lock together",
+  "line": "Triangles 3-4-5 and 6-8-10 color-match their sides, the ratios 2, 2, 2 count in, and matching angle arcs overlap.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.1/rays-from-the-center",
+  "standard": "HSG-SRT.A.1",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Rays from the center",
+  "line": "A triangle dilates by 2 from a center point, rays through each corner, and each new side stays parallel and doubles.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.1/the-line-that-stays-put",
+  "standard": "HSG-SRT.A.1",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "The line that stays put",
+  "line": "Under a dilation, a line through the center slides along itself, while a line missing the center jumps to a parallel copy.",
+  "needs": []
+ },
+ {
+  "key": "HSG-SRT.A.1/scaling-through-zero",
+  "standard": "HSG-SRT.A.1",
+  "topic": "Similarity, Right Triangles, and Trigonometry",
+  "band": "geometry",
+  "title": "Scaling through zero",
+  "line": "The scale factor sweeps from 2 to −1, the shape shrinks into the center point, then comes out the other side upside down.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.D.13/six-radii-around-a-circle",
+  "standard": "HSG-CO.D.13",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Six radii around a circle",
+  "line": "A compass set to the radius steps around a circle exactly 6 times; the marks join into a hexagon, every other into a triangle.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.D.13/a-square-from-two-diameters",
+  "standard": "HSG-CO.D.13",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "A square from two diameters",
+  "line": "A diameter is drawn, its perpendicular bisector crosses it, and the four rim points connect into a square inscribed in the circle.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.D.12/two-arcs-find-the-midpoint",
+  "standard": "HSG-CO.D.12",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Two arcs find the midpoint",
+  "line": "Arcs swing from both ends of a segment and cross twice, and the line through the crossings cuts it in half at 90°.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.D.12/copying-an-angle",
+  "standard": "HSG-CO.D.12",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Copying an angle",
+  "line": "Compass arcs measure a 40° angle's opening, carry it to a new ray, and a copy appears that overlaps the original exactly.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.D.12/folding-the-angle-in-half",
+  "standard": "HSG-CO.D.12",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Folding the angle in half",
+  "line": "One ray of an angle folds onto the other like paper, and the crease left behind is the angle bisector.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.11/diagonals-cut-each-other-in-half",
+  "standard": "HSG-CO.C.11",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Diagonals cut each other in half",
+  "line": "A parallelogram shears and stretches, and its diagonals' four color-matched halves stay equal in pairs the whole time.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.11/half-a-turn-onto-itself",
+  "standard": "HSG-CO.C.11",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Half a turn onto itself",
+  "line": "A parallelogram spins 180° around its center and lands on itself, carrying each side onto its opposite to prove they match.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.11/when-diagonals-become-equal",
+  "standard": "HSG-CO.C.11",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "When diagonals become equal",
+  "line": "A parallelogram's angles tilt toward 90°, and at the exact moment it becomes a rectangle the two diagonal readouts match.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.10/the-midsegment-is-half",
+  "standard": "HSG-CO.C.10",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "The midsegment is half",
+  "line": "A segment joining two side midpoints stays parallel to the base as the triangle reshapes, with a length ratio fixed at 0.5.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.10/medians-meet-at-the-balance-point",
+  "standard": "HSG-CO.C.10",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Medians meet at the balance point",
+  "line": "Three medians cross at one point that cuts each into a 2:1 split, and the triangle balances there on a pin.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.10/folding-an-isosceles-triangle",
+  "standard": "HSG-CO.C.10",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Folding an isosceles triangle",
+  "line": "An isosceles triangle folds along its altitude, the halves overlap exactly, and the base angles land on each other.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.9/vertical-angles-stay-matched",
+  "standard": "HSG-CO.C.9",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Vertical angles stay matched",
+  "line": "Two crossing lines rotate around their meeting point, and the opposite angle readouts change together but always match.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.C.9/walking-the-perpendicular-bisector",
+  "standard": "HSG-CO.C.9",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Walking the perpendicular bisector",
+  "line": "A dot walks along a segment's perpendicular bisector, and its two distance readouts to the segment's ends stay equal.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.8/sas-snaps-into-place",
+  "standard": "HSG-CO.B.8",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "SAS snaps into place",
+  "line": "A triangle slides, turns, and flips onto one with the same two sides and angle, and its last corner has one place to land.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.8/three-sides-two-circles",
+  "standard": "HSG-CO.B.8",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Three sides, two circles",
+  "line": "Circles of radius 4 and 6 around the ends of a 7-long side cross at two mirror points, so the triangle is fixed.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.8/why-ssa-fails",
+  "standard": "HSG-CO.B.8",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Why SSA fails",
+  "line": "A side of length 4 swings from an angle of 30° and hits the base line twice, building two different triangles.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.7/landing-piece-by-piece",
+  "standard": "HSG-CO.B.7",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Landing piece by piece",
+  "line": "As one triangle slides, turns, and flips onto another, each pair of sides and angles lights up when it lands.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.6/which-shape-fits",
+  "standard": "HSG-CO.B.6",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Which shape fits",
+  "line": "An L-shaped tile tries slides, turns, and flips to land on four targets; three fit perfectly and one needs a stretch.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.B.6/predict-the-flip",
+  "standard": "HSG-CO.B.6",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Predict the flip",
+  "line": "A flag shape shows a ghost guess for its reflection across y = x, then actually flips and checks the guess.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-CO.A.5/three-moves-to-land",
+  "standard": "HSG-CO.A.5",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Three moves to land",
+  "line": "An arrow shape reaches a target by a slide, a 90° turn, and a flip, each move tracing its path on the grid.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-CO.A.5/two-flips-make-a-turn",
+  "standard": "HSG-CO.A.5",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Two flips make a turn",
+  "line": "A shape reflects across two mirror lines that meet at 40°, and the result is the same shape rotated 80°.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.5/two-parallel-flips-make-a-slide",
+  "standard": "HSG-CO.A.5",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Two parallel flips make a slide",
+  "line": "Reflecting a shape across two parallel mirrors 3 units apart slides it 6 units, with no turn at all.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.4/rotation-as-circles",
+  "standard": "HSG-CO.A.4",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Rotation as circles",
+  "line": "Each corner of a triangle rides its own circle around a center point, sweeping identical 60° arcs.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.4/the-mirror-line-as-bisector",
+  "standard": "HSG-CO.A.4",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "The mirror line as bisector",
+  "line": "Segments join each point to its reflection, and the mirror line cuts every one at its midpoint at a right angle.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.4/translation-as-parallel-arrows",
+  "standard": "HSG-CO.A.4",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Translation as parallel arrows",
+  "line": "Every point of a shape gets the same arrow, all parallel and equal length, and the shape glides along them.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.3/twelve-ways-to-move-a-hexagon",
+  "standard": "HSG-CO.A.3",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Twelve ways to move a hexagon",
+  "line": "A hexagon with colored corners runs through 6 rotations and 6 flips, landing on itself each time while a counter climbs to 12.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.3/rectangle-versus-square",
+  "standard": "HSG-CO.A.3",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Rectangle versus square",
+  "line": "A rectangle and a square both try a 90° turn; the square lands on itself, the rectangle sticks out awkwardly.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.3/the-parallelogram-s-only-trick",
+  "standard": "HSG-CO.A.3",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "The parallelogram's only trick",
+  "line": "A parallelogram flips across each diagonal and misses itself, then spins 180° and lands perfectly.",
+  "needs": []
+ },
+ {
+  "key": "HSG-CO.A.2/stretch-versus-slide",
+  "standard": "HSG-CO.A.2",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Stretch versus slide",
+  "line": "A circle on a grid slides and stays a circle, then a horizontal stretch squashes it into an ellipse as a ruler readout changes.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-CO.A.2/points-in-points-out",
+  "standard": "HSG-CO.A.2",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "Points in, points out",
+  "line": "Points fly through a 90° rotation machine, and a table fills in: (2,1) becomes (−1,2), (3,0) becomes (0,3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSG-CO.A.1/a-circle-is-a-fixed-string",
+  "standard": "HSG-CO.A.1",
+  "topic": "Congruence",
+  "band": "geometry",
+  "title": "A circle is a fixed string",
+  "line": "A segment of length 2 pinned at one end spins around, and its free end leaves a trail that closes into a circle.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.D.7/adding-polynomial-fractions",
+  "standard": "HSA-APR.D.7",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Adding polynomial fractions",
+  "line": "Two fractions 1/x and 1/(x+1) slide together, grow a shared bottom x(x+1), and their tops merge into (2x+1).",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.D.6/polynomial-division-is-number-division",
+  "standard": "HSA-APR.D.6",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Polynomial division is number division",
+  "line": "Dividing x² + 3x + 5 by x + 1 runs beside 135 ÷ 11, and setting x = 10 shows identical steps.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.D.6/the-leftover-that-shrinks",
+  "standard": "HSA-APR.D.6",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "The leftover that shrinks",
+  "line": "The curve (x² + 1)/x is split into the line y = x plus 1/x, and the gap between them shrinks as x grows.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.C.5/sorting-strings-of-x-and-y",
+  "standard": "HSA-APR.C.5",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Sorting strings of x and y",
+  "line": "All 16 four-letter words of x and y, like xyyx, drop into piles by number of y's, stacking 1, 4, 6, 4, 1.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.C.5/pascal-s-triangle-by-pegs",
+  "standard": "HSA-APR.C.5",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Pascal's triangle by pegs",
+  "line": "Balls bounce down a peg board and each slot's number is the sum of the two above, building Pascal's triangle row by row.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.C.5/powers-of-eleven",
+  "standard": "HSA-APR.C.5",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Powers of eleven",
+  "line": "The numbers 121, 1331 and 14641 line up as Pascal rows, then 11 becomes (10 + 1) and the 11⁵ carries break the pattern.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.C.5/squaring-x-y-with-tiles",
+  "standard": "HSA-APR.C.5",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Squaring x + y with tiles",
+  "line": "A square of side x + y splits into x², two xy rectangles and y², which slide apart and label themselves.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.C.4/difference-of-squares-cut-and-slide",
+  "standard": "HSA-APR.C.4",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Difference of squares cut and slide",
+  "line": "A 7×7 square loses a 3×3 corner, and the leftover L is cut and slid into a 10×4 rectangle: 49 − 9 = 40.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.C.4/odd-numbers-stack-into-squares",
+  "standard": "HSA-APR.C.4",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Odd numbers stack into squares",
+  "line": "L-shaped layers of 1, 3, 5 and 7 dots nest into a 4×4 square, one odd number per layer.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.C.4/a-machine-for-right-triangles",
+  "standard": "HSA-APR.C.4",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "A machine for right triangles",
+  "line": "Picking whole numbers x and y in (x² − y²)² + (2xy)² = (x² + y²)² spits out right triangles 3-4-5, 5-12-13 and 8-15-17.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.C.4/49-squared-in-your-head",
+  "standard": "HSA-APR.C.4",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "49 squared in your head",
+  "line": "A 50×50 square loses two 1×50 strips and gets back a tiny corner, so the counter ticks 2500 − 100 + 1 = 2401.",
+  "needs": []
+ },
+ {
+  "key": "HSA-APR.B.3/walking-the-sign-chart",
+  "standard": "HSA-APR.B.3",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Walking the sign chart",
+  "line": "A dot walks the x-axis as factors (x + 2), (x − 1), (x − 3) flip sign at each zero, pushing the curve over or under.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-APR.B.3/bounce-or-cross",
+  "standard": "HSA-APR.B.3",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Bounce or cross",
+  "line": "At x = 1, the graph of (x − 1) crosses, (x − 1)² bounces, and (x − 1)³ flattens out before crossing.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-APR.B.3/dragging-a-root",
+  "standard": "HSA-APR.B.3",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Dragging a root",
+  "line": "In (x + 1)(x − 2)(x − a), the zero a slides from −3 to 3 and the curve wiggles to stay on all three dots.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSA-APR.B.2/the-remainder-is-the-height",
+  "standard": "HSA-APR.B.2",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "The remainder is the height",
+  "line": "As a slides along x³ − 2x + 1, the remainder from dividing by (x − a) always matches the curve's height there.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.B.2/divide-or-plug-in",
+  "standard": "HSA-APR.B.2",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Divide or plug in",
+  "line": "Synthetic division of x³ − 4x² + x + 6 by (x − 2) races plugging in 2, and both land on 0.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.A.1/area-model-meets-13-12",
+  "standard": "HSA-APR.A.1",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Area model meets 13 × 12",
+  "line": "An (x + 3) by (x + 2) rectangle splits into x², 3x, 2x and 6, then x becomes 10 and the tiles total 156.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSA-APR.A.1/polynomials-as-base-x-numbers",
+  "standard": "HSA-APR.A.1",
+  "topic": "Arithmetic with Polynomials and Rational Expressions",
+  "band": "algebra2",
+  "title": "Polynomials as base-x numbers",
+  "line": "Adding (x² + 2x + 3) and (4x² + 5x + 6) column by column matches 123 + 456 when x is 10.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.C.9/two-angles-in-a-rectangle",
+  "standard": "HSF-TF.C.9",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Two angles in a rectangle",
+  "line": "A triangle with angle β stacks on one with angle α inside a rectangle, and matching opposite sides spell out sin(α + β).",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.C.9/rotate-then-rotate-again",
+  "standard": "HSF-TF.C.9",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Rotate, then rotate again",
+  "line": "A unit-circle point at angle α turns another β, and its new x-coordinate splits into cos α cos β − sin α sin β.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.C.9/two-waves-make-a-shifted-one",
+  "standard": "HSF-TF.C.9",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Two waves make a shifted one",
+  "line": "The waves 0.5 sin x and 0.87 cos x add point by point and land exactly on sin(x + π/3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.C.8/squares-on-a-spinning-triangle",
+  "standard": "HSF-TF.C.8",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Squares on a spinning triangle",
+  "line": "As a point spins around the unit circle, squares on the cos θ and sin θ legs trade area but always total 1.",
+  "needs": []
+ },
+ {
+  "key": "HSF-TF.C.8/two-waves-stack-flat",
+  "standard": "HSF-TF.C.8",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Two waves stack flat",
+  "line": "The area under sin² x is shaded, then cos² x stacks on top, and together they fill exactly up to y = 1.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.C.8/the-quadrant-picks-the-sign",
+  "standard": "HSF-TF.C.8",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "The quadrant picks the sign",
+  "line": "Knowing sin θ = 3/5 lights two circle points at height 0.6, with cos θ = ±4/5, and the quadrant picks one.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.B.6/trimming-sine-to-flip-it",
+  "standard": "HSF-TF.B.6",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Trimming sine to flip it",
+  "line": "The sine wave fades everywhere outside −π/2 to π/2, and the piece that survives flips across y = x into arcsin.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.B.6/cosine-needs-another-window",
+  "standard": "HSF-TF.B.6",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Cosine needs another window",
+  "line": "A horizontal line slides up the cosine wave hitting it many times, until everything outside 0 to π is erased and it hits once.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.B.5/three-dials-on-a-wave",
+  "standard": "HSF-TF.B.5",
+  "topic": "Trigonometric Functions",
+  "band": "precalc",
+  "title": "Three dials on a wave",
+  "line": "Dials for amplitude, period and midline twist a sine wave until it fits day lengths of 9 hours in December and 15 in June.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.4/mirror-points-on-the-circle",
+  "standard": "HSF-TF.A.4",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Mirror points on the circle",
+  "line": "Points at θ and −θ mirror across the x-axis, so heights flip sign while x stays put, making sine odd and cosine even.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.4/twice-around-same-wave",
+  "standard": "HSF-TF.A.4",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Twice around, same wave",
+  "line": "A point loops the unit circle twice, and the second lap's height graph is an exact copy of the first, shifted 2π.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.3/half-a-square-half-a-triangle",
+  "standard": "HSF-TF.A.3",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Half a square, half a triangle",
+  "line": "A unit square cut on its diagonal and an equilateral triangle cut in half slide into the circle at π/4, π/6 and π/3.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.3/one-angle-four-reflections",
+  "standard": "HSF-TF.A.3",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "One angle, four reflections",
+  "line": "The point at π/6 mirrors to π − x, π + x and 2π − x, and the same two coordinates reappear with flipped signs.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.2/wrapping-the-number-line",
+  "standard": "HSF-TF.A.2",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Wrapping the number line",
+  "line": "A number line wraps around the unit circle like thread, with 1, 2, 3 up to 6.28 landing in order and negatives wrapping clockwise.",
+  "needs": []
+ },
+ {
+  "key": "HSF-TF.A.2/sine-past-90-degrees",
+  "standard": "HSF-TF.A.2",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Sine past 90 degrees",
+  "line": "A right triangle's angle grows until the triangle breaks at 90°, but the point on the circle keeps going and its height keeps graphing.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-TF.A.1/bending-the-radius",
+  "standard": "HSF-TF.A.1",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Bending the radius",
+  "line": "A circle's radius peels off and bends onto the edge, marking one radian, then copies follow until six fit with a sliver left over.",
+  "needs": []
+ },
+ {
+  "key": "HSF-TF.A.1/same-angle-any-circle",
+  "standard": "HSF-TF.A.1",
+  "topic": "Trigonometric Functions",
+  "band": "algebra2",
+  "title": "Same angle, any circle",
+  "line": "A 60° slice cuts circles of radius 1, 2 and 3, and the arc divided by the radius reads 1.05 every time.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.B.5/log-counts-the-doublings",
+  "standard": "HSF-BF.B.5",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Log counts the doublings",
+  "line": "One cell splits into 2, 4, 8 up to 1024 while a counter ticks the doublings, landing near 9.97 when it passes 1000.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.B.5/exponent-in-the-mirror",
+  "standard": "HSF-BF.B.5",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Exponent in the mirror",
+  "line": "The curve 2ˣ reflects across y = x into log₂ x, and the point (3, 8) visibly swaps into (8, 3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-BF.B.5/slide-rule-multiplication",
+  "standard": "HSF-BF.B.5",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Slide rule multiplication",
+  "line": "Two rulers marked in log spacing slide past each other, and adding the lengths for 2 and 3 lands on the mark for 6.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.B.4/the-undo-machine",
+  "standard": "HSF-BF.B.4",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "The undo machine",
+  "line": "The number 3 goes through 'times 2, plus 1' to make 7, then runs backward through 'minus 1, divide by 2' to 3.",
+  "needs": []
+ },
+ {
+  "key": "HSF-BF.B.4/folding-along-y-x",
+  "standard": "HSF-BF.B.4",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Folding along y = x",
+  "line": "The parabola y = x² flips across y = x and fails the vertical line test until its left half is erased.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-BF.B.3/four-knobs-on-a-parabola",
+  "standard": "HSF-BF.B.3",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Four knobs on a parabola",
+  "line": "As k changes, y = x² shifts up, stretches, slides sideways and squeezes for f(x) + k, kf(x), f(x + k) and f(kx).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSF-BF.B.3/why-plus-moves-left",
+  "standard": "HSF-BF.B.3",
+  "topic": "Building Functions",
+  "band": "algebra2",
+  "title": "Why plus moves left",
+  "line": "In f(x + 2), the output from input 0 now appears at x = −2, so every dot slides two steps left.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.12/the-determinant-is-the-area",
+  "standard": "HSN-VM.C.12",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "The determinant is the area",
+  "line": "A grid bends under the matrix [[2, 1], [0, 1.5]], and the unit square becomes a parallelogram whose area counter reads 3.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.12/squashed-flat",
+  "standard": "HSN-VM.C.12",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Squashed flat",
+  "line": "A matrix morphs until its columns line up, the parallelogram flattens into a segment, and the area counter drops to 0.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.12/flipping-the-plane-over",
+  "standard": "HSN-VM.C.12",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Flipping the plane over",
+  "line": "A square with colored corners goes through a matrix with determinant −2, doubling in area with its color order reversed.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.11/follow-the-basis-arrows",
+  "standard": "HSN-VM.C.11",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Follow the basis arrows",
+  "line": "A matrix moves the two basis arrows, and 2 of the new first plus 1 of the new second lands on the image of (2, 1).",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.11/four-quarter-turns",
+  "standard": "HSN-VM.C.11",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Four quarter turns",
+  "line": "The matrix [[0, −1], [1, 0]] turns the arrow (3, 1) a quarter turn each time, and after four turns it's back home.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.10/the-do-nothing-matrix",
+  "standard": "HSN-VM.C.10",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "The do-nothing matrix",
+  "line": "The identity matrix leaves the grid where it was, then the zero matrix pulls every point into the origin.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.10/some-squashes-can-t-be-undone",
+  "standard": "HSN-VM.C.10",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Some squashes can't be undone",
+  "line": "A shear is undone by its inverse, but a determinant 0 matrix crushes the grid onto a line that can't be spread back.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.8/row-meets-column",
+  "standard": "HSN-VM.C.8",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Row meets column",
+  "line": "A row of one 2×2 matrix tips onto a column of the other, the pairs multiply and add, and one answer entry fills in.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.7/tripling-a-matrix",
+  "standard": "HSN-VM.C.7",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Tripling a matrix",
+  "line": "Every entry of a matrix triples while the parallelogram it makes from the unit square grows 3 times each way, 9 times the area.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.C.6/counting-routes-with-a-matrix",
+  "standard": "HSN-VM.C.6",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Counting routes with a matrix",
+  "line": "Roads between 4 towns light up 1s in a grid, and squaring that grid counts every two-road trip between each pair of towns.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-VM.B.5/stretch-shrink-flip",
+  "standard": "HSN-VM.B.5",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Stretch, shrink, flip",
+  "line": "As c slides from 2 to −1.5, the arrow cv stretches, shrinks to a dot, then flips, its length reading |c| times |v|.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.B.5/doubling-the-staircase",
+  "standard": "HSN-VM.B.5",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Doubling the staircase",
+  "line": "The arrow (3, 2), drawn as 3 steps right and 2 up, doubles to 6 right and 4 up, pointing the same way.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.B.4/tip-to-tail",
+  "standard": "HSN-VM.B.4",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Tip to tail",
+  "line": "Arrows (3, 1) and (1, 2) chain tip to tail, then in the other order, closing up a parallelogram with one diagonal.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.B.4/lengths-don-t-just-add",
+  "standard": "HSN-VM.B.4",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Lengths don't just add",
+  "line": "Arrows of length 3 and 4 swing open, and their sum's length slides from 7 down to 1, passing 5 at a right angle.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.B.4/subtraction-joins-the-tips",
+  "standard": "HSN-VM.B.4",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Subtraction joins the tips",
+  "line": "The arrow w flips into −w and chains onto v, then slides to show v − w runs from w's tip to v's tip.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.A.3/rowing-across-a-river",
+  "standard": "HSN-VM.A.3",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Rowing across a river",
+  "line": "A boat rows across at 4 m/s, a 3 m/s current drags it along a 5 m/s diagonal, then it angles upstream instead.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.A.3/two-tugboats-one-barge",
+  "standard": "HSN-VM.A.3",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Two tugboats, one barge",
+  "line": "Two tugs pull a barge with ropes at different angles, their force arrows join tip to tail, and the barge moves along the sum.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.A.2/subtract-the-starting-point",
+  "standard": "HSN-VM.A.2",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "Subtract the starting point",
+  "line": "An arrow from (1, 2) to (5, 5) slides until its tail sits at the origin, and its tip lands on (4, 3).",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-VM.A.1/the-arrow-that-moves-around",
+  "standard": "HSN-VM.A.1",
+  "topic": "Vector and Matrix Quantities",
+  "band": "precalc",
+  "title": "The arrow that moves around",
+  "line": "One arrow of length 2 pointing northeast is copied all over the plane, and every copy is the same vector, whatever its position.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.C.9/where-the-roots-go",
+  "standard": "HSN-CN.C.9",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "Where the roots go",
+  "line": "A parabola rises off the x-axis, and its two roots slide together, meet, then split up and down into the complex plane.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.C.9/a-loop-that-must-hit-zero",
+  "standard": "HSN-CN.C.9",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "A loop that must hit zero",
+  "line": "A circle of inputs shrinks while its image under z² + 1 is drawn, and somewhere the output loop has to sweep across 0.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.C.8/factoring-a-sum-of-squares",
+  "standard": "HSN-CN.C.8",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "Factoring a sum of squares",
+  "line": "The tiles of (x + 2i)(x − 2i) multiply out, the i tiles cancel, and the −4i² corner flips to +4.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-CN.C.7/finding-the-hidden-roots",
+  "standard": "HSN-CN.C.7",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "Finding the hidden roots",
+  "line": "The parabola x² − 2x + 5 misses the axis, its upside-down twin hits at 1 ± 2, and the roots are 1 ± 2i.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-CN.B.6/the-midpoint-is-the-average",
+  "standard": "HSN-CN.B.6",
+  "topic": "The Complex Number System",
+  "band": "precalc",
+  "title": "The midpoint is the average",
+  "line": "Two complex points pull toward each other at the same speed and meet at their average, which is the middle of the segment.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.B.5/multiplying-spins-the-plane",
+  "standard": "HSN-CN.B.5",
+  "topic": "The Complex Number System",
+  "band": "precalc",
+  "title": "Multiplying spins the plane",
+  "line": "Multiplying the whole complex grid by 1 + i turns it 45° and stretches it by about 1.41, every square staying a square.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.B.5/the-conjugate-is-a-mirror",
+  "standard": "HSN-CN.B.5",
+  "topic": "The Complex Number System",
+  "band": "precalc",
+  "title": "The conjugate is a mirror",
+  "line": "A point flips across the real axis to its conjugate, and adding the two pulls a sum straight down onto the real line.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.B.4/two-addresses-for-one-point",
+  "standard": "HSN-CN.B.4",
+  "topic": "The Complex Number System",
+  "band": "precalc",
+  "title": "Two addresses for one point",
+  "line": "The point 1 + √3i is reached by walking 1 right and √3 up, then again by turning 60° and walking 2.",
+  "needs": [
+   "graph",
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-CN.A.3/conjugates-cancel-the-turn",
+  "standard": "HSN-CN.A.3",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "Conjugates cancel the turn",
+  "line": "Multiplying by 3 + 4i turns 53° and multiplying by 3 − 4i turns back, so the product lands on 25.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSN-CN.A.2/foil-with-i",
+  "standard": "HSN-CN.A.2",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "FOIL with i",
+  "line": "A 2×2 grid multiplies out (2 + 3i)(1 + 4i), and the 12i² box flips to −12, leaving −10 + 11i.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "key": "HSN-CN.A.1/halfway-to-a-flip",
+  "standard": "HSN-CN.A.1",
+  "topic": "The Complex Number System",
+  "band": "algebra2",
+  "title": "Halfway to a flip",
+  "line": "Times −1 spins the number line half a turn, so a number whose square is −1 must be a quarter turn: i.",
+  "needs": [
+   "graph"
+  ]
+ },
+ {
+  "key": "HSS-MD.B.7/1000-people-take-a-test",
+  "standard": "HSS-MD.B.7",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "1000 people take a test",
+  "line": "In a grid of 1000 dots with 10 sick, a 95% accurate test lights up about 60, and only 10 are sick.",
+  "needs": []
+ },
+ {
+  "key": "HSS-MD.B.7/pull-the-goalie",
+  "standard": "HSS-MD.B.7",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Pull the goalie",
+  "line": "A team down one goal pulls its goalie, and bars for tying the game grow faster than bars for giving up another.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-MD.B.6/fair-flips-bent-coin",
+  "standard": "HSS-MD.B.6",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Fair flips, bent coin",
+  "line": "A coin landing heads 70% of the time is flipped twice, and the HT and TH boxes in a probability square match exactly.",
+  "needs": []
+ },
+ {
+  "key": "HSS-MD.B.5/is-this-game-worth-1",
+  "standard": "HSS-MD.B.5",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Is this game worth $1",
+  "line": "A spinner pays $5, $1 or nothing, and its running average payout over 500 spins settles at $0.80, below the $1 price.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-MD.A.4/tallies-become-a-distribution",
+  "standard": "HSS-MD.A.4",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Tallies become a distribution",
+  "line": "Fifty family-size dots stack into bars, the bars rescale until they sum to 1, and a marker slides to the expected value of 3.2.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-MD.A.3/two-dice-make-a-triangle",
+  "standard": "HSS-MD.A.3",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Two dice make a triangle",
+  "line": "All 36 cells of a 6×6 dice grid slide into columns by their sum, piling into a triangle with 7 at the peak.",
+  "needs": []
+ },
+ {
+  "key": "HSS-MD.A.3/waiting-for-a-six",
+  "standard": "HSS-MD.A.3",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Waiting for a six",
+  "line": "Bars for rolling the first six on try 1, 2, 3 each shrink by 5/6, and the balance point lands on 6 rolls.",
+  "needs": []
+ },
+ {
+  "key": "HSS-MD.A.2/expected-value-balances-the-seesaw",
+  "standard": "HSS-MD.A.2",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Expected value balances the seesaw",
+  "line": "Probability bars sit on a seesaw, and the pivot slides until the seesaw stops tipping, at exactly the expected value.",
+  "needs": []
+ },
+ {
+  "key": "HSS-MD.A.1/outcomes-become-numbers",
+  "standard": "HSS-MD.A.1",
+  "topic": "Using Probability to Make Decisions",
+  "band": "precalc",
+  "title": "Outcomes become numbers",
+  "line": "Each of the 36 dice pairs sends an arrow to the gap between its numbers, and the arrows pile into bars.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.B.9/the-birthday-surprise",
+  "standard": "HSS-CP.B.9",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "The birthday surprise",
+  "line": "People enter a room one by one, the chance of no shared birthday shrinks each time, and dips below 50% at 23.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.B.9/counting-pairs-of-marbles",
+  "standard": "HSS-CP.B.9",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Counting pairs of marbles",
+  "line": "Lines join every pair among 3 red and 5 blue marbles, 28 in all, and the 3 red-red lines glow to give 3/28.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.B.8/splitting-a-bar-twice",
+  "standard": "HSS-CP.B.8",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Splitting a bar twice",
+  "line": "A bar splits 3/5 for a red first draw, the red part splits 2/4 for a second red, and the leftover sliver is 6/20.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.B.7/don-t-count-the-overlap-twice",
+  "standard": "HSS-CP.B.7",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Don't count the overlap twice",
+  "line": "Hearts and face cards fill two circles, 3 cards glow because they're counted twice, and subtracting them leaves 22 out of 52.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.B.6/zooming-into-a-condition",
+  "standard": "HSS-CP.B.6",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Zooming into a condition",
+  "line": "On a 6×6 dice grid, every cell except the 5 that sum to 8 fades away, and the 5 survivors become the new whole.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.A.4/a-table-becomes-a-picture",
+  "standard": "HSS-CP.A.4",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "A table becomes a picture",
+  "line": "A two-way table of 100 students becomes a square cut into strips, whose lines only line up straight if independent.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-CP.A.3/rescaling-the-b-region",
+  "standard": "HSS-CP.A.3",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Rescaling the B region",
+  "line": "In a unit square, region B grows to fill the frame, and the part of A inside it becomes P(A given B).",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.A.2/independence-is-a-straight-cut",
+  "standard": "HSS-CP.A.2",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Independence is a straight cut",
+  "line": "A square cut 0.3 across and 0.6 down leaves a corner of area 0.18, matching 0.3 × 0.6, until the cut bends.",
+  "needs": []
+ },
+ {
+  "key": "HSS-CP.A.1/sorting-a-die-into-circles",
+  "standard": "HSS-CP.A.1",
+  "topic": "Conditional Probability and the Rules of Probability",
+  "band": "algebra2",
+  "title": "Sorting a die into circles",
+  "line": "The faces 1 to 6 float into circles for 'even' and 'bigger than 3', and the union, overlap and outside light up in turn.",
+  "needs": []
+ },
+ {
+  "key": "HSS-IC.B.5/shuffle-the-labels",
+  "standard": "HSS-IC.B.5",
+  "topic": "Making Inferences and Justifying Conclusions",
+  "band": "algebra2",
+  "title": "Shuffle the labels",
+  "line": "Twenty plants get their 'fertilized' labels reshuffled 200 times, the gaps pile into a hill, and the real 3 cm gap sits far out.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-IC.B.4/bigger-polls-tighter-guesses",
+  "standard": "HSS-IC.B.4",
+  "topic": "Making Inferences and Justifying Conclusions",
+  "band": "algebra2",
+  "title": "Bigger polls, tighter guesses",
+  "line": "Polls of 25, 100 and 400 people from a crowd that's 40% blue pile into histograms that get narrower each time the size quadruples.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-IC.B.3/coin-flips-pick-the-groups",
+  "standard": "HSS-IC.B.3",
+  "topic": "Making Inferences and Justifying Conclusions",
+  "band": "algebra2",
+  "title": "Coin flips pick the groups",
+  "line": "Sixteen people, some secretly athletes, are split by hand and every athlete lands in one group, then coin flips split them evenly.",
+  "needs": [
+   "data"
+  ]
+ },
+ {
+  "key": "HSS-IC.A.1/tasting-the-soup",
+  "standard": "HSS-IC.A.1",
+  "topic": "Making Inferences and Justifying Conclusions",
+  "band": "algebra2",
+  "title": "Tasting the soup",
+  "line": "One scoop of 100 dots from a jar of 10,000 guesses 27% red, then the jar is revealed to be 30% red.",
+  "needs": [
+   "data"
+  ]
+ }
+]
