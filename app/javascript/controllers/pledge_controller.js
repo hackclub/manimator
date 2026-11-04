@@ -24,7 +24,7 @@ const TOOK_IDEA = "It’s yours. Nobody else gets this one."
 const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
 const IDEA_GONE = "Someone just took that idea, sorry! Here’s the idea step again."
-const PICKED_PRIZE = (name, hours) => `Nice pick! The ${name} is about ${hours} hours of animating.`
+const PICKED_PRIZE = (name, videos) => `Nice pick! The ${name} is about ${videos}.`
 
 function load(storage, key) {
   try { return JSON.parse(storage.getItem(key)) ?? {} } catch { return {} }
@@ -114,8 +114,8 @@ export default class extends Controller {
     if (idea) this.answer("idea", { idea, ideaId: null, ownIdea: true }, PICKED_IDEA)
   }
 
-  pickPrize({ params: { id, name, hours } }) {
-    this.answer("prize", { prize: id, prizeName: name, prizeHours: hours }, PICKED_PRIZE(name, hours))
+  pickPrize({ params: { id, name, videos } }) {
+    this.answer("prize", { prize: id, prizeName: name, prizeVideos: videos }, PICKED_PRIZE(name, videos))
   }
 
   pickWhen({ params: { when } }) { this.answers.when = when; this.render() }
