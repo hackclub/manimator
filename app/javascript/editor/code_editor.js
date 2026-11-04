@@ -161,6 +161,11 @@ export function createEditor(parent, doc, hooks) {
       })
       view.focus()
     },
+    // Scrolls a line into view, without moving the cursor or taking focus.
+    showLine(line) {
+      if (line < 1 || line > view.state.doc.lines) return
+      view.dispatch({ effects: EditorView.scrollIntoView(view.state.doc.line(line).from, { y: "nearest", yMargin: 40 }) })
+    },
     lineText(line) {
       return view.state.doc.line(Math.min(line, view.state.doc.lines)).text
     },

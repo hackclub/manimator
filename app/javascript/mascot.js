@@ -11,8 +11,14 @@ export class Mascot {
     Object.values(poses).forEach(src => { new Image().src = src })
   }
 
+  // `Backticks` in what π says show as code.
   say(text, pose = "speaking") {
-    this.bubble.textContent = text
+    this.bubble.replaceChildren(...(text || "").split("`").map((part, i) => {
+      if (i % 2 === 0) return document.createTextNode(part)
+      const code = document.createElement("code")
+      code.textContent = part
+      return code
+    }))
     this.bubble.hidden = !text
     this.bubble.classList.remove("mascot__bubble--pop")
     void this.bubble.offsetWidth

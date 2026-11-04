@@ -10,7 +10,7 @@ const CHEER_MS = 1800
 //   editor:ready / editor:changed / editor:rendered / editor:failed  ->  coach
 //   coach:load (a whole scene) / coach:mark (the line to point at)    ->  editor
 export default class extends Controller {
-  static targets = ["card", "bubble", "pi", "count", "show", "skip", "finish"]
+  static targets = ["card", "bubble", "type", "typeCode", "copy", "pi", "count", "show", "skip", "finish"]
   static values = { lesson: String, poses: Object, finishUrl: String }
 
   async connect() {
@@ -57,12 +57,13 @@ export default class extends Controller {
     }
     if (this.stuck) { this.stuck = false; this.say() }
     const step = this.lesson.steps[this.step]
-    if (step && !this.cheering && step.done(code)) this.complete(step)
+    if (step && !this.cheering && step.done(code, { start: this.stepStart })) this.complete(step)
   }
 
   failed({ detail: { line } }) {
     if (!this.started || this.step < 0 || this.cheering) return
     this.stuck = true
+    this.typeTarget.hidden = true
     this.mascot.say(line ? `Python’s stuck on line ${line}. The red box under the code says why.` : "Python’s stuck. The red box under the code says why.", "erm")
   }
 
@@ -81,6 +82,7 @@ export default class extends Controller {
     this.step = index
     this.shown = false
     if (index >= this.lesson.steps.length) return this.finish()
+    this.stepStart = this.code
     this.say()
     this.markLine()
     capture("onboarding_step_viewed", { variant: this.lessonValue, step: index + 1 })
@@ -90,11 +92,24 @@ export default class extends Controller {
     const step = this.lesson.steps[this.step]
     if (!step) return
     this.mascot.say(step.say, "speaking")
+    this.typeTarget.hidden = !step.type
+    this.typeCodeTarget.textContent = step.type || ""
+    this.copyTarget.textContent = "copy"
     this.countTarget.textContent = `${this.step + 1} of ${this.lesson.steps.length}`
     this.showTarget.hidden = !step.show
   }
 
-  // "Show me": make the step's change for them. Still counts once it renders.
+  // The step's line, to paste.
+  async copy() {
+    const step = this.lesson.steps[this.step]
+    if (!step?.type) return
+    try {
+      await navigator.clipboard.writeText(step.type)
+      this.copyTarget.textContent = "copied"
+    } catch { /* clipboard blocked: they can still select it */ }
+  }
+
+  // "Do it for me": make the step's change for them. Still counts once it renders.
   showMe() {
     const step = this.lesson.steps[this.step]
     if (!step?.show) return
@@ -113,6 +128,7 @@ export default class extends Controller {
     this.mascot.say(this.lesson.finish.say, "hooray")
     this.mascot.dance()
     this.countTarget.textContent = ""
+    this.typeTarget.hidden = true
     this.showTarget.hidden = true
     this.skipTarget.hidden = true
     this.finishTarget.textContent = this.lesson.finish.cta

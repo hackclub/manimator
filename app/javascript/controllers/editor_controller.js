@@ -536,6 +536,7 @@ export default class extends Controller {
 
   mark({ detail: { line } }) {
     this.editor?.setMarks({ coach: line })
+    if (line) this.editor?.showLine(line)
   }
 
   newScene() {

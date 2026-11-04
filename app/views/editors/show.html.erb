@@ -39,6 +39,26 @@
       <div class="app__pane app__pane--code">
         <div class="app__code" data-editor-target="code"></div>
         <div class="app__error" hidden data-editor-target="error"></div>
+        <% if @coach %>
+          <%# π, coaching a first scene (coach_controller), docked under the code so the canvas stays clear.
+              Shown once the lesson and the editor have both loaded. %>
+          <aside class="coach" data-coach-target="card" hidden>
+            <div class="coach__say">
+              <div class="bubble coach__bubble" data-coach-target="bubble"></div>
+              <div class="coach__type" data-coach-target="type" hidden>
+                <code data-coach-target="typeCode"></code>
+                <button class="btn-xs" data-coach-target="copy" data-action="coach#copy">copy</button>
+              </div>
+              <div class="coach__controls">
+                <span class="mono-xs c-faint" data-coach-target="count"></span>
+                <button class="btn-xs" data-coach-target="show" data-action="coach#showMe" hidden>do it for me</button>
+                <button class="coach__skip mono-xs" data-coach-target="skip" data-action="coach#skip">skip</button>
+                <%= link_to "", onboarding_pledge_path, class: "coach__finish", hidden: true, data: { coach_target: "finish" } %>
+              </div>
+            </div>
+            <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
+          </aside>
+        <% end %>
         <div class="app__hint">⌥/alt + drag a number to scrub it · click the canvas to jump to code</div>
       </div>
 
@@ -172,21 +192,6 @@
     </section>
   </div>
 
-  <% if @coach %>
-    <%# π, coaching a first scene (coach_controller). Shown once the lesson and the editor are both loaded. %>
-    <aside class="coach" data-coach-target="card" hidden>
-      <div class="bubble coach__bubble" data-coach-target="bubble"></div>
-      <div class="coach__foot">
-        <div class="coach__controls">
-          <span class="mono-xs c-faint" data-coach-target="count"></span>
-          <button class="btn-xs" data-coach-target="show" data-action="coach#showMe" hidden>show me</button>
-          <button class="coach__skip mono-xs" data-coach-target="skip" data-action="coach#skip">skip</button>
-          <%= link_to "", onboarding_pledge_path, class: "coach__finish", hidden: true, data: { coach_target: "finish" } %>
-        </div>
-        <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
-      </div>
-    </aside>
-  <% end %>
 </div>
 
 <%= render "onboarding/switcher" %>
