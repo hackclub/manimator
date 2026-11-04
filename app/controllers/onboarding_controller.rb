@@ -4,6 +4,7 @@ class OnboardingController < ApplicationController
     cookies[Onboarding::COOKIE] = { value: variant, expires: 1.year }
 
     case variant
+    when "pledge" then render :pledge
     when "none" then redirect_to editor_path
     end
   end

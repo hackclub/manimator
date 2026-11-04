@@ -5,6 +5,7 @@
 # ?variant= picks one (the switcher's links).
 module Onboarding
   VARIANTS = {
+    "pledge" => "Pledge first: pick an idea and a pace, sign a pledge, then open the editor",
     "none" => "No onboarding: straight into the editor"
   }.freeze
   COOKIE = :onboarding

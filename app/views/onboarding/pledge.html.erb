@@ -1,0 +1,112 @@
+<% content_for :title, "Start · Manimator" %>
+
+<%# Pledge first, after wrong-tool's onboarding: what you'll animate, how much you know, when you'll work on it,
+    then sign a pledge that adds it all up. Answered steps fold into a line you can reopen. %>
+<div class="onboard" data-controller="pledge"
+     data-pledge-poses-value="<%= pi_pose_urls %>"
+     data-pledge-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
+     data-pledge-editor-url-value="<%= editor_path %>"
+     data-action="pagehide@window->pledge#abandoned">
+  <header class="onboard__bar">
+    <%= link_to "Manimator", root_path, class: "onboard__brand" %>
+    <span class="onboard__slash">/</span>
+    <span class="onboard__crumb">start</span>
+    <span class="onboard__spacer"></span>
+    <span class="onboard__dots" aria-hidden="true"><% 4.times do %><span class="onboard__dot" data-pledge-target="dot"></span><% end %></span>
+  </header>
+
+  <main class="onboard__main">
+    <div class="onboard__steps">
+      <section class="ostep" data-pledge-target="step" data-name="idea">
+        <button class="ostep__summary" data-action="pledge#reopen" data-pledge-step-param="0">
+          <span class="ostep__label">idea</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
+        </button>
+        <div class="ostep__body">
+          <h2 class="ostep__q">What do you want to animate?</h2>
+          <p class="ostep__hint">Pick one to start from. You can change your mind later.</p>
+          <div class="ideas">
+            <% onboarding_ideas.each do |idea| %>
+              <button class="idea" style="--c: var(--<%= idea[:color] %>)" data-action="pledge#pickIdea" data-pledge-idea-param="<%= idea[:title] %>">
+                <span class="idea__title"><%= idea[:title] %></span>
+                <span class="idea__line"><%= idea[:line] %></span>
+              </button>
+            <% end %>
+          </div>
+          <form class="own" data-action="pledge#ownIdea:prevent">
+            <code class="own__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="own__input" maxlength="60" spellcheck="false" autocomplete="off" placeholder="something else" aria-label="Your own idea" data-pledge-target="own">"</span>)</code>
+            <button class="btn-pill" data-pledge-target="ownSubmit" disabled>Use mine</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="ostep" data-pledge-target="step" data-name="experience">
+        <button class="ostep__summary" data-action="pledge#reopen" data-pledge-step-param="1">
+          <span class="ostep__label">manim</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
+        </button>
+        <div class="ostep__body">
+          <h2 class="ostep__q">Have you used manim before?</h2>
+          <div class="choices">
+            <% onboarding_experience.each do |key, label| %>
+              <button class="choice" data-action="pledge#pickExperience" data-pledge-key-param="<%= key %>" data-pledge-label-param="<%= label %>"><%= label %></button>
+            <% end %>
+          </div>
+        </div>
+      </section>
+
+      <section class="ostep" data-pledge-target="step" data-name="rhythm">
+        <button class="ostep__summary" data-action="pledge#reopen" data-pledge-step-param="2">
+          <span class="ostep__label">when</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
+        </button>
+        <div class="ostep__body">
+          <h2 class="ostep__q">When will you work on it?</h2>
+          <div class="choices choices--row">
+            <% onboarding_when.each do |time| %>
+              <button class="choice choice--chip" data-pledge-target="when" data-action="pledge#pickWhen" data-pledge-when-param="<%= time %>"><%= time %></button>
+            <% end %>
+          </div>
+          <p class="ostep__hint">How many days a week?</p>
+          <div class="choices choices--row">
+            <% onboarding_days.each do |days| %>
+              <button class="choice choice--chip" data-pledge-target="days" data-action="pledge#pickDays" data-pledge-days-param="<%= days %>"><%= days == 7 ? "every day" : days %></button>
+            <% end %>
+          </div>
+          <button class="btn-pill btn-pill--yellow" data-pledge-target="rhythmNext" data-action="pledge#rhythmDone" disabled>Next</button>
+        </div>
+      </section>
+
+      <section class="ostep" data-pledge-target="step" data-name="pledge">
+        <div class="ostep__summary ostep__summary--static"><span class="ostep__label">pledge</span><span class="ostep__value">signed</span></div>
+        <div class="ostep__body">
+          <h2 class="ostep__q">Make it official.</h2>
+          <div class="pledge-card">
+            <p class="pledge-card__text">
+              I’ll animate <em data-pledge-target="pledgeIdea"></em> in <span class="mono c-blue">manim</span>,
+              <span data-pledge-target="pledgeRhythm"></span>, and ship it so someone else gets it too.
+            </p>
+            <div class="pledge-card__sign">
+              <input class="pledge-card__name" placeholder="your name" maxlength="40" autocomplete="given-name" aria-label="Your name" data-pledge-target="name" data-action="input->pledge#named">
+              <span class="pledge-card__line"></span>
+              <span class="mono-xs c-faint">signed <span data-pledge-target="today"></span></span>
+            </div>
+          </div>
+          <button class="hold" data-pledge-target="hold" disabled
+                  data-action="pointerdown->pledge#holdStart pointerup->pledge#holdEnd pointerleave->pledge#holdEnd pointercancel->pledge#holdEnd keydown->pledge#holdKey keyup->pledge#holdKeyUp">
+            <span class="hold__fill" data-pledge-target="holdFill"></span>
+            <span class="hold__label" data-pledge-target="holdLabel">Hold to sign</span>
+          </button>
+          <div class="signed" data-pledge-target="signed" hidden>
+            <a class="btn btn--primary" data-pledge-target="open" href="<%= editor_path %>" data-action="pledge#open">Open the editor →</a>
+            <p class="mono-sm c-faint">Your scene starts with your idea on screen.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="mascot">
+      <div class="mascot__bubble bubble" data-pledge-target="bubble"></div>
+      <%= image_tag "pi_creature/plain.svg", alt: "π", class: "mascot__pi", draggable: false, data: { pledge_target: "pi" } %>
+    </aside>
+  </main>
+</div>
+
+<%= render "onboarding/switcher" %>
