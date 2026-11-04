@@ -1,11 +1,13 @@
 <% content_for :title, "Start · Manimator" %>
 
-<%# Pledge first, after wrong-tool's onboarding: what you'll animate, the prize you're after, when you'll work on it,
+<%# Pledge first, after wrong-tool's onboarding: what you'll animate (an idea only you have, Idea), the prize you're after, when you'll work on it,
     then sign a pledge that adds it all up. Answered steps fold into a line you can reopen. %>
 <div class="onboard" data-controller="pledge"
      data-pledge-poses-value="<%= pi_pose_urls %>"
      data-pledge-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
      data-pledge-editor-url-value="<%= editor_path %>"
+     data-pledge-draw-url-value="<%= draw_ideas_path %>"
+     data-pledge-claim-url-value="<%= claim_idea_path("ID") %>"
      data-action="pagehide@window->pledge#abandoned">
   <header class="onboard__bar">
     <%= link_to "Manimator", root_path, class: "onboard__brand" %>
@@ -22,18 +24,24 @@
           <span class="ostep__label">idea</span><span class="ostep__value" data-pledge-target="value"></span><span class="ostep__edit">change</span>
         </button>
         <div class="ostep__body">
-          <h2 class="ostep__q">What do you want to animate?</h2>
-          <p class="ostep__hint">Pick one to start from. You can change your mind later.</p>
-          <div class="ideas">
-            <% onboarding_ideas.each do |idea| %>
-              <button class="idea" style="--c: var(--<%= idea[:color] %>)" data-action="pledge#pickIdea" data-pledge-idea-param="<%= idea[:title] %>">
-                <span class="idea__title"><%= idea[:title] %></span>
-                <span class="idea__line"><%= idea[:line] %></span>
-              </button>
+          <h2 class="ostep__q">Which math class are you in?</h2>
+          <p class="ostep__hint">I’ll find you an idea from it that nobody else has.</p>
+          <div class="choices choices--row">
+            <% onboarding_classes.each do |key, klass| %>
+              <button class="choice choice--chip" data-pledge-target="klass" data-action="pledge#pickClass" data-pledge-klass-param="<%= key %>"><%= klass[:label] %></button>
             <% end %>
           </div>
+          <div class="drawn" data-pledge-target="drawn" hidden>
+            <span class="drawn__standard mono-xs" data-pledge-target="drawnStandard"></span>
+            <span class="drawn__title" data-pledge-target="drawnTitle"></span>
+            <span class="drawn__line" data-pledge-target="drawnLine"></span>
+            <div class="drawn__actions">
+              <button class="btn-pill btn-pill--yellow" data-action="pledge#takeIdea">This one</button>
+              <button class="btn-pill" data-pledge-target="another" data-action="pledge#drawIdea">Another</button>
+            </div>
+          </div>
           <form class="own" data-action="pledge#ownIdea:prevent">
-            <code class="own__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="own__input" maxlength="60" spellcheck="false" autocomplete="off" placeholder="something else" aria-label="Your own idea" data-pledge-target="own">"</span>)</code>
+            <code class="own__code">idea = <span class="c-teal">Text</span>(<span class="c-yellow">"<input class="own__input" maxlength="60" spellcheck="false" autocomplete="off" placeholder="or my own idea" aria-label="Your own idea" data-pledge-target="own">"</span>)</code>
             <button class="btn-pill" data-pledge-target="ownSubmit" disabled>Use mine</button>
           </form>
         </div>
@@ -91,7 +99,7 @@
             <p class="pledge-card__text">
               I’ll animate <em data-pledge-target="pledgeIdea"></em> in <span class="mono c-blue">manim</span>,
               <span data-pledge-target="pledgeRhythm"></span>, and ship it so someone else gets it too.
-              Then the <em data-pledge-target="pledgePrize"></em> is mine.
+              Then I get the <em data-pledge-target="pledgePrize"></em>.
             </p>
             <div class="pledge-card__sign">
               <input class="pledge-card__name" placeholder="your name" maxlength="40" autocomplete="given-name" aria-label="Your name" data-pledge-target="name" data-action="input->pledge#named">
