@@ -1,6 +1,5 @@
-# PostgreSQL. In production, DATABASE_URL points at the main database; the Solid Cache and Solid Queue databases
-# default to the same server with _cache and _queue on the end of the name, or set CACHE_DATABASE_URL and
-# QUEUE_DATABASE_URL to put them somewhere else.
+# PostgreSQL everywhere. Solid Queue and Solid Cache keep their tables in the same database (their tables come from a
+# normal migration), so production needs just one: DATABASE_URL.
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -17,19 +16,8 @@ test:
   <<: *default
   database: manimator_test
 
-<%
-  primary_url = ENV["DATABASE_URL"].to_s
-  sibling_url = ->(suffix) { primary_url.sub(%r{/([^/?]+)(\?|\z)}) { "/#{$1}_#{suffix}#{$2}" } }
-%>
 production:
-  primary:
-    <<: *default
-    url: <%= primary_url %>
-  cache:
-    <<: *default
-    url: <%= ENV.fetch("CACHE_DATABASE_URL") { sibling_url.("cache") } %>
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *default
-    url: <%= ENV.fetch("QUEUE_DATABASE_URL") { sibling_url.("queue") } %>
-    migrations_paths: db/queue_migrate
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+  # Puma's threads plus Solid Queue's workers and dispatcher, which run inside Puma (SOLID_QUEUE_IN_PUMA).
+  max_connections: <%= ENV.fetch("DB_POOL") { ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 10 } %>
