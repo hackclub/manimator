@@ -2,9 +2,11 @@
 # two people ever get the same one. Asking for ideas holds a few for HOLD; asking again lets them go back in the pool;
 # signing the pledge claims the one you picked for good, and lets the others go.
 #
-# Rails runs SQLite transactions as BEGIN IMMEDIATE, so a draw's read and write can't interleave with another one's.
+# Draws take a transaction-level advisory lock, so one draw's read and write can't interleave with another's and two
+# people never hold the same idea. Claims are a single conditional UPDATE, which Postgres already runs one at a time.
 class Idea < ApplicationRecord
   HOLD = 30.minutes
+  DRAW_LOCK = 0x1dea # any constant; only draws take it
 
   # The math class someone's in, and the bands of ideas it draws from, best fit first.
   CLASSES = {
@@ -25,6 +27,7 @@ class Idea < ApplicationRecord
   def self.draw(holder:, klass:, except: [], count: 3)
     bands = CLASSES.fetch(klass, CLASSES["calculus"])[:bands]
     transaction do
+      connection.execute("SELECT pg_advisory_xact_lock(#{DRAW_LOCK})")
       release(holder)
       ideas = []
       count.times do

@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_04_170000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_05_120000) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "ideas", force: :cascade do |t|
     t.string "key", null: false
     t.string "standard", null: false
@@ -18,7 +21,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_04_170000) do
     t.string "band", null: false
     t.string "title", null: false
     t.string "line", null: false
-    t.json "needs", default: [], null: false
+    t.jsonb "needs", default: [], null: false
     t.boolean "drawable", default: true, null: false
     t.string "holder"
     t.datetime "held_until"
