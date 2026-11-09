@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
+import { sfx } from "sfx"
 
 // The way into onboarding (onboarding/pledge.html.erb): π drops into a vector field like a stone into a pond. The
 // field ripples out from where it lands, particles stream along the flow, and the pointer stirs it all (a drag, on
-// touch). Then a last ripple washes the field away to show the page, and π hops over to its spot by the questions.
+// touch). The field sleeps, dim, until the first ripple wakes it; time slows for a beat as π hits. Then a last ripple
+// washes the field away to show the page, and π hops over to its spot by the questions. Each beat has a sound (sfx.js).
 // Once a tab (sessionStorage), never with reduced motion; a click, tap or key skips it. Keep stirring and it waits for
 // you, up to a point. ?intro plays it again, and ?intro=0.2 plays it at a fifth of the speed.
 const SEEN_KEY = "manimator:intro"
@@ -15,6 +17,10 @@ const SKIP_FOR = .55
 const FEET = .79 // where π's feet are, as a fraction of its image's height
 const RINGS = 3
 const TRAIL = 12
+const RING_GAP = .26 // seconds between the rings π sends out
+const SLOWMO = .28   // how fast time runs at the moment π hits, easing back to normal over SLOWMO_FOR
+const SLOWMO_FOR = .5
+const ASLEEP = .32   // how bright the field is before the first ripple reaches it
 const BG = "#0e0f11"
 
 const BLUE = [88, 196, 221], TEAL = [92, 208, 179], YELLOW = [244, 211, 69], WHITE = [255, 255, 255]
@@ -23,6 +29,7 @@ const mix = (a, b, w) => a.map((c, i) => Math.round(c + (b[i] - c) * w))
 const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v
 const easeOut = k => 1 - (1 - k) ** 3
 const easeInOut = k => k < .5 ? 4 * k ** 3 : 1 - (-2 * k + 2) ** 3 / 2
+const smooth = k => k * k * (3 - 2 * k)
 const lerp = (a, b, k) => a + (b - a) * k
 
 // Arrow colours by magnitude (blue → teal → yellow), each brightening toward white as a ripple passes.
@@ -44,14 +51,22 @@ export default class extends Controller {
     this.lastStir = -1
     this.pointer = null
     this.vec = new Float32Array(3)
+    this.rings = 0
+    this.sparks = []
     this.build()
     this.size()
     this.element.dataset.intro = "playing"
+    this.draw(0)
 
-    this.last = performance.now()
-    this.frame(this.last)
-    const loop = now => { this.frame(now); if (this.overlay) this.raf = requestAnimationFrame(loop) }
-    this.raf = requestAnimationFrame(loop)
+    // Every pose π will wear, decoded before the clock starts, so a pose change never shows an empty frame.
+    const srcs = [...Object.values(this.poses), this.mascot.currentSrc || this.mascot.src]
+    const decoded = Promise.all(srcs.map(src => { const img = new Image(); img.src = src; return img.decode().catch(() => {}) }))
+    Promise.race([decoded, new Promise(r => setTimeout(r, 700))]).then(() => {
+      if (!this.overlay) return
+      this.last = performance.now()
+      const loop = now => { this.frame(now); if (this.overlay) this.raf = requestAnimationFrame(loop) }
+      this.raf = requestAnimationFrame(loop)
+    })
   }
 
   disconnect() {
@@ -122,10 +137,11 @@ export default class extends Controller {
     this.arrows = []
     for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
       const x = x0 + c * sp, y = y0 + r * sp
-      this.arrows.push({ x, y, delay: Math.hypot(x - this.cx, y - this.cy) / this.maxR * .5 + Math.random() * .06 })
+      const d = Math.hypot(x - this.cx, y - this.cy)
+      this.arrows.push({ x, y, d, delay: d / this.maxR * .5 + Math.random() * .06 })
     }
     this.geo = new Float32Array(this.arrows.length * 4)
-    this.buckets = ARROW_COLORS.map(() => [])
+    this.buckets = [...ARROW_COLORS, ...ARROW_COLORS].map(() => []) // awake, then asleep
 
     if (!this.px) this.particles()
   }
@@ -159,6 +175,39 @@ export default class extends Controller {
     }
   }
 
+  // Sparkles: a trail shed while π falls, and a burst of them where it lands.
+  trailSparks(x, y) {
+    const n = this.W < 720 ? 1 : 2
+    for (let i = 0; i < n; i++) {
+      this.sparks.push({
+        x: x + (Math.random() - .5) * this.S * .45, y: y - this.S * (.25 + Math.random() * .4),
+        vx: (Math.random() - .5) * this.u * .6, vy: -this.u * (.2 + Math.random() * .6),
+        life: 0, max: .35 + Math.random() * .45, r: 1.2 + Math.random() * 2.2, seed: Math.random() * 9, gold: Math.random() < .7,
+      })
+    }
+  }
+
+  burst() {
+    for (let i = 0; i < 46; i++) {
+      const a = Math.random() * Math.PI * 2, v = this.u * (1.5 + Math.random() ** 1.5 * 5.5)
+      this.sparks.push({
+        x: this.cx, y: this.cy - this.S * .15, vx: Math.cos(a) * v, vy: Math.sin(a) * v * .75 - this.u * 1.6,
+        life: 0, max: .6 + Math.random() * .8, r: 1.4 + Math.random() * 2.8, seed: Math.random() * 9, gold: Math.random() < .55,
+      })
+    }
+  }
+
+  moveSparks(dt, k) {
+    if (!dt) return
+    const drag = Math.exp(-dt * 3.2), fall = this.u * 2.2 * dt
+    this.sparks = this.sparks.filter(p => {
+      p.life += dt * (1 + k * 2)
+      p.vx *= drag; p.vy = p.vy * drag + fall
+      p.x += p.vx * dt; p.y += p.vy * dt
+      return p.life < p.max
+    })
+  }
+
   stir(event) {
     const now = performance.now(), p = this.pointer
     if (p) {
@@ -186,7 +235,7 @@ export default class extends Controller {
       const dx = x - this.cx, dy = y - this.cy, d = Math.hypot(dx, dy) + .01, since = this.t - this.landedAt
       let s = 0
       for (let n = 0; n < RINGS; n++) {
-        const tn = since - n * .26
+        const tn = since - n * RING_GAP
         if (tn <= 0) break
         const q = (d - tn * this.waveSpeed * (1 - n * .12)) / this.waveWidth
         if (q > -3 && q < 3) s += Math.exp(-q * q) * Math.cos(q * 2.3) * Math.exp(-tn * .55) * (1 - n * .3)
@@ -214,11 +263,15 @@ export default class extends Controller {
     this.to = { x: r.left + r.width / 2, y: r.top + r.height * FEET, scale: r.width / this.S }
     this.setPose("happy")
     this.overlay.querySelector(".intro__skip").hidden = true
+    sfx.reveal(duration / this.speed)
   }
 
   frame(now) {
-    const dt = Math.min(.05, Math.max(0, now - this.last) / 1000) * this.speed
+    let dt = Math.min(.05, Math.max(0, now - this.last) / 1000) * this.speed
     this.last = now
+    // A beat of slow motion as π hits, easing back to full speed. Never while skipping.
+    if (this.landedAt !== null && this.revealAt === null) dt *= lerp(SLOWMO, 1, smooth(clamp((this.t - this.landedAt) / SLOWMO_FOR, 0, 1)))
+    if (this.t < FALL_AT && this.t + dt >= FALL_AT && this.revealAt === null) sfx.fall((LAND_AT - FALL_AT) / this.speed)
     this.t += dt
     this.phase += dt * .1
     const p = this.pointer
@@ -227,13 +280,18 @@ export default class extends Controller {
     if (this.landedAt === null && this.revealAt === null && this.t >= LAND_AT) {
       this.landedAt = LAND_AT
       this.splash()
+      this.burst()
       this.setPose("hooray")
+      sfx.land()
+      this.rings = 1
     }
+    if (this.landedAt !== null && this.rings < RINGS && this.revealAt === null && this.t - this.landedAt >= this.rings * RING_GAP) sfx.ring(this.rings++)
     if (this.revealAt === null && this.t >= Math.max(REVEAL_AT, Math.min(LATEST_REVEAL, this.lastStir + 1))) this.reveal(REVEAL_FOR)
     const k = this.revealAt === null ? 0 : clamp((this.t - this.revealAt) / this.revealFor, 0, 1)
 
     this.movePi(k)
     this.moveParticles(dt, k)
+    this.moveSparks(dt, k)
     this.draw(k)
     if (k >= 1) this.finish(true)
   }
@@ -241,14 +299,18 @@ export default class extends Controller {
   movePi(k) {
     let x = this.cx, y, rot = 0, sx = 1, sy = 1, scale = 1
     if (this.landedAt === null) {
+      // Falling under gravity: it stretches with its speed and stops tumbling as it nears the water.
       const f = clamp((this.t - FALL_AT) / (LAND_AT - FALL_AT), 0, 1)
       y = lerp(-this.S * .3, this.cy, f * f)
-      rot = -12 * (1 - f) + Math.sin(this.t * 11) * 4 * (1 - f)
-      sy = 1 + .1 * f * f; sx = 1 / Math.sqrt(sy)
+      rot = (-14 + Math.sin(this.t * 9) * 5) * (1 - f) ** 1.5
+      sy = 1 + .16 * f; sx = 1 / Math.sqrt(sy)
+      if (f > 0) this.trailSparks(x, y)
       if (this.pose !== "surprised" && this.revealAt === null) this.setPose("surprised")
     } else {
-      const since = this.t - this.landedAt
-      sy = 1 - .3 * Math.exp(-since * 6) * Math.cos(since * 17); sx = 1 + (1 - sy) * .7
+      // The stretch it fell with gives way to a squash over a few (slowed) frames, then it wobbles to rest.
+      const since = this.t - this.landedAt, wobble = 1 - .28 * Math.exp(-since * 6) * Math.cos(since * 15)
+      sy = since < .05 ? lerp(1.16, .72, smooth(since / .05)) : wobble
+      sx = 1 + (1 - sy) * .7
       y = this.cy - Math.sin(Math.min(since, .5) * Math.PI * 2) * this.u * .1 * Math.exp(-since * 3) + Math.sin(since * 2.2) * this.u * .04 * (1 - Math.exp(-since * 2))
       if (since > .6 && this.pose === "hooray" && this.revealAt === null) this.setPose("awe")
     }
@@ -260,6 +322,7 @@ export default class extends Controller {
       rot = lerp(rot, 0, e) - Math.sin(Math.PI * e) * 8
       sx = lerp(sx, 1, e); sy = lerp(sy, 1, e)
       if (k > .7 && this.pose !== "home") { this.pi.src = this.mascot.currentSrc || this.mascot.src; this.pose = "home" }
+      this.pi.style.filter = `drop-shadow(0 6px 18px rgba(0,0,0,${(.45 * (1 - e)).toFixed(3)}))`
     }
     this.piX = x; this.piY = y; this.piScale = scale
     this.pi.style.transform = `translate(${x - this.S / 2}px, ${y - this.S * FEET}px) rotate(${rot}deg) scale(${sx * scale}, ${sy * scale})`
@@ -318,7 +381,7 @@ export default class extends Controller {
       const since = t - this.landedAt
       ctx.lineWidth = 1.5
       for (let n = 0; n < RINGS; n++) {
-        const tn = since - n * .26
+        const tn = since - n * RING_GAP
         if (tn <= 0) break
         const a = .35 * Math.exp(-tn * 1.4) * (1 - n * .3)
         if (a < .01) continue
@@ -333,6 +396,8 @@ export default class extends Controller {
     }
 
     this.drawParticles(k)
+    this.drawHalo(k)
+    this.drawSparks(k)
 
     // The reveal: a last ripple from the middle that takes the field with it.
     if (k > 0) {
@@ -353,18 +418,21 @@ export default class extends Controller {
   }
 
   drawArrows() {
-    const ctx = this.ctx, sp = this.spacing, t = this.t, geo = this.geo, buckets = this.buckets
+    const ctx = this.ctx, sp = this.spacing, t = this.t, geo = this.geo, buckets = this.buckets, n = ARROW_COLORS.length
+    const reach = this.landedAt === null ? -1 : (t - this.landedAt) * this.waveSpeed
     buckets.forEach(b => { b.length = 0 })
     this.arrows.forEach((a, i) => {
       const grow = easeOut(clamp((t - .05 - a.delay) / .4, 0, 1))
       if (!grow) return
       this.field(a.x, a.y)
+      // Asleep (short and dim) until the first ripple has passed over it; the ripple's own glow hides the switch.
+      const wake = smooth(clamp((reach - a.d) / (this.u * 1.2), 0, 1))
       const fx = this.vec[0], fy = this.vec[1], glow = this.vec[2], mag = Math.hypot(fx, fy) + 1e-6
-      const len = Math.min(sp * 1.15, sp * .8 * (1 - Math.exp(-mag * 1.5)) * (1 + glow * .35)) * grow
+      const len = Math.min(sp * 1.15, sp * .8 * (1 - Math.exp(-mag * 1.5)) * (1 + glow * .35)) * grow * (.6 + .4 * wake)
       if (len < 1.5) return
       geo[i * 4] = a.x; geo[i * 4 + 1] = a.y; geo[i * 4 + 2] = fx / mag * len; geo[i * 4 + 3] = fy / mag * len
       const hue = Math.min(HUES - 1, Math.round(clamp(mag / 1.45, 0, 1) * (HUES - 1)))
-      buckets[hue * GLOWS + Math.min(GLOWS - 1, Math.round(glow * 2.6))].push(i)
+      buckets[hue * GLOWS + Math.min(GLOWS - 1, Math.round(glow * 2.6)) + (wake > .5 ? 0 : n)].push(i)
     })
     ctx.lineWidth = clamp(sp / 20, 1.2, 1.7)
     ctx.lineCap = "round"
@@ -372,8 +440,9 @@ export default class extends Controller {
     const dim = this.landedAt === null ? 0 : .3 * clamp((t - this.landedAt - .4) / 1.2, 0, 1)
     buckets.forEach((list, b) => {
       if (!list.length) return
-      ctx.globalAlpha = 1 - dim * (1 - (b % GLOWS) / (GLOWS - 1))
-      ctx.strokeStyle = ctx.fillStyle = ARROW_COLORS[b]
+      ctx.globalAlpha = b < ARROW_COLORS.length ? 1 - dim * (1 - (b % GLOWS) / (GLOWS - 1)) : ASLEEP
+      const color = ARROW_COLORS[b % ARROW_COLORS.length]
+      ctx.strokeStyle = ctx.fillStyle = color
       ctx.beginPath()
       for (const i of list) {
         const x = geo[i * 4], y = geo[i * 4 + 1], dx = geo[i * 4 + 2], dy = geo[i * 4 + 3], len = Math.hypot(dx, dy)
@@ -393,6 +462,46 @@ export default class extends Controller {
       ctx.fill()
     })
     ctx.globalAlpha = 1
+  }
+
+  // A warm glow around π: gathering as it falls, flaring as it hits, then breathing gently until it hops away.
+  drawHalo(k) {
+    if (this.piX === undefined) return
+    const f = clamp((this.t - FALL_AT) / (LAND_AT - FALL_AT), 0, 1)
+    const since = this.landedAt === null ? -1 : this.t - this.landedAt
+    let a = this.landedAt === null ? .05 + .17 * f * f : .12 + .32 * Math.exp(-since * 4) + .03 * Math.sin(since * 2.6)
+    a *= 1 - smooth(k)
+    if (a < .005) return
+    const ctx = this.ctx, x = this.piX, y = this.piY - this.S * this.piScale * .35, r = this.S * this.piScale * (.95 + .25 * Math.exp(-Math.max(0, since) * 3))
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r)
+    g.addColorStop(0, `rgba(244,211,69,${a})`); g.addColorStop(.45, `rgba(244,211,69,${a * .35})`); g.addColorStop(1, "rgba(244,211,69,0)")
+    ctx.globalCompositeOperation = "lighter"
+    ctx.fillStyle = g
+    ctx.fillRect(x - r, y - r, r * 2, r * 2)
+    ctx.globalCompositeOperation = "source-over"
+  }
+
+  // Four-pointed twinkles that flicker as they fade.
+  drawSparks(k) {
+    if (!this.sparks.length) return
+    const ctx = this.ctx, t = this.t
+    ctx.globalCompositeOperation = "lighter"
+    ctx.lineCap = "round"
+    for (const p of this.sparks) {
+      const age = p.life / p.max, a = (1 - age) ** 1.5 * (.65 + .35 * Math.sin(t * 28 + p.seed * 7)) * (1 - k)
+      if (a < .02) continue
+      const r = p.r * (1 + (1 - age) * .6)
+      ctx.globalAlpha = a
+      ctx.strokeStyle = ctx.fillStyle = p.gold ? "rgb(255,226,120)" : "rgb(190,240,255)"
+      ctx.lineWidth = Math.max(.8, r * .35)
+      ctx.beginPath()
+      ctx.moveTo(p.x - r * 2, p.y); ctx.lineTo(p.x + r * 2, p.y)
+      ctx.moveTo(p.x, p.y - r * 2); ctx.lineTo(p.x, p.y + r * 2)
+      ctx.stroke()
+      ctx.beginPath(); ctx.arc(p.x, p.y, r * .55, 0, Math.PI * 2); ctx.fill()
+    }
+    ctx.globalAlpha = 1
+    ctx.globalCompositeOperation = "source-over"
   }
 
   drawParticles(k) {
@@ -438,6 +547,7 @@ export default class extends Controller {
     this.overlay = null
     delete this.element.dataset.intro
     if (!played) return
+    sfx.arrive()
     const bubble = this.element.querySelector(".mascot__bubble")
     bubble?.classList.remove("mascot__bubble--pop")
     void bubble?.offsetWidth
