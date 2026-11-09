@@ -129,20 +129,6 @@ export const sfx = {
     air(t, dur * .7, { from: 800, to: 4000, gain: .025 })
   },
 
-  // One step of a scrubbed value: a short pluck, higher for later options.
-  tick(step) {
-    if (!ready()) return
-    pluck(audio.ctx.currentTime + .005, scale(step + 3), { gain: .06, decay: .35, wet: .25 })
-  },
-
-  // Text writing itself on for `dur` seconds: soft bells climbing under a breath of air.
-  write(dur) {
-    if (!ready()) return
-    const t = audio.ctx.currentTime + .01, n = 5
-    for (let i = 0; i < n; i++) bell(t + dur * .8 * i / n, scale(5 + i), { gain: .035, decay: 1, wet: .9, pan: -.3 + i * .15 })
-    air(t, dur, { from: 500, to: 2000, gain: .02 })
-  },
-
   // π arriving at its spot on the page: a little pop.
   arrive() {
     if (!ready()) return
