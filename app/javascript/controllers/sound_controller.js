@@ -64,6 +64,7 @@ export default class extends Controller {
     if (!this.hasToggleTarget) return
     if (this.playerValue) {
       const playing = audio.playing
+      if (this.element.dataset.playing !== String(playing)) this.dispatch("change", { detail: { playing } })
       this.element.dataset.playing = playing
       this.toggleTarget.setAttribute("aria-pressed", String(playing))
       this.toggleTarget.setAttribute("aria-label", playing ? "Pause music" : "Play music")
