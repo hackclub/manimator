@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { capture } from "analytics"
 import { Mascot } from "mascot"
 
-// Pledge-first onboarding (onboarding/pledge.html.erb): an idea and who it's for, the prize you're after, when and how
+// Onboarding (onboarding/pledge.html.erb): an idea and who it's for, the prize you're after, when and how
 // long you'll work on it, then a pledge you hold to sign. Answers live in this tab (sessionStorage), so a refresh or
 // a trip to sign in doesn't lose them; signing keeps them on the server too (Pledge), for nudges.
 const ANSWERS_KEY = "manimator:onboarding"
@@ -87,7 +87,7 @@ export default class extends Controller {
 
   pickClass({ params: { klass } }) {
     this.answers.klass = klass
-    capture("onboarding_class_picked", { variant: "pledge", klass })
+    capture("onboarding_class_picked", { klass })
     this.drawIdea()
   }
 
@@ -97,7 +97,7 @@ export default class extends Controller {
     try {
       const response = await this.post(this.drawUrlValue, { klass: this.answers.klass, except: this.answers.seen })
       this.answers.drawn = response.status === 200 ? await response.json() : null
-      capture("onboarding_idea_drawn", { variant: "pledge", klass: this.answers.klass, ideas: this.answers.drawn?.map(idea => idea.id), out: !this.answers.drawn })
+      capture("onboarding_idea_drawn", { klass: this.answers.klass, ideas: this.answers.drawn?.map(idea => idea.id), out: !this.answers.drawn })
       this.mascot.say(this.answers.drawn ? DREW_IDEA : OUT_OF_IDEAS, this.answers.drawn ? "speaking" : "erm")
     } catch {
       this.answers.drawn = null
@@ -118,7 +118,7 @@ export default class extends Controller {
 
   chooseIdea(values, reply) {
     Object.assign(this.answers, values, { ideaPhase: "who" })
-    capture("onboarding_idea_chosen", { variant: "pledge", ...values })
+    capture("onboarding_idea_chosen", { ...values })
     this.render()
     this.mascot.say(reply ?? LINES.who[0], reply ? "happy" : LINES.who[1])
     clearTimeout(this.pickTimer)
@@ -179,7 +179,7 @@ export default class extends Controller {
     const index = STEPS.indexOf(step)
     this.answers.step = Math.max(this.answers.step, index + 1)
     this.answers.open = null
-    capture("onboarding_step_answered", { variant: "pledge", step, ...values })
+    capture("onboarding_step_answered", { step, ...values })
     this.mascot.say(reply, "happy")
     this.render()
     clearTimeout(this.pickTimer)
@@ -248,7 +248,7 @@ export default class extends Controller {
       return this.mascot.say(IDEA_GONE, "erm")
     }
     this.answers.signed = new Date().toISOString()
-    capture("onboarding_pledge_signed", { variant: "pledge", ...this.answers, drawn: undefined, seen: undefined })
+    capture("onboarding_pledge_signed", { ...this.answers, drawn: undefined, seen: undefined })
     this.keepPledge()
     save(localStorage, CODE_KEY, starter(this.answers.idea))
     save(localStorage, VIEW_KEY, "code")
@@ -284,12 +284,12 @@ export default class extends Controller {
   }
 
   open() {
-    capture("onboarding_finished", { variant: "pledge" })
+    capture("onboarding_finished", {})
     sessionStorage.removeItem(ANSWERS_KEY)
   }
 
   abandoned() {
-    if (!this.answers.signed) capture("onboarding_abandoned", { variant: "pledge", step: STEPS[this.current] })
+    if (!this.answers.signed) capture("onboarding_abandoned", { step: STEPS[this.current] })
   }
 
   // Drawing
@@ -304,7 +304,7 @@ export default class extends Controller {
     const [line, pose] = LINES[name === "idea" && this.answers.ideaPhase === "who" ? "who" : name]
     if (pose === "wave") { this.mascot.say(line, "plain"); this.mascot.wave("speaking") }
     else this.mascot.say(line, pose)
-    capture("onboarding_step_viewed", { variant: "pledge", step: name })
+    capture("onboarding_step_viewed", { step: name })
   }
 
   render() {

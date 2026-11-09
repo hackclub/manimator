@@ -1,4 +1,4 @@
-/* Onboarding at /start: the pledge-first variant's page. */
+/* Onboarding at /start: the pledge page. */
 
 .onboard { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
 .onboard__bar { height: 60px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 20px; border-bottom: 1px solid var(--line); }

@@ -1,7 +1,7 @@
 module PagesHelper
   PI_POSES = %w[plain happy hooray wave_1 wave_2 wave_3 speaking surprised tease awe thinking erm dance_1 dance_2 dance_3].freeze
 
-  # Every "Start animating" / "sign in" link goes through onboarding (Onboarding picks which one).
+  # Every "Start animating" / "sign in" link goes through onboarding (the pledge).
   def start_path
     onboarding_path
   end
