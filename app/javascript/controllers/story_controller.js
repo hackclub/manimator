@@ -95,6 +95,7 @@ export default class extends Controller {
 
   connect() {
     this.clock = 0
+    this.startedAt = performance.now()
     this.show = { bar: false, rail: false, code: false, timeline: false, dialog: false, frame: false }
     this.rect = { x: 0, y: 0, w: innerWidth, h: innerHeight }
     this.scene = { field: 0, epi: 0, title: 0, k: 1 }
@@ -120,6 +121,8 @@ export default class extends Controller {
     addEventListener("keydown", this.onKey)
     this.element.addEventListener("click", this.onClick)
     addEventListener("pointermove", this.onMove)
+    this.onLeave = () => this.abandoned()
+    addEventListener("pagehide", this.onLeave)
     this.size()
 
     this.last = performance.now()
@@ -136,6 +139,8 @@ export default class extends Controller {
     removeEventListener("resize", this.onResize)
     removeEventListener("keydown", this.onKey)
     removeEventListener("pointermove", this.onMove)
+    removeEventListener("pagehide", this.onLeave)
+    this.abandoned()
     cancelAnimationFrame(this.holdRaf)
   }
 
@@ -398,9 +403,23 @@ export default class extends Controller {
     event?.stopPropagation()
     audio.unlock()
     this.skipping = true
-    capture("onboarding_story_skipped", { beat: this.beat })
+    capture("onboarding_skipped", { variant: "story", step: this.beat, seconds: this.seconds })
     this.skipTyping?.()
     this.advance?.()
+  }
+
+  // Each beat is a step, logged like the pledge page's, so the two can be compared and drop-off read beat by beat.
+  step(name) {
+    this.beat = name
+    capture("onboarding_step_viewed", { variant: "story", step: name, seconds: this.seconds })
+  }
+
+  get seconds() { return Math.round((performance.now() - this.startedAt) / 100) / 10 }
+
+  abandoned() {
+    if (this.signed || this.left) return
+    this.left = true
+    capture("onboarding_abandoned", { variant: "story", step: this.beat, seconds: this.seconds })
   }
 
   pause(ms) { return wait(this.skipping ? ms * .15 : ms) }
@@ -408,7 +427,9 @@ export default class extends Controller {
   // ── The story ────────────────────────────────────────────────────────────────────────────────────────────────
 
   async run() {
+    this.step("drop")
     await this.drop()
+    this.step("hello")
     this.meet("pi")
     // The first click is a choice: it should feel like playing, not reading.
     const hi = await this.say("pi", "Whoa! Hi, I'm π. Wave your cursor around. The field tickles.",
@@ -416,6 +437,7 @@ export default class extends Controller {
     if (hi === "where") await this.say("pi", "In a vector field! Every arrow points where sin y and sin x say to.", { pose: "awe" })
 
     // ∫ and the examples: it shows off while it talks.
+    this.step("examples")
     this.moveTo("pi", -3.2, -2.4)
     this.enter("int", { x: 3.2, y: -2.4 })
     await this.pause(900)
@@ -428,6 +450,7 @@ export default class extends Controller {
     await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.")
 
     // { } and the code: the field comes back, with what made it.
+    this.step("code")
     this.enter("code", { from: -1 })
     await this.pause(700)
     this.meet("code")
@@ -440,6 +463,7 @@ export default class extends Controller {
     this.light(null)
 
     // Your idea
+    this.step("idea")
     const idea = await this.pickIdea()
     Object.assign(this.answers, idea)
     this.renderCode()
@@ -451,12 +475,14 @@ export default class extends Controller {
     await this.pause(1700)
     this.light(null)
     await this.say("pi", "That's your first frame. Look at it!", { pose: "awe" })
+    this.step("for")
     this.answers.forWhom = await this.say("pi", "Who's it for? Who should finally get it?",
       { pose: "thinking", choices: this.forValue.map(f => ({ label: f.label, value: f.key })) })
     const you = this.forValue.find(f => f.key === this.answers.forWhom).you
     await this.say("pi", `Then let's make it so ${you} gets it.`, { pose: "happy" })
 
     // ∞ and your buddy
+    this.step("buddy")
     this.enter("inf")
     await this.pause(800)
     await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
@@ -471,6 +497,7 @@ export default class extends Controller {
     await this.say("inf", `At that pace your video is done by ${shortDate(this.answers.shipBy)}. I'll check in ${this.answers.when === "weekends" ? "on weekends" : `around ${clockTime(this.slotsValue[this.answers.when])}`}.`)
 
     // Σ and the board
+    this.step("prize")
     this.enter("sig", { from: -1 })
     await this.pause(800)
     await this.say("sig", "And I'm Σ. I add up everyone who ships.")
@@ -482,9 +509,12 @@ export default class extends Controller {
     await this.say("sig", `The ${prize.name}. Good choice.`)
 
     // Signing
+    this.step("sign")
     await this.say("pi", `So: "${this.answers.idea}", for ${you}, done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
     await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign" })
     await this.sign()
+    this.signed = true
+    this.step("signed")
     this.cheer()
     this.reveal("bar")
     this.burst(0, 1, 60)
