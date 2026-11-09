@@ -292,7 +292,7 @@ export default class extends Controller {
       this.skipTyping = () => { i = text.length }
       const step = now => {
         if (this.gone) return
-        acc += (now - last) / 1000 * 46; last = now
+        acc += (now - last) / 1000 * 62; last = now
         while (acc >= 1 && i < text.length) {
           acc -= 1; i++
           const c = text[i - 1]
@@ -378,40 +378,34 @@ export default class extends Controller {
   async run() {
     await this.drop()
     this.meet("pi")
-    await this.say("pi", "Whoa. Hi! I'm π.", { pose: "hooray" })
-    await this.say("pi", "This is a vector field. Every arrow points the way sin y and sin x say to.", { pose: "awe" })
-    await this.say("pi", "Go on, stir it with your cursor. It tickles.", { pose: "happy" })
+    // The first click is a choice: it should feel like playing, not reading.
+    const hi = await this.say("pi", "Whoa! Hi, I'm π. Wave your cursor around. The field tickles.",
+      { pose: "hooray", choices: [{ label: "Hi π!", value: "hi" }, { label: "Where am I?", value: "where" }] })
+    if (hi === "where") await this.say("pi", "In a vector field! Every arrow points where sin y and sin x say to.", { pose: "awe" })
 
-    // ∫ and the examples
+    // ∫ and the examples: it shows off while it talks.
     this.moveTo("pi", -3.2, -2.4)
     this.enter("int", { x: 3.2, y: -2.4 })
     await wait(900)
-    await this.say("int", "Ooh, a new face! I'm ∫. I collect scenes other people made.")
     this.meet("int")
     this.reveal("frame")
     this.want = { field: .22, epi: 1 }
     this.epiStart = this.clock
     this.lineUp()
-    await this.say("int", "Like this one. Each circle spins, riding on the one before it...")
-    await this.say("int", "...and together they draw a shape. That's a Fourier series.")
-    await this.say("pi", "Hey! That's me!", { pose: "hooray" })
+    setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, 2600)
+    await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.")
 
-    // { } and the code
+    // { } and the code: the field comes back, with what made it.
     this.enter("code", { from: -1 })
     await wait(700)
-    await this.say("code", "Psst. Want to see how it's made?")
     this.meet("code")
     this.want = { field: 1, epi: 0 }
     this.renderCode()
     this.reveal("code")
-    await wait(400)
-    this.light("field")
-    await this.say("code", "That field from the start? It's these few lines.")
     this.light("k")
-    this.kFrom = this.clock
-    await this.say("code", "Watch k. Change one number, and the whole picture changes.")
+    this.kFrom = this.clock + .6
+    await this.say("code", "Psst, I'm { }. These 8 lines made that field. Watch what happens when k changes.")
     this.light(null)
-    await this.say("pi", "That's Manimator. You write a little, and math moves.", { pose: "happy" })
 
     // Your idea
     const idea = await this.pickIdea()
@@ -468,8 +462,8 @@ export default class extends Controller {
   }
 
   async pickIdea() {
-    const how = await this.say("pi", "Your turn. What do you wish someone could finally see?",
-      { pose: "thinking", choices: [{ label: "I have an idea", value: "own" }, { label: "Surprise me", value: "draw" }] })
+    const how = await this.say("pi", "That's Manimator: write a little, and math moves. Your turn! What do you wish someone could finally see?",
+      { pose: "happy", choices: [{ label: "Surprise me", value: "draw" }, { label: "I have an idea", value: "own" }] })
     if (how === "own") return { idea: await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "how attention works in transformers", button: "That one" } }), ideaId: null }
     const klass = await this.say("pi", "What math class are you in? I'll find you ideas nobody else has.",
       { pose: "thinking", choices: this.classesValue.map(c => ({ label: c.label, value: c.key })) })
@@ -725,7 +719,7 @@ export default class extends Controller {
   // ∫'s example: circles on circles, tracing π.
   drawEpicycles(alpha) {
     const ctx = this.ctx, s = this.s, scale = 1.45, cy = .75
-    const phase = ((this.clock - (this.epiStart ?? 0)) / 7) * Math.PI * 2
+    const phase = ((this.clock - (this.epiStart ?? 0)) / 5) * Math.PI * 2
     const tip = ph => {
       let x = 0, y = 0
       for (const c of CIRCLES) { const a = c.freq * ph + c.phase; x += c.amp * Math.cos(a); y += c.amp * Math.sin(a) }

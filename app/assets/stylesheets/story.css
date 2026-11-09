@@ -5,6 +5,8 @@
   --bar: 0px; --rail: 0px; --code: 0px; --tl: 0px; --corner: 124px;
   position: fixed; inset: 0; overflow: hidden; background: var(--bg); user-select: none; -webkit-user-select: none;
 }
+/* The story is the whole screen: nothing underneath should scroll it. */
+html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none; }
 .story__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* The editor, arriving */
