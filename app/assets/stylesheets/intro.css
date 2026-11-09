@@ -1,0 +1,24 @@
+/* The way into onboarding: π drops into a vector field (intro_controller.js). The page's own π and its bubble wait
+   underneath until it lands. */
+.onboard[data-intro] .mascot__pi, .onboard[data-intro] .mascot__bubble { visibility: hidden; }
+
+.intro { position: fixed; inset: 0; z-index: 100; touch-action: none; cursor: crosshair; user-select: none; -webkit-user-select: none; }
+.intro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.intro__pi {
+  position: absolute; left: 0; top: 0; height: auto; pointer-events: none;
+  transform-origin: 50% 79%; will-change: transform; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .45));
+}
+.intro__formula {
+  position: absolute; left: var(--gutter); bottom: 28px; margin: 0; opacity: 0; pointer-events: none;
+  font: 22px var(--serif); color: var(--ink); letter-spacing: .01em;
+}
+.intro__formula i:first-child { color: var(--yellow); }
+.intro__skip {
+  position: absolute; right: 20px; bottom: 22px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); color: var(--ink-faint); font: 13px var(--mono);
+  cursor: pointer; opacity: 0; animation: intro-skip .4s .7s ease-out forwards; transition: color .2s, border-color .2s;
+}
+.intro__skip:hover, .intro__skip:focus-visible { color: var(--ink); border-color: var(--line-hover); outline: none; }
+@keyframes intro-skip { to { opacity: 1; } }
+
+@media (max-width: 520px) { .intro__formula { font-size: 18px; bottom: 26px; } }
