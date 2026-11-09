@@ -50,11 +50,13 @@
             <button class="btn-pill" data-pledge-target="another" data-action="pledge#drawIdea">Show me others</button>
           </div>
           <template data-pledge-target="drawnTemplate">
-            <button class="drawn-idea" data-action="pledge#takeIdea">
-              <span class="drawn-idea__title"></span>
-              <span class="drawn-idea__line"></span>
-              <span class="drawn-idea__topic mono-xs"></span>
-            </button>
+            <div class="drawn-idea">
+              <button class="drawn-idea__pick" data-action="pledge#takeIdea">
+                <span class="drawn-idea__title"></span>
+                <span class="drawn-idea__line"></span>
+              </button>
+              <a class="drawn-idea__source mono-xs" target="_blank" rel="noopener"></a>
+            </div>
           </template>
         </div>
 

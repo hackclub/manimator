@@ -335,11 +335,19 @@ export default class extends Controller {
     this.drawnTarget.hidden = !a.drawn
     this.drawnIdeasTarget.replaceChildren(...(a.drawn ?? []).map(idea => {
       const card = this.drawnTemplateTarget.content.firstElementChild.cloneNode(true)
-      card.dataset.pledgeIdParam = idea.id
-      card.setAttribute("aria-pressed", idea.id === a.ideaId)
+      const pick = card.querySelector(".drawn-idea__pick")
+      pick.dataset.pledgeIdParam = idea.id
+      pick.setAttribute("aria-pressed", idea.id === a.ideaId)
       card.querySelector(".drawn-idea__title").textContent = idea.title
       card.querySelector(".drawn-idea__line").textContent = idea.line
-      card.querySelector(".drawn-idea__topic").textContent = idea.topic || ""
+      // The lesson it comes from, to read up on and to point people to.
+      const source = card.querySelector(".drawn-idea__source")
+      if (idea.source_url) {
+        source.href = idea.source_url
+        source.textContent = `${idea.source_title || idea.topic} ↗`
+      } else {
+        source.remove()
+      }
       return card
     }))
   }
