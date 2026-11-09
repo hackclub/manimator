@@ -182,6 +182,20 @@ export default class extends Controller {
     if (id !== "pi") slot.querySelector(".story__glyph").innerHTML = friendSvg(id)
     slot.classList.add("story__slot--met")
     sfx.meet(FRIENDS[id].note)
+    this.toast(id, slot)
+  }
+
+  // An achievement-style badge out of the friend's rail slot: who joined, and how many of the five you've met.
+  toast(id, slot) {
+    const f = FRIENDS[id], el = document.createElement("div")
+    el.className = "story__toast"
+    el.innerHTML = `<b style="color:${f.color}">${f.name}</b> joined <span>· ${this.met.size} of ${RAIL.length} friends</span>`
+    this.element.append(el)
+    const place = () => { const r = slot.getBoundingClientRect(); el.style.top = `${r.top + r.height / 2}px` }
+    requestAnimationFrame(place)
+    setTimeout(place, 850) // the rail may still be sliding in
+    setTimeout(() => el.classList.add("story__toast--out"), 2600)
+    setTimeout(() => el.remove(), 3200)
   }
 
   // The code pane: what you're looking at, as manim code. Lines light up as someone talks about them.

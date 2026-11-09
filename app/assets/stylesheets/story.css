@@ -70,6 +70,16 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__clip--teal { color: var(--teal); background: color-mix(in srgb, var(--teal) 20%, transparent); border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
 .story__head { position: absolute; top: 8px; bottom: 8px; width: 2px; margin-left: 24px; background: var(--red); transition: left .8s; }
 
+.story__toast {
+  position: absolute; left: calc(var(--rail) + 10px); top: 0; z-index: 5; transform: translateY(-50%); padding: 7px 14px;
+  border: 1px solid var(--line-hover); border-radius: 999px; background: #1b1e22; box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  font: 14px var(--serif); color: var(--ink); white-space: nowrap; pointer-events: none;
+  animation: toast-in .45s cubic-bezier(.3, 1.5, .5, 1); transition: opacity .5s, transform .5s;
+}
+.story__toast span { color: var(--ink-faint); font: 12px var(--mono); }
+.story__toast--out { opacity: 0; transform: translate(-12px, -50%); }
+@keyframes toast-in { from { opacity: 0; transform: translate(-16px, -50%) scale(.9); } }
+
 /* The cast, over the stage */
 .story__cast { position: absolute; inset: 0; pointer-events: none; }
 .story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); }
