@@ -28,7 +28,7 @@
     <h1 class="hero__title" data-particles-target="title">Manimator</h1>
     <p class="hero__lede">Animate a piece of math you love in <span class="mono c-blue">manim</span>. Ship the video, and we’ll mail you something back.</p>
     <div class="hero__ctas">
-      <a href="<%= start_path %>" class="btn btn--primary" data-action="mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a>
+      <a href="<%= start_path %>" class="btn btn--primary" data-action="click->sound#launch mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a>
       <a href="#examples" class="btn btn--ghost">See examples</a>
     </div>
     <p class="hero__hint"><span class="wide-only">There’s a little flow field here. Move through it and see.</span><span class="narrow-only">There’s a little flow field here. Drag through it and see.</span></p>
@@ -184,7 +184,7 @@
       <div class="footer__cta">
         <h2 class="footer__title" data-controller="write">Your turn.</h2>
         <p class="footer__lede">Pick an idea, open your editor, and make the first frame move.</p>
-        <div><a href="<%= start_path %>" class="btn btn--primary" data-action="mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a></div>
+        <div><a href="<%= start_path %>" class="btn btn--primary" data-action="click->sound#launch mouseenter->pi#hot mouseleave->pi#cold">Start animating →</a></div>
       </div>
       <div class="pi">
         <div class="bubble" data-pi-target="bubble"></div>
@@ -218,7 +218,7 @@
     <a href="#faq" data-action="menu#close">FAQ</a>
     <a href="<%= start_path %>" class="menu__signin">Sign in</a>
   </nav>
-  <a href="<%= start_path %>" class="btn btn--primary menu__cta">Start animating →</a>
+  <a href="<%= start_path %>" class="btn btn--primary menu__cta" data-action="click->sound#launch">Start animating →</a>
   <div class="menu__foot">Hack Club × 3Blue1Brown</div>
 </div>
 
