@@ -1,0 +1,146 @@
+/* Onboarding as a story (onboarding/story.html.erb, story_controller.js). The stage is a canvas under everything; the
+   editor's pieces (bar, rail, code, timeline) slide in from their edges as the story reaches them, and the stage's frame
+   makes room for them. The dialogue box sits over the bottom of the stage, like a game's. */
+.story {
+  --bar: 0px; --rail: 0px; --code: 0px; --tl: 0px; --corner: 124px;
+  position: fixed; inset: 0; overflow: hidden; background: var(--bg); user-select: none; -webkit-user-select: none;
+}
+.story__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* The editor, arriving */
+.story__bar, .story__rail, .story__code, .story__timeline { position: absolute; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .6s, left .8s cubic-bezier(.2, .8, .2, 1), top .8s cubic-bezier(.2, .8, .2, 1); }
+
+.story__bar {
+  top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; gap: 10px; padding: 0 20px; box-sizing: border-box;
+  border-bottom: 1px solid var(--line); background: var(--bg); transform: translateY(-100%); opacity: 0;
+}
+.story[data-bar] .story__bar { transform: none; opacity: 1; }
+.story__file { font: 13px var(--mono); color: var(--ink-muted); }
+.story__spacer { flex: 1; }
+.story__go { padding: 7px 14px; font-size: 14px; line-height: 1.2; }
+
+.story__rail {
+  top: var(--bar); bottom: 0; left: 0; width: 68px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding-top: 14px; box-sizing: border-box; border-right: 1px solid var(--line); background: var(--bg-raised);
+  transform: translateX(-100%); opacity: 0;
+}
+.story[data-rail] .story__rail { transform: none; opacity: 1; }
+.story__slot { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 56px; padding: 6px 0; border-radius: 8px; }
+.story__glyph { width: 34px; height: 37px; display: grid; place-items: center; }
+.story__glyph svg, .story__glyph img { width: 100%; height: 100%; object-fit: contain; }
+.story__slot:not(.story__slot--met) .story__glyph img { filter: brightness(0) invert(.14); }
+.story__tool { font: 10px var(--mono); color: var(--ink-faint); opacity: 0; transition: opacity .4s .3s; }
+.story__slot--met .story__tool { opacity: 1; }
+.story__slot--met .story__glyph { animation: slot-pop .7s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes slot-pop { 0% { transform: scale(.4) rotate(-12deg); } 60% { transform: scale(1.25) rotate(4deg); } }
+
+.story__code {
+  top: var(--bar); bottom: var(--tl); left: var(--rail); width: min(400px, 34vw); box-sizing: border-box; padding: 0 0 20px;
+  border-right: 1px solid var(--line); background: var(--bg-raised); font: 12.5px/24px var(--mono); color: var(--ink);
+  overflow: auto; transform: translateX(-105%); opacity: 0; user-select: text; -webkit-user-select: text;
+}
+.story[data-code] .story__code { transform: none; opacity: 1; }
+@media (max-width: 760px) { .story__code { display: none; } }
+.story__tab { padding: 10px 16px; margin-bottom: 10px; border-bottom: 1px solid var(--line); font-size: 11px; color: var(--ink-faint); }
+.sl { display: flex; white-space: pre; padding-right: 12px; transition: background-color .3s, box-shadow .3s; }
+.sl__n { flex: none; width: 34px; padding-right: 14px; text-align: right; color: #4b5058; }
+.sl--lit { background: color-mix(in srgb, var(--yellow) 10%, transparent); box-shadow: inset 2px 0 0 var(--yellow); }
+.sl--new { animation: sl-new .6s ease-out; }
+@keyframes sl-new { from { opacity: 0; transform: translateX(-8px); } }
+.c-kw { color: var(--purple); }
+.c-fn { color: var(--teal); }
+.c-def { color: var(--blue); }
+.c-str, .c-num { color: var(--yellow); }
+
+.story__timeline {
+  left: calc(var(--rail) + var(--code)); right: 0; bottom: 0; height: 64px; box-sizing: border-box; padding: 14px var(--corner) 14px 20px;
+  border-top: 1px solid var(--line); background: var(--bg-raised); transform: translateY(100%); opacity: 0;
+}
+.story__timeline::before { content: ""; position: absolute; inset: 14px var(--corner) 14px 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+.story[data-timeline] .story__timeline { transform: none; opacity: 1; }
+.story__clip {
+  position: absolute; top: 18px; bottom: 18px; margin-left: 24px; border-radius: 4px; padding-left: 8px; box-sizing: border-box;
+  font: 11px/26px var(--mono); border: 1px solid; overflow: hidden; white-space: nowrap; max-width: calc(100% - var(--corner) - 28px);
+  animation: clip-grow .6s cubic-bezier(.2, .8, .3, 1.2); transform-origin: left;
+}
+@keyframes clip-grow { from { transform: scaleX(0); } }
+.story__clip--blue { color: var(--blue); background: color-mix(in srgb, var(--blue) 20%, transparent); border-color: color-mix(in srgb, var(--blue) 50%, transparent); }
+.story__clip--teal { color: var(--teal); background: color-mix(in srgb, var(--teal) 20%, transparent); border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
+.story__head { position: absolute; top: 8px; bottom: 8px; width: 2px; margin-left: 24px; background: var(--red); transition: left .8s; }
+
+/* The cast, over the stage */
+.story__cast { position: absolute; inset: 0; pointer-events: none; }
+.story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); }
+.story__actor img, .story__actor svg { display: block; width: 100%; height: auto; }
+.story__actor svg { overflow: visible; }
+.story__actor .eye, .story__portrait .eye { animation: blink 4.2s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+
+/* The dialogue box */
+.story__dialog {
+  position: absolute; left: calc(var(--rail) + var(--code) + 20px); right: var(--corner); bottom: calc(var(--tl) + 16px);
+  max-width: 860px; margin-inline: auto; display: flex; gap: 16px; align-items: flex-start; box-sizing: border-box;
+  padding: 16px 20px 18px; border: 1px solid var(--line-hover); border-radius: 14px; background: color-mix(in srgb, #16181b 94%, transparent);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .55); opacity: 0; transform: translateY(24px); pointer-events: none;
+  transition: opacity .4s, transform .5s cubic-bezier(.2, .8, .2, 1), left .8s cubic-bezier(.2, .8, .2, 1), bottom .8s cubic-bezier(.2, .8, .2, 1);
+}
+.story[data-dialog] .story__dialog { opacity: 1; transform: none; pointer-events: auto; cursor: pointer; }
+.story__dialog--pop { animation: dialog-pop .25s ease-out; }
+@keyframes dialog-pop { from { transform: translateY(4px) scale(.995); } }
+.story__portrait {
+  flex: none; width: 64px; height: 64px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line);
+  display: grid; place-items: center; overflow: hidden;
+}
+.story__portrait img, .story__portrait svg { width: 52px; height: 52px; object-fit: contain; }
+.story__speech { flex: 1; min-width: 0; }
+.story__name { display: block; font: 600 15px var(--serif); margin-bottom: 2px; }
+.story__text { margin: 0; min-height: 2.9em; font: 20px/1.45 var(--serif); color: var(--ink); }
+.story__next { position: absolute; right: 18px; bottom: 10px; color: var(--yellow); font-size: 14px; animation: next-bob 1s ease-in-out infinite; }
+@keyframes next-bob { 50% { transform: translateY(3px); } }
+
+.story__choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.story__choices:empty { display: none; }
+.story__choice {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 9px 16px 9px 26px;
+  border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg); color: var(--ink); font: 16px var(--serif);
+  text-align: left; cursor: pointer; transition: border-color .15s, background-color .15s, transform .15s; animation: choice-in .3s ease-out backwards;
+}
+.story__choice:nth-child(2) { animation-delay: .04s; } .story__choice:nth-child(3) { animation-delay: .08s; }
+.story__choice:nth-child(4) { animation-delay: .12s; } .story__choice:nth-child(5) { animation-delay: .16s; }
+.story__choice:nth-child(6) { animation-delay: .2s; }
+@keyframes choice-in { from { opacity: 0; transform: translateY(6px); } }
+.story__choice::before { content: "▸"; position: absolute; left: 10px; top: 9px; color: var(--yellow); opacity: 0; transition: opacity .15s, transform .15s; transform: translateX(-4px); }
+.story__choice:hover, .story__choice:focus-visible { border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); outline: none; }
+.story__choice:hover::before, .story__choice:focus-visible::before { opacity: 1; transform: none; }
+.story__choice:disabled { opacity: .45; cursor: default; }
+.story__choice-sub { font: 12px var(--mono); color: var(--ink-faint); }
+.story__choice--card { width: 104px; padding: 8px 8px 10px; align-items: stretch; }
+.story__choice--card::before { display: none; }
+.story__choice--card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
+.story__choice--card .story__choice-label { font-size: 13px; line-height: 1.2; }
+.story__choice--card .story__choice-sub { font-size: 10.5px; }
+
+.story__ask { display: flex; gap: 8px; width: 100%; }
+.story__input {
+  flex: 1; min-width: 0; padding: 10px 14px; border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg);
+  color: var(--yellow); font: 15px var(--mono); outline: none; user-select: text; -webkit-user-select: text;
+}
+.story__input:focus { border-color: var(--yellow); }
+.story__ask .story__choice { padding-left: 16px; }
+.story__ask .story__choice::before { display: none; }
+
+.story__hold {
+  position: relative; overflow: hidden; width: min(360px, 100%); height: 50px; border-radius: 999px; border: 1px solid var(--yellow);
+  background: transparent; font: 500 15px var(--mono); cursor: pointer; touch-action: none;
+}
+.story__hold-fill { position: absolute; inset: 0; background: var(--yellow); transform: scaleX(0); transform-origin: left; }
+.story__hold-label { position: relative; color: var(--yellow); mix-blend-mode: difference; }
+
+@media (max-width: 760px) {
+  .story { --corner: 16px; }
+  .story__dialog { left: calc(var(--rail) + 10px); right: 10px; bottom: calc(var(--tl) + 10px); padding: 12px 14px 14px; gap: 10px; }
+  .story__portrait { width: 48px; height: 48px; }
+  .story__portrait img, .story__portrait svg { width: 40px; height: 40px; }
+  .story__text { font-size: 17px; }
+  .story__choice--card { width: calc(50% - 4px); }
+}

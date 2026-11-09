@@ -1,0 +1,47 @@
+<% content_for :title, "Start · Manimator" %>
+
+<%# Onboarding as a story (a demo, at /start?story). π drops into a vector field, and as you go you meet friends who
+    each show you something and bring a tool with them: ∫ the examples, { } the code, ∞ your buddy, Σ the board. The
+    editor assembles itself around you as they arrive, and you leave with a signed Pledge and your idea in the editor. %>
+<div class="story" data-controller="story"
+     data-story-poses-value="<%= pi_pose_urls %>"
+     data-story-prizes-value="<%= onboarding_prizes.map { |p| p.slice(:id, :name, :videos).merge(image: image_path(p[:image])) }.to_json %>"
+     data-story-for-value="<%= onboarding_for.map { |key, who| { key:, label: who[:label], you: who[:you] } }.to_json %>"
+     data-story-slots-value="<%= Pledge::SLOTS.to_json %>"
+     data-story-days-value="<%= onboarding_days.to_json %>"
+     data-story-sessions-value="<%= onboarding_sessions.to_json %>"
+     data-story-classes-value="<%= onboarding_classes.map { |key, c| { key:, label: c[:label] } }.to_json %>"
+     data-story-draw-url-value="<%= draw_ideas_path %>"
+     data-story-claim-url-value="<%= claim_idea_path("ID") %>"
+     data-story-pledge-url-value="<%= pledge_path %>"
+     data-story-hours-value="<%= Pledge::HOURS_PER_VIDEO %>">
+  <canvas class="story__canvas" data-story-target="canvas" aria-hidden="true"></canvas>
+
+  <header class="story__bar" data-story-target="bar">
+    <%= link_to "Manimator", root_path, class: "onboard__brand" %>
+    <span class="onboard__slash">/</span>
+    <span class="story__file">first_scene.py</span>
+    <span class="story__spacer"></span>
+    <a class="btn btn--primary story__go" href="<%= editor_path %>" data-story-target="go">Open the editor →</a>
+  </header>
+
+  <nav class="story__rail" data-story-target="rail" aria-label="Friends you've met"></nav>
+
+  <section class="story__code" data-story-target="code" aria-label="The code for this scene"></section>
+
+  <div class="story__timeline" data-story-target="timeline" aria-hidden="true"></div>
+
+  <div class="story__cast" data-story-target="cast"></div>
+
+  <section class="story__dialog" data-story-target="dialog" aria-live="polite">
+    <div class="story__portrait" data-story-target="portrait"></div>
+    <div class="story__speech">
+      <span class="story__name" data-story-target="name"></span>
+      <p class="story__text" data-story-target="text"></p>
+      <div class="story__choices" data-story-target="choices"></div>
+    </div>
+    <span class="story__next" data-story-target="next" aria-hidden="true">▾</span>
+  </section>
+</div>
+
+<%= render "onboarding/player" %>

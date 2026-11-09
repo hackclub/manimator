@@ -129,6 +129,42 @@ export const sfx = {
     air(t, dur * .7, { from: 800, to: 4000, gain: .025 })
   },
 
+  // A choice made: a short pluck, higher for later options.
+  tick(step) {
+    if (!ready()) return
+    pluck(audio.ctx.currentTime + .005, scale(step + 3), { gain: .06, decay: .35, wet: .25 })
+  },
+
+  // Text writing itself on for `dur` seconds: soft bells climbing under a breath of air.
+  write(dur) {
+    if (!ready()) return
+    const t = audio.ctx.currentTime + .01, n = 5
+    for (let i = 0; i < n; i++) bell(t + dur * .8 * i / n, scale(5 + i), { gain: .035, decay: 1, wet: .9, pan: -.3 + i * .15 })
+    air(t, dur, { from: 500, to: 2000, gain: .02 })
+  },
+
+  // A character's voice, a letter at a time, the way games do dialogue: a tiny blip around their own note.
+  blip(note) {
+    if (!ready()) return
+    const ctx = audio.ctx, t = ctx.currentTime + .002, o = ctx.createOscillator(), g = ctx.createGain()
+    o.type = "triangle"
+    o.frequency.value = hz(note + [0, 2, 4, 7][Math.floor(Math.random() * 4)])
+    g.gain.setValueAtTime(0, t)
+    g.gain.linearRampToValueAtTime(.025, t + .004)
+    g.gain.exponentialRampToValueAtTime(.0001, t + .05)
+    o.connect(g).connect(audio.sfx)
+    o.start(t)
+    o.stop(t + .06)
+  },
+
+  // Meeting a new friend: a little rising jingle that ends on their note.
+  meet(note) {
+    if (!ready()) return
+    const t = audio.ctx.currentTime + .01
+    ;[-12, -5, 0].forEach((d, i) => bell(t + i * .09, note + d, { gain: .06, decay: 1.4, wet: .8, pan: -.2 + i * .2 }))
+    air(t, .4, { from: 900, to: 3600, gain: .025 })
+  },
+
   // π arriving at its spot on the page: a little pop.
   arrive() {
     if (!ready()) return
