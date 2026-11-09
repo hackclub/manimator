@@ -9,7 +9,8 @@ import { sfx } from "sfx"
 // in, then the timeline, the rail of friends and the top bar. The questions are theirs to ask, as dialogue choices; at
 // the end you sign, which keeps the same Pledge as the pledge page and opens the editor with your idea in it.
 //
-// Click, Space or Enter moves the dialogue on. The script is run() at the bottom: a plain sequence of beats.
+// Click, Space or Enter moves the dialogue on; skip fast-forwards to the next question, the way a game skips a
+// cutscene (you still answer everything, so the pledge still gets made). The script is run(): a plain list of beats.
 const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
@@ -88,7 +89,7 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "bar", "go", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next"]
+  static targets = ["canvas", "bar", "go", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip"]
   static values = { poses: Object, prizes: Array, for: Array, slots: Object, days: Array, sessions: Object, classes: Array,
     drawUrl: String, claimUrl: String, pledgeUrl: String, hours: Number }
 
@@ -240,7 +241,7 @@ export default class extends Controller {
     const s = this.s, r = this.rect
     for (const a of Object.values(this.actors)) {
       if (!a.falling) {
-        const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * 5.5)
+        const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * (this.skipping ? 20 : 5.5))
         a.x += step
         a.y = ease(a.y, a.ty, dt, 8)
         a.walk = Math.abs(dx) > .02 ? a.walk + dt * 13 : 0
@@ -273,10 +274,14 @@ export default class extends Controller {
     this.choicesTarget.replaceChildren()
     this.nextTarget.hidden = true
     this.dialogTarget.classList.remove("story__dialog--pop"); void this.dialogTarget.offsetWidth; this.dialogTarget.classList.add("story__dialog--pop")
+    const decision = !!(choices || input || hold)
+    if (decision) this.skipping = false
+    this.skipTarget.hidden = decision
     const speaker = this.actors[who]
     if (speaker) speaker.talk = true
     await this.type(text, f.note)
     if (speaker) speaker.talk = false
+    if (!decision && this.skipping) return
     if (choices) return this.offer(choices)
     if (input) return this.ask(input)
     if (hold) return this.holdToSign(hold)
@@ -286,6 +291,7 @@ export default class extends Controller {
   }
 
   type(text, note) {
+    if (this.skipping) { this.textTarget.textContent = text; return Promise.resolve() }
     return new Promise(resolve => {
       this.textTarget.textContent = ""
       let i = 0, acc = 0, last = performance.now()
@@ -373,6 +379,18 @@ export default class extends Controller {
     this.advance?.()
   }
 
+  // Fast-forward: talk and entrances race by until the next question.
+  skip(event) {
+    event?.stopPropagation()
+    audio.unlock()
+    this.skipping = true
+    capture("onboarding_story_skipped", { beat: this.beat })
+    this.skipTyping?.()
+    this.advance?.()
+  }
+
+  pause(ms) { return wait(this.skipping ? ms * .15 : ms) }
+
   // ── The story ────────────────────────────────────────────────────────────────────────────────────────────────
 
   async run() {
@@ -386,7 +404,7 @@ export default class extends Controller {
     // ∫ and the examples: it shows off while it talks.
     this.moveTo("pi", -3.2, -2.4)
     this.enter("int", { x: 3.2, y: -2.4 })
-    await wait(900)
+    await this.pause(900)
     this.meet("int")
     this.reveal("frame")
     this.want = { field: .22, epi: 1 }
@@ -397,7 +415,7 @@ export default class extends Controller {
 
     // { } and the code: the field comes back, with what made it.
     this.enter("code", { from: -1 })
-    await wait(700)
+    await this.pause(700)
     this.meet("code")
     this.want = { field: 1, epi: 0 }
     this.renderCode()
@@ -416,7 +434,7 @@ export default class extends Controller {
     sfx.write(1.6)
     this.reveal("timeline")
     this.renderTimeline()
-    await wait(1700)
+    await this.pause(1700)
     this.light(null)
     await this.say("pi", "That's your first frame. Look at it!", { pose: "awe" })
     this.answers.forWhom = await this.say("pi", "Who's it for? Who should finally get it?",
@@ -426,7 +444,7 @@ export default class extends Controller {
 
     // ∞ and your buddy
     this.enter("inf")
-    await wait(800)
+    await this.pause(800)
     await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
     this.meet("inf")
     const slots = Object.keys(this.slotsValue)
@@ -440,7 +458,7 @@ export default class extends Controller {
 
     // Σ and the board
     this.enter("sig", { from: -1 })
-    await wait(800)
+    await this.pause(800)
     await this.say("sig", "And I'm Σ. I add up everyone who ships.")
     this.meet("sig")
     const prizeId = await this.say("sig", "Ship it, and the 3Blue1Brown store mails you one of these. Pick one.",

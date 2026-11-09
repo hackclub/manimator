@@ -100,6 +100,12 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__next { position: absolute; right: 18px; bottom: 10px; color: var(--yellow); font-size: 14px; animation: next-bob 1s ease-in-out infinite; }
 @keyframes next-bob { 50% { transform: translateY(3px); } }
 
+.story__skip {
+  position: absolute; top: 10px; right: 14px; padding: 4px 10px; border: 1px solid transparent; border-radius: 999px;
+  background: none; color: var(--ink-faint); font: 12px var(--mono); cursor: pointer; transition: color .15s, border-color .15s;
+}
+.story__skip:hover, .story__skip:focus-visible { color: var(--ink); border-color: var(--line-hover); outline: none; }
+.story__skip[hidden] { display: none; }
 .story__choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .story__choices:empty { display: none; }
 .story__choice {
