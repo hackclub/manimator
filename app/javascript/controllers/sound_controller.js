@@ -32,6 +32,9 @@ export default class extends Controller {
       }
       this.unwake = () => ["pointerdown", "keydown"].forEach(ev => window.removeEventListener(ev, this.wake, true))
       ;["pointerdown", "keydown"].forEach(ev => window.addEventListener(ev, this.wake, true))
+      // The player starts with the page when it can: arriving by a click (Start animating, through Turbo) already
+      // counts as the gesture browsers want, so the music comes in with onboarding's intro.
+      if (this.playerValue && navigator.userActivation?.hasBeenActive) this.wake({ target: document.body })
     }
     this.onVisibility = () => document.hidden ? this.ctx?.suspend() : this.on && this.ctx?.resume()
     document.addEventListener("visibilitychange", this.onVisibility)
