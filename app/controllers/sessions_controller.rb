@@ -1,5 +1,5 @@
 # Hack Club Auth sends people back here. Signing in starts a fresh session, takes along what you did before signing
-# in (your pledge), and returns you to where you came from.
+# in (your pledge and scenes), and returns you to where you came from.
 class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(request.env["omniauth.auth"])

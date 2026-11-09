@@ -11,7 +11,6 @@ module EditorsHelper
       working_on: "epicycles", working_ago: "12m ago",
       note: "That k swing is great. Slow it down a little?", note_scene: "wave-scene", note_at: 4.1
     },
-    shipped: { name: "sine-sweep", status: "shipped oct 19 · in review" },
     board: [
       { rank: 1, handle: "@tau_not_pi", initial: "T", color: "blue", hours: "12h 40m", streak: "11d" },
       { rank: 2, handle: "@noether", initial: "N", color: "purple", hours: "11h 05m", streak: "9d", buddy: true },

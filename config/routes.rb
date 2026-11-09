@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post :claim, on: :member
   end
   resource :editor, only: :show
+  resources :scenes, only: %i[show create update]
 
   # Hack Club Auth. Signing in is a POST to /auth/hackclub (OmniAuth's middleware), which comes back here.
   get "auth/:provider/callback" => "sessions#create", as: :auth_callback

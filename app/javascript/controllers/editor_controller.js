@@ -4,9 +4,11 @@ import { FrameStore } from "editor/frames"
 import { highlightLine } from "editor/highlight"
 import { Renderer } from "editor/renderer"
 
+// Where the editor kept your code before scenes were saved on the server: read once, to save it as your first scene.
 const STORAGE_KEY = "manimator:code"
-const EDITED_KEY = "manimator:edited"
-const CURSOR_KEY = "manimator:cursor"
+const OLD_KEYS = [STORAGE_KEY, "manimator:edited", "manimator:cursor"]
+// Saves wait until typing stops for this long.
+const SAVE_MS = 800
 const FIRST_EXAMPLE = EXAMPLES[Object.keys(EXAMPLES)[0]]
 // Half-typed code doesn't run, so an error only shows once typing has stopped for this long. A render that works
 // in the meantime means it never shows.
@@ -25,8 +27,8 @@ function load(key, fallback) {
   try { return localStorage.getItem(key) ?? fallback } catch { return fallback }
 }
 
-function store(key, value) {
-  try { localStorage.setItem(key, value) } catch { /* storage unavailable: nothing to do */ }
+function forget(keys) {
+  try { keys.forEach(k => localStorage.removeItem(k)) } catch { /* storage unavailable: nothing to do */ }
 }
 
 function ago(ms) {
@@ -60,8 +62,8 @@ function el(tag, className, text) {
 export default class extends Controller {
   static targets = ["code", "error", "wrap", "stage", "tooltip", "play", "time", "total", "chapter", "status", "reset",
     "scene", "fps", "timeline", "laneNames", "lanes", "ruler", "waits", "playhead",
-    "sceneName", "examples", "resume", "resumeMeta", "thumb"]
-  static values = { worker: String, manim: String }
+    "sceneName", "examples", "resume", "resumeMeta", "thumb", "saved", "others"]
+  static values = { worker: String, manim: String, scenesUrl: String, scene: Object, scenes: Array }
 
   async connect() {
     // Playback state
@@ -73,7 +75,15 @@ export default class extends Controller {
     this.playing = false
     this.playClock = { t: 0, frame: 0 }
     this.hoverLine = null
-    this.cursorLine = Number(load(CURSOR_KEY, 0)) || null
+    // The scene being edited ({ id: null } until its first save makes it), and your others, newest first
+    this.scene = { id: this.sceneValue.id ?? null }
+    this.scenes = this.scenesValue
+    this.editedAt = this.sceneValue.edited_at ? Date.parse(this.sceneValue.edited_at) : null
+    this.cursorLine = this.sceneValue.cursor_line ?? null
+    this.unsaved = false
+    this.saving = Promise.resolve()
+    this.onPageHide = () => this.save({ keepalive: true })
+    window.addEventListener("pagehide", this.onPageHide)
     this.dirty = true
     this.timelineDirty = false
     this.untimed = null // code before the first clip drag, for "reset timing"
@@ -88,6 +98,7 @@ export default class extends Controller {
     this.sceneName = null
 
     this.renderExamples()
+    this.renderOthers()
 
     // Keep the stage at 16:9 inside its pane
     this.resizeObserver = new ResizeObserver(() => {
@@ -105,13 +116,12 @@ export default class extends Controller {
     // CodeMirror is only needed here, so it loads with the editor instead of on every page
     const { createEditor } = await import("editor/code_editor")
     if (!this.element.isConnected) return
-    this.editor = createEditor(this.codeTarget, load(STORAGE_KEY, FIRST_EXAMPLE), {
+    const local = this.scene.id ? null : load(STORAGE_KEY, null)
+    this.editor = createEditor(this.codeTarget, this.sceneValue.code ?? local ?? FIRST_EXAMPLE, {
       onChange: code => {
         this.dispatch("changed", { detail: { code } })
-        this.editedAt = Date.now()
         clearTimeout(this.errorTimer)
-        store(STORAGE_KEY, code)
-        store(EDITED_KEY, String(Date.now()))
+        if (!this.opening) this.edited()
         clearTimeout(this.debounce)
         this.debounce = setTimeout(() => this.requestRun(code), 120)
       },
@@ -123,12 +133,14 @@ export default class extends Controller {
         if (this.cursorLine !== line) {
           this.cursorLine = line
           this.dirty = true
-          store(CURSOR_KEY, String(line))
+          this.cursorMoved = true
         }
       },
     })
     this.requestRun(this.editor.code)
     this.renderHome()
+    // Code from before scenes were saved here becomes your first scene
+    if (local != null) this.edited()
     this.dispatch("ready")
   }
 
@@ -137,6 +149,8 @@ export default class extends Controller {
     clearTimeout(this.debounce)
     clearTimeout(this.errorTimer)
     this.resizeObserver.disconnect()
+    window.removeEventListener("pagehide", this.onPageHide)
+    this.save({ keepalive: true })
     this.worker?.terminate()
     this.editor?.destroy()
   }
@@ -502,7 +516,7 @@ export default class extends Controller {
     }
     this.resumeTarget.replaceChildren(...lines)
 
-    const edited = Number(load(EDITED_KEY, 0))
+    const edited = this.editedAt
     const length = this.store ? ` · ${(this.store.length / this.store.fps).toFixed(1)}s scene` : ""
     this.resumeMetaTarget.textContent = `${edited ? `last edit ${ago(edited)} · ` : ""}cursor on line ${cursor}${length}`
 
@@ -529,8 +543,104 @@ export default class extends Controller {
     if (EXAMPLES[name]) this.replaceCode(EXAMPLES[name])
   }
 
-  newScene() {
+  // Your other scenes, newest first, to switch to.
+  renderOthers() {
+    const others = this.scenes.filter(s => s.id !== this.scene.id).slice(0, 5)
+    this.othersTarget.replaceChildren(...others.map(s => {
+      const b = el("button", "scene-card")
+      b.dataset.action = "editor#openScene shell#show"
+      b.dataset.editorIdParam = s.id
+      b.dataset.shellViewParam = "code"
+      const text = el("div", "stack stack--6")
+      text.append(el("span", "scene-card__name", s.name), el("span", "mono-sm c-faint", `edited ${ago(Date.parse(s.edited_at))}`))
+      b.append(el("div", "scene-card__thumb"), text)
+      return b
+    }))
+  }
+
+  async newScene() {
+    await this.save()
+    this.switchTo({ id: null })
     this.replaceCode(BLANK)
+  }
+
+  async openScene({ params: { id } }) {
+    await this.save()
+    const response = await fetch(`${this.scenesUrlValue}/${id}`, { headers: { Accept: "application/json" } })
+    if (!response.ok) return this.setSaved("couldn’t open that scene", "red")
+    const scene = await response.json()
+    this.switchTo(scene)
+    this.cursorLine = scene.cursor_line ?? null
+    this.editedAt = Date.parse(scene.edited_at)
+    // Opening isn't an edit: no save, and it stays where it is in your list
+    this.opening = true
+    try { this.replaceCode(scene.code) } finally { this.opening = false }
+    if (this.cursorLine) this.editor.revealLine(this.cursorLine)
+  }
+
+  switchTo(scene) {
+    this.scene = { id: scene.id ?? null }
+    this.cursorMoved = false
+    this.showSceneInUrl()
+    this.renderOthers()
+    this.setSaved("saved", "green")
+  }
+
+  // ---------------------------------------------------------------------------
+  // Saving: every edit, once typing stops, to the server (ScenesController)
+  // ---------------------------------------------------------------------------
+
+  edited() {
+    this.editedAt = Date.now()
+    this.unsaved = true
+    this.setSaved("saving…", "yellow")
+    clearTimeout(this.saveTimer)
+    this.saveTimer = setTimeout(() => this.save(), SAVE_MS)
+  }
+
+  // Sends what's unsaved, after any save already on its way (so a scene's first save, which makes it, comes first).
+  save({ keepalive = false } = {}) {
+    clearTimeout(this.saveTimer)
+    if (!this.editor || !(this.unsaved || (this.cursorMoved && this.scene.id))) return this.saving
+    const scene = this.scene
+    const body = JSON.stringify({ scene: { code: this.editor.code, cursor_line: this.cursorLine } })
+    this.unsaved = this.cursorMoved = false
+    this.saving = this.saving.then(async () => {
+      const response = await fetch(scene.id ? `${this.scenesUrlValue}/${scene.id}` : this.scenesUrlValue, {
+        method: scene.id ? "PATCH" : "POST", body, keepalive,
+        headers: { "Content-Type": "application/json", Accept: "application/json",
+          "X-CSRF-Token": document.querySelector("meta[name=csrf-token]")?.content },
+      })
+      if (!response.ok) throw new Error(`save failed: ${response.status}`)
+      const saved = await response.json()
+      if (!scene.id) {
+        scene.id = saved.id
+        forget(OLD_KEYS)
+      }
+      this.scenes = [saved, ...this.scenes.filter(s => s.id !== saved.id)]
+      if (scene === this.scene) {
+        this.showSceneInUrl()
+        if (!this.unsaved) this.setSaved("saved", "green")
+      }
+      this.renderOthers()
+    }).catch(() => {
+      // Tried again on the next edit
+      if (scene === this.scene) { this.unsaved = true; this.setSaved("not saved", "red") }
+    })
+    return this.saving
+  }
+
+  setSaved(text, color) {
+    this.savedTarget.textContent = text
+    this.savedTarget.className = `badge badge--${color} app__saved`
+  }
+
+  // A reload opens the same scene
+  showSceneInUrl() {
+    const url = new URL(location.href)
+    if (this.scene.id) url.searchParams.set("scene", this.scene.id)
+    else url.searchParams.delete("scene")
+    history.replaceState(history.state, "", url)
   }
 
   replaceCode(code) {

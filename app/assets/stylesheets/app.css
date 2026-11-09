@@ -35,6 +35,7 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
 }
 .app .badge--green { --c: var(--green); }
 .app .badge--yellow { --c: var(--yellow); }
+.app .badge--red { --c: var(--red); }
 .app .avatar {
   --size: 34px; width: var(--size); height: var(--size); flex: none; display: grid; place-items: center;
   border-radius: 50%; background: var(--c); color: var(--bg); font: 700 calc(var(--size) * .43) var(--serif);
@@ -274,13 +275,15 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
 }
 .resume__open:hover { transform: translateY(-2px); }
 .home__scenes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.scene-card { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 16px; border: 1px solid var(--line-strong); background: var(--bg-raised); }
+.home__others { display: contents; }
+.scene-card { display: flex; text-align: left; font: inherit; color: inherit; cursor: pointer; align-items: center; gap: 14px; padding: 12px; border-radius: 16px; border: 1px solid var(--line-strong); background: var(--bg-raised); }
 .scene-card__thumb {
   width: 160px; flex: none; aspect-ratio: 16 / 9; border-radius: 8px; background: #000;
   background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink));
   background-size: 76% 1.5px, 1.5px 60%; background-position: center; background-repeat: no-repeat;
 }
 .scene-card__name { font-size: 21px; }
+.scene-card:not(.scene-card--new):hover { border-color: var(--ink); }
 .scene-card--new { justify-content: center; gap: 12px; border: 1.5px dashed var(--line-hover); background: none; cursor: pointer; font: 14px var(--mono) !important; color: var(--ink-muted) !important; }
 .scene-card--new:hover { border-color: var(--ink); color: var(--ink) !important; }
 .scene-card__plus { font: 32px var(--serif); }

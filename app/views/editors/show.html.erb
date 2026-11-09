@@ -9,13 +9,15 @@
 
 <div class="app" data-controller="shell editor" data-view="home"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
+     data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
+     data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
      data-action="keydown@window->editor#key shell:changed->editor#viewChanged">
   <header class="app__bar">
     <%= link_to "Manimator", root_path, class: "app__brand" %>
     <span class="app__slash">/</span>
     <span class="app__crumb app__crumb--home">home</span>
     <span class="app__crumb app__crumb--scene" data-editor-target="sceneName">scene</span>
-    <span class="badge badge--green app__saved">saved</span>
+    <span class="badge badge--green app__saved" data-editor-target="saved">saved</span>
     <div class="app__spacer"></div>
     <div class="app__streak wide-only"><span class="app__week"><%= week_dots "app__day" %></span><span><%= p[:streak] %>-day streak</span></div>
     <div class="app__total wide-only"><span><%= p[:total] %></span><span class="c-faint">total</span></div>
@@ -141,10 +143,7 @@
         </div>
         <div class="mono-sm c-faint">other scenes</div>
         <div class="home__scenes">
-          <div class="scene-card">
-            <div class="scene-card__thumb"></div>
-            <div class="stack stack--6"><span class="scene-card__name"><%= p[:shipped][:name] %></span><span class="mono-sm c-faint"><%= p[:shipped][:status] %></span></div>
-          </div>
+          <div class="home__others" data-editor-target="others"></div>
           <button class="scene-card scene-card--new" data-action="shell#show" data-shell-view-param="examples"><span class="scene-card__plus">+</span>start blank or from an example</button>
         </div>
       </div>

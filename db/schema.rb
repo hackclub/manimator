@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_09_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_09_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120000) do
     t.index ["idea_record_id"], name: "index_pledges_on_idea_record_id"
     t.index ["user_id"], name: "index_pledges_on_user_id"
     t.index ["visitor_id"], name: "index_pledges_on_visitor_id"
+  end
+
+  create_table "scenes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "visitor_id"
+    t.string "name", default: "scene", null: false
+    t.text "code", default: "", null: false
+    t.integer "cursor_line"
+    t.datetime "edited_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "edited_at"], name: "index_scenes_on_user_id_and_edited_at"
+    t.index ["user_id"], name: "index_scenes_on_user_id"
+    t.index ["visitor_id"], name: "index_scenes_on_visitor_id"
   end
 
   create_table "solid_cache_entries", force: :cascade do |t|
@@ -231,6 +245,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120000) do
 
   add_foreign_key "pledges", "ideas", column: "idea_record_id"
   add_foreign_key "pledges", "users"
+  add_foreign_key "scenes", "users"
   add_foreign_key "solid_queue_batch_executions", "solid_queue_batches", column: "batch_id", on_delete: :cascade
   add_foreign_key "solid_queue_batch_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
       current_user.present?
     end
 
+    # The scenes that are yours: by account once you've signed in, by visitor id until then.
+    def scenes
+      signed_in? ? current_user.scenes : Scene.where(visitor_id:, user_id: nil)
+    end
+
     # Whoever this is before they sign in: a random id kept in a cookie. Signing in takes along what's kept under it
     # (User#adopt!).
     def visitor_id

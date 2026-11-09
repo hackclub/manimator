@@ -2,6 +2,7 @@
 # claims each time they sign in, so it stays current. (hackclub/wrong-tool's User, cut down to what manimator uses.)
 class User < ApplicationRecord
   has_many :pledges, dependent: :nullify
+  has_many :scenes, dependent: :destroy
 
   validates :hca_id, presence: true, uniqueness: true
 
@@ -22,9 +23,11 @@ class User < ApplicationRecord
     end
   end
 
-  # What a visitor did before signing in (keyed by ApplicationController#visitor_id) becomes theirs.
+  # What a visitor did before signing in (keyed by ApplicationController#visitor_id) becomes theirs: their pledge and
+  # their scenes.
   def adopt!(visitor_id)
     Pledge.where(visitor_id:, user_id: nil).update_all(user_id: id)
+    Scene.where(visitor_id:, user_id: nil).update_all(user_id: id)
   end
 
   def display_name
