@@ -169,3 +169,33 @@
   .mascot__bubble::after { right: auto; left: -7px; bottom: 16px; }
 }
 .hold[hidden] { display: none; }
+
+/* The corner music player. While it plays, a sine wave drifts by; paused, the wave settles flat. */
+.player {
+  position: fixed; right: 20px; bottom: 20px; z-index: 50; display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px 8px 8px; border: 1px solid var(--line); border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-raised) 82%, transparent); backdrop-filter: blur(10px);
+  opacity: .72; transition: opacity .3s, border-color .3s;
+}
+.player:hover, .player:focus-within, .player[data-playing="true"] { opacity: 1; }
+.player:hover { border-color: var(--line-hover); }
+.player__btn {
+  width: 34px; height: 34px; flex: none; display: grid; place-items: center; border: 0; border-radius: 50%;
+  background: var(--ink); color: var(--bg); cursor: pointer; transition: transform .15s;
+}
+.player__btn:hover { transform: scale(1.06); }
+.player__btn:active { transform: scale(.94); }
+.player__btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.player__icon { grid-area: 1 / 1; width: 14px; height: 14px; fill: currentColor; transition: opacity .2s, transform .2s; }
+.player__icon--pause, .player[data-playing="true"] .player__icon--play { opacity: 0; transform: scale(.6); }
+.player[data-playing="true"] .player__icon--pause { opacity: 1; transform: none; }
+.player__meta { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
+.player__title { font-style: italic; font-size: 16px; color: var(--ink); }
+.player__by { font: 11px var(--mono); color: var(--ink-faint); letter-spacing: .02em; }
+.player__wave { width: 48px; height: 20px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); }
+.player__wave-amp { transform-origin: 0 10px; transform: scaleY(.08); transition: transform .9s cubic-bezier(.3, .7, .2, 1); }
+.player[data-playing="true"] .player__wave-amp { transform: scaleY(1); }
+.player__wave-path { fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; animation: player-drift 2.4s linear infinite; }
+@keyframes player-drift { to { transform: translateX(-24px); } }
+@media (max-width: 520px) { .player__meta { display: none; } .player { padding-right: 12px; } }
+@media (prefers-reduced-motion: reduce) { .player__wave-path { animation: none; } }

@@ -179,3 +179,19 @@
   </main>
 </div>
 
+
+<%# Music in the corner: the landing page's piano bed, looped. It starts on your first click unless you turned sound
+    off (on the landing page or here), and the wave goes flat when it's paused. %>
+<div class="player" data-controller="sound" data-sound-player-value="true" data-sound-bed-value="<%= audio_path "bed.mp3" %>" data-playing="false">
+  <button class="player__btn" aria-pressed="false" aria-label="Play music" data-sound-target="toggle" data-action="sound#toggle">
+    <svg class="player__icon player__icon--play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg>
+    <svg class="player__icon player__icon--pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3.5" width="2.6" height="9" rx=".6"/><rect x="9.4" y="3.5" width="2.6" height="9" rx=".6"/></svg>
+  </button>
+  <span class="player__meta">
+    <span class="player__title">Late-night proof</span>
+    <span class="player__by">felt piano</span>
+  </span>
+  <svg class="player__wave" viewBox="0 0 48 20" aria-hidden="true">
+    <g class="player__wave-amp"><path class="player__wave-path" d="M0 10 Q6 2 12 10 T24 10 T36 10 T48 10 T60 10 T72 10"/></g>
+  </svg>
+</div>

@@ -14,15 +14,22 @@ const store = {
 // page, plus two one-shots: particles scattering and poking π. On by default unless the
 // visitor turned it off (remembered per browser). Nothing loads or plays until their
 // first click, tap, or keypress, since browsers only allow audio after a gesture.
+//
+// As a player (data-sound-player-value, the onboarding's corner player) the toggle is a play/pause button: it shows
+// whether music is actually playing, and pressing it before anything has played starts the music.
 export default class extends Controller {
   static targets = ["toggle"]
-  static values = { bed: String, scatter: String, poke: String }
+  static values = { bed: String, scatter: String, poke: String, player: Boolean }
 
   connect() {
     this.on = store.get() !== "off"
     this.lastScatter = 0
     if (this.on) {
-      this.wake = () => { this.unwake(); if (this.on) this.start() }
+      this.wake = e => {
+        if (this.playerValue && this.hasToggleTarget && this.toggleTarget.contains(e.target)) return
+        this.unwake()
+        if (this.on) this.start()
+      }
       this.unwake = () => ["pointerdown", "keydown"].forEach(ev => window.removeEventListener(ev, this.wake, true))
       ;["pointerdown", "keydown"].forEach(ev => window.addEventListener(ev, this.wake, true))
     }
@@ -39,6 +46,7 @@ export default class extends Controller {
 
   toggle() {
     this.unwake?.()
+    if (this.playerValue && this.on && !this.ctx) { this.start(); return this.render() }
     this.on = !this.on
     store.set(this.on ? "on" : "off")
     this.on ? this.start() : this.fadeOut()
@@ -47,6 +55,13 @@ export default class extends Controller {
 
   render() {
     if (!this.hasToggleTarget) return
+    if (this.playerValue) {
+      const playing = this.on && !!this.ctx
+      this.element.dataset.playing = playing
+      this.toggleTarget.setAttribute("aria-pressed", String(playing))
+      this.toggleTarget.setAttribute("aria-label", playing ? "Pause music" : "Play music")
+      return
+    }
     this.toggleTarget.textContent = this.on ? "sound on" : "sound off"
     this.toggleTarget.setAttribute("aria-pressed", String(this.on))
     this.toggleTarget.setAttribute("aria-label", this.on ? "Turn sound off" : "Turn sound on")
@@ -61,6 +76,7 @@ export default class extends Controller {
     const AC = window.AudioContext || window.webkitAudioContext
     if (!AC) return
     const ctx = this.ctx = new AC()
+    this.render()
     this.master = ctx.createGain()
     this.master.connect(ctx.destination)
     this.bedGain = ctx.createGain()
@@ -68,8 +84,8 @@ export default class extends Controller {
     this.bedGain.connect(this.master)
 
     const load = url => fetch(url).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b))
-    load(this.scatterValue).then(b => { this.scatterBuf = b }, () => {})
-    load(this.pokeValue).then(b => { this.pokeBuf = b }, () => {})
+    if (this.scatterValue) load(this.scatterValue).then(b => { this.scatterBuf = b }, () => {})
+    if (this.pokeValue) load(this.pokeValue).then(b => { this.pokeBuf = b }, () => {})
     try { this.bedBuf = await load(this.bedValue) } catch { return }
     if (this.ctx !== ctx) return
     this.loopBed(ctx.currentTime + .05)
@@ -108,7 +124,7 @@ export default class extends Controller {
     g.cancelScheduledValues(now)
     g.setValueAtTime(g.value, now)
     g.linearRampToValueAtTime(0, now + 1)
-    this.closeTimer = setTimeout(() => this.stop(), 1200)
+    this.closeTimer = setTimeout(() => { this.stop(); this.render() }, 1200)
   }
 
   stop() {
