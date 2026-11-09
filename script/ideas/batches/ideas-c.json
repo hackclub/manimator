@@ -1,899 +1,227 @@
 [
- {
-  "standard": "HSA-REI.D.12",
-  "band": "algebra1",
-  "title": "Shading the half-plane",
-  "line": "A dot wanders the plane, turning green when 2x + y < 4 and red otherwise, until green paints one whole side of the line.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.12",
-  "band": "algebra1",
-  "title": "Two shadows overlap",
-  "line": "The half-planes y > x - 1 and y < -x + 3 shade in blue and yellow, and the wedge where they overlap turns green.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.12",
-  "band": "algebra1",
-  "title": "Dashed or solid boundary",
-  "line": "The line y = 2x + 1 flips between dashed and solid as < becomes ≤, and dots sitting on the line switch on and off.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.11",
-  "band": "algebra1",
-  "title": "Where the graphs cross",
-  "line": "Lines y = 2x + 1 and y = 7 - x cross, a dot drops to x = 2, and both sides equal 5.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.11",
-  "band": "algebra1",
-  "title": "Zooming in on a crossing",
-  "line": "y = 2^x and y = x + 3 cross near x = 2.44, and each zoom into the crossing adds one more correct digit.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.11",
-  "band": "algebra1",
-  "title": "The gap shrinks to zero",
-  "line": "A vertical bar measures the gap between y = x² and y = 6 - x, shrinking to nothing exactly at x = 2 and x = -3.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.10",
-  "band": "algebra1",
-  "title": "Solutions fuse into a line",
-  "line": "Pairs that solve x + y = 5 pop in as dots, (0,5), (1,4), (2.5,2.5), until hundreds of them merge into a solid line.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.D.10",
-  "band": "algebra1",
-  "title": "Points that pass the test",
-  "line": "Random points flash across the plane, and only those with x² + y² = 25 stay, slowly drawing a circle of radius 5.",
-  "needs": [
-   "graph",
-   "data"
-  ]
- },
- {
-  "standard": "HSA-REI.D.10",
-  "band": "algebra1",
-  "title": "A dot that must obey",
-  "line": "A dot slides along y = x² with its coordinates checked live, and the check turns red the moment it steps off the curve.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.9",
-  "band": "algebra1",
-  "title": "Undoing a matrix",
-  "line": "A grid gets sheared and stretched by a 2×2 matrix, then the inverse matrix runs it backwards and every square snaps home.",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.C.9",
-  "band": "algebra1",
-  "title": "Pulling the answer back",
-  "line": "A matrix sends a mystery point to (5, 3), then the inverse transform drags (5, 3) back to reveal the answer (2, 1).",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.C.8",
-  "band": "algebra1",
-  "title": "Two equations, one matrix",
-  "line": "The numbers in 2x + 3y = 8 and x - y = -1 lift into a 2×2 box, and x and y slide into a column.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.C.7",
-  "band": "algebra1",
-  "title": "A line slicing a parabola",
-  "line": "A line slides upward past y = x², touching it at zero, then one, then two points, with the crossing count shown on screen.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.7",
-  "band": "algebra1",
-  "title": "Substitute and watch",
-  "line": "x + 2 flies into y = x², giving x² - x - 2 = 0, which factors and drops two dots at x = 2 and -1.",
-  "needs": [
-   "latex",
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.7",
-  "band": "algebra1",
-  "title": "A ball lands on a ramp",
-  "line": "A ball flies along y = -x² + 4x over a ramp y = x and touches down where they meet, at x = 3.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.6",
-  "band": "algebra1",
-  "title": "Tilting until parallel",
-  "line": "One line rotates while the other stays put, and their crossing point races off screen as the slopes match: no solution.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.6",
-  "band": "algebra1",
-  "title": "Nickels and dimes by sliding",
-  "line": "Ten coins worth 65 cents: a slider trades dimes for nickels, the total counts down, and it hits 65 at 7 nickels.",
-  "needs": []
- },
- {
-  "standard": "HSA-REI.C.6",
-  "band": "algebra1",
-  "title": "The y's collide",
-  "line": "3x + 2y = 16 stacks over x - 2y = 0, the +2y and -2y crash together and vanish, leaving 4x = 16, so x = 4.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.C.5",
-  "band": "algebra1",
-  "title": "Adding keeps the crossing",
-  "line": "Lines x + y = 4 and x - y = 2 cross at (3, 1), and their sum 2x = 6 swings in through that same point.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-REI.C.5",
-  "band": "algebra1",
-  "title": "A line pinned to a point",
-  "line": "As k slides from -3 to 3, the line (x + y - 4) + k(x - y - 2) = 0 spins like a clock hand around (3, 1).",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.C.5",
-  "band": "algebra1",
-  "title": "Stacking two balanced scales",
-  "line": "Two balanced scales pour their contents onto one bigger scale, which stays perfectly level because both sides grew by equal amounts.",
-  "needs": []
- },
- {
-  "standard": "HSA-REI.B.4",
-  "band": "algebra1",
-  "title": "Completing an actual square",
-  "line": "x² + 6x is a square plus two 3-wide strips; the strips fold onto two sides and a missing 3×3 corner fills in.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.B.4",
-  "band": "algebra1",
-  "title": "The formula builds itself",
-  "line": "ax² + bx + c = 0 changes line by line, terms sliding across the equals sign, until the quadratic formula drops into place.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.B.4",
-  "band": "algebra1",
-  "title": "When the parabola misses",
-  "line": "y = x² + 2x + c rises as c grows, its two roots slide together, merge at c = 1, then leave the x-axis entirely.",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.B.4",
-  "band": "algebra1",
-  "title": "Two answers for 49",
-  "line": "A 7×7 square of dots shows x² = 49, then both 7 and -7 light up, since (-7)² is also 49.",
-  "needs": []
- },
- {
-  "standard": "HSA-REI.B.3",
-  "band": "algebra1",
-  "title": "Solving on a balance",
-  "line": "Three boxes and 4 weights balance 19 weights; take 4 off each side, split 15 into three piles, and each box weighs 5.",
-  "needs": []
- },
- {
-  "standard": "HSA-REI.B.3",
-  "band": "algebra1",
-  "title": "Why the inequality flips",
-  "line": "-2x > 6 shades a number line, then multiplying by -1 mirrors the whole line around zero and the arrow swings to x < -3.",
-  "needs": []
- },
- {
-  "standard": "HSA-REI.B.3",
-  "band": "algebra1",
-  "title": "Letters instead of numbers",
-  "line": "Sliders change a, b, c in ax + b = c, and (c - b)/a updates as a dot tracks it on a number line.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.A.2",
-  "band": "algebra1",
-  "title": "The square root that lied",
-  "line": "Squaring √(x + 2) = x gives roots 2 and -1, but plugging -1 back in makes √1 = -1 flash red: a fake answer.",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.A.2",
-  "band": "algebra1",
-  "title": "An answer that divides by zero",
-  "line": "Solving x/(x - 3) = 3/(x - 3) gives x = 3, then the denominator counts down to 0 and the answer cracks apart.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.A.1",
-  "band": "algebra1",
-  "title": "Each line keeps the promise",
-  "line": "2x + 3 = 11 changes one step at a time, both sides getting the same move, with arrows linking each line back to the last.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-REI.A.1",
-  "band": "algebra1",
-  "title": "Running the machine backwards",
-  "line": "A number goes through ×3 then -5 and comes out 16; the solver runs it backwards, +5 then ÷3, and 7 pops out.",
-  "needs": []
- },
- {
-  "standard": "HSA-CED.A.4",
-  "band": "algebra1",
-  "title": "Pulling r out of A = πr²",
-  "line": "The r slides free, π peels off to divide, a square root wraps A/π, then a circle's radius tracks its growing area.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-CED.A.4",
-  "band": "algebra1",
-  "title": "Flipping the thermometer formula",
-  "line": "F = 9/5 C + 32 rearranges into C, then two thermometers sit side by side and moving one drags the other along.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-CED.A.3",
-  "band": "algebra1",
-  "title": "Pizza and soda on $20",
-  "line": "A grid of (pizza, soda) dots lights up green where 3p + s ≤ 20 and crosses out every combo that costs too much.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-CED.A.3",
-  "band": "algebra1",
-  "title": "Filling a theater",
-  "line": "Adult tickets $8, kids $5, at least $400 but only 60 seats: two shaded regions overlap, and a dragged dot shows which mixes work.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-CED.A.2",
-  "band": "algebra1",
-  "title": "Taxi fare grows a line",
-  "line": "A taxi meter starts at $3 and adds $2 per mile, each mile dropping a dot that lines up into y = 2x + 3.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-CED.A.2",
-  "band": "algebra1",
-  "title": "A square's area becomes a curve",
-  "line": "A square grows from side 0 to 5 while its area counts up, each size dropping a point that traces out y = x².",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSA-CED.A.1",
-  "band": "algebra1",
-  "title": "Doubling past 1000",
-  "line": "One dot splits into 2, then 4, then 8, the count climbing until it passes 1000 at step 10, solving 2^n = 1024.",
-  "needs": []
- },
- {
-  "standard": "HSA-CED.A.1",
-  "band": "algebra1",
-  "title": "The catch-up race",
-  "line": "Runner A starts 30 m ahead at 3 m/s, B runs 5 m/s, and the gap hits zero at 15 seconds.",
-  "needs": []
- },
- {
-  "standard": "HSA-SSE.B.4",
-  "band": "algebra1",
-  "title": "Halves filling a square",
-  "line": "1/2, then 1/4, then 1/8 of a square fill in, and the unfilled corner always measures exactly 1/2^n.",
-  "needs": []
- },
- {
-  "standard": "HSA-SSE.B.4",
-  "band": "algebra1",
-  "title": "Shift and subtract",
-  "line": "S = 1 + 3 + 9 + 27 + 81 sits above 3S shifted one slot, and subtracting wipes out everything except 243 and 1.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.B.4",
-  "band": "algebra1",
-  "title": "Rice on a chessboard",
-  "line": "Bars double on each square, and the running total always lands one grain short of the next square's pile.",
-  "needs": []
- },
- {
-  "standard": "HSA-SSE.B.3",
-  "band": "algebra1",
-  "title": "Finding the lowest point",
-  "line": "y = x² - 6x + 11 rewrites as (x - 3)² + 2, and the parabola's bottom lights up at (3, 2) as each part is highlighted.",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.B.3",
-  "band": "algebra1",
-  "title": "Factor to find the zeros",
-  "line": "x² - x - 6 splits into (x - 3)(x + 2), and dots drop at x = 3 and x = -2 where each factor hits zero.",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.B.3",
-  "band": "algebra1",
-  "title": "Yearly growth in monthly steps",
-  "line": "A bar grows 15% in one jump, then a second bar takes 12 small 1.17% jumps and lands at the same height.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.A.2",
-  "band": "algebra1",
-  "title": "A square minus a square",
-  "line": "A 7×7 square loses a 3×3 corner, and the leftover L is cut and slid into a 10×4 rectangle: 49 - 9 = 40.",
-  "needs": []
- },
- {
-  "standard": "HSA-SSE.A.2",
-  "band": "algebra1",
-  "title": "Spotting the hidden squares",
-  "line": "In x⁴ - 16, x⁴ glows as (x²)² and 16 as 4², it splits into two factors, then x² - 4 splits again.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.A.1",
-  "band": "algebra1",
-  "title": "One chunk as a single block",
-  "line": "In 3(x + 2)² - 5, the (x + 2) becomes one pulsing block, and the value bottoms out at -5 when the block hits 0.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSA-SSE.A.1",
-  "band": "algebra1",
-  "title": "Two ways around a rectangle",
-  "line": "A rectangle's sides unroll into a line, regrouping as L + W twice, then as two L's plus two W's, same length both ways.",
-  "needs": []
- },
- {
-  "standard": "HSF-LE.B.5",
-  "band": "algebra1",
-  "title": "What the 3 and 2 mean",
-  "line": "For a phone plan y = 3 + 2x, dragging the 3 slides the line up and down, dragging the 2 tilts it steeper.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.B.5",
-  "band": "algebra1",
-  "title": "Starting amount and halving",
-  "line": "100 mg of medicine halves each hour as bars shrink, then changing 100 stretches the curve while changing 0.5 changes how fast it drops.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.4",
-  "band": "algebra1",
-  "title": "Between two doublings",
-  "line": "5·2^t steps through 5, 10, 20, 40, 80, then 100 falls between steps, and a log pins it at t ≈ 4.32 on the curve.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.4",
-  "band": "algebra1",
-  "title": "Counting zeros with logs",
-  "line": "1, 10, 100, 1000, 10000 sit evenly spaced on a line, and 3000 slides in at position 3.48, solving 10^t = 3000.",
-  "needs": []
- },
- {
-  "standard": "HSF-LE.A.3",
-  "band": "algebra1",
-  "title": "The slow starter wins",
-  "line": "y = 100x zooms ahead while 2^x crawls, then at x = 10 the curve blasts past and the axes keep rescaling to hold it.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.3",
-  "band": "algebra1",
-  "title": "The table that flips",
-  "line": "Rows of n, n², and 2^n fill in; they tie at 16 when n = 4, then the 2^n column runs away.",
-  "needs": []
- },
- {
-  "standard": "HSF-LE.A.2",
-  "band": "algebra1",
-  "title": "Two points, one line",
-  "line": "From (1, 5) to (4, 11), a staircase rises 6 over 3, and the line extends back to hit the y-axis at 3.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.2",
-  "band": "algebra1",
-  "title": "Two points, one curve",
-  "line": "From (1, 6) to (3, 54) is ×9 over two steps, so ×3 each step, and y = 2·3^x snaps through both points.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.1",
-  "band": "algebra1",
-  "title": "Adding stairs vs multiplying stairs",
-  "line": "Two staircases climb side by side, one adding 3 per step and one doubling, with each step's height shown as its own bar.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.1",
-  "band": "algebra1",
-  "title": "A sliding window",
-  "line": "A window 1 unit wide slides along y = 3·2^x and a line; the line's difference stays fixed, the curve's ratio stays exactly 2.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-LE.A.1",
-  "band": "algebra1",
-  "title": "Bounces that lose 20%",
-  "line": "A ball bounces 100, 80, 64, 51.2 cm high, each bounce dropping by the same percent rather than the same amount.",
-  "needs": []
- },
- {
-  "standard": "HSF-BF.A.2",
-  "band": "algebra1",
-  "title": "Toothpick triangles",
-  "line": "Triangles join in a row using 3, 5, 7, 9 toothpicks, with +2 arrows between terms and 2n + 1 for jumping straight ahead.",
-  "needs": []
- },
- {
-  "standard": "HSF-BF.A.2",
-  "band": "algebra1",
-  "title": "Triangles splitting in three",
-  "line": "Each triangle splits into 3 smaller ones, counting 1, 3, 9, 27, with the ×3 rule on one side and 3^n on the other.",
-  "needs": []
- },
- {
-  "standard": "HSF-BF.A.2",
-  "band": "algebra1",
-  "title": "Piggy bank shortcut",
-  "line": "A piggy bank starts at $10 and gains $5 weekly; arrows hop week by week, then one formula leaps straight to week 20: $110.",
-  "needs": []
- },
- {
-  "standard": "HSF-BF.A.1",
-  "band": "algebra1",
-  "title": "Order matters for machines",
-  "line": "4 goes through ×2 then +3 and becomes 11; swap the machines and the same 4 comes out as 14.",
-  "needs": []
- },
- {
-  "standard": "HSF-BF.A.1",
-  "band": "algebra1",
-  "title": "Stacking two graphs",
-  "line": "At each x, a bar from y = 2x stacks on a bar from y = x², and the tops trace y = x² + 2x.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.9",
-  "band": "algebra1",
-  "title": "Table vs graph showdown",
-  "line": "A table of rising values turns into dots beside a drawn line, and slope triangles on each show which one climbs faster.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.8",
-  "band": "algebra1",
-  "title": "Three faces of one parabola",
-  "line": "y = x² - 2x - 8 cycles through factored and vertex forms, and each form lights up its feature: roots, intercept, vertex at (1, -9).",
-  "needs": [
-   "graph",
-   "latex"
-  ]
- },
- {
-  "standard": "HSF-IF.C.8",
-  "band": "algebra1",
-  "title": "Folding the parabola",
-  "line": "y = (x - 1)² - 9 folds along x = 1, the two halves land on each other, and the roots -2 and 4 meet.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.7",
-  "band": "algebra1",
-  "title": "Absolute value as a fold",
-  "line": "The part of y = x - 2 below the x-axis flips up like a hinge, making a V with its tip at (2, 0).",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.7",
-  "band": "algebra1",
-  "title": "Parking meter staircase",
-  "line": "A clock runs while the parking fee jumps $3 at each new hour, building a staircase of open and closed dots.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.7",
-  "band": "algebra1",
-  "title": "Half a sideways parabola",
-  "line": "y = x² flips across the line y = x, the bottom half fades away, and what's left is y = √x.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.C.7",
-  "band": "algebra1",
-  "title": "Racing toward an asymptote",
-  "line": "A dot slides along y = 1/(x - 2) toward x = 2 and shoots upward as its height reads 10, 100, 1000.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.6",
-  "band": "algebra1",
-  "title": "Slopes of a ball's flight",
-  "line": "On h = -5t² + 20t, secant lines over each second show average speeds 15, 5, then -5 m/s as the ball rises and falls.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.6",
-  "band": "algebra1",
-  "title": "The steady ghost car",
-  "line": "A car lurches 120 km in 2 hours with stops and bursts, while a ghost car at a steady 60 km/h arrives alongside it.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.5",
-  "band": "algebra1",
-  "title": "Where the fence graph lives",
-  "line": "A 20 m fence rectangle widens from 0 to 10 m, collapsing flat at both ends, so its area graph lives only between.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.5",
-  "band": "algebra1",
-  "title": "You can't buy half a ticket",
-  "line": "A line for $12 tickets breaks apart into separate dots at 1, 2, 3 tickets, since 2.5 tickets isn't a thing.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.4",
-  "band": "algebra1",
-  "title": "Ferris wheel height",
-  "line": "A rider circles a Ferris wheel while their height traces a wave beside it, peaking at the top and bottoming out at boarding.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.B.4",
-  "band": "algebra1",
-  "title": "Filling a flask",
-  "line": "Water pours steadily into a flask, wide at the bottom and narrow at the top, and its height graph starts slow then shoots up.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.A.3",
-  "band": "algebra1",
-  "title": "Fibonacci squares spiral",
-  "line": "Squares of side 1, 1, 2, 3, 5, 8 spiral outward, each side the sum of the last two, while dots mark f(n).",
-  "needs": []
- },
- {
-  "standard": "HSF-IF.A.3",
-  "band": "algebra1",
-  "title": "Triangular numbers stack up",
-  "line": "Dots stack into triangles of 1, 3, 6, 10, each new row adding n more dots, so T(n) = T(n - 1) + n.",
-  "needs": []
- },
- {
-  "standard": "HSF-IF.A.2",
-  "band": "algebra1",
-  "title": "Two inputs, one output",
-  "line": "3 drops into f(x) = x² - 1 and 8 comes out, -3 also gives 8, and each output lands as a point on the graph.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSF-IF.A.1",
-  "band": "algebra1",
-  "title": "Arrows from inputs to outputs",
-  "line": "Arrows link students to birthdays; two students sharing a birthday is fine, but one student with two arrows turns red.",
-  "needs": []
- },
- {
-  "standard": "HSF-IF.A.1",
-  "band": "algebra1",
-  "title": "The vertical line sweep",
-  "line": "A vertical line sweeps across a parabola, hitting it once at a time, then across x = y², where it hits twice and flashes red.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSN-Q.A.1",
-  "band": "algebra1",
-  "title": "Units cancel like fractions",
-  "line": "60 miles/hour × 3 hours: the hours on top and bottom strike each other out, leaving 180 miles.",
-  "needs": []
- },
- {
-  "standard": "HSN-Q.A.1",
-  "band": "algebra1",
-  "title": "Same data, scary axis",
-  "line": "A rise from 96 to 98 looks flat on a 0 to 100 axis, then the axis restarts at 95 and it looks huge.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSN-RN.B.3",
-  "band": "algebra1",
-  "title": "Rational plus irrational",
-  "line": "Pretend 1/2 + √2 is a fraction, slide the 1/2 over, and √2 ends up a fraction too, which flashes red: impossible.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "HSN-RN.B.3",
-  "band": "algebra1",
-  "title": "Fraction times fraction in a grid",
-  "line": "A unit square cut 3 by 4 shades 2/3 one way and 3/4 the other, and the overlap counts out to 6/12.",
-  "needs": []
- },
- {
-  "standard": "HSN-RN.A.2",
-  "band": "algebra1",
-  "title": "8 to the two-thirds",
-  "line": "8 splits into three groups as 2·2·2, the cube root keeps one 2, squaring it gives 4, so 8^(2/3) = 4.",
-  "needs": []
- },
- {
-  "standard": "HSN-RN.A.2",
-  "band": "algebra1",
-  "title": "√50 from squares",
-  "line": "50 dots rearrange into two 5×5 squares, so √50 pulls out a 5 and leaves √2 behind.",
-  "needs": []
- },
- {
-  "standard": "HSN-RN.A.1",
-  "band": "algebra1",
-  "title": "Halfway between 1 and 9",
-  "line": "Exponents 0, 1, 2 map to 1, 9, 81, and the jump from 1 to 9 splits into two ×3 steps, so 9^(1/2) = 3.",
-  "needs": []
- },
- {
-  "standard": "HSN-RN.A.1",
-  "band": "algebra1",
-  "title": "Filling gaps on 2^x",
-  "line": "Dots at 2^0, 2^1, 2^2 sit on a curve, then 2^(1/2) = 1.414 and 2^(1/3) = 1.26 drop in, landing exactly on it.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.C.9",
-  "band": "algebra1",
-  "title": "The hidden sun",
-  "line": "Ice cream sales and sunburns rise together month by month, then a sun slides in with arrows to both: it caused each one.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "HSS-ID.C.8",
-  "band": "algebra1",
-  "title": "Watching r tighten",
-  "line": "A cloud of 30 points squeezes onto a line as r climbs from 0.1 to 0.98, then tips downhill and r goes negative.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.C.7",
-  "band": "algebra1",
-  "title": "Five points per hour",
-  "line": "A fit line y = 5x + 60 over study-hours data steps one hour right, a brace shows +5 points, and 60 marks zero hours.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.B.6",
-  "band": "algebra1",
-  "title": "Residuals as springs",
-  "line": "Vertical springs join each point to a line; as the line turns, the springs stretch and squeeze until their total settles at its lowest.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.B.6",
-  "band": "algebra1",
-  "title": "The residual smile",
-  "line": "A line fits curved data, the residuals drop onto their own axis, and they form a U-shape that shows the line was wrong.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.B.5",
-  "band": "algebra1",
-  "title": "Dots sort into a table",
-  "line": "Fifty dots (cats or dogs, grade 9 or 10) fly into four cells, counts tally up, then one row turns into percentages.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "HSS-ID.A.4",
-  "band": "algebra1",
-  "title": "Pegs build a bell",
-  "line": "Balls bounce left or right through rows of pegs, piling into bins that form a bell, then the middle 68% shades in.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.A.4",
-  "band": "algebra1",
-  "title": "68, 95, 99.7",
-  "line": "Shading on a normal curve centered at 70 widens one, two, then three spreads out, the percent counting 68, 95, 99.7.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "HSS-ID.A.3",
-  "band": "algebra1",
-  "title": "An outlier drags the mean",
-  "line": "One of 9 dots slides out to 100, and the mean marker chases it while the median barely twitches.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "HSS-ID.A.2",
-  "band": "algebra1",
-  "title": "Same center, different spread",
-  "line": "Two dot plots both average 50, but one bunches up and one spreads out, and their standard deviation bars stretch to match.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "HSS-ID.A.1",
-  "band": "algebra1",
-  "title": "Dots melt into a histogram",
-  "line": "Thirty dots on a number line slide into bins and fuse into bars whose heights count the dots inside.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "HSS-ID.A.1",
-  "band": "algebra1",
-  "title": "Building a box plot",
-  "line": "Eleven sorted numbers get their median picked, then each half's median, and a box and whiskers snap around them.",
-  "needs": [
-   "data"
-  ]
- }
+  {
+    "source": "Euclid X.1",
+    "band": "precalc",
+    "title": "Halving past any target",
+    "line": "A bar of length 1 keeps halving beside a tiny 0.01 rod, and a counter shows it slips below after 7 cuts.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.1",
+    "band": "precalc",
+    "title": "More than half, or not enough",
+    "line": "Two bars of length 2: one loses over half of what's left and vanishes; the other loses 1/2, 1/4, 1/8 and stalls above 1.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.2",
+    "band": "precalc",
+    "title": "The square's diagonal never stops",
+    "line": "Subtract a square's side from its diagonal; the leftovers form a smaller square and diagonal, so the subtraction repeats forever, zooming in.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.2",
+    "band": "precalc",
+    "title": "One race ends, one doesn't",
+    "line": "Rods 7 and 5 subtract down to a common unit in four steps, while a square's side and diagonal keep subtracting forever.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.3",
+    "band": "precalc",
+    "title": "Rods that find their common unit",
+    "line": "Rods of 21 and 15 chop each other in turn: 21 leaves 6, 15 leaves 3, and 3 fits 6 exactly.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.3",
+    "band": "precalc",
+    "title": "Carving a rectangle into squares",
+    "line": "A 12 by 9 rectangle loses its biggest square, then the next biggest, until only 3 by 3 squares remain, tiling it exactly.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.5",
+    "band": "precalc",
+    "title": "Shrinking the ruler to fit",
+    "line": "A ruler's ticks shrink until rods of 1.5 and 2.5 both end exactly on a tick, at spacing 0.5: ratio 3 to 5.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.9",
+    "band": "precalc",
+    "title": "Squares on rods, square numbers",
+    "line": "Rods of 2 and 3 grow squares of 4 and 9 tiles; a side and diagonal grow areas 1 and 2, and 2 isn't square.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.17",
+    "band": "precalc",
+    "title": "Rectangle that falls short by a square",
+    "line": "A point slides along a line of 10; the rectangle x by (10 − x) reshapes as its area traces a parabola peaking at 25.",
+    "needs": [
+      "graph"
+    ]
+  },
+  {
+    "source": "Euclid X.29",
+    "band": "precalc",
+    "title": "An L of dots that's a square",
+    "line": "An L of 9 dots wraps a 4 by 4 grid into a 5 by 5 square; 9 is square, so 3, 4, 5 appears.",
+    "needs": []
+  },
+  {
+    "source": "Euclid X.29",
+    "band": "precalc",
+    "title": "Folding a rectangle around a square",
+    "line": "An 8 by 2 rectangle of tiles splits and folds around a 3 by 3 square into a 5 by 5: 16 + 9 = 25.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XII.1",
+    "band": "precalc",
+    "title": "Polygons grow with diameter squared",
+    "line": "A lopsided pentagon in a circle scales as the diameter goes 1, 2, 3, and its area counter reads 1, 4, 9.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XII.2",
+    "band": "precalc",
+    "title": "Doubling sides toward the circle",
+    "line": "A square in a unit circle doubles to 8, 16, 32, 64 sides while its area counter climbs from 2.00 toward 3.14.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XII.2",
+    "band": "precalc",
+    "title": "Two circles, one ratio",
+    "line": "Circles of diameter 2 and 3 get matching polygons with ever more sides; the area ratio counter stays locked at 4/9.",
+    "needs": [
+      "latex"
+    ]
+  },
+  {
+    "source": "Euclid XII.2",
+    "band": "precalc",
+    "title": "Each sliver loses over half",
+    "line": "Zoom into one sliver between a circle and a square; the triangle that fills it on doubling always covers more than half.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XII.16",
+    "band": "precalc",
+    "title": "Polygon squeezed between two circles",
+    "line": "A square, octagon, 16-gon, then 32-gon fill a circle of radius 1 until one finally clears an inner circle of radius 0.9.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.1",
+    "band": "geometry",
+    "title": "Five squares make one",
+    "line": "Five unit squares in a plus sign are cut and slid into one square, whose side is a golden cut's long piece plus 1.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.1",
+    "band": "geometry",
+    "title": "Hunting for exactly five",
+    "line": "A cut point slides along a line of length 2; the counter for (long piece + 1)² hits exactly 5 at the golden cut.",
+    "needs": [
+      "latex"
+    ]
+  },
+  {
+    "source": "Euclid XIII.4",
+    "band": "geometry",
+    "title": "Two squares fill three",
+    "line": "Squares on a golden-cut line and on its short piece pour their area into three squares on the long piece, filling them exactly.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.5",
+    "band": "geometry",
+    "title": "A golden line keeps growing",
+    "line": "A golden-cut line gains its long piece again and again, growing 1, 1.618, 2.618, 4.236, while its ratio counter never budges.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.5",
+    "band": "geometry",
+    "title": "Golden rectangle adds a square",
+    "line": "A golden rectangle grows a square on its long side, again and again, while quarter-circle arcs in each square trace a spiral.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.7",
+    "band": "geometry",
+    "title": "Locking a floppy pentagon",
+    "line": "A pentagon of five equal hinged sticks wobbles through lopsided shapes until three angles match, then snaps into the regular pentagon.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.8",
+    "band": "geometry",
+    "title": "Diagonals cut in golden ratio",
+    "line": "Two pentagon diagonals cross; the longer piece of one swings onto a side and matches it exactly, and the ratio reads 1.618.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.8",
+    "band": "geometry",
+    "title": "Pentagrams all the way down",
+    "line": "A pentagram leaves a small upside-down pentagon inside; draw its star, then again, zooming in, each shrinking by the same factor.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.9",
+    "band": "geometry",
+    "title": "Hexagon plus decagon",
+    "line": "A hexagon and decagon share a circle; one side of each lies end to end, and the joint lands exactly on the golden cut.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.10",
+    "band": "geometry",
+    "title": "Three polygons, one right triangle",
+    "line": "Sides of a pentagon, hexagon, and decagon in one circle lift off and snap into a right triangle, squares on each side adding up.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.12",
+    "band": "geometry",
+    "title": "Triangle side squared is three radii",
+    "line": "From a triangle's corner in a circle a diameter appears; the leftover chord equals a radius, so 4 radius-squares minus 1 leaves 3.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.14",
+    "band": "geometry",
+    "title": "Octahedron's diameter, drawn flat",
+    "line": "An octahedron's middle four corners form a square in a circle; two squares on its side slide over to fill the diameter's square.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.15",
+    "band": "geometry",
+    "title": "Cube diagonal in two hops",
+    "line": "Flat right triangles hop from a cube's side 1 to face diagonal √2 to body diagonal √3, the sphere's diameter.",
+    "needs": [
+      "latex"
+    ]
+  },
+  {
+    "source": "Euclid XIII.18",
+    "band": "geometry",
+    "title": "Five solid edges on one semicircle",
+    "line": "Edges of the five regular solids for one sphere appear as chords on one semicircle, then line up as bars, longest to shortest.",
+    "needs": []
+  },
+  {
+    "source": "Euclid XIII.18",
+    "band": "geometry",
+    "title": "Why only five regular solids",
+    "line": "Triangles, squares, pentagons, hexagons crowd around a point while a gap-angle counter shows which fold into a corner and which lie flat.",
+    "needs": []
+  }
 ]

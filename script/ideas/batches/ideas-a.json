@@ -1,978 +1,625 @@
 [
  {
-  "standard": "3.NF.A.3",
-  "band": "elementary",
-  "title": "Halves into quarters",
-  "line": "A bar cut in half gets sliced again, and 1/2 turns into 2/4 while the shaded part stays exactly the same size.",
+  "source": "Euclid I.1",
+  "band": "geometry",
+  "title": "Two circles, one triangle",
+  "line": "Two circles swing out from each end of a segment, and the spot where they cross becomes the tip of an equilateral triangle.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.3",
-  "band": "elementary",
-  "title": "Bigger bottom, smaller slice",
-  "line": "Three identical pizzas split into 3, 4 and 8 slices, then one slice from each lines up to show 1/3 > 1/4 > 1/8.",
+  "source": "Euclid I.1",
+  "band": "geometry",
+  "title": "Honeycomb from one segment",
+  "line": "Repeating the two-circle trick from every new corner grows a whole grid of equilateral triangles that spreads across the screen.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.3",
-  "band": "elementary",
-  "title": "Same spot on the line",
-  "line": "Dots for 2/3 and 4/6 drop onto a number line cut in thirds and one cut in sixths, landing at the same point.",
+  "source": "Euclid I.2",
+  "band": "geometry",
+  "title": "The collapsing compass",
+  "line": "A compass that snaps shut whenever it's lifted still copies a segment to a new spot, using an equilateral triangle and two nested circles.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.3",
-  "band": "elementary",
-  "title": "Fractions that equal one",
-  "line": "Bars for 2/2, 3/3, 4/4 and 6/6 fill one piece at a time, and every one of them finishes as a full whole.",
+  "source": "Euclid I.4",
+  "band": "geometry",
+  "title": "Triangle laid on triangle",
+  "line": "One triangle lifts off, flips and lands on another with two matching sides and the angle between, and the third side clicks into place.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.2",
-  "band": "elementary",
-  "title": "Marching by thirds",
-  "line": "A hop of length 1/3 copies itself along a number line from 0, landing on 1/3, 2/3, 3/3, then past 1 at 4/3.",
+  "source": "Euclid I.5",
+  "band": "geometry",
+  "title": "Flip the isosceles triangle",
+  "line": "An isosceles triangle flips over like a pancake and lands exactly on itself, so its two base angles have to be the same.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.2",
-  "band": "elementary",
-  "title": "A bar becomes a line",
-  "line": "A fraction bar shaded 5/8 squashes flat onto a number line, and its right edge turns into the point 5/8.",
+  "source": "Euclid I.5",
+  "band": "geometry",
+  "title": "The bridge of asses",
+  "line": "Both legs of an isosceles triangle stretch past the base, and two overlapping triangles light up in turn to prove the base angles match.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.1",
-  "band": "elementary",
-  "title": "Building three fifths",
-  "line": "A ribbon splits into 5 equal pieces, one piece lifts out labeled 1/5, then 3 copies line up into 3/5.",
+  "source": "Euclid I.8",
+  "band": "geometry",
+  "title": "Why triangles don't wobble",
+  "line": "Three hinged rods hold their shape while four hinged rods flop from a square into a squashed rhombus, which is why bridges use triangles.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.1",
-  "band": "elementary",
-  "title": "That's not a fourth",
-  "line": "A square cut into 4 uneven strips is labeled 1/4, the strips slide together to show they differ, then the cuts even out.",
+  "source": "Euclid I.9",
+  "band": "geometry",
+  "title": "Halving an angle",
+  "line": "Compass marks land equally far out on both arms of an angle, a triangle pops up between them, and its tip splits the angle.",
   "needs": []
  },
  {
-  "standard": "3.NF.A.1",
-  "band": "elementary",
-  "title": "The shrinking slice",
-  "line": "As the bottom number ticks from 2 up to 12, a circle gets more slices and the one highlighted slice keeps getting thinner.",
+  "source": "Euclid I.9",
+  "band": "geometry",
+  "title": "Fan of halves",
+  "line": "An 80 degree angle gets halved again and again into 40, 20, 10 and 5 degree slices that open like a hand fan.",
   "needs": []
  },
  {
-  "standard": "3.G.A.2",
-  "band": "elementary",
-  "title": "Four ways to halve a square",
-  "line": "A square is halved four different ways, and each time one half spins onto the other and fits exactly.",
+  "source": "Euclid I.10",
+  "band": "geometry",
+  "title": "Cutting a segment in half",
+  "line": "Two equal circles from each end cross above and below the segment, and the line through both crossings slices it exactly in half.",
   "needs": []
  },
  {
-  "standard": "3.G.A.2",
-  "band": "elementary",
-  "title": "Hexagon into sixths",
-  "line": "A hexagon splits into 6 triangles, then 3 rhombuses, then 2 trapezoids, and every piece gets its fraction label.",
+  "source": "Euclid I.10",
+  "band": "geometry",
+  "title": "Equally far from both ends",
+  "line": "A point slides along the perpendicular bisector while lines from it to the segment's two ends stretch together, their lengths always matching.",
   "needs": []
  },
  {
-  "standard": "3.G.A.2",
-  "band": "elementary",
-  "title": "Weird-looking quarters",
-  "line": "A 4×4 grid splits into 4 zigzag pieces of 4 squares each, and counting squares proves each strange piece is 1/4.",
+  "source": "Euclid I.12",
+  "band": "geometry",
+  "title": "Dropping a plumb line",
+  "line": "A circle around a point above a line cuts it twice, the midpoint of the two hits lights up, and a perpendicular drops there.",
   "needs": []
  },
  {
-  "standard": "3.G.A.1",
-  "band": "elementary",
-  "title": "Quadrilateral family circles",
-  "line": "Shapes drop into a big quadrilateral circle, and a square slides into the overlap where the rectangle and rhombus circles meet.",
+  "source": "Euclid I.13",
+  "band": "geometry",
+  "title": "Angles on a straight line",
+  "line": "A ray spins around a point on a line while two angle readouts trade degrees back and forth, always adding up to 180.",
   "needs": []
  },
  {
-  "standard": "3.G.A.1",
-  "band": "elementary",
-  "title": "Squash a square",
-  "line": "A square's corners get dragged: lean it and it's a rhombus, stretch it and it's a rectangle, tug one corner and it's neither.",
+  "source": "Euclid I.15",
+  "band": "geometry",
+  "title": "Opposite angles match",
+  "line": "Two lines cross and one slowly rotates, and the angle readouts on opposite sides of the crossing change together and never disagree.",
   "needs": []
  },
  {
-  "standard": "3.MD.D.8",
-  "band": "elementary",
-  "title": "Same fence, different yards",
-  "line": "A loop of 20 fence units reshapes into 1×9, 2×8, 3×7, 4×6 and 5×5 rectangles while an area counter climbs to 25.",
+  "source": "Euclid I.18",
+  "band": "geometry",
+  "title": "Big side, big angle",
+  "line": "Drag a triangle's corner around and the longest side and biggest angle stay lit in the same color, always facing each other.",
   "needs": []
  },
  {
-  "standard": "3.MD.D.8",
-  "band": "elementary",
-  "title": "Twelve squares, many fences",
-  "line": "Twelve unit squares rearrange into 1×12, 2×6 and 3×4 rectangles, and the perimeter counter drops from 26 to 14.",
+  "source": "Euclid I.20",
+  "band": "geometry",
+  "title": "Sticks that can't close",
+  "line": "Sticks of 2 and 3 swing up from a base of 6 and can't meet; shrink the base to 4 and they connect.",
   "needs": []
  },
  {
-  "standard": "3.MD.D.8",
-  "band": "elementary",
-  "title": "The missing side",
-  "line": "A pentagon's perimeter reads 30, four sides light up as 5, 7, 6 and 4, and the last side counts out as 8.",
+  "source": "Euclid I.20",
+  "band": "geometry",
+  "title": "The detour is always longer",
+  "line": "A point wanders off the straight path from A to B, and a counter shows the bent route through it is always longer.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.7",
-  "band": "elementary",
-  "title": "Tile, then multiply",
-  "line": "Unit squares tile a 4×6 rectangle row by row, the counter hits 24, then the rows collapse into the label 4 × 6.",
+  "source": "Euclid I.21",
+  "band": "geometry",
+  "title": "Pinch inside the triangle",
+  "line": "A point inside a triangle pulls two lines in from the base corners; their total length shrinks while the angle between them grows.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.7",
-  "band": "elementary",
-  "title": "Splitting a rectangle",
-  "line": "A 3×7 rectangle pulls apart into 3×5 and 3×2 pieces showing 15 + 6, then snaps back together as 21.",
+  "source": "Euclid I.22",
+  "band": "geometry",
+  "title": "Triangle from three lengths",
+  "line": "Circles of radius 4 and 5 grow from the ends of a 6-long base and cross at the third corner; stretch it, they miss.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.7",
-  "band": "elementary",
-  "title": "The L-shaped room",
-  "line": "An L-shaped floor plan slices into two rectangles, each area counts up, then a different slice gives the same total.",
+  "source": "Euclid I.24",
+  "band": "geometry",
+  "title": "Opening the hinge",
+  "line": "Two hinged sticks of fixed length open like scissors, and the third side between their tips grows on screen as the angle widens.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.6",
-  "band": "elementary",
-  "title": "Big squares, small squares",
-  "line": "A rectangle measures 6 big squares, then each big square splits into 4 small ones and the count jumps to 24.",
+  "source": "Euclid I.26",
+  "band": "geometry",
+  "title": "Two angles pin a triangle",
+  "line": "Rays fire from both ends of a fixed base at 50 and 70 degrees and can cross at only one point, locking the triangle.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.5",
-  "band": "elementary",
-  "title": "No gaps, no overlaps",
-  "line": "Unit squares try to cover a 3×3 square, first with gaps, then overlapping, then snap into a clean grid that counts 9.",
+  "source": "Euclid I.29",
+  "band": "geometry",
+  "title": "Parallel lines and a transversal",
+  "line": "A slanted line tilts across two parallel lines, and the eight angles it makes split into two color groups that change in sync.",
   "needs": []
  },
  {
-  "standard": "3.MD.C.5",
-  "band": "elementary",
-  "title": "Six squares, any shape",
-  "line": "Six unit squares slide from a 2×3 rectangle into a cross, a staircase and a long line, and the area stays 6.",
+  "source": "Euclid I.29",
+  "band": "geometry",
+  "title": "Sliding an angle down",
+  "line": "The angle at the top crossing slides down the transversal to the bottom parallel line and fits perfectly over the angle already there.",
   "needs": []
  },
  {
-  "standard": "3.MD.B.4",
-  "band": "elementary",
-  "title": "Pencils to a line plot",
-  "line": "Ten pencils line up against a ruler marked in quarter inches, and each length drops an X onto a line plot above it.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "3.MD.B.3",
-  "band": "elementary",
-  "title": "Pictures melt into bars",
-  "line": "Fruit icons worth 2 votes each stack into a picture graph, melt into bars, and a brace measures how many more chose apples.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "3.MD.A.2",
-  "band": "elementary",
-  "title": "Filling the liter jug",
-  "line": "Beakers holding 250, 400 and 350 mL pour into a 1 liter jug, and the water climbs to exactly the 1 L mark.",
-  "needs": []
- },
- {
-  "standard": "3.MD.A.1",
-  "band": "elementary",
-  "title": "Minutes on a number line",
-  "line": "A clock's minute hand sweeps from 2:15 to 3:05 while a number line below hops 45 minutes, then 5 more, totaling 50.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.3",
-  "band": "elementary",
-  "title": "Nine groups of eighty",
-  "line": "Nine stacks of 8 ten-rods regroup into 72 tens, then bundle into 7 hundred-squares and 2 rods, showing 9 × 80 = 720.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.3",
-  "band": "elementary",
-  "title": "Squares become strips",
-  "line": "A 6×4 rectangle of 24 squares stretches into 6×40 as every square becomes a strip of ten, and 24 becomes 240.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.2",
-  "band": "elementary",
-  "title": "Blocks that regroup",
-  "line": "Base-ten blocks for 347 and 285 merge, 12 ones snap into a ten, 13 tens snap into a hundred, and 632 is left.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.2",
-  "band": "elementary",
-  "title": "Back 200, forward 2",
-  "line": "On an open number line, 523 − 198 becomes one big jump back 200 and a small hop forward 2, landing on 325.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.2",
-  "band": "elementary",
-  "title": "Cracking a hundred",
-  "line": "To take 268 from 503, a hundred block cracks into tens, a ten cracks into ones, and 235 is left standing.",
-  "needs": []
- },
- {
-  "standard": "3.NBT.A.1",
-  "band": "elementary",
-  "title": "Rolling to the nearest ten",
-  "line": "A ball at 47 sits on a hilly number line with valleys at every ten, and it rolls downhill into 50.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "3.NBT.A.1",
-  "band": "elementary",
-  "title": "Zoom out to hundreds",
-  "line": "The number 683 sits on a line marked in tens, the line zooms out to hundreds, and 683 snaps to 700.",
-  "needs": []
- },
- {
-  "standard": "3.OA.D.9",
-  "band": "elementary",
-  "title": "Squares on the diagonal",
-  "line": "A 10×10 times table lights up its diagonal 1, 4, 9, 16, and each number grows into an actual square of dots.",
-  "needs": []
- },
- {
-  "standard": "3.OA.D.9",
-  "band": "elementary",
-  "title": "Where the evens live",
-  "line": "Every even product in the times table turns blue, rows for 2, 4, 6 and 8 fill completely, and odd × odd stays white.",
-  "needs": []
- },
- {
-  "standard": "3.OA.D.9",
-  "band": "elementary",
-  "title": "The nines trick",
-  "line": "Multiples of 9 stack up, the tens digit climbs 1, 2, 3 while the ones digit falls 8, 7, 6, always summing to 9.",
-  "needs": []
- },
- {
-  "standard": "3.OA.D.8",
-  "band": "elementary",
-  "title": "Bags of marbles",
-  "line": "Three bags of 8 marbles stack into a bar of 24, a piece of 5 snips off, and the unknown n fills in as 19.",
-  "needs": []
- },
- {
-  "standard": "3.OA.C.7",
-  "band": "elementary",
-  "title": "One array, four facts",
-  "line": "A 40-dot array rotates and regroups so one picture reads as 8 × 5, 5 × 8, 40 ÷ 5 and 40 ÷ 8.",
-  "needs": []
- },
- {
-  "standard": "3.OA.C.7",
-  "band": "elementary",
-  "title": "Nines from tens",
-  "line": "A 10×7 array appears and one column fades out, turning 70 into 63 and showing 9 × 7 without memorizing it.",
-  "needs": []
- },
- {
-  "standard": "3.OA.C.7",
-  "band": "elementary",
-  "title": "Doubling up to eights",
-  "line": "A 2×6 array copies itself into 4×6, then 8×6, and the counter doubles each time: 12, 24, 48.",
-  "needs": []
- },
- {
-  "standard": "3.OA.B.6",
-  "band": "elementary",
-  "title": "Division as a missing side",
-  "line": "A rectangle of 56 squares has one side labeled 8, and the other side grows one column at a time until it reads 7.",
-  "needs": []
- },
- {
-  "standard": "3.OA.B.5",
-  "band": "elementary",
-  "title": "Turn the array",
-  "line": "A 3×5 array of dots rotates a quarter turn into 5×3, and the counter beside it never budges from 15.",
-  "needs": []
- },
- {
-  "standard": "3.OA.B.5",
-  "band": "elementary",
-  "title": "Two ways to group 24",
-  "line": "Two 3×4 dot grids slide together into one 6×4 grid, showing (2 × 3) × 4 and 2 × (3 × 4) both make 24.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.4",
-  "band": "elementary",
-  "title": "What's in the cups",
-  "line": "For ? ÷ 4 = 9, four cups of 9 dots pour into one pile that counts up to 36.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.3",
-  "band": "elementary",
-  "title": "Eggs into cartons",
-  "line": "Forty-two eggs roll in and fill cartons of 6, and the carton count reaches 7 as the last egg settles.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.3",
-  "band": "elementary",
-  "title": "Cutting the ribbon",
-  "line": "A 24 cm ribbon gets cut into 3 cm pieces that hop off one at a time, and the counter stops at 8.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.2",
-  "band": "elementary",
-  "title": "Dealing 56 cards",
-  "line": "Fifty-six cards deal out one at a time to 8 players around a table until each player holds 7.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.2",
-  "band": "elementary",
-  "title": "Scoops of eight",
-  "line": "A pile of 56 marbles loses 8 at a time to a scoop, and a tally counts 7 scoops until the pile is gone.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.1",
-  "band": "elementary",
-  "title": "Five bags of seven",
-  "line": "Five bags each spill 7 dots, the dots line up into a 5×7 array, and a counter ticks up to 35.",
-  "needs": []
- },
- {
-  "standard": "3.OA.A.1",
-  "band": "elementary",
-  "title": "Frog jumps of seven",
-  "line": "A frog makes 5 jumps of 7 along a number line, landing on 7, 14, 21, 28 and finally 35.",
-  "needs": []
- },
- {
-  "standard": "4.NF.C.7",
-  "band": "elementary",
-  "title": "Decimal grid face-off",
-  "line": "0.4 and 0.38 shade on two hundred-grids, and 0.4's four full columns beat 0.38's three columns plus 8 squares.",
-  "needs": []
- },
- {
-  "standard": "4.NF.C.7",
-  "band": "elementary",
-  "title": "Check the whole first",
-  "line": "0.3 of a huge square and 0.5 of a tiny square shade side by side, and the smaller decimal covers more area.",
-  "needs": []
- },
- {
-  "standard": "4.NF.C.6",
-  "band": "elementary",
-  "title": "Tenths on a meter stick",
-  "line": "A meter-long bar splits into 10 pieces, then 100, and a marker sliding along it reads 0.7, then 0.73.",
-  "needs": []
- },
- {
-  "standard": "4.NF.C.5",
-  "band": "elementary",
-  "title": "Tenths into hundredths",
-  "line": "A grid with 3/10 shaded has each column cut into 10 squares, becoming 30/100, then 25/100 more makes 55/100.",
-  "needs": []
- },
- {
-  "standard": "4.NF.B.4",
-  "band": "elementary",
-  "title": "Three helpings of two thirds",
-  "line": "Three bars each shaded 2/3 slide their pieces into one row of thirds, which counts to 6/3 and fills exactly 2 wholes.",
-  "needs": []
- },
- {
-  "standard": "4.NF.B.4",
-  "band": "elementary",
-  "title": "Five scoops of flour",
-  "line": "A 3/4 cup scoop pours 5 times into a jug marked in quarters, and the level climbs to 15/4, which is 3 3/4.",
-  "needs": []
- },
- {
-  "standard": "4.NF.B.3",
-  "band": "elementary",
-  "title": "Many ways to make 5/8",
-  "line": "Five one-eighth pieces split as 1/8 + 4/8, then 2/8 + 3/8, then 1/8 + 1/8 + 3/8, a gap sliding along the bar.",
-  "needs": []
- },
- {
-  "standard": "4.NF.B.3",
-  "band": "elementary",
-  "title": "Unpacking a mixed number",
-  "line": "The mixed number 2 1/3 unpacks as two whole bars burst into thirds, and all the pieces count up to 7/3.",
-  "needs": []
- },
- {
-  "standard": "4.NF.B.3",
-  "band": "elementary",
-  "title": "Quarters make a whole",
-  "line": "Bars for 1 3/4 and 2 2/4 join, four loose quarters snap into an extra whole, and the total reads 4 1/4.",
-  "needs": []
- },
- {
-  "standard": "4.NF.A.2",
-  "band": "elementary",
-  "title": "Race to one half",
-  "line": "Points for 3/8 and 5/9 slide along a number line toward a flag at 1/2, and one stops short while the other passes it.",
-  "needs": []
- },
- {
-  "standard": "4.NF.A.2",
-  "band": "elementary",
-  "title": "Cut both into twelfths",
-  "line": "Bars for 2/3 and 3/4 get sliced into twelfths, become 8/12 and 9/12, and 3/4 wins by one thin sliver.",
-  "needs": []
- },
- {
-  "standard": "4.NF.A.2",
-  "band": "elementary",
-  "title": "Crossed cuts",
-  "line": "Squares showing 2/5 in columns and 3/7 in rows each borrow the other's cuts, so both count in 35ths: 14 versus 15.",
-  "needs": []
- },
- {
-  "standard": "4.NF.A.1",
-  "band": "elementary",
-  "title": "Slice it the other way",
-  "line": "A square with 2 of 3 columns shaded gets cut into 4 rows, so 2/3 becomes 8/12 while the shaded area holds still.",
-  "needs": []
- },
- {
-  "standard": "4.NF.A.1",
-  "band": "elementary",
-  "title": "Equivalent fractions in a line",
-  "line": "2/3, 4/6, 6/9 and 8/12 plot as dots at (bottom, top) on a grid, and they all land on one straight line through zero.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "4.G.A.3",
-  "band": "elementary",
-  "title": "Flip along the fold",
-  "line": "A heart, a letter A and a hexagon each flip across a dashed line, and their halves land exactly on each other.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.3",
-  "band": "elementary",
-  "title": "Counting mirror lines",
-  "line": "A dashed line spins inside a triangle, square, pentagon and hexagon, flashing at each symmetry line: 3, 4, 5, then 6 flashes.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.3",
-  "band": "elementary",
-  "title": "The fake symmetry",
-  "line": "A parallelogram tries flipping across its diagonal and its middle line, and both times the halves miss each other.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.2",
-  "band": "elementary",
-  "title": "Right angle detector",
-  "line": "A small square corner slides around a pile of triangles, glowing green at right angles, then the triangles sort into two groups.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.2",
-  "band": "elementary",
-  "title": "Parallel side hunt",
-  "line": "Pairs of parallel arrows sweep across a trapezoid, a parallelogram, a rectangle and a kite, lighting up sides that never meet.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.1",
-  "band": "elementary",
-  "title": "Segment, ray, line",
-  "line": "A dot stretches into a segment, one end shoots off as a ray, then both ends run forever as a line.",
-  "needs": []
- },
- {
-  "standard": "4.G.A.1",
-  "band": "elementary",
-  "title": "Opening angle",
-  "line": "Two rays share an endpoint and one swings open, its label switching from acute to right at 90° to obtuse past it.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.7",
-  "band": "elementary",
-  "title": "Angles snap together",
-  "line": "A 30° wedge and a 45° wedge slide together at a shared corner, and the arc label counts up to 75°.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.7",
-  "band": "elementary",
-  "title": "What's left of a line",
-  "line": "A straight line has 130° marked, and the leftover gap fills in as its counter ticks down from 180 to 50°.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.7",
-  "band": "elementary",
-  "title": "The opening fan",
-  "line": "A fan of six 15° wedges opens one wedge at a time, the total reading 15, 30, 45 all the way to 90.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.6",
-  "band": "elementary",
-  "title": "Reading the protractor",
-  "line": "A protractor slides onto an angle, centers on the corner, and a needle sweeps along the scale from 0 to read 127°.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.5",
-  "band": "elementary",
-  "title": "360 tiny slices",
-  "line": "A circle splits into 360 thin slices, then 90 of them light up together and form a perfect right angle.",
-  "needs": []
- },
- {
-  "standard": "4.MD.C.5",
-  "band": "elementary",
-  "title": "An angle is a turn",
-  "line": "A ray turns around its endpoint, tracing an arc, while the arc's fraction of the full circle counts up in degrees.",
-  "needs": []
- },
- {
-  "standard": "4.MD.B.4",
-  "band": "elementary",
-  "title": "The snail race plot",
-  "line": "Ten snails crawl distances like 3/8, 1/2 and 5/8 inch, each dropping an X on a line plot, then a brace measures the spread.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "4.MD.A.3",
-  "band": "elementary",
-  "title": "Width on a slider",
-  "line": "A rectangle's width slides from 2 to 8 while its height stays 3, and both area and perimeter readouts update as it moves.",
-  "needs": []
- },
- {
-  "standard": "4.MD.A.2",
-  "band": "elementary",
-  "title": "Pouring two liters",
-  "line": "A 2 L bottle relabels itself as 2000 mL, then pours into 8 equal cups that each read 250 mL.",
-  "needs": []
- },
- {
-  "standard": "4.MD.A.1",
-  "band": "elementary",
-  "title": "Zooming into a meter",
-  "line": "A meter bar zooms in to 100 centimeters, one centimeter zooms in to 10 millimeters, and a two-column table fills in.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.B.6",
-  "band": "elementary",
-  "title": "Dealing out 157",
-  "line": "Base-ten blocks for 157 deal into 4 equal piles, a hundred cracks into tens along the way, and 1 leftover stays out.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.B.6",
-  "band": "elementary",
-  "title": "Building the missing width",
-  "line": "A rectangle of area 852 and height 4 builds its width in chunks of 200, then 10, then 3, reaching 213.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.B.5",
-  "band": "elementary",
-  "title": "Four boxes make 23 × 14",
-  "line": "A 23×14 rectangle splits into 20×10, 20×4, 3×10 and 3×4 pieces whose areas 200, 80, 30 and 12 add to 322.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.B.5",
-  "band": "elementary",
-  "title": "Four copies of 1,236",
-  "line": "Four copies of 1,236 in base-ten blocks merge, ones and tens regroup upward, and the pile settles at 4,944.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.B.4",
-  "band": "elementary",
-  "title": "The odometer",
-  "line": "An odometer rolls 4,689 forward by 1,527, each wheel nudging the next as it passes 9, and stops at 6,216.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.A.3",
-  "band": "elementary",
-  "title": "Round to any place",
-  "line": "The point 47,382 sits on a number line that zooms out three times, snapping to 47,380, then 47,400, then 47,000.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.A.2",
-  "band": "elementary",
-  "title": "Expanded form burst",
-  "line": "The number 6,047 bursts into 6000 + 0 + 40 + 7, each piece flying out of its digit's column and back again.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.A.2",
-  "band": "elementary",
-  "title": "Digit-by-digit duel",
-  "line": "58,312 and 58,293 compare from the left, matching digits turn grey one by one, until 3 beats 2 in the hundreds.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.A.1",
-  "band": "elementary",
-  "title": "Ten makes the next",
-  "line": "Ten ones snap into a rod, ten rods into a flat, ten flats into a long bar, each step ten times bigger.",
-  "needs": []
- },
- {
-  "standard": "4.NBT.A.1",
-  "band": "elementary",
-  "title": "A 3 moving left",
-  "line": "The digit 3 slides left through 3, 30, 300 and 3000, and a bar beside it grows ten times longer at each step.",
-  "needs": []
- },
- {
-  "standard": "4.OA.C.5",
-  "band": "elementary",
-  "title": "Odd, even, odd, even",
-  "line": "The rule add 3 from 1 builds 1, 4, 7, 10, and the numbers flash odd, even, odd, even, which the rule never said.",
-  "needs": []
- },
- {
-  "standard": "4.OA.C.5",
-  "band": "elementary",
-  "title": "Matchstick triangles",
-  "line": "Matchstick triangles in a row grow one at a time, sharing sides, and the stick count goes 3, 5, 7, 9.",
-  "needs": []
- },
- {
-  "standard": "4.OA.C.5",
-  "band": "elementary",
-  "title": "Staircases become rectangles",
-  "line": "Dot staircases grow 1, 3, 6, 10, and two copies of each one flip and snap together into a rectangle.",
-  "needs": []
- },
- {
-  "standard": "4.OA.B.4",
-  "band": "elementary",
-  "title": "Every rectangle of 24",
-  "line": "Twenty-four tiles rearrange into every rectangle they can, 1×24, 2×12, 3×8, 4×6, listing all the factor pairs.",
-  "needs": []
- },
- {
-  "standard": "4.OA.B.4",
-  "band": "elementary",
-  "title": "Primes won't fit",
-  "line": "Thirteen tiles try every rectangle and keep leaving one tile sticking out, while 12 tiles snap neatly into rows.",
-  "needs": []
- },
- {
-  "standard": "4.OA.B.4",
-  "band": "elementary",
-  "title": "The sieve to 100",
-  "line": "A 10×10 grid of 1 to 100 crosses out multiples of 2, 3, 5 and 7 in waves, leaving the primes glowing.",
-  "needs": []
- },
- {
-  "standard": "4.OA.A.3",
-  "band": "elementary",
-  "title": "One more van",
-  "line": "Twenty-nine kids board vans that seat 6, four vans fill up, 5 kids are left standing, and a fifth van rolls in.",
-  "needs": []
- },
- {
-  "standard": "4.OA.A.2",
-  "band": "elementary",
-  "title": "Three times vs three more",
-  "line": "A bar of 4 gets two partners, one 3 times as long and one 3 longer, and 12 and 7 line up side by side.",
-  "needs": []
- },
- {
-  "standard": "4.OA.A.1",
-  "band": "elementary",
-  "title": "Stretching to 35",
-  "line": "A bar of 7 stretches to 5 times its length, reaching 35, then a bar of 5 stretches 7 times to the same mark.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.7",
-  "band": "elementary",
-  "title": "Fifths in three pizzas",
-  "line": "Three pizzas cut into fifths, the slices pop out and line up, and the counter reaches 15 for 3 ÷ 1/5.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.7",
-  "band": "elementary",
-  "title": "Sharing half a cake",
-  "line": "Half a cake gets split among 3 people, the cuts extend across the whole cake, and each slice turns out to be 1/6.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.6",
-  "band": "elementary",
-  "title": "One and a half recipes",
-  "line": "A bar of 2/3 cup sugar grows by half of itself again for 1 1/2 recipes and lands on exactly 1 cup.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.5",
-  "band": "elementary",
-  "title": "The scaling slider",
-  "line": "A bar of length 6 gets multiplied by a sliding factor, shrinking when the factor drops under 1 and stretching when it's over.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.5",
-  "band": "elementary",
-  "title": "Which side of 9",
-  "line": "Arrows for 9 × 4/5 and 9 × 5/4 land on opposite sides of 9 on a number line before any arithmetic happens.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.4",
-  "band": "elementary",
-  "title": "A fraction of a fraction",
-  "line": "A square shaded 3/4 across gets cut 2/3 down, and the overlap of 6 small boxes out of 12 is 3/4 × 2/3.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.4",
-  "band": "elementary",
-  "title": "Tiny tiles",
-  "line": "A 2/3 by 5/2 rectangle fills with tiles 1/3 wide and 1/2 tall, and the tiles count up to 10 sixths.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.4",
-  "band": "elementary",
-  "title": "Two thirds of twelve",
-  "line": "Twelve dots split into 3 equal groups, 2 groups light up, and their 8 dots slide out as 2/3 of 12.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.3",
-  "band": "elementary",
-  "title": "Three pizzas, four friends",
-  "line": "Three pizzas get shared by 4 friends, each pizza cut in quarters, and every friend collects 3 quarters, so 3 ÷ 4 = 3/4.",
-  "needs": []
- },
- {
-  "standard": "5.NF.B.3",
-  "band": "elementary",
-  "title": "Seven meters in three",
-  "line": "A 7 meter ribbon is cut into 3 equal parts, and each piece lands on a ruler at 2 1/3 meters.",
-  "needs": []
- },
- {
-  "standard": "5.NF.A.2",
-  "band": "elementary",
-  "title": "Estimate, then check",
-  "line": "Bars for 2/5 and 1/2 snap to nearby benchmarks, the estimate lands just under 1, then the exact 9/10 confirms it.",
-  "needs": []
- },
- {
-  "standard": "5.NF.A.1",
-  "band": "elementary",
-  "title": "Halves meet thirds",
-  "line": "Pieces of 1/2 and 1/3 join end to end, and only after both get recut into sixths does the total read 5/6.",
-  "needs": []
- },
- {
-  "standard": "5.NF.A.1",
-  "band": "elementary",
-  "title": "Breaking a whole to subtract",
-  "line": "From 3 1/4 take 1 2/3: a whole cracks into twelfths, pieces disappear, and 1 7/12 is left.",
-  "needs": []
- },
- {
-  "standard": "5.G.B.4",
-  "band": "elementary",
-  "title": "Shape family tree",
-  "line": "A tree grows from polygon down to quadrilateral, parallelogram, rectangle, rhombus and square, each branch showing a shape morphing into the next.",
-  "needs": []
- },
- {
-  "standard": "5.G.B.3",
-  "band": "elementary",
-  "title": "Inherited properties",
-  "line": "A parallelogram's tag 'opposite sides parallel' copies itself down onto a rectangle, a rhombus and a square as each one appears.",
-  "needs": []
- },
- {
-  "standard": "5.G.A.2",
-  "band": "elementary",
-  "title": "Plant growth plot",
-  "line": "A plant's height each week drops a dot onto a grid, and connecting the dots shows which week it grew fastest.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "5.G.A.2",
-  "band": "elementary",
-  "title": "Treasure map path",
-  "line": "A pirate walks a grid from (1, 2) to (4, 2) to (4, 6), and the distance of each leg counts out as it goes.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "5.G.A.1",
-  "band": "elementary",
-  "title": "Walking to a point",
-  "line": "A dot walks 3 units along the x-axis, then 5 units up, leaving a trail, and lands on the label (3, 5).",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "5.G.A.1",
-  "band": "elementary",
-  "title": "Order matters",
-  "line": "Two dots follow the directions (2, 5) and (5, 2) at the same time and end up in completely different places.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "5.MD.C.5",
-  "band": "elementary",
-  "title": "Layer by layer",
-  "line": "A 4×3 base of squares appears, then copies stack upward as layers of a box drawn at an angle until 5 layers make 60.",
-  "needs": []
- },
- {
-  "standard": "5.MD.C.5",
-  "band": "elementary",
-  "title": "Two boxes make an L",
-  "line": "An L-shaped block splits into a 3×2×4 box and a 2×2×2 box, whose volumes 24 and 8 add to 32.",
-  "needs": []
- },
- {
-  "standard": "5.MD.C.4",
-  "band": "elementary",
-  "title": "Big cubes, small cubes",
-  "line": "A box packs with 8 big cubes, then each big cube splits into 8 small ones, and the count jumps to 64.",
-  "needs": []
- },
- {
-  "standard": "5.MD.B.2",
-  "band": "elementary",
-  "title": "Evening out the beakers",
-  "line": "Eight beakers with 1/8, 1/4 and 1/2 liter make a line plot, then all the water pours together and shares out evenly.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "5.NBT.B.7",
-  "band": "elementary",
-  "title": "Overflowing grids",
-  "line": "1.35 + 0.78 shades onto hundred-grids, hundredths overflow into a tenth, tenths overflow into a whole, giving 2.13.",
-  "needs": []
- },
- {
-  "standard": "5.NBT.B.7",
-  "band": "elementary",
-  "title": "Decimal times decimal",
-  "line": "A 0.6 by 0.4 rectangle is cut from a unit square, and its overlap covers exactly 24 hundredths, so 0.6 × 0.4 = 0.24.",
-  "needs": []
- },
- {
-  "standard": "5.NBT.B.7",
-  "band": "elementary",
-  "title": "Quarters in two",
-  "line": "A ruler of length 0.25 hops along a 2-unit bar, the counter reaching 8, so 2 ÷ 0.25 = 8.",
-  "needs": []
- },
- {
-  "standard": "5.NBT.B.6",
-  "band": "elementary",
-  "title": "Chipping away at 1,000",
-  "line": "Groups of 32 peel off 1,000 in chunks of ten groups, then one at a time, tallying 31 groups with 8 left over.",
+  "source": "Euclid I.32",
+  "band": "geometry",
+  "title": "Tear off the corners",
+  "line": "The three corners of a paper triangle snip off and slide together, fitting side by side into a perfectly straight 180 degree line.",
   "needs": []
  },
  {
-  "standard": "5.NBT.B.5",
-  "band": "elementary",
-  "title": "Area model to algorithm",
-  "line": "The area model for 327 × 46 splits into rows of 1,962 and 13,080, which slide into the standard algorithm and add to 15,042.",
+  "source": "Euclid I.32",
+  "band": "geometry",
+  "title": "Parallel line through the top",
+  "line": "A line parallel to the base appears through the top corner, and both base angles slide up to sit beside the top angle.",
   "needs": []
  },
  {
-  "standard": "5.NBT.A.3",
-  "band": "elementary",
-  "title": "More digits, not bigger",
-  "line": "0.7, 0.65 and 0.649 build as bars of tenths, hundredths and thousandths, and the one with fewest digits is longest.",
+  "source": "Euclid I.32",
+  "band": "geometry",
+  "title": "Walk around a triangle",
+  "line": "An arrow walks around a triangle, turning at each corner, and its three turns add up to exactly one full 360 degree spin.",
   "needs": []
  },
  {
-  "standard": "5.NBT.A.2",
-  "band": "elementary",
-  "title": "Piling up zeros",
-  "line": "7 gets multiplied by 10, then 100, then 1000, a bar grows each time, and the powers of ten count the zeros.",
+  "source": "Euclid I.32",
+  "band": "geometry",
+  "title": "Angles of any polygon",
+  "line": "Diagonals from one corner cut a pentagon into 3 triangles and a hexagon into 4, so the angle total grows 180 per side.",
   "needs": [
    "latex"
   ]
  },
  {
-  "standard": "5.NBT.A.2",
-  "band": "elementary",
-  "title": "The point holds still",
-  "line": "In 4.56 × 10, the decimal point stays put while every digit slides one place left, making 45.6, then 456.",
+  "source": "Euclid I.34",
+  "band": "geometry",
+  "title": "Two halves of a parallelogram",
+  "line": "A diagonal splits a parallelogram, and one half spins 180 degrees around the center to land exactly on the other half.",
   "needs": []
  },
  {
-  "standard": "5.NBT.A.1",
-  "band": "elementary",
-  "title": "Zooming into a hundred",
-  "line": "A hundred-square zooms in: one strip is a tenth of it, one square of that strip is a tenth again, and so on.",
+  "source": "Euclid I.35",
+  "band": "geometry",
+  "title": "Leaning parallelogram",
+  "line": "A parallelogram's top edge slides along its parallel line, so the shape leans further and further while its area counter stays at 24.",
   "needs": []
  },
  {
-  "standard": "5.OA.B.3",
-  "band": "elementary",
-  "title": "Two rules, one line",
-  "line": "Rules add 3 and add 6 build two lists from 0, and their pairs (3, 6), (6, 12) plot on one straight line.",
+  "source": "Euclid I.35",
+  "band": "geometry",
+  "title": "Cut and slide",
+  "line": "A triangle cut from one end of a rectangle slides to the other end, making a parallelogram with the same base, height and area.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.37",
+  "band": "geometry",
+  "title": "Deck of cards triangle",
+  "line": "A triangle sliced into 12 thin strips gets pushed sideways like a deck of cards, its tip sliding while its area holds still.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.41",
+  "band": "geometry",
+  "title": "Triangle is half a parallelogram",
+  "line": "A triangle's rotated twin clicks onto it to form a parallelogram on the same base, so the triangle is exactly half its area.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.43",
+  "band": "geometry",
+  "title": "Two rectangles that always match",
+  "line": "A point slides along a rectangle's diagonal, cutting it into four pieces, and the two pieces off the diagonal reshape but keep equal areas.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.44",
+  "band": "geometry",
+  "title": "Same area, new base",
+  "line": "A 2 by 6 rectangle uses the diagonal trick to become a 3 by 4 rectangle on a new base, area still 12.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.45",
+  "band": "geometry",
+  "title": "Any shape into a rectangle",
+  "line": "A lumpy pentagon is cut into triangles, each becomes a strip of the same width, and the strips stack into one equal-area rectangle.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.47",
+  "band": "geometry",
+  "title": "Pythagoras by rearranging",
+  "line": "Four 3-4-5 triangles slide around inside a 7 by 7 square, and the tilted 25 square becomes a 9 square plus a 16 square.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.47",
+  "band": "geometry",
+  "title": "Euclid's windmill",
+  "line": "The squares on the legs shear into parallelograms, rotate, and shear again into two rectangles that exactly fill the square on the hypotenuse.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.47",
+  "band": "geometry",
+  "title": "Perigal's puzzle pieces",
+  "line": "The 16 square on the longer leg is cut into four pieces, and they wrap around the 9 square to fill the 25 square.",
+  "needs": []
+ },
+ {
+  "source": "Euclid I.47",
+  "band": "geometry",
+  "title": "Tilted squares on a dot grid",
+  "line": "On a dot grid, a tilted square's area comes from a bigger square minus four corner triangles, and it always equals a² + b².",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid I.48",
+  "band": "geometry",
+  "title": "The rope stretcher's right angle",
+  "line": "A loop of rope with 12 evenly spaced knots is pulled tight into a 3-4-5 triangle, and the corner snaps to exactly 90 degrees.",
+  "needs": []
+ },
+ {
+  "source": "Euclid II.1",
+  "band": "algebra1",
+  "title": "Splitting a long rectangle",
+  "line": "A 3 by 7 rectangle splits into 3 by 2, 3 by 4 and 3 by 1 pieces, showing 3(2+4+1) = 6+12+3.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.4",
+  "band": "algebra1",
+  "title": "Square of a sum",
+  "line": "A 5 by 5 square cut at 3 + 2 flies apart into tiles of 9, 6, 6 and 4: a², ab, ab, b².",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.4",
+  "band": "algebra1",
+  "title": "The forgotten middle",
+  "line": "Squares of 3 and 2 drop into a 5 by 5 square, leaving two 3 by 2 gaps that flash red.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.5",
+  "band": "algebra1",
+  "title": "Difference of squares by sliding",
+  "line": "A small square is cut from a big square's corner, and the leftover L-shape rearranges into a rectangle: a² − b² = (a+b)(a−b).",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.5",
+  "band": "algebra1",
+  "title": "Squarest rectangle wins",
+  "line": "A rectangle with perimeter 20 morphs from 9 by 1 toward 5 by 5, and its area counter climbs to a peak of 25.",
+  "needs": []
+ },
+ {
+  "source": "Euclid II.6",
+  "band": "algebra1",
+  "title": "Completing the square",
+  "line": "A 6 by x strip beside an x² square splits in half, hugs two sides, and a 3 by 3 corner completes the square.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.6",
+  "band": "algebra1",
+  "title": "Solving a quadratic with tiles",
+  "line": "Tiles for x² + 6x total 16, a 9 corner makes a 5 by 5 square, so x + 3 = 5.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.7",
+  "band": "algebra1",
+  "title": "Square of a difference",
+  "line": "Two a by b strips are cut from an a² square, the twice-removed b² corner is added back, and (a − b)² remains.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.8",
+  "band": "algebra1",
+  "title": "Four rectangles around a hole",
+  "line": "Four 3 by 1 rectangles pinwheel around a 2 by 2 hole to build a 4 by 4 square: 4·3 + 4 = 16.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.9",
+  "band": "algebra1",
+  "title": "Two squares, average and gap",
+  "line": "Squares of side 5 and 1 rearrange into two copies each of a 3 square and a 2 square, both totaling 26.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.11",
+  "band": "algebra1",
+  "title": "Hunting the golden cut",
+  "line": "A point slides along a segment of length 1 until the square on the long piece equals the whole-times-short rectangle, at 0.618.",
+  "needs": []
+ },
+ {
+  "source": "Euclid II.11",
+  "band": "algebra1",
+  "title": "Euclid's golden construction",
+  "line": "A line from the middle of a square's side to a far corner swings down like a compass arm onto the golden cut.",
+  "needs": []
+ },
+ {
+  "source": "Euclid II.12",
+  "band": "algebra1",
+  "title": "Obtuse triangles overshoot",
+  "line": "As a triangle's corner opens past 90 degrees, the big square outgrows the two small squares by two thin rectangles that keep getting bigger.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.13",
+  "band": "algebra1",
+  "title": "Bigger angle, bigger square",
+  "line": "A triangle's angle sweeps from 30 to 150 degrees while a bar shows c² − (a² + b²), crossing zero exactly at 90.",
+  "needs": [
+   "latex"
+  ]
+ },
+ {
+  "source": "Euclid II.14",
+  "band": "algebra1",
+  "title": "Squaring a rectangle with a semicircle",
+  "line": "A 4 by 9 rectangle unrolls into a 13-long diameter, a semicircle rises, and the height at the joint is 6: a 36 square.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.1",
+  "band": "geometry",
+  "title": "Finding a lost center",
+  "line": "A chord is drawn, its perpendicular bisector crosses the circle as a diameter, and halving that diameter lights up the hidden center point.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.3",
+  "band": "geometry",
+  "title": "The center splits every chord",
+  "line": "A chord slides up and down a circle while the perpendicular from the center always lands on its midpoint, both halves reading equal.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.7",
+  "band": "geometry",
+  "title": "Longest and shortest reach",
+  "line": "From a point inside a circle, a line spins to the edge, and its length graph peaks through the center and dips opposite.",
   "needs": [
    "graph"
   ]
  },
  {
-  "standard": "5.OA.A.2",
-  "band": "elementary",
-  "title": "Three times as big",
-  "line": "The expression 3 × (18,932 + 921) draws as one long bar, then three copies stack up so it's clearly triple, with nothing calculated.",
+  "source": "Euclid III.10",
+  "band": "geometry",
+  "title": "Two circles, at most two crossings",
+  "line": "One circle glides across another while an intersection counter reads 0, 1, 2, 1, 0, and it never manages to reach 3.",
   "needs": []
  },
  {
-  "standard": "5.OA.A.1",
-  "band": "elementary",
-  "title": "Parentheses change the answer",
-  "line": "2 + 3 × 4 builds as 2 dots plus 3 rows of 4, then (2 + 3) × 4 rebuilds as 5 rows: 14 vs 20.",
+  "source": "Euclid III.14",
+  "band": "geometry",
+  "title": "Spinning a fixed chord",
+  "line": "A chord of fixed length rotates around inside a circle at a constant distance from the center, and its midpoint traces a smaller circle.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.15",
+  "band": "geometry",
+  "title": "Diameter is the longest chord",
+  "line": "A chord slides from the edge of a circle toward the center, its length counting up and topping out as a diameter.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.16",
+  "band": "geometry",
+  "title": "Secant becomes tangent",
+  "line": "A line through a point on a circle rotates until both crossings merge, and right then it sits at 90 degrees to the radius.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.17",
+  "band": "geometry",
+  "title": "Tangent from an outside point",
+  "line": "A bigger circle through an outside point, a perpendicular and one more line pin down exactly where the tangent from it touches.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.20",
+  "band": "geometry",
+  "title": "Half the center angle",
+  "line": "A point slides around a circle above a fixed chord, its angle reading 35 degrees while the center's angle on that arc reads 70.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.20",
+  "band": "geometry",
+  "title": "Two isosceles triangles",
+  "line": "A diameter through the edge point splits the picture into two isosceles triangles, whose outer angles double to explain the factor of two.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.21",
+  "band": "geometry",
+  "title": "Same view from every seat",
+  "line": "Spectators placed anywhere along an arc behind a goal all see the two posts at the same 40 degree angle, their angle readouts frozen.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.22",
+  "band": "geometry",
+  "title": "Opposite corners add to 180",
+  "line": "Four points slide around a circle and the quadrilateral's angles change wildly, but each pair of opposite corners always adds up to 180.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.25",
+  "band": "geometry",
+  "title": "Rebuilding a broken plate",
+  "line": "Two chords on a broken arc get perpendicular bisectors that cross at the center, and the rest of the circle sweeps back into place.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.31",
+  "band": "geometry",
+  "title": "Square corners in a semicircle",
+  "line": "A point slides along a semicircle above a diameter, and the angle it makes with the diameter's ends reads 90 degrees every time.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.31",
+  "band": "geometry",
+  "title": "Inside, on and outside",
+  "line": "A point drags around a diameter: its angle reads over 90 inside the circle, exactly 90 on it, and under 90 outside.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.31",
+  "band": "geometry",
+  "title": "A rectangle hidden in a circle",
+  "line": "A right triangle in a semicircle spins half a turn about the center into a rectangle whose two diagonals are both diameters.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.32",
+  "band": "geometry",
+  "title": "Tangent and chord angle",
+  "line": "A point on the circle slides into the tangent point, and its inscribed angle morphs into the chord-tangent angle without changing size.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.35",
+  "band": "geometry",
+  "title": "Crossing chords keep their product",
+  "line": "One chord rotates around where it crosses another, and both products of their pieces, like 3 × 8 and 4 × 6, stay 24.",
+  "needs": []
+ },
+ {
+  "source": "Euclid III.36",
+  "band": "geometry",
+  "title": "Secant swings into a tangent",
+  "line": "A line from an outside point swings across a circle; outside piece times whole stays 36, and the final tangent measures 6.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.4",
+  "band": "geometry",
+  "title": "Growing the incircle",
+  "line": "Three angle bisectors meet at one point, and a circle inflates from there until it kisses all three sides of the triangle at once.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.5",
+  "band": "geometry",
+  "title": "The circle through three corners",
+  "line": "Perpendicular bisectors meet at a center, a circle passes through all three corners, and dragging one corner past 90 degrees pushes the center outside.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.6",
+  "band": "geometry",
+  "title": "Squares and circles forever",
+  "line": "A square inscribes in a circle, a circle inscribes in that square, and the pattern keeps nesting inward as the view zooms in forever.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.10",
+  "band": "geometry",
+  "title": "The triangle that contains itself",
+  "line": "Bisecting a base angle of a 36-72-72 triangle cuts off a smaller copy of itself, and repeating spirals into tinier copies.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.10",
+  "band": "geometry",
+  "title": "Building the golden triangle",
+  "line": "A line cut at the golden point plus one circle produce a triangle whose base angles light up as exactly double the top angle.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.11",
+  "band": "geometry",
+  "title": "Pentagon from a golden triangle",
+  "line": "A 36-72-72 triangle sits in a circle, and bisecting its base angles hits the circle at the last two corners of a pentagon.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.11",
+  "band": "geometry",
+  "title": "Star inside a pentagon",
+  "line": "A pentagon's diagonals draw a five-point star, the star's center holds a smaller upside-down pentagon, and the pattern repeats inward.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.12",
+  "band": "geometry",
+  "title": "Pentagon hugging a circle",
+  "line": "Tangent lines at the five corners of an inscribed pentagon stretch out until they meet, forming a bigger pentagon wrapped snugly around the circle.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.15",
+  "band": "geometry",
+  "title": "Six steps around the circle",
+  "line": "A compass opened to the radius steps around a circle and lands back at its start after exactly six steps, marking a regular hexagon.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.15",
+  "band": "geometry",
+  "title": "Six triangles make a hexagon",
+  "line": "Six equilateral triangles fan out from the center, each with a 60 degree point, and together they fill 360 degrees into a hexagon.",
+  "needs": []
+ },
+ {
+  "source": "Euclid IV.16",
+  "band": "geometry",
+  "title": "Fifteen from three and five",
+  "line": "A triangle and pentagon share a top corner in a circle, and the tiny gap between their nearest corners steps around 15 times.",
   "needs": []
  }
 ]

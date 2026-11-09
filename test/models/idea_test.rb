@@ -1,8 +1,8 @@
 require "test_helper"
 
 class IdeaTest < ActiveSupport::TestCase
-  def idea(band, n, standard: "#{band}.#{n}")
-    Idea.create!(key: "#{band}/#{n}", standard:, band:, title: "idea #{n}", line: "line #{n}")
+  def idea(band, n, source: "#{band}.#{n}")
+    Idea.create!(key: "#{band}/#{n}", source:, band:, title: "idea #{n}", line: "line #{n}")
   end
 
   def draw(holder, klass, **options) = Idea.draw(holder:, klass:, **options)
@@ -15,9 +15,9 @@ class IdeaTest < ActiveSupport::TestCase
     assert drawn.map(&:reload).all? { |i| i.holder == "ada" && i.held_until.future? }
   end
 
-  test "each from a different standard where it can" do
-    3.times { |n| idea("algebra1", n, standard: "A.1") }
-    other = idea("algebra1", 5, standard: "A.2")
+  test "each from a different lesson where it can" do
+    3.times { |n| idea("algebra1", n, source: "Euclid I.1") }
+    other = idea("algebra1", 5, source: "Euclid I.2")
     drawn = draw("ada", "algebra1", count: 2)
     assert_includes drawn, other
   end
@@ -79,15 +79,30 @@ class IdeaTest < ActiveSupport::TestCase
   end
 
   test "ideas that need 3D are never drawn" do
-    Idea.create!(key: "x", standard: "HSG-GMD.B.4", band: "geometry", title: "t", line: "l", needs: [ "3d" ], drawable: false)
+    Idea.create!(key: "x", source: "Euclid XI.1", band: "geometry", title: "t", line: "l", needs: [ "3d" ], drawable: false)
     assert_empty draw("ada", "geometry")
   end
 
-  test "standards with the fewest claimed ideas come first" do
-    taken = idea("middle", 1, standard: "7.G.A.1")
-    idea("middle", 2, standard: "7.G.A.1")
-    fresh = idea("middle", 3, standard: "7.G.B.4")
+  test "lessons with the fewest claimed ideas come first" do
+    taken = idea("middle", 1, source: "Euclid VII.1")
+    idea("middle", 2, source: "Euclid VII.1")
+    fresh = idea("middle", 3, source: "Euclid IX.20")
     Idea.claim(taken.id, holder: "ada")
     assert_equal [ fresh ], draw("bo", "middle", count: 1)
+  end
+
+  test "importing stops handing out ideas that left the file, but keeps who claimed them" do
+    old = idea("geometry", 1)
+    Idea.claim(draw("ada", "geometry").first.id, holder: "ada")
+    path = Rails.root.join("tmp/ideas-test.json")
+    File.write(path, [ { key: "euclid-i-47/squares", source: "Euclid I.47", source_title: "Euclid's Elements: Book I, Proposition 47",
+      source_url: "https://mathcs.clarku.edu/~djoyce/java/elements/bookI/propI47.html", topic: "Book I", band: "geometry",
+      title: "Squares", line: "l", needs: [] } ].to_json)
+    assert_equal 1, Idea.import!(path)
+    assert_not old.reload.drawable
+    assert old.claimed_at
+    assert_equal [ "Euclid's Elements: Book I, Proposition 47" ], draw("bo", "geometry").map(&:source_title)
+  ensure
+    File.delete(path) if path && File.exist?(path)
   end
 end

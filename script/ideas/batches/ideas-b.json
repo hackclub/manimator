@@ -1,1039 +1,517 @@
 [
  {
-  "standard": "6.SP.B.5",
+  "source": "Euclid V.1",
   "band": "middle",
-  "title": "Mean as a balance point",
-  "line": "Seven dots sit on a seesaw number line, and the pivot slides back and forth until it balances exactly at the mean, 6.",
+  "title": "Three bars, tripled two ways",
+  "line": "Three colored bars are each copied three times, then the nine copies shuffle into three identical stacks of all three bars.",
   "needs": []
  },
  {
-  "standard": "6.SP.B.5",
+  "source": "Euclid V.4",
   "band": "middle",
-  "title": "One outlier drags the mean",
-  "line": "A tenth dot flies out to 95, dragging the mean marker far to the right while the median marker barely twitches.",
+  "title": "Two rulers that keep in step",
+  "line": "Ticks at multiples of 3 and 5 on one ruler, and of 6 and 10 on another, interleave in the same order.",
   "needs": []
  },
  {
-  "standard": "6.SP.B.5",
+  "source": "Euclid V.12",
   "band": "middle",
-  "title": "Mean distance, laid end to end",
-  "line": "Each dot drops a segment to the mean, the segments line up end to end, then split evenly into the MAD.",
+  "title": "Same-shape rectangles add up",
+  "line": "Rectangles 2×3, 4×6 and 6×9 snap together corner to corner along one diagonal, making a 12×18 rectangle of the same shape.",
   "needs": []
  },
  {
-  "standard": "6.SP.B.4",
+  "source": "Euclid V.25",
   "band": "middle",
-  "title": "Dot plot becomes a box plot",
-  "line": "Fifteen dots split at the median and quartiles, then a box and whiskers grow around them as the dots fade away.",
+  "title": "The outside pair always wins",
+  "line": "Bars of 9, 6, 6 and 4 are in proportion; laid end to end, 9 plus 4 outruns 6 plus 6.",
   "needs": []
  },
  {
-  "standard": "6.SP.B.4",
-  "band": "middle",
-  "title": "Dots melt into a histogram",
-  "line": "Twenty stacked dots slide into bins of width 5 and fuse into solid bars, turning a dot plot into a histogram.",
+  "source": "Euclid VI.1",
+  "band": "geometry",
+  "title": "Sliding the apex",
+  "line": "A triangle's top corner glides parallel to its base while its area stays frozen, then the base stretches and the area follows.",
   "needs": []
  },
  {
-  "standard": "6.SP.A.3",
-  "band": "middle",
-  "title": "Same mean, different spread",
-  "line": "Two rows of five dots both balance at 10, then one row stretches outward while its mean marker stays frozen.",
+  "source": "Euclid VI.1",
+  "band": "geometry",
+  "title": "Five slices, five equal areas",
+  "line": "A triangle's base is cut into five equal pieces, and the five thin triangles to the apex shear into identical copies.",
   "needs": []
  },
  {
-  "standard": "6.SP.A.3",
-  "band": "middle",
-  "title": "Nine values, one number",
-  "line": "Nine dots slide together and merge into a single dot at their mean, then a bracket grows back out showing their spread.",
+  "source": "Euclid VI.2",
+  "band": "geometry",
+  "title": "The parallel cut",
+  "line": "A line parallel to the base slides up a triangle, and the ratio readouts on the two sides change together, always equal.",
   "needs": []
  },
  {
-  "standard": "6.SP.A.2",
-  "band": "middle",
-  "title": "Dice sums build a hill",
-  "line": "Two dice roll again and again, each sum dropping a dot above 2 through 12, until a triangle-shaped pile peaks at 7.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "6.SP.A.2",
-  "band": "middle",
-  "title": "Dragging out a tail",
-  "line": "A symmetric hill of dots gets pulled one dot at a time to the right until it leans with a long right tail.",
+  "source": "Euclid VI.2",
+  "band": "geometry",
+  "title": "Finding parallel by ratio",
+  "line": "A point is dragged along a triangle's side; the cutting line turns green the moment both sides split in the same ratio.",
   "needs": []
  },
  {
-  "standard": "6.EE.C.9",
-  "band": "middle",
-  "title": "Taxi fare table becomes a line",
-  "line": "Rows of a taxi fare table, 3 dollars plus 2 per mile, fly onto axes as dots until a straight line appears.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "6.EE.C.9",
-  "band": "middle",
-  "title": "Filling tank, climbing graph",
-  "line": "Water fills a tank at 4 liters a minute while a dot climbs beside it, tracing y = 4x as the tank rises.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "6.EE.B.8",
-  "band": "middle",
-  "title": "Every number bigger than 3",
-  "line": "Dots land at 3.5, 4, 10, 3.01 and more, packing tighter until they melt into a solid arrow from an open circle.",
+  "source": "Euclid VI.3",
+  "band": "geometry",
+  "title": "Where the bisector lands",
+  "line": "The angle between sides 6 and 4 is split in half, and the bisector cuts the base into pieces 3 and 2.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.8",
-  "band": "middle",
-  "title": "Open circle or closed",
-  "line": "A point creeps toward 5 under x < 5 and the circle stays hollow, then the sign becomes ≤ and the circle fills in.",
+  "source": "Euclid VI.3",
+  "band": "geometry",
+  "title": "Euclid's trick for the bisector",
+  "line": "One side extends and a parallel line closes an isosceles triangle, turning the bisector question into a plain parallel-line cut.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.7",
-  "band": "middle",
-  "title": "Balance scale algebra",
-  "line": "A mystery box and 3 weights balance 8 weights, 3 come off each side, and the box is left balancing 5.",
+  "source": "Euclid VI.4",
+  "band": "geometry",
+  "title": "Measuring a pyramid with a stick",
+  "line": "A 1 m stick casts a 2 m shadow beside a pyramid's 70 m shadow; the sun triangles match, giving height 35.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.7",
-  "band": "middle",
-  "title": "Tape diagram for 4x = 28",
-  "line": "A 28-unit bar splits into 4 equal pieces, then one piece lifts out and its length counts up to 7.",
+  "source": "Euclid VI.4",
+  "band": "geometry",
+  "title": "Same angles, scaled sides",
+  "line": "A 3-4-5 triangle slides into the corner of a 6-8-10 triangle with matching angles, and every side pair shows ratio 2.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.6",
-  "band": "middle",
-  "title": "x is every number at once",
-  "line": "The letter x flickers through 1, 2, 3, 4 while 3x + 1 beside it updates, one expression covering every case.",
+  "source": "Euclid VI.8",
+  "band": "geometry",
+  "title": "Three triangles, one shape",
+  "line": "An altitude from the right angle splits a 3-4-5 triangle, and both pieces spin and scale until they sit on the whole.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.6",
-  "band": "middle",
-  "title": "Perimeter of any square",
-  "line": "A square grows and shrinks with side s, and its perimeter 4s counts along as a dot traces the border.",
+  "source": "Euclid VI.8",
+  "band": "geometry",
+  "title": "Pythagoras from similar pieces",
+  "line": "The two triangles inside a 3-4-5 triangle have areas in ratio 9 : 16 : 25 with the whole, so they add up.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.5",
-  "band": "middle",
-  "title": "Testing candidates",
-  "line": "Numbers 1 through 6 drop into 2x + 3 = 11, each wrong one bouncing off red until 4 locks in green.",
+  "source": "Euclid VI.9",
+  "band": "geometry",
+  "title": "Cutting a stick in five, no ruler",
+  "line": "Five equal steps go along a slanted ray, the last joins the segment's end, and parallel lines slide over to cut fifths.",
   "needs": []
  },
  {
-  "standard": "6.EE.B.5",
-  "band": "middle",
-  "title": "A trail of true values",
-  "line": "A point slides from 0 to 6 while the inequality glows green then red, leaving a green trail that becomes the solution set.",
+  "source": "Euclid VI.11",
+  "band": "geometry",
+  "title": "A zigzag that multiplies",
+  "line": "Lines bounce between two rays, each parallel to the last, marking lengths 2, 3, 4.5, 6.75 that grow by 1.5 each time.",
   "needs": []
  },
  {
-  "standard": "6.EE.A.4",
-  "band": "middle",
-  "title": "Always the same number",
-  "line": "3(x + 2) and 3x + 6 sit side by side while x spins through 0, 1, 5, and 12, and both outputs always match.",
+  "source": "Euclid VI.12",
+  "band": "geometry",
+  "title": "Multiplying with parallel lines",
+  "line": "1 and 3 on one ray, 2 on the other: sliding the 1-to-2 line over to 3 lands it on 6.",
   "needs": []
  },
  {
-  "standard": "6.EE.A.4",
-  "band": "middle",
-  "title": "Fooled by one value",
-  "line": "2x and x² both give 4 when x is 2, then x slides to 3 and the match breaks apart: 6 versus 9.",
+  "source": "Euclid VI.13",
+  "band": "geometry",
+  "title": "The square root machine",
+  "line": "A semicircle stands on segments 1 and x; as x counts up to 9, the height above the joint reads its square root.",
   "needs": []
  },
  {
-  "standard": "6.EE.A.3",
-  "band": "middle",
-  "title": "Distributing with a rectangle",
-  "line": "A 3 by (x + 2) rectangle splits into a 3x piece and a 6 piece, so 3(x + 2) becomes 3x + 6.",
+  "source": "Euclid VI.13",
+  "band": "geometry",
+  "title": "Never taller than the radius",
+  "line": "A split point slides along a semicircle's diameter; the height above it stays under the radius, touching it only at the middle.",
   "needs": []
  },
  {
-  "standard": "6.EE.A.3",
-  "band": "middle",
-  "title": "Sorting like terms",
-  "line": "Scattered tiles for x + 3 + 2x + 1 slide into two piles, x tiles with x tiles and ones with ones, giving 3x + 4.",
-  "needs": []
- },
- {
-  "standard": "6.EE.A.2",
-  "band": "middle",
-  "title": "Order of operations tree",
-  "line": "2 + 3 × 4² collapses one step at a time as a tree, exponent first, then times, then plus, ending at 50.",
-  "needs": []
- },
- {
-  "standard": "6.EE.A.2",
-  "band": "middle",
-  "title": "Celsius to Fahrenheit machine",
-  "line": "Temperatures 0, 20, and 100 drop into a machine labeled F = 9C/5 + 32 and come out 32, 68, and 212 on a thermometer.",
-  "needs": []
- },
- {
-  "standard": "6.EE.A.1",
-  "band": "middle",
-  "title": "Doubling by folding",
-  "line": "A square splits in half, then every piece splits again, ten times over, while a counter climbs 2, 4, 8 up to 1024.",
-  "needs": []
- },
- {
-  "standard": "6.EE.A.1",
-  "band": "middle",
-  "title": "Three cubed from three squared",
-  "line": "A 3 by 3 grid of dots shows 3², then two more copies slide in beside it to make 3³ = 27 dots.",
-  "needs": []
- },
- {
-  "standard": "6.NS.C.8",
-  "band": "middle",
-  "title": "Counting steps across zero",
-  "line": "A dot walks from (−3, 2) to (4, 2) one step at a time while a counter ticks to 7, which is 3 + 4.",
+  "source": "Euclid VI.14",
+  "band": "geometry",
+  "title": "Rectangles of area 12",
+  "line": "A rectangle squashes from 1×12 through 2×6, 3×4 and 6×2, area fixed, while its corner traces the curve xy = 12.",
   "needs": [
    "graph"
   ]
  },
  {
-  "standard": "6.NS.C.8",
-  "band": "middle",
-  "title": "Rectangle across four quadrants",
-  "line": "Four points, one in each quadrant, connect into a rectangle, and each side length pops out from its coordinates as a brace.",
+  "source": "Euclid VI.16",
+  "band": "geometry",
+  "title": "Cross-multiplying with rectangles",
+  "line": "2/3 and 4/6 swap partners into 2×6 and 3×4 rectangles that match; 2/3 against 3/4 gives 8 against 9.",
+  "needs": []
+ },
+ {
+  "source": "Euclid VI.17",
+  "band": "geometry",
+  "title": "A rectangle that becomes a square",
+  "line": "A 2×8 rectangle is cut in half and the halves stack into a 4×4 square, the middle term between 2 and 8.",
+  "needs": []
+ },
+ {
+  "source": "Euclid VI.18",
+  "band": "geometry",
+  "title": "Rebuilding a pentagon on a new base",
+  "line": "A pentagon fans into three triangles from one corner, and each is copied with the same angles onto a longer base.",
+  "needs": []
+ },
+ {
+  "source": "Euclid VI.19",
+  "band": "geometry",
+  "title": "Double the side, four copies",
+  "line": "A triangle with doubled sides splits into four copies of the original, with tripled sides into nine.",
+  "needs": []
+ },
+ {
+  "source": "Euclid VI.19",
+  "band": "geometry",
+  "title": "The scale slider",
+  "line": "A triangle's scale factor slides from 1 to 3 while side and area readouts climb, and the area values draw a parabola.",
   "needs": [
    "graph"
   ]
  },
  {
-  "standard": "6.NS.C.7",
-  "band": "middle",
-  "title": "Absolute value as distance",
-  "line": "Points at −6 and 4 each stretch a band back to 0, then the bands lie side by side and −6's is longer.",
-  "needs": []
- },
- {
-  "standard": "6.NS.C.7",
-  "band": "middle",
-  "title": "Bigger but less",
-  "line": "10 > 2 on a number line, then both points flip to −10 and −2, swapping order as the inequality sign flips too.",
-  "needs": []
- },
- {
-  "standard": "6.NS.C.6",
-  "band": "middle",
-  "title": "Opposite of the opposite",
-  "line": "A point at 3 flips over 0 to −3, then flips again and lands back on 3 as −(−3) = 3 writes itself.",
-  "needs": []
- },
- {
-  "standard": "6.NS.C.6",
-  "band": "middle",
-  "title": "Signs flip, point reflects",
-  "line": "Point (2, 3) mirrors across the y-axis to (−2, 3), then across the x-axis to (−2, −3), its signs changing as it lands.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "6.NS.C.6",
-  "band": "middle",
-  "title": "Two number lines make a plane",
-  "line": "A number line copies itself, the copy swings up to vertical through 0, and a grid fills in to make the coordinate plane.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "6.NS.C.5",
-  "band": "middle",
-  "title": "Sea level is zero",
-  "line": "A vertical number line becomes the sea: a diver sinks to −20, a gull rises to 15, and 0 is the waterline.",
-  "needs": []
- },
- {
-  "standard": "6.NS.B.4",
-  "band": "middle",
-  "title": "GCF by chopping squares",
-  "line": "A 24 by 36 rectangle chops off the biggest squares it can, until 12 by 12 squares tile the leftover exactly: GCF 12.",
-  "needs": []
- },
- {
-  "standard": "6.NS.B.4",
-  "band": "middle",
-  "title": "Two frogs meet at the LCM",
-  "line": "Two frogs hop along a number line, one by 4s and one by 6s, until both land on the same spot at 12.",
-  "needs": []
- },
- {
-  "standard": "6.NS.B.4",
-  "band": "middle",
-  "title": "Pulling out a common factor",
-  "line": "36 dots and 8 dots each arrange into rows of 4, then join into one block showing 36 + 8 = 4(9 + 2).",
-  "needs": []
- },
- {
-  "standard": "6.NS.B.3",
-  "band": "middle",
-  "title": "Decimal multiplication as area",
-  "line": "A 1.3 by 2.4 rectangle on a grid breaks into ones, tenths, and hundredths pieces that add up to 3.12.",
-  "needs": []
- },
- {
-  "standard": "6.NS.B.2",
-  "band": "middle",
-  "title": "Long division as sharing",
-  "line": "672 blocks get shared among 3 groups: hundreds split first, leftovers break into tens and ones, and each group ends with 224.",
-  "needs": []
- },
- {
-  "standard": "6.NS.A.1",
-  "band": "middle",
-  "title": "How many 3/4s fit in 2",
-  "line": "Copies of a 3/4 bar slide along a 2-unit bar: two fit, and the leftover 1/2 is 2/3 of another, so 2 2/3.",
-  "needs": []
- },
- {
-  "standard": "6.NS.A.1",
-  "band": "middle",
-  "title": "Dividing by 1/3 triples",
-  "line": "A 2-unit bar gets chopped into thirds and the piece count climbs to 6, then into fifths and it climbs to 10.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.3",
-  "band": "middle",
-  "title": "Double number line",
-  "line": "Miles and hours number lines stretch in lockstep, 60 above 1, 120 above 2, as a slider finds 150 above 2.5.",
+  "source": "Euclid VI.20",
+  "band": "geometry",
+  "title": "Every piece grows the same",
+  "line": "A pentagon and its 2× twin split into triangles from one corner, and each small triangle fits four times into its partner.",
   "needs": []
  },
  {
-  "standard": "6.RP.A.3",
-  "band": "middle",
-  "title": "Thirty out of a hundred",
-  "line": "A 10 by 10 grid fills 30 squares, then rearranges onto a row of 50 people and 15 of them light up.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.3",
-  "band": "middle",
-  "title": "Finding the whole from 40%",
-  "line": "A bar worth 12 is marked 40%, splits into four 3s, then six more 3s appear and the whole reads 30.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.2",
-  "band": "middle",
-  "title": "Price of one apple",
-  "line": "A $6 bag of 4 apples splits open into 4 single apples, the price tag splitting with them into four $1.50 tags.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.2",
-  "band": "middle",
-  "title": "Which bag is the better deal",
-  "line": "Bags of 5 for $3 and 8 for $4.40 each shrink down to one item, revealing 60 cents against 55 cents.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.1",
-  "band": "middle",
-  "title": "Three to two, forever",
-  "line": "Three red and two blue squares copy themselves into rows, 6 to 4, then 9 to 6, while the color mix never changes.",
-  "needs": []
- },
- {
-  "standard": "6.RP.A.1",
-  "band": "middle",
-  "title": "Same shade of green",
-  "line": "A cup mixes 2 scoops of blue with 3 of yellow; doubling both keeps the exact green, but one extra blue darkens it.",
-  "needs": []
- },
- {
-  "standard": "6.G.A.4",
-  "band": "middle",
-  "title": "Box net, face by face",
-  "line": "A flat net of six rectangles lights one face at a time, each area counting into a running surface area total.",
+  "source": "Euclid VI.23",
+  "band": "geometry",
+  "title": "Stretch one way, then the other",
+  "line": "A 2×3 rectangle stretches sideways to 4×3, doubling its area, then up to 4×5; the two growth factors multiply.",
   "needs": []
  },
  {
-  "standard": "6.G.A.4",
-  "band": "middle",
-  "title": "Pyramid net petals",
-  "line": "A square base with four triangle flaps: each flap swings out flat, its area adds to the base, and the total counts up.",
-  "needs": []
- },
- {
-  "standard": "6.G.A.3",
-  "band": "middle",
-  "title": "Polygon from coordinates",
-  "line": "Six points drop onto a grid and connect into an L-shaped hexagon, and each side length is read off by subtracting coordinates.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "6.G.A.1",
-  "band": "middle",
-  "title": "Parallelogram into rectangle",
-  "line": "A triangle slices off one end of a parallelogram and slides to the other end, making a rectangle with equal base and height.",
-  "needs": []
- },
- {
-  "standard": "6.G.A.1",
-  "band": "middle",
-  "title": "Triangle is half a parallelogram",
-  "line": "A triangle gets a copy that spins 180 degrees and snaps on, forming a parallelogram exactly twice its area.",
+  "source": "Euclid VI.24",
+  "band": "geometry",
+  "title": "Riding the diagonal",
+  "line": "A point slides along a parallelogram's diagonal, and the two small parallelograms it carves out keep the big one's shape.",
   "needs": []
  },
  {
-  "standard": "6.G.A.1",
-  "band": "middle",
-  "title": "Trapezoid doubled",
-  "line": "A trapezoid with bases 3 and 7 copies itself, flips, and joins to make a parallelogram with base 10, so half of that.",
+  "source": "Euclid VI.25",
+  "band": "geometry",
+  "title": "Same shape, new size",
+  "line": "A star-shaped polygon grows until its area matches a 3×5 rectangle, and the scale factor it needs is a square root.",
   "needs": []
  },
  {
-  "standard": "7.SP.C.8",
-  "band": "middle",
-  "title": "Three coin flips as a tree",
-  "line": "A coin flip branches into H and T three times, and the 3 of 8 leaves with exactly two heads light up.",
+  "source": "Euclid VI.27",
+  "band": "geometry",
+  "title": "The biggest rectangle on a fence",
+  "line": "A rectangle with sides x and 10 minus x slides along a 10-unit base; its area peaks at 25 as a square.",
   "needs": []
  },
  {
-  "standard": "7.SP.C.8",
-  "band": "middle",
-  "title": "Double sixes in 36 cells",
-  "line": "A 6 by 6 grid of dice pairs fills in, then only one corner cell lights up for double sixes: 1 in 36.",
+  "source": "Euclid VI.28",
+  "band": "geometry",
+  "title": "Solving x(10 − x) = 21 by cutting",
+  "line": "A 2×2 square is cut from a 5×5 square's corner, and the L-shaped rest slides into a 3×7 rectangle: x = 3.",
   "needs": []
- },
- {
-  "standard": "7.SP.C.7",
-  "band": "middle",
-  "title": "Spinner versus the tally",
-  "line": "A spinner split 1/2, 1/4, 1/4 spins 40 times while bars of real counts wobble near the predicted heights.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "7.SP.C.7",
-  "band": "middle",
-  "title": "Catching a loaded die",
-  "line": "A die rolls 60 times, bars grow, one face towers over the rest, and the fair 1/6 model gets crossed out.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "7.SP.C.6",
-  "band": "middle",
-  "title": "Coin flips settle down",
-  "line": "A coin flips 500 times while a graph of the fraction of heads swings wildly at first, then settles onto 0.5.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "7.SP.C.6",
-  "band": "middle",
-  "title": "Raindrops estimate pi",
-  "line": "Random dots rain onto a square with a circle inside, and the fraction landing in the circle creeps toward 0.785, which is π/4.",
-  "needs": [
-   "data"
-  ]
  },
  {
-  "standard": "7.SP.C.5",
-  "band": "middle",
-  "title": "From impossible to certain",
-  "line": "Events slide onto a 0 to 1 line: rolling 7 on one die at 0, heads at 1/2, sunrise at 1.",
+  "source": "Euclid VI.29",
+  "band": "geometry",
+  "title": "Completing the square, literally",
+  "line": "A 4-wide strip beside an x by x square splits in half and wraps around; a missing 2×2 piece completes it.",
   "needs": []
  },
  {
-  "standard": "7.SP.C.5",
-  "band": "middle",
-  "title": "Swapping marbles",
-  "line": "Ten marbles swap from red to blue one by one while a pointer on a 0 to 1 line tracks the chance of red.",
+  "source": "Euclid VI.30",
+  "band": "geometry",
+  "title": "Finding the golden cut",
+  "line": "A cut point slides along a segment; readouts for whole-to-big and big-to-small ratios chase each other until both read 1.618.",
   "needs": []
- },
- {
-  "standard": "7.SP.B.4",
-  "band": "middle",
-  "title": "Sun plants versus shade plants",
-  "line": "Two dot plots of plant heights stack up, mean markers drop onto each, and the gap between them reads 5 cm.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "7.SP.B.3",
-  "band": "middle",
-  "title": "Pulling two piles apart",
-  "line": "Two matching dot plots start on top of each other, then one slides right while the gap counts up in MADs: 1, 2, 3.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "7.SP.A.2",
-  "band": "middle",
-  "title": "Sample results pile up",
-  "line": "Twenty random samples of 10 beads are scooped from a jar, and each sample's percent red drops as a dot, piling up near 40%.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "7.SP.A.1",
-  "band": "middle",
-  "title": "A biased scoop",
-  "line": "From a grid of 100 dots, a sample grabbed from one corner shows 90% blue, while a scattered random sample shows the true 60%.",
-  "needs": [
-   "data"
-  ]
  },
  {
-  "standard": "7.EE.B.4",
-  "band": "middle",
-  "title": "Running the machine backward",
-  "line": "x passes through times 3, then plus 5, and comes out 20; the arrows reverse and carry 20 back to 5.",
+  "source": "Euclid VI.30",
+  "band": "geometry",
+  "title": "The golden rectangle spiral",
+  "line": "A square is cut from a golden rectangle, leaving a smaller golden rectangle, again and again, and quarter circles trace a spiral.",
   "needs": []
  },
  {
-  "standard": "7.EE.B.4",
-  "band": "middle",
-  "title": "Dividing by a negative",
-  "line": "Solving −2x > 6, both sides divide by −2, the number line mirrors across 0, and the solution arrow flips to x < −3.",
+  "source": "Euclid VI.30",
+  "band": "geometry",
+  "title": "Euclid's compass recipe",
+  "line": "A square is drawn on the segment, an arc swings from one side's midpoint, and where it lands is the golden cut.",
   "needs": []
  },
  {
-  "standard": "7.EE.A.2",
-  "band": "middle",
-  "title": "A 5% raise is 1.05a",
-  "line": "A bar of length a gets a 5% sliver glued to its end, then the whole bar relabels from a + 0.05a to 1.05a.",
+  "source": "Euclid VI.30",
+  "band": "geometry",
+  "title": "Fibonacci closing in",
+  "line": "Bars of 1, 1, 2, 3, 5, 8, 13 grow, and each bar's ratio to the last bounces around 1.618, closing in.",
   "needs": []
  },
  {
-  "standard": "7.EE.A.1",
-  "band": "middle",
-  "title": "Zero pairs vanish",
-  "line": "Tiles for 2x + 3 and −x − 5 pile together, opposite tiles pair up and vanish with a pop, leaving x − 2.",
+  "source": "Euclid VI.31",
+  "band": "geometry",
+  "title": "Pythagoras with semicircles",
+  "line": "Semicircles on a 3-4-5 triangle's sides fill with colored liquid, and the two small ones pour exactly into the big one.",
   "needs": []
  },
  {
-  "standard": "7.EE.A.1",
-  "band": "middle",
-  "title": "Factoring 6x + 9",
-  "line": "Six x tiles and nine unit tiles regroup into 3 identical rows of 2x + 3, so 6x + 9 becomes 3(2x + 3).",
+  "source": "Euclid VI.31",
+  "band": "geometry",
+  "title": "The triangle is its own proof",
+  "line": "A right triangle splits along its altitude into two similar copies on the legs, which together make the copy on the hypotenuse.",
   "needs": []
  },
  {
-  "standard": "7.NS.A.2",
-  "band": "middle",
-  "title": "Negative times negative",
-  "line": "−3 times 3, 2, 1, 0, −1 gives dots at −9, −6, −3, 0, then 3, climbing by 3 each time, forcing a positive.",
+  "source": "Euclid VI.31",
+  "band": "geometry",
+  "title": "Hippocrates' moons",
+  "line": "The hypotenuse semicircle folds over the triangle, and the two crescents left on the legs have exactly the triangle's area.",
   "needs": []
  },
  {
-  "standard": "7.NS.A.2",
-  "band": "middle",
-  "title": "Why 1/7 repeats",
-  "line": "Long division of 1 by 7 runs on screen, the remainders cycle 3, 2, 6, 4, 5, 1, and the digits 142857 loop forever.",
+  "source": "Euclid VI.33",
+  "band": "geometry",
+  "title": "Peeling the arc off",
+  "line": "A central angle sweeps from 30° to 90°, and the arc it cuts peels off and lays flat, growing in step.",
   "needs": []
  },
  {
-  "standard": "7.NS.A.1",
+  "source": "Euclid VII.1",
   "band": "middle",
-  "title": "Adding as an arrow",
-  "line": "An arrow for −8 snaps onto a number line starting at 5 and ends at −3, then a +8 arrow carries it straight back.",
+  "title": "Subtract until one is left",
+  "line": "Bars of 21 and 8 chop each other down to 5, 3, 2, then 1; a lone unit means no common measure.",
   "needs": []
  },
  {
-  "standard": "7.NS.A.1",
+  "source": "Euclid VII.1",
   "band": "middle",
-  "title": "Subtracting is adding the opposite",
-  "line": "7 − 3 and 7 + (−3) play out as arrows on two number lines side by side and finish at the same spot.",
+  "title": "Squares in a 13 by 8 rectangle",
+  "line": "The biggest possible squares are cut from a 13×8 rectangle: sizes 8, 5, 3, 2, 1, 1, Fibonacci all the way down.",
   "needs": []
  },
  {
-  "standard": "7.NS.A.1",
+  "source": "Euclid VII.2",
   "band": "middle",
-  "title": "Distance is the difference",
-  "line": "Points at −4 and 3 have a brace between them reading 7, and as both points slide around, the brace keeps matching |a − b|.",
+  "title": "The common ruler for 48 and 18",
+  "line": "Bars of 48 and 18 subtract back and forth until 6 is left, then a 6-long ruler hops evenly along both bars.",
   "needs": []
  },
  {
-  "standard": "7.RP.A.3",
+  "source": "Euclid VII.2",
   "band": "middle",
-  "title": "20% off, then 20% on",
-  "line": "A $100 bar shrinks 20% to 80, then grows 20% to 96, falling short because the second 20% is of a smaller bar.",
+  "title": "Tiling with the biggest squares",
+  "line": "An 18×48 rectangle loses two 18×18 squares, then a 12×12, and two 6×6 squares finish it exactly.",
   "needs": []
- },
- {
-  "standard": "7.RP.A.2",
-  "band": "middle",
-  "title": "Straight through the origin",
-  "line": "Points for 3 cups of flour per 2 eggs line up through (0, 0), while points for y = 2x + 1 miss it.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "7.RP.A.2",
-  "band": "middle",
-  "title": "Unit rate at x = 1",
-  "line": "A dot slides along y = 2.5x to x = 1, and a dashed line drops to show the unit rate 2.5 sitting right there.",
-  "needs": [
-   "graph"
-  ]
  },
  {
-  "standard": "7.RP.A.1",
+  "source": "Euclid VII.4",
   "band": "middle",
-  "title": "Half mile, quarter hour",
-  "line": "A walker covers 1/2 mile in 1/4 hour, then the trip copies itself 4 times along the track: 2 miles per hour.",
+  "title": "Chopping 15 to see 6",
+  "line": "Bars of 15 and 6 are both cut into 3-long pieces, showing 6 is two of five pieces, or 2/5 of 15.",
   "needs": []
  },
  {
-  "standard": "7.G.B.6",
+  "source": "Euclid VII.16",
   "band": "middle",
-  "title": "One L-shape, three ways",
-  "line": "An L-shaped floor is cut across, cut down, then seen as a 6 by 5 rectangle minus a corner: 26 every time.",
+  "title": "Turning 3 times 5 sideways",
+  "line": "A 3-by-5 grid of 15 dots rotates a quarter turn into 5 rows of 3, so multiplying order can't matter.",
   "needs": []
  },
  {
-  "standard": "7.G.B.5",
+  "source": "Euclid VII.30",
   "band": "middle",
-  "title": "Vertical angles stay twins",
-  "line": "Two crossing lines turn while the opposite angles of the X show matching readouts, 50 and 50, then 70 and 70.",
+  "title": "Why primes can't be split",
+  "line": "6 divides 4×9 by splitting into 2 and 3 across the factors; prime 5 can't split, so it must divide one whole.",
   "needs": []
  },
  {
-  "standard": "7.G.B.5",
+  "source": "Euclid VII.31",
   "band": "middle",
-  "title": "Sweeping across a straight line",
-  "line": "A ray sweeps across a straight line, one angle growing as the other shrinks, and their sum stays stuck at 180.",
+  "title": "Every number hides a prime",
+  "line": "84 breaks into 2×42, then 2×21, then 3×7; the pieces keep shrinking, so the chain must hit a prime.",
   "needs": []
  },
  {
-  "standard": "7.G.B.4",
+  "source": "Euclid VII.33",
   "band": "middle",
-  "title": "Circle into a rectangle",
-  "line": "A circle cut into 16 wedges rearranges into a near-rectangle of width πr and height r, so the area is πr².",
+  "title": "Shrinking 24 : 36 : 60",
+  "line": "Bars of 24, 36 and 60 are cut into 12-long pieces, and counting pieces gives the smallest version, 2 : 3 : 5.",
   "needs": []
  },
  {
-  "standard": "7.G.B.4",
+  "source": "Euclid VII.34",
   "band": "middle",
-  "title": "Rolling out pi",
-  "line": "A circle with diameter 1 rolls along a number line, its rim leaving a trail that ends just past 3.14.",
+  "title": "Two frogs on a number line",
+  "line": "One frog hops 4 at a time, another hops 6; their landing spots light up, and the first shared spot is 12.",
   "needs": []
  },
  {
-  "standard": "7.G.B.4",
+  "source": "Euclid VII.34",
   "band": "middle",
-  "title": "Peeling rings into a triangle",
-  "line": "A circle's thin rings peel off, straighten into strips, and stack into a triangle with base 2πr and height r.",
+  "title": "Gears coming back around",
+  "line": "Gears with 12 and 18 teeth spin with one marked tooth each, and the marks meet again after 36 teeth pass.",
   "needs": []
  },
  {
-  "standard": "7.G.A.2",
+  "source": "Euclid VII.35",
   "band": "middle",
-  "title": "Sticks that can't close",
-  "line": "Sticks of 3, 4, and 9 swing on hinges but never meet, then the 9 shrinks to 6 and the triangle snaps shut.",
+  "title": "Shared spots come every 12",
+  "line": "Frogs hopping 4 and 6 run on to 60, and every spot both hit is a multiple of 12.",
   "needs": []
  },
  {
-  "standard": "7.G.A.2",
+  "source": "Euclid VII.36",
   "band": "middle",
-  "title": "One swing, two triangles",
-  "line": "A side of length 5 swings from a fixed corner and crosses the base line in two places, giving two different triangles.",
+  "title": "Three blinking lights",
+  "line": "Lights blinking every 3, 4 and 6 seconds flash along a timeline, and all three first fire together at 12.",
   "needs": []
  },
  {
-  "standard": "7.G.A.1",
+  "source": "Euclid VII.39",
   "band": "middle",
-  "title": "Double scale, four times floor",
-  "line": "A 2 by 3 room plan doubles to 4 by 6, and exactly four copies of the original slide in to fill it.",
+  "title": "A chocolate bar for everyone",
+  "line": "The smallest chocolate bar that splits evenly into halves, thirds and quarters builds up square by square: exactly 12 pieces.",
   "needs": []
- },
- {
-  "standard": "8.F.B.5",
-  "band": "middle",
-  "title": "Bike ride as a graph",
-  "line": "A rider goes out, stops, and comes home while a distance graph draws beside it: steep when fast, flat when stopped, falling back.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.B.5",
-  "band": "middle",
-  "title": "Filling a flask",
-  "line": "Water fills a flask with a narrow neck, and the height graph bends upward as the level speeds up in the neck.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.B.4",
-  "band": "middle",
-  "title": "Two points make a line",
-  "line": "Points (2, 7) and (5, 13) get a rise-over-run staircase of slope 2, then the line extends back to hit the y-axis at 3.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.B.4",
-  "band": "middle",
-  "title": "Burning candle",
-  "line": "A 12 cm candle shrinks 1.5 cm each hour beside a graph whose line starts at 12 and hits zero at hour 8.",
-  "needs": [
-   "graph"
-  ]
  },
  {
-  "standard": "8.F.A.3",
-  "band": "middle",
-  "title": "Equal steps or growing steps",
-  "line": "y = 2x and y = x² plot together, and equal steps right give equal climbs for one and bigger climbs for the other.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.A.3",
-  "band": "middle",
-  "title": "Dialing m and b",
-  "line": "In y = mx + b, dialing m from −2 to 3 tilts the line, then dialing b slides it up and down without turning.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.A.2",
-  "band": "middle",
-  "title": "A table races a graph",
-  "line": "Runner A is a table and runner B is a graphed line; both race on a track and B overtakes at second 4.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.F.A.1",
-  "band": "middle",
-  "title": "One input, one output",
-  "line": "Inputs drop into a machine and each pops out one output, then a broken machine spits two outputs for one input and turns red.",
+  "source": "Euclid VIII.6",
+  "band": "algebra2",
+  "title": "A chain where nothing divides",
+  "line": "In 16, 24, 36, 54, 81 each step multiplies by 3/2, and every try at dividing one term by another fails.",
   "needs": []
- },
- {
-  "standard": "8.F.A.1",
-  "band": "middle",
-  "title": "The vertical line test",
-  "line": "A vertical line sweeps across a parabola touching it once each time, then across a sideways parabola where it hits twice.",
-  "needs": [
-   "graph"
-  ]
  },
  {
-  "standard": "8.SP.A.4",
-  "band": "middle",
-  "title": "Two-way table in percents",
-  "line": "A table of 100 students by pet and phone fills in, then each row converts to percents and the rows clearly differ.",
-  "needs": [
-   "data"
-  ]
- },
- {
-  "standard": "8.SP.A.3",
-  "band": "middle",
-  "title": "Reading the trend line",
-  "line": "Plant heights by week get the line y = 2x + 3, a slider at week 7 reads 17 cm, and the 3 means starting height.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "8.SP.A.2",
-  "band": "middle",
-  "title": "Spin the line to fit",
-  "line": "A line rotates through a scatter plot while vertical gaps to each point stretch and shrink, and a total-gap counter bottoms out.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "8.SP.A.1",
-  "band": "middle",
-  "title": "Scatter plots that change shape",
-  "line": "A cloud of points morphs from rising, to falling, to no pattern, to a curve, with a label appearing for each shape.",
-  "needs": [
-   "data",
-   "graph"
-  ]
- },
- {
-  "standard": "8.EE.C.8",
-  "band": "middle",
-  "title": "Where two lines cross",
-  "line": "Lines y = 2x + 1 and y = −x + 7 draw on axes, a dot rides each one, and the two dots meet at (2, 5).",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.EE.C.8",
-  "band": "middle",
-  "title": "Parallel, then the same line",
-  "line": "Two lines with slope 3 never meet, then one slides its intercept until it merges with the other, giving infinitely many solutions.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.EE.C.7",
-  "band": "middle",
-  "title": "Three ways an equation ends",
-  "line": "Three equations simplify side by side and land on x = 4, then 5 = 5, then 3 = 7, each ending glowing a different color.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "8.EE.C.7",
-  "band": "middle",
-  "title": "Expand, collect, solve",
-  "line": "3(x + 2) = x + 14 expands, x terms slide left and numbers slide right, until it shrinks to x = 4.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "8.EE.B.6",
-  "band": "middle",
-  "title": "Slope triangles anywhere",
-  "line": "A rise-run triangle slides along y = 2x + 1, stretching as it goes but staying similar, so rise over run always reads 2.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.EE.B.5",
-  "band": "middle",
-  "title": "Slope is the price per pound",
-  "line": "On the graph of $4 per pound, a step of 1 right and 4 up repeats into a staircase hugging the line.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.EE.A.4",
-  "band": "middle",
-  "title": "Multiplying in scientific notation",
-  "line": "(3 × 10⁴)(2 × 10⁵) splits apart, the 3 and 2 multiply, the exponents add, and 6 × 10⁹ assembles.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "8.EE.A.3",
-  "band": "middle",
-  "title": "Powers of ten zoom out",
-  "line": "A number line zooms out tenfold each step, from 1 to 10 to 100 all the way to 10⁹, as the exponent ticks up.",
+  "source": "Euclid VIII.11",
+  "band": "algebra2",
+  "title": "The rectangle between two squares",
+  "line": "A 2×2 square stretches one side into a 2×3 rectangle, then the other into 3×3: 4, 6, 9, each times 3/2.",
   "needs": []
  },
  {
-  "standard": "8.EE.A.3",
-  "band": "middle",
-  "title": "Building a million dots",
-  "line": "A 10 by 10 grid of dots shrinks into one dot of a new 10 by 10 grid, three times over, reaching a million.",
+  "source": "Euclid VIII.12",
+  "band": "algebra2",
+  "title": "Swapping factors from 8 to 27",
+  "line": "Chips reading 2·2·2 swap a 2 for a 3 one at a time, giving 8, 12, 18, 27, each step times 3/2.",
   "needs": []
  },
  {
-  "standard": "8.EE.A.2",
-  "band": "middle",
-  "title": "Square roots as sides",
-  "line": "Squares of area 1, 4, 9, 16 line up by side length, then a square of area 2 squeezes in between 1 and 2.",
+  "source": "Euclid VIII.14",
+  "band": "algebra2",
+  "title": "Tiling a square with squares",
+  "line": "A 6×6 grid tiles perfectly with 2×2 squares because 2 divides 6, but 4×4 tiles leave gaps.",
   "needs": []
  },
  {
-  "standard": "8.EE.A.2",
-  "band": "middle",
-  "title": "Swinging the diagonal down",
-  "line": "The diagonal of a unit square swings down onto a number line like a compass arm and lands at 1.414.",
+  "source": "Euclid VIII.18",
+  "band": "algebra2",
+  "title": "Two rectangles of the same shape",
+  "line": "Dot rectangles 2×6 and 3×9 share a shape, and the 3×6 rectangle of 18 dots sits between them: 12, 18, 27.",
   "needs": []
- },
- {
-  "standard": "8.EE.A.1",
-  "band": "middle",
-  "title": "Exponents add by counting",
-  "line": "2³ × 2⁴ unpacks into three 2s and four 2s, the times sign dissolves, and seven 2s regroup into 2⁷.",
-  "needs": [
-   "latex"
-  ]
- },
- {
-  "standard": "8.EE.A.1",
-  "band": "middle",
-  "title": "Why 2⁰ is 1",
-  "line": "A column of 16, 8, 4, 2 halves at each step down, so 2⁰ lands on 1 and 2⁻¹ lands on 1/2.",
-  "needs": [
-   "latex"
-  ]
  },
  {
-  "standard": "8.NS.A.2",
+  "source": "Euclid IX.8",
   "band": "middle",
-  "title": "Closing in on √2",
-  "line": "A zoom box narrows from 1.4 to 1.5, then 1.41 to 1.42, trapping √2 one digit at a time on a number line.",
+  "title": "Squares and cubes among the doublings",
+  "line": "1, 2, 4, 8, 16, 32, 64 light up: every second is a square, every third a cube, and 64 is both.",
   "needs": []
  },
  {
-  "standard": "8.NS.A.2",
+  "source": "Euclid IX.13",
   "band": "middle",
-  "title": "Ordering π, 3.15, and √10",
-  "line": "π, 3.15, and √10 drop onto a number line near 3, and a zoom reveals the order: π, then 3.15, then √10.",
+  "title": "The only divisors of 32",
+  "line": "Every number from 1 to 32 tries to divide 32, failures fade, and only 1, 2, 4, 8, 16, 32 survive.",
   "needs": []
- },
- {
-  "standard": "8.NS.A.1",
-  "band": "middle",
-  "title": "0.2727... becomes 3/11",
-  "line": "x = 0.272727... copies itself as 100x, the endless tails line up and cancel, leaving 99x = 27, so x = 3/11.",
-  "needs": [
-   "latex"
-  ]
  },
  {
-  "standard": "8.G.C.9",
+  "source": "Euclid IX.14",
   "band": "middle",
-  "title": "Three cones fill a cylinder",
-  "line": "Side views of a cone and cylinder with the same base and height: the cone pours three times and the cylinder fills exactly.",
+  "title": "Two trees, same leaves",
+  "line": "360 is factored two different ways with factor trees, and both sets of leaves sort into 2, 2, 2, 3, 3, 5.",
   "needs": []
- },
- {
-  "standard": "8.G.B.8",
-  "band": "middle",
-  "title": "Distance by a hidden triangle",
-  "line": "Points (1, 2) and (7, 10) sprout a right triangle with legs 6 and 8, and the hypotenuse measures 10.",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.G.B.8",
-  "band": "middle",
-  "title": "Every point 5 away",
-  "line": "A point sweeps around the origin at distance 5, and each time it hits a grid point like (3, 4) a right triangle flashes.",
-  "needs": [
-   "graph"
-  ]
  },
  {
-  "standard": "8.G.B.7",
+  "source": "Euclid IX.20",
   "band": "middle",
-  "title": "Sliding ladder",
-  "line": "A 13-foot ladder slides down a wall, and when its foot is 5 feet out, a right triangle shows the top at 12 feet.",
+  "title": "Always one left over",
+  "line": "2×3×5 + 1 = 31 is measured with rulers of 2, 3 and 5, and each one ends exactly one unit short.",
   "needs": []
  },
  {
-  "standard": "8.G.B.6",
+  "source": "Euclid IX.20",
   "band": "middle",
-  "title": "Pythagoras by rearranging",
-  "line": "Four copies of a right triangle sit inside a big square, then slide around so the empty space changes from c² into a² + b².",
+  "title": "The 30031 surprise",
+  "line": "2×3×5×7×11×13 + 1 = 30031 isn't prime, but it splits into 59 × 509, two primes missing from the list.",
   "needs": []
  },
  {
-  "standard": "8.G.B.6",
+  "source": "Euclid IX.20",
   "band": "middle",
-  "title": "Tiles refill the big square",
-  "line": "Squares on legs 3 and 4 break into unit tiles that fly over and exactly refill the 5 by 5 square on the hypotenuse.",
+  "title": "A machine that makes new primes",
+  "line": "Multiply the primes so far, add 1, keep its smallest prime factor, repeat: 2, 3, 7, 43, 13, 53 appear.",
   "needs": []
  },
  {
-  "standard": "8.G.B.6",
+  "source": "Euclid IX.22",
   "band": "middle",
-  "title": "The converse on a hinge",
-  "line": "Sticks of 3 and 4 hinged together open until the gap between their ends is exactly 5, and the angle reads 90 degrees.",
+  "title": "Odd numbers pair up",
+  "line": "Odd numbers drawn as dot pairs plus one loose dot merge, and with an even count the loose dots pair off perfectly.",
   "needs": []
  },
  {
-  "standard": "8.G.A.5",
+  "source": "Euclid IX.29",
   "band": "middle",
-  "title": "Torn corners make a line",
-  "line": "A triangle's three corners tear off and slide together along a line, fitting exactly into a straight 180 degree angle.",
+  "title": "Odd times odd leaves a dot",
+  "line": "Dominoes tile a 5×7 grid of dots row by row, and however they shift, one dot stays uncovered.",
   "needs": []
  },
  {
-  "standard": "8.G.A.5",
+  "source": "Euclid IX.32",
   "band": "middle",
-  "title": "Sliding transversal",
-  "line": "A transversal crosses two parallel lines and tilts back and forth, and its eight angles only ever show two values that add to 180.",
+  "title": "The halving machine",
+  "line": "64 is halved over and over, 32, 16, 8, 4, 2, 1, never hitting an odd number, while 24 stalls at 3.",
   "needs": []
  },
  {
-  "standard": "8.G.A.5",
+  "source": "Euclid IX.35",
   "band": "middle",
-  "title": "Exterior angle filled",
-  "line": "One side of a triangle extends past a corner, and the two far angles slide over to exactly fill the outside angle.",
+  "title": "Sum of 1, 3, 9, 27",
+  "line": "Bars 1, 3, 9 and 27 stack beside the next bar, 81; cut 1 off it and the rest splits into two 40s.",
   "needs": []
  },
  {
-  "standard": "8.G.A.5",
+  "source": "Euclid IX.35",
   "band": "middle",
-  "title": "Two angles are enough",
-  "line": "Two triangles with angles 30 and 70 start at different sizes, and one dilates until it lands exactly on the other.",
+  "title": "Halves filling a square",
+  "line": "A square fills with 1/2, 1/4, 1/8, 1/16, and the empty corner always equals the last piece added.",
   "needs": []
  },
  {
-  "standard": "8.G.A.4",
+  "source": "Euclid IX.36",
   "band": "middle",
-  "title": "Dilate, turn, land",
-  "line": "A small triangle dilates by 2 from a center point, turns 90 degrees, and slides to land exactly on a larger triangle.",
+  "title": "28 is perfect",
+  "line": "1+2+4 = 7 is prime, so 4×7 = 28, and its divisor bars 1, 2, 4, 7, 14 stack to exactly 28.",
   "needs": []
- },
- {
-  "standard": "8.G.A.3",
-  "band": "middle",
-  "title": "Moves with live coordinates",
-  "line": "A triangle on a grid reflects, rotates, and dilates while its corner coordinates update live: (x, y) to (−x, y) to (2x, 2y).",
-  "needs": [
-   "graph"
-  ]
- },
- {
-  "standard": "8.G.A.3",
-  "band": "middle",
-  "title": "Rotating swaps coordinates",
-  "line": "Point (3, 1) rotates 90 degrees around the origin to (−1, 3), and a triangle traced through it turns along with it.",
-  "needs": [
-   "graph"
-  ]
  },
  {
-  "standard": "8.G.A.2",
+  "source": "Euclid IX.36",
   "band": "middle",
-  "title": "Snapping one shape onto another",
-  "line": "Two matching arrow shapes sit on a plane, and the first slides, turns 120 degrees, then flips to snap exactly onto the second.",
+  "title": "Hunting perfect numbers",
+  "line": "Doubling sums 3, 7, 15, 31, 63, 127 are tested; each prime makes 6, 28, 496, 8128, while 15 and 63 fail.",
   "needs": []
  },
  {
-  "standard": "8.G.A.1",
+  "source": "Euclid IX.36",
   "band": "middle",
-  "title": "Rotations keep everything",
-  "line": "Two parallel segments rotate around a point, and live readouts show their lengths and the angle between them never change.",
+  "title": "Two rows of divisors",
+  "line": "Divisors of 496 line up in two rows, 1 to 16 and 31 to 248, summing to 31 and 465: 496 exactly.",
   "needs": []
  }
 ]

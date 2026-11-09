@@ -1,13 +1,13 @@
-"""Builds db/seeds/ideas.json from batches of ideas written against script/ideas/standards.json.
+"""Builds db/seeds/ideas.json from batches of ideas written against script/ideas/sources.json.
 
     python3 script/ideas/build.py ideas-a.json ideas-b.json ...
 
-Each batch was written by an LLM following script/ideas/brief.md, one per band of standards. This merges them, adds
-each standard's topic, gives every idea a stable key, and drops near-duplicates: TF-IDF cosine similarity between
-titles plus lines, over SIMILAR. Good enough at this size; swap in embeddings if the pool grows a lot.
+Each batch was written by an LLM following script/ideas/brief.md, one per few books or sections. This merges them,
+adds each lesson's topic, title and link, gives every idea a stable key, and drops near-duplicates: TF-IDF cosine
+similarity between titles plus lines, over SIMILAR. Good enough at this size; swap in embeddings if the pool grows a lot.
 
-standards.json is the Common Core math standards (grades 3-8 and high school) from the Common Standards Project
-(commonstandardsproject.com, CC BY 3.0 US), with each standard put in the band of the class that usually covers it.
+sources.json is every proposition in Euclid's Elements (David Joyce's edition) and every lesson on Purplemath, each
+in the band of the class that usually covers it; script/ideas/sources.py builds it.
 """
 import json, math, re, sys, collections, pathlib
 
@@ -25,16 +25,17 @@ def slug(text):
 
 
 def main(paths):
-    standards = {s["code"]: s for s in json.load(open(ROOT / "script/ideas/standards.json"))}
+    sources = {s["code"]: s for s in json.load(open(ROOT / "script/ideas/sources.json"))}
     ideas, problems = [], []
     for path in paths:
         for idea in json.load(open(path)):
-            s = standards.get(idea.get("standard"))
+            s = sources.get(idea.get("source"))
             if not s or not idea.get("title") or not idea.get("line"):
-                problems.append(f"skipped (unknown standard or empty): {idea}")
+                problems.append(f"skipped (unknown lesson or empty): {idea}")
                 continue
             ideas.append({
-                "key": f"{s['code']}/{slug(idea['title'])}", "standard": s["code"], "topic": s["domain"],
+                "key": f"{slug(s['code'])}/{slug(idea['title'])}", "source": s["code"],
+                "source_title": f"{s['source']}: {s['title']}", "source_url": s["url"], "topic": s["topic"],
                 "band": s["band"], "title": idea["title"].strip(), "line": idea["line"].strip(),
                 "needs": sorted(set(idea.get("needs") or [])),
             })
@@ -71,7 +72,7 @@ def main(paths):
     print(collections.Counter(i["band"] for i in out))
     print("needs:", collections.Counter(n for i in out for n in i["needs"]))
     for a, b in dropped:
-        print(f"  dropped {a['standard']} {a['title']!r}  ~  {b['standard']} {b['title']!r}")
+        print(f"  dropped {a['source']} {a['title']!r}  ~  {b['source']} {b['title']!r}")
     for p in problems:
         print("  " + p)
 

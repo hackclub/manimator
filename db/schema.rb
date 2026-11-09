@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_09_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "ideas", force: :cascade do |t|
     t.string "key", null: false
-    t.string "standard", null: false
+    t.string "source", null: false
     t.string "topic"
     t.string "band", null: false
     t.string "title", null: false
@@ -28,6 +28,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_130000) do
     t.datetime "claimed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source_title"
+    t.string "source_url"
     t.index ["band", "claimed_at"], name: "index_ideas_on_band_and_claimed_at"
     t.index ["holder"], name: "index_ideas_on_holder"
     t.index ["key"], name: "index_ideas_on_key", unique: true
