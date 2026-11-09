@@ -25,6 +25,11 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 
+# Sign-in with Hack Club Auth (OpenID Connect)
+gem "omniauth", "~> 2.1"
+gem "omniauth-rails_csrf_protection", "~> 2.0"
+gem "omniauth_openid_connect", "~> 0.8"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

@@ -5,10 +5,21 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  private
+  helper_method :current_user, :signed_in?
 
-  # Whoever this is, until there are accounts: a random id kept in a cookie.
-  def visitor_id
-    cookies.permanent.signed[:visitor_id] ||= SecureRandom.uuid
-  end
+  private
+    def current_user
+      return @current_user if defined?(@current_user)
+      @current_user = User.find_by(id: session[:user_id])
+    end
+
+    def signed_in?
+      current_user.present?
+    end
+
+    # Whoever this is before they sign in: a random id kept in a cookie. Signing in takes along what's kept under it
+    # (User#adopt!).
+    def visitor_id
+      cookies.permanent.signed[:visitor_id] ||= SecureRandom.uuid
+    end
 end

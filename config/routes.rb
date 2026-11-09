@@ -19,4 +19,9 @@ Rails.application.routes.draw do
     post :claim, on: :member
   end
   resource :editor, only: :show
+
+  # Hack Club Auth. Signing in is a POST to /auth/hackclub (OmniAuth's middleware), which comes back here.
+  get "auth/:provider/callback" => "sessions#create", as: :auth_callback
+  get "auth/failure" => "sessions#failure", as: :auth_failure
+  delete "logout" => "sessions#destroy", as: :logout
 end

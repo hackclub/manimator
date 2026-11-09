@@ -18,6 +18,7 @@ class Pledge < ApplicationRecord
   HOURS_PER_VIDEO = 3
 
   belongs_to :idea_record, class_name: "Idea", optional: true
+  belongs_to :user, optional: true
 
   validates :visitor_id, :idea, :signed_at, presence: true
   validates :for_whom, inclusion: { in: FOR.keys }, allow_nil: true

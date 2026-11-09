@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_05_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_09_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,7 +48,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_130000) do
     t.datetime "signed_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["idea_record_id"], name: "index_pledges_on_idea_record_id"
+    t.index ["user_id"], name: "index_pledges_on_user_id"
     t.index ["visitor_id"], name: "index_pledges_on_visitor_id"
   end
 
@@ -213,7 +215,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_130000) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "hca_id", null: false
+    t.string "email"
+    t.string "name"
+    t.string "first_name"
+    t.string "slack_id"
+    t.string "verification_status"
+    t.boolean "ysws_eligible", default: false, null: false
+    t.string "timezone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hca_id"], name: "index_users_on_hca_id", unique: true
+  end
+
   add_foreign_key "pledges", "ideas", column: "idea_record_id"
+  add_foreign_key "pledges", "users"
   add_foreign_key "solid_queue_batch_executions", "solid_queue_batches", column: "batch_id", on_delete: :cascade
   add_foreign_key "solid_queue_batch_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

@@ -19,6 +19,9 @@
     <div class="app__spacer"></div>
     <div class="app__streak wide-only"><span class="app__week"><%= week_dots "app__day" %></span><span><%= p[:streak] %>-day streak</span></div>
     <div class="app__total wide-only"><span><%= p[:total] %></span><span class="c-faint">total</span></div>
+    <% unless signed_in? %>
+      <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-sm", form: { class: "app__sign-in", data: { turbo: false } } %>
+    <% end %>
     <button class="app__ship" title="Shipping opens soon">Ship →</button>
   </header>
 
@@ -31,7 +34,13 @@
         </button>
       <% end %>
       <div class="app__spacer"></div>
-      <%= avatar p[:me][:initial], p[:me][:color] %>
+      <% if signed_in? %>
+        <%= button_to logout_path, method: :delete, class: "app__me", title: "Signed in as #{current_user.display_name}. Sign out", form: { class: "app__me-form", data: { turbo: false } } do %>
+          <%= avatar current_user.initial, current_user.avatar_color %>
+        <% end %>
+      <% else %>
+        <%= avatar "?", "muted" %>
+      <% end %>
     </nav>
 
     <section class="app__left">
