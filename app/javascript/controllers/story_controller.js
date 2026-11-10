@@ -621,6 +621,8 @@ export default class extends Controller {
   // Σ and the board: the one prize you're working toward. ∫ draws the area under your curve on the stage, split into
   // videos, with the prizes standing on the video lines they take. Hovering a prize fills the area up to it; picking
   // one replays it a video at a time, then pours it into the prize and empties, since your next prize starts over.
+  // The postcard is the one thing on top: it's made an hour into video 1 and mailed with whatever you pick, so a
+  // small card stands at that hour and every fill passes it. ∫ says so before you pick, never after.
   async askPrize() {
     this.step("prize")
     if (!this.actors.sig) {
@@ -642,9 +644,9 @@ export default class extends Controller {
     for (;;) {
       const all = this.curve.all
       shown = this.prizesValue.filter(p => all || p.featured || p.id === this.answers.prize)
-      const choices = shown.map(p => ({ label: p.name, sub: videos(p.videos), image: p.image, value: p.id }))
+      const choices = shown.map(p => ({ label: p.name, sub: p.with_every_prize ? `on its own, ${videos(p.videos)}` : videos(p.videos), image: p.image, value: p.id }))
       if (!all) choices.push({ label: `${rest.length} more`, sub: "shirts, a mug, a tie…", peek: rest.slice(0, 3).map(p => p.image), value: MORE })
-      prizeId = await this.say("int", all ? "The whole shelf. Pick the one you want." : "Every video you ship fills in a piece of this. Bigger prizes take more videos. Pick the one you're working toward.",
+      prizeId = await this.say("int", all ? "The whole shelf. Pick the one you want." : "Every video you ship fills in a piece of this. One hour in, we make a postcard of your frame, and it's mailed free with whatever prize you earn. Pick the one prize you're working toward.",
         { choices, back: true })
       if (prizeId !== MORE) break
       this.curve.all = true
@@ -654,11 +656,11 @@ export default class extends Controller {
     if (prizeId === BACK) { this.showCurve = false; this.want = { field: 1, epi: 0 }; return BACK }
     this.answers.prize = prizeId
     const prize = this.prizesValue.find(p => p.id === prizeId)
-    Object.assign(this.curve, { focus: prizeId, pickedAt: this.clock, shipped: 0, popped: false, drainAt: undefined })
+    Object.assign(this.curve, { focus: prizeId, pickedAt: this.clock, shipped: 0, popped: false, cardAt: undefined, drainAt: undefined })
     this.scene.fill = 0
     const by = shortDate(this.shipBy(prize.videos * this.hoursValue))
-    await this.say("int", prize.videos === 1 ? `A postcard of your video's last frame. Ship it by ${by} and it's in the mail.`
-      : `The ${prize.name}: ${prize.videos} videos, so ${by} at your pace. Your hours go to this one, and your next prize starts from zero.`,
+    await this.say("int", prize.with_every_prize ? `Just the postcard, then. It's made one hour in, and on its own it's your prize for one video. Ship by ${by} and it's in the mail.`
+      : `The ${prize.name}: ${videos(prize.videos)}, so ${by} at your pace. Your postcard is mailed with it, free. Your hours go to this one, and your next prize starts from zero.`,
       { until: this.clock + prize.videos * REPLAY_VIDEO + 1 })
     this.curve.drainAt = this.clock
     await this.pause(900)
@@ -673,7 +675,7 @@ export default class extends Controller {
   async askSign() {
     this.step("sign")
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
-    const reward = prize.videos === 1 ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}.`
+    const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
     if (await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign", back: true }) === BACK) return BACK
     if (await this.sign()) return
@@ -1097,6 +1099,8 @@ export default class extends Controller {
     if (c.pickedAt === undefined) return prize.videos * hpv
     const v = Math.min(prize.videos, (this.clock - c.pickedAt) / REPLAY_VIDEO), done = Math.floor(v + 1e-6)
     if (done > c.shipped) { c.shipped = done; sfx.tick(Math.min(done, 7)) }
+    const card = this.postcard()
+    if (card && c.cardAt === undefined && v * hpv >= card.made_at_hours) { c.cardAt = this.clock; this.burst(...this.cardSpot(card), 14) }
     if (done >= prize.videos && !c.popped) { c.popped = true; c.popAt = this.clock; this.burst(...this.pinAt(prize), 50); sfx.land() }
     return (Math.floor(v) + smooth(v % 1)) * hpv
   }
@@ -1106,6 +1110,13 @@ export default class extends Controller {
     const hpv = this.hoursValue, most = Math.max(...this.prizesValue.map(p => p.videos)), H = most * hpv
     const x0 = -5.6, x1 = 5.6, base = -.15
     return { hpv, most, base, x0, x1, X: h => x0 + (x1 - x0) * h / H, Y: h => base + .95 + .3 * Math.sin(h / H * 8.5 + .6) }
+  }
+
+  // The postcard, and where its small card stands: just above the curve, at the hour it's made.
+  postcard() { return this.prizesValue.find(p => p.with_every_prize) }
+  cardSpot(card) {
+    const { X, Y } = this.curveFrame()
+    return [X(card.made_at_hours), Y(card.made_at_hours) + .34]
   }
 
   // The prizes standing on the curve: the featured ones, plus whichever you're looking at or picked. The whole shelf
@@ -1161,6 +1172,28 @@ export default class extends Controller {
     ctx.beginPath()
     for (let h = 0; h <= H * grow; h += H / 240) { const [PX, PY] = this.px(X(h), Y(h)); h ? ctx.lineTo(PX, PY) : ctx.moveTo(PX, PY) }
     ctx.stroke()
+
+    // The postcard's hour, inside video 1: a small card on a stem, lit once the fill has passed it. It stays lit when
+    // the area empties, since the postcard is yours whatever comes next.
+    const card = this.postcard()
+    if (card) {
+      const made = card.made_at_hours, got = c.cardAt !== undefined || (c.pickedAt === undefined && fill >= made)
+      const [CX, CY] = this.px(...this.cardSpot(card)), [, SY] = this.px(0, Y(made)), img = this.prizeImages[card.id]
+      const pop = c.cardAt !== undefined ? 1 + .3 * Math.exp(-(this.clock - c.cardAt) * 5) * Math.sin((this.clock - c.cardAt) * 18) : 1
+      const w = .34 * s * pop * grow, h = w * .68
+      ctx.globalAlpha = alpha * grow * (got ? 1 : .5)
+      ctx.strokeStyle = got ? "#F4D345" : "#4b5058"; ctx.lineWidth = 1.5
+      ctx.beginPath(); ctx.moveTo(CX, SY); ctx.lineTo(CX, CY + h / 2); ctx.stroke()
+      ctx.save(); ctx.translate(CX, CY); ctx.rotate(-.1)
+      ctx.fillStyle = "#f3efe4"; ctx.fillRect(-w / 2, -h / 2, w, h)
+      if (img?.complete && img.naturalWidth) ctx.drawImage(img, -w / 2, -h / 2, w, h)
+      ctx.strokeRect(-w / 2, -h / 2, w, h)
+      ctx.restore()
+      ctx.font = `${.15 * s}px ${this.mono}`; ctx.textAlign = "center"; ctx.textBaseline = "bottom"
+      ctx.fillStyle = got ? "#F4D345" : "#a9aeb5"
+      ctx.fillText(made === 1 ? "1 hour" : `${made} hours`, CX, CY - h / 2 - .08 * s)
+      ctx.globalAlpha = alpha
+    }
 
     // The prizes, standing on their video lines. The one you're looking at is big; the rest wait.
     const shown = this.onStage()
