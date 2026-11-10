@@ -643,7 +643,7 @@ export default class extends Controller {
       const how = await this.say("pi", "That's Manimator: write a little, and math moves. Your turn! What do you wish someone could finally see?",
         { pose: "happy", choices: [{ label: "Surprise me", value: "draw" }, { label: "I have an idea", value: "own" }] })
       if (how === "own") {
-        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "how attention works in transformers", button: "That one" }, back: true })
+        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
         if (idea !== BACK) return { idea, ideaId: null }
         continue
       }
@@ -662,7 +662,7 @@ export default class extends Controller {
     for (;;) {
       const ideas = await this.drawIdeas(klass, seen)
       if (!ideas.length) {
-        const idea = await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "how attention works in transformers", button: "That one" }, back: true })
+        const idea = await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
         return idea === BACK ? BACK : { idea, ideaId: null }
       }
       seen = [...seen, ...ideas.map(i => i.id)]
