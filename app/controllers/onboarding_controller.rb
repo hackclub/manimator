@@ -1,7 +1,7 @@
 class OnboardingController < ApplicationController
-  # ?story shows the story version of onboarding (a demo): π and friends walk you through it while the editor
-  # assembles itself around you. It saves the same Pledge.
+  # Onboarding is a story: π and its friends walk you through it while the editor assembles itself around you, and
+  # signing keeps a Pledge. ?pledge still shows the older one-page pledge, to compare against.
   def show
-    render params.key?(:story) ? :story : :pledge
+    render params.key?(:pledge) ? :pledge : :story
   end
 end

@@ -3,7 +3,7 @@ import { capture } from "analytics"
 import { audio } from "audio"
 import { sfx } from "sfx"
 
-// Onboarding as a story (onboarding/story.html.erb, a demo). π drops into a vector field, and as the story goes on you
+// Onboarding (/start, onboarding/story.html.erb), as a story. π drops into a vector field, and as the story goes on you
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
 // buddy, Σ the board. The editor assembles itself around you as they arrive: the stage gets a frame, the code pane slides
 // in, then the timeline, the rail of friends and the top bar. The questions are theirs to ask, as dialogue choices; at
