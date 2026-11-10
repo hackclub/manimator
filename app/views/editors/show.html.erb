@@ -9,7 +9,7 @@
 
 <%# ?view= opens on a tool (the story onboarding hands over to code), so the first paint is already right. %>
 <% view_now = params[:view].presence_in(%w[home code buddy board examples]) || "home" %>
-<div class="app" data-controller="shell editor coach" data-view="<%= view_now %>" data-coach-poses-value="<%= pi_pose_urls %>"
+<div class="app" data-controller="shell editor coach heartbeat" data-heartbeat-url-value="<%= heartbeat_path %>" data-view="<%= view_now %>"data-coach-poses-value="<%= pi_pose_urls %>"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
      data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
      data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
