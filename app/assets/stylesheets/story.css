@@ -81,6 +81,14 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__clip--blue { color: var(--blue); background: color-mix(in srgb, var(--blue) 20%, transparent); border-color: color-mix(in srgb, var(--blue) 50%, transparent); }
 .story__clip--teal { color: var(--teal); background: color-mix(in srgb, var(--teal) 20%, transparent); border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
 .story__head { position: absolute; top: -6px; bottom: -6px; width: 2px; margin-left: 4px; background: var(--red); transition: left .8s; }
+/* Σ's sum of your sessions until your prize (story_controller#sumBars) */
+.story__sum { position: absolute; top: 4px; bottom: 4px; left: calc(68% + 4px); right: 8px; display: flex; align-items: flex-end; gap: 2px; min-width: 0; }
+.story__sum i {
+  flex: 1 1 0; max-width: 10px; min-width: 2px; border: 1px solid var(--red); border-radius: 2px; box-sizing: border-box;
+  background: color-mix(in srgb, var(--red) 35%, transparent); transform-origin: bottom; animation: sum-grow .4s cubic-bezier(.2, .8, .3, 1.3) both;
+}
+.story__sum b { align-self: center; margin-left: 8px; font: 11px var(--mono); font-weight: 400; color: var(--red); white-space: nowrap; }
+@keyframes sum-grow { from { transform: scaleY(0); } }
 
 .story__toast {
   position: absolute; left: calc(var(--rail) + 10px); top: 0; z-index: 5; transform: translateY(-50%); padding: 7px 14px;
