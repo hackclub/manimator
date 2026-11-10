@@ -20,6 +20,6 @@ class ScenesController < ApplicationController
 
   private
     def scene_params
-      params.expect(scene: [ :code, :cursor_line ])
+      params.expect(scene: [ :code, :cursor_line, :frame ])
     end
 end

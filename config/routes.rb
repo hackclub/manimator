@@ -13,13 +13,16 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "start" => "onboarding#show", as: :onboarding
-  resource :pledge, only: :create
+  resource :pledge, only: %i[create update]
   resources :ideas, only: [] do
     post :draw, on: :collection
     post :claim, on: :member
   end
   resource :editor, only: :show
   resources :scenes, only: %i[show create update]
+  # A scene's latest frame as a JPEG, by signed id, for Slack to fetch (FramesController)
+  get "frames/:id" => "frames#show", as: :frame
+  resource :heartbeat, only: %i[show create]
 
   # Hack Club Auth. Signing in is a POST to /auth/hackclub (OmniAuth's middleware), which comes back here.
   get "auth/:provider/callback" => "sessions#create", as: :auth_callback
