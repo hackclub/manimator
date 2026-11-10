@@ -13,7 +13,7 @@ class UserStreakTest < ActiveSupport::TestCase
   end
 
   test "days in a row that reached their goal, ending today" do
-    day(TODAY - 2, 10) # the first day only needs ten
+    day(TODAY - 2, 5) # the first day only needs five
     day(TODAY - 1, 20)
     day(TODAY, 25)
     assert_equal 3, @user.recalculate_streak!
@@ -21,14 +21,14 @@ class UserStreakTest < ActiveSupport::TestCase
   end
 
   test "today doesn't break it until it's over" do
-    day(TODAY - 2, 10)
+    day(TODAY - 2, 5)
     day(TODAY - 1, 20)
     day(TODAY, 5)
     assert_equal 2, @user.recalculate_streak!
   end
 
   test "a missed day ends it" do
-    day(TODAY - 3, 10)
+    day(TODAY - 3, 5)
     day(TODAY - 2, 19) # a minute short
     day(TODAY - 1, 20)
     assert_equal 1, @user.recalculate_streak!
@@ -36,15 +36,15 @@ class UserStreakTest < ActiveSupport::TestCase
     assert_equal 0, @user.recalculate_streak!
   end
 
-  test "ten minutes only counts on the first day" do
+  test "five minutes only counts on the first day" do
     day(TODAY - 1, 3)
-    day(TODAY, 10)
+    day(TODAY, 5)
     assert_equal 0, @user.recalculate_streak!
   end
 
   test "the day's still yesterday's until 2am where they are" do
     @user.update!(timezone: "America/New_York")
-    day(TODAY - 1, 10)
+    day(TODAY - 1, 5)
     day(TODAY, 20)
     travel_to Time.utc(2026, 11, 12, 6, 30) # 01:30 on the 12th in New York: the 11th isn't over
     assert_equal 2, @user.recalculate_streak!
@@ -71,7 +71,7 @@ class UserStreakTest < ActiveSupport::TestCase
     assert_equal Time.current, mine.reload.last_beat_at
     assert_empty Activity.of(visitor_id: "v1")
     assert_nil someone_elses.reload.user_id
-    # The 8th was their first day (ten minutes), the 9th fell short of twenty, today's 23 count
+    # The 8th was their first day (five minutes), the 9th fell short of twenty, today's 23 count
     assert_equal 1, @user.reload.current_streak
   end
 end

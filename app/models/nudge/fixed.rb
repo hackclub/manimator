@@ -21,7 +21,7 @@ module Nudge::Fixed
     build(context, "session")
   end
 
-  # Pledged, but no day has reached its goal yet: what's left of the first day's ten minutes. Once.
+  # Pledged, but no day has reached its goal yet: what's left of the first day's five minutes. Once.
   def self.first_frame(context)
     return if context.any_day_completed? || issued(context).where(kind: "first_frame").exists?
     build(context, "first_frame")

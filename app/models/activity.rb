@@ -1,11 +1,11 @@
 # How long someone worked in the editor on one day, counted from the editor's heartbeats. Theirs by user once they've
 # signed in, by visitor id until then (User#adopt! takes a visitor's days along). A day counts towards the streak at
-# its goal: twenty minutes, or ten on your very first day. Days run 2am to 2am in their timezone, so working past
+# its goal: twenty minutes, or five on your very first day. Days run 2am to 2am in their timezone, so working past
 # midnight still counts for the night before. (hackclub/wrong-tool's StreakActivity, counting heartbeats rather than
 # Hackatime.)
 class Activity < ApplicationRecord
   DAILY_GOAL_SECONDS = 20 * 60
-  FIRST_DAY_GOAL_SECONDS = 10 * 60
+  FIRST_DAY_GOAL_SECONDS = 5 * 60
   # An hour in the editor is the first prize, a postcard.
   POSTCARD_SECONDS = 60 * 60
 
@@ -81,7 +81,7 @@ class Activity < ApplicationRecord
     end
 
     # The days that reached their goal, oldest first. Call it on one person's days (Activity.of): the first of them
-    # with any time is the one that only needs ten minutes.
+    # with any time is the one that only needs five minutes.
     def completed_dates
       where(seconds: 1..).order(:activity_date).pluck(:activity_date, :seconds).each_with_index.filter_map do |(date, seconds), i|
         date if seconds >= (i.zero? ? FIRST_DAY_GOAL_SECONDS : DAILY_GOAL_SECONDS)

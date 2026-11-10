@@ -26,7 +26,7 @@ class HeartbeatsTest < ActionDispatch::IntegrationTest
     get heartbeat_path, params: { timezone: "UTC" }
     assert_response :ok
     assert_equal KEYS, response.parsed_body.keys
-    assert_equal({ "today_seconds" => 0, "goal_seconds" => 600, "completed" => false, "first_day" => true, "streak" => 0,
+    assert_equal({ "today_seconds" => 0, "goal_seconds" => 300, "completed" => false, "first_day" => true, "streak" => 0,
                    "total_seconds" => 0, "postcard_seconds" => 3600 }, response.parsed_body)
     assert_equal 0, Activity.count
 

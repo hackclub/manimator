@@ -53,8 +53,8 @@ class ActivityTest < ActiveSupport::TestCase
     assert_equal [ Date.new(2026, 11, 10), 60 ], [ morning.activity_date, morning.seconds ]
   end
 
-  test "your first day needs ten minutes, every day after twenty" do
-    first = beats(21) # ten minutes
+  test "your first day needs five minutes, every day after twenty" do
+    first = beats(11) # five minutes
     assert first.first_day?
     assert_equal Activity::FIRST_DAY_GOAL_SECONDS, first.goal_seconds
     assert first.completed?
@@ -86,9 +86,9 @@ class ActivityTest < ActiveSupport::TestCase
     original = Nudge.method(:day_completed)
     Nudge.define_singleton_method(:day_completed) { |user, date| told << [ user, date ] }
     travel_to NOON + 15.minutes do
-      beats(20)
+      beats(10)
       assert_equal [ 0, [] ], [ @user.reload.current_streak, told ]
-      beats(5, from: NOON + 600)
+      beats(5, from: NOON + 300)
       assert_equal 1, @user.reload.current_streak
       assert_equal [ [ @user, Date.new(2026, 11, 10) ] ], told
     end
