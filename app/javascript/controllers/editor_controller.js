@@ -470,6 +470,7 @@ export default class extends Controller {
           this.setStatus(`✓ ${msg.frames} frames in ${Math.round(msg.ms)}ms`, "ok")
           this.timelineDirty = true
           this.dirty = true
+          this.playFromWaiting()
           if (this.view === "home") this.renderHome()
           this.dispatch("rendered", { detail: { code: this.runCode, frames: msg.frames } })
         }
@@ -687,6 +688,20 @@ export default class extends Controller {
   // ---------------------------------------------------------------------------
   // Actions
   // ---------------------------------------------------------------------------
+
+  // Plays from the animation on this line, once the code as it is now has rendered (π's chips: you see what the
+  // line you just got does, not the whole scene again).
+  playFrom(line) {
+    this.playFromLine = line
+  }
+
+  playFromWaiting() {
+    const section = this.playFromLine && this.store.sections.find(s => s.line === this.playFromLine)
+    this.playFromLine = null
+    if (!section) return
+    this.setFrame(section.start)
+    this.setPlaying(true)
+  }
 
   seek({ params: { seconds } }) {
     this.setPlaying(false)

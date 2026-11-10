@@ -207,6 +207,36 @@ export function createEditor(parent, doc, hooks) {
       if (text !== l.text) view.dispatch({ changes: { from: l.from, to: l.to, insert: text } })
       return true
     },
+    // Adds lines to the end of construct() (the last one in the file, which is the scene that renders), indented to
+    // match, and selects them. They go before a closing self.wait(), so the scene still ends on its pause. Returns the
+    // first new line's number, or null if there's no construct() to add to.
+    addToConstruct(lines) {
+      const doc = view.state.doc
+      const indentOf = text => text.match(/^[ \t]*/)[0].length
+      let def = 0
+      for (let i = 1; i <= doc.lines; i++) if (/^[ \t]*def construct\s*\(/.test(doc.line(i).text)) def = i
+      if (!def) return null
+      const indent = indentOf(doc.line(def).text) + 4
+      let last = def
+      for (let i = def + 1; i <= doc.lines; i++) {
+        const text = doc.line(i).text
+        if (!text.trim()) continue
+        if (indentOf(text) < indent) break
+        last = i
+      }
+      const end = doc.line(last)
+      const before = last > def && indentOf(end.text) === indent && /^\s*self\.wait\(\s*\)\s*$/.test(end.text)
+      const text = lines.map(line => " ".repeat(indent) + line).join("\n")
+      const from = before ? end.from : end.to
+      const start = before ? from : from + 1
+      view.dispatch({
+        changes: { from, insert: before ? text + "\n" : "\n" + text },
+        selection: { anchor: start + indent, head: start + text.length },
+        effects: EditorView.scrollIntoView(start, { y: "center" }),
+        userEvent: "input",
+      })
+      return before ? last : last + 1
+    },
     setDoc(text) {
       view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text } })
     },

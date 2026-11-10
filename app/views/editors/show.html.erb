@@ -51,10 +51,17 @@
     <section class="app__left">
       <div class="app__pane app__pane--code">
         <div class="app__code" data-editor-target="code"></div>
-        <%# π's tips (coach_controller): one thing to try, in the code you already have. %>
+        <%# π's tips (coach_controller): a number to drag, then chips that each write a line for you. %>
         <div class="coach" hidden data-coach-target="card">
           <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
-          <p class="coach__bubble bubble" data-coach-target="bubble"></p>
+          <div class="coach__body">
+            <p class="coach__bubble bubble" data-coach-target="bubble"></p>
+            <div class="coach__chips">
+              <button class="coach__chip" data-action="coach#addShape">add a shape</button>
+              <button class="coach__chip" data-action="coach#move">make it move</button>
+              <button class="coach__chip" data-action="coach#recolor">change the colour</button>
+            </div>
+          </div>
           <button class="coach__hide" aria-label="Hide π’s tips" title="Hide π’s tips" data-action="coach#hide">×</button>
         </div>
         <div class="app__error" hidden data-editor-target="error"></div>
