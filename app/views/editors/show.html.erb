@@ -29,9 +29,10 @@
 
   <div class="app__main">
     <nav class="app__rail">
-      <% [ [ "home", "π", "home" ], [ "code", "{ }", "code" ], [ "buddy", "∞", "buddy" ], [ "board", "Σ", "board" ], [ "examples", "∫", "examples" ] ].each do |view, glyph, label| %>
+      <%# Each tool is one of π's friends (FriendsHelper), the ones you meet in the story onboarding. %>
+      <% %w[home code buddy board examples].each do |view| %>
         <button class="app__rail-item" data-view="<%= view %>" data-action="shell#show" data-shell-view-param="<%= view %>">
-          <span class="app__glyph"><%= glyph %></span><span class="app__rail-label"><%= label %></span>
+          <span class="app__glyph"><%= friend_glyph(view) %></span><span class="app__rail-label"><%= view %></span>
           <% if view == "buddy" %><span class="app__rail-dot"></span><% end %>
         </button>
       <% end %>

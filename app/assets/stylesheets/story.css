@@ -85,8 +85,6 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); }
 .story__actor img, .story__actor svg { display: block; width: 100%; height: auto; }
 .story__actor svg { overflow: visible; }
-.story__actor .eye, .story__portrait .eye { animation: blink 4.2s infinite; transform-box: fill-box; transform-origin: center; }
-@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
 
 /* The dialogue box */
 .story__dialog {

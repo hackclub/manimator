@@ -1,0 +1,8 @@
+/* π and its friends (FriendsHelper): math symbols with π's eyes, who blink now and then. They live in the editor's
+   rail and walk through the story onboarding. */
+.friend .eye { animation: friend-blink 4.2s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes friend-blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+
+/* In the editor's rail, in place of the bare symbols. */
+.app__glyph .friend { display: block; width: 26px; height: 28px; object-fit: contain; overflow: visible; }
+.app__rail-item:not(.app__rail-item--on):not(:hover) .friend { opacity: .7; }
