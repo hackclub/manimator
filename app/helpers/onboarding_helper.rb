@@ -1,11 +1,19 @@
 module OnboardingHelper
+  # The postcard: a print of a frame of your video. It's made at one hour of work and mailed free with whatever prize
+  # you earn, so an hour in you already own something. On its own, it's your prize for one video. That rule is said
+  # before anyone starts (POSTCARD_RULE), never revealed afterwards.
+  POSTCARD = { id: "postcard", name: "Postcard of your frame", kind: "postcard", price: nil, made_at_hours: 1,
+    hours: Pledge::HOURS_PER_VIDEO, with_every_prize: true, featured: true, image: "prizes/postcard.svg" }.freeze
+  POSTCARD_RULE = "A postcard of your frame is made at one hour. It’s mailed free with whatever prize you earn. " \
+    "On its own, it’s your prize for one video.".freeze
+
   # What you can earn: the postcard, and everything in the 3Blue1Brown store at DFTBA
   # (store.dftba.com/collections/3blue1brown), cheapest first. You pick one, and it's yours once that many hours of
-  # your work have shipped. A prize costs about $3 an hour of work when it's cheap, $3.50 in the middle and $4 when
-  # it's big, plus shipping; the postcard (the last frame of your video, printed) is an hour. Onboarding shows the
-  # featured ones first, one per number of videos, and the rest behind "more".
+  # your work have shipped; the postcard comes with it. A prize costs about $3 an hour of work when it's cheap, $3.50
+  # in the middle and $4 when it's big, plus shipping. Onboarding shows the featured ones first, one per number of
+  # videos, and the rest behind "more".
   PRIZES = [
-    { id: "postcard", name: "Postcard of your last frame", kind: "postcard", price: nil, hours: 1, featured: true, image: "prizes/postcard.svg" },
+    POSTCARD,
     { id: "fourier-socks", name: "Fourier Series Socks", kind: "socks", price: 15, hours: 5, featured: true },
     { id: "vector-socks", name: "Vector Field Socks", kind: "socks", price: 15, hours: 5 },
     { id: "torus-mug", name: "Torus Mug", kind: "mug", price: 19, hours: 6 },
