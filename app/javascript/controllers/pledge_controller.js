@@ -18,7 +18,7 @@ const STEPS = ["idea", "prize", "rhythm", "pledge"]
 const LINES = {
   idea: ["Hi, I’m π! I’ll help you make your first animation.", "wave"],
   who: ["That’s your first frame. Who’s it for?", "awe"],
-  prize: ["Ship it and one of these is yours.", "thinking"],
+  prize: ["Pick one to work toward.", "thinking"],
   rhythm: ["When do you usually have time?", "speaking"],
   pledge: ["Sign it, and it’s official.", "happy"],
 }
@@ -27,7 +27,7 @@ const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
 const IDEA_GONE = "Someone just took that idea, sorry! Here’s the idea step again."
 const PICKED_FOR = you => `Then let’s make it so ${you} gets it.`
-const PICKED_PRIZE = (name, videos) => `Nice pick! The ${name} is about ${videos}.`
+const PICKED_PRIZE = (name, hours) => `Nice pick! The ${name} takes ${hours} hours of shipped work.`
 
 function load(storage, key) {
   try { return JSON.parse(storage.getItem(key)) ?? {} } catch { return {} }
@@ -135,8 +135,8 @@ export default class extends Controller {
     this.answer("idea", { forWhom, ideaPhase: null }, PICKED_FOR(this.forValue[forWhom].you))
   }
 
-  pickPrize({ params: { id, name, videos } }) {
-    this.answer("prize", { prize: id, prizeName: name, prizeVideos: videos }, PICKED_PRIZE(name, videos))
+  pickPrize({ params: { id, name, hours } }) {
+    this.answer("prize", { prize: id, prizeName: name, prizeHours: hours }, PICKED_PRIZE(name, hours))
   }
 
   // When, how often and how long: enough to say when a first video ships.

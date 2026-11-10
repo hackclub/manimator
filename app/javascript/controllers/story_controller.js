@@ -622,7 +622,7 @@ export default class extends Controller {
       this.meet("sig")
     }
     const prizeId = await this.say("sig", "Ship it, and the 3Blue1Brown store mails you one of these. Pick one.",
-      { choices: this.prizesValue.map(p => ({ label: p.name, sub: `about ${p.videos}`, image: p.image, value: p.id })), back: true })
+      { choices: this.prizesValue.map(p => ({ label: p.name, sub: `${p.hours} hours`, image: p.image, value: p.id })), back: true })
     if (prizeId === BACK) return BACK
     this.answers.prize = prizeId
     const prize = this.prizesValue.find(p => p.id === prizeId)
