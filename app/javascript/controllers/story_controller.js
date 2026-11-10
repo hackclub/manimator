@@ -338,6 +338,8 @@ export default class extends Controller {
   }
 
   offer(choices) {
+    // Choices with a line under them (ideas) stack as a list, every row the same width.
+    this.choicesTarget.classList.toggle("story__choices--list", choices.some(c => c.sub && !c.image))
     return new Promise(resolve => {
       this.choicesTarget.innerHTML = choices.map((c, i) => `<button type="button" class="story__choice ${c.image ? "story__choice--card" : ""}" data-i="${i}">
         ${c.image ? `<img src="${c.image}" alt="">` : ""}<span class="story__choice-label">${esc(c.label)}</span>${c.sub ? `<span class="story__choice-sub">${esc(c.sub)}</span>` : ""}</button>`).join("")

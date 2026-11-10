@@ -118,6 +118,8 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__skip[hidden] { display: none; }
 .story__choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .story__choices:empty { display: none; }
+.story__choices--list { flex-direction: column; }
+.story__choices--list .story__choice { width: 100%; box-sizing: border-box; }
 .story__choice {
   position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 9px 16px 9px 26px;
   border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg); color: var(--ink); font: 16px var(--serif);
