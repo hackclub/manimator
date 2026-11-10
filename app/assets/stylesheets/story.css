@@ -157,6 +157,28 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__choice--card .story__choice-label { font-size: 13px; line-height: 1.2; }
 .story__choice--card .story__choice-sub { font-size: 10.5px; }
 
+/* { }'s slider: k, yours to drag. */
+.story__slider { display: flex; align-items: center; gap: 16px; width: 100%; flex-wrap: wrap; }
+.story__slider-k { font: 22px var(--serif); color: var(--yellow); min-width: 3.6em; font-variant-numeric: tabular-nums; }
+.story__slider input[type="range"] {
+  flex: 1; min-width: 180px; height: 28px; margin: 0; background: transparent; accent-color: var(--yellow); cursor: ew-resize;
+  -webkit-appearance: none; appearance: none;
+}
+.story__slider input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: var(--line-hover); }
+.story__slider input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--line-hover); }
+.story__slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 22px; height: 22px; margin-top: -9px; border-radius: 50%; background: var(--yellow);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--yellow) 22%, transparent); animation: thumb-pulse 1.4s ease-in-out infinite;
+}
+.story__slider input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: var(--yellow); }
+.story__slider--moved input[type="range"]::-webkit-slider-thumb { animation: none; }
+.story__slider input[type="range"]:focus { outline: none; }
+.story__slider input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--ink); outline-offset: 3px; }
+@keyframes thumb-pulse { 50% { box-shadow: 0 0 0 11px color-mix(in srgb, var(--yellow) 10%, transparent); } }
+.story__slider .story__choice { flex: none; }
+.sl--lit .c-num[data-k] { display: inline-block; padding: 0 4px; border-radius: 4px; background: color-mix(in srgb, var(--yellow) 22%, transparent); animation: k-pulse 1.2s ease-in-out infinite; }
+@keyframes k-pulse { 50% { background: color-mix(in srgb, var(--yellow) 40%, transparent); } }
+
 .story__ask { display: flex; gap: 8px; width: 100%; }
 .story__input {
   flex: 1; min-width: 0; padding: 10px 14px; border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg);

@@ -18,6 +18,7 @@ const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
 const POSTER_KEY = "manimator:poster"
+const K_SWEEP = 7.5 // seconds { } takes to sweep k before you get the slider
 const BACK = Symbol("back") // what a question answers when ◂ back is pressed // the story's last frame, shown on the editor's stage until Python draws
 const HOLD_MS = 1300
 const PI_FEET = .79
@@ -75,7 +76,7 @@ function sceneLines(idea, k = 1) {
     ["title", "        self.wait()"])
   return lines
 }
-const sceneCode = idea => sceneLines(idea).map(([, text]) => text).join("\n") + "\n"
+const sceneCode = (idea, k) => sceneLines(idea, k).map(([, text]) => text).join("\n") + "\n"
 
 // Just enough Python colouring for these lines, in the editor's colours.
 const TOKEN = /("(?:[^"\\]|\\.)*")|\b(from|import|class|def|lambda|if|return)\b|\b(\d+(?:\.\d+)?)\b|\b(ArrowVectorField|Text|Write|Scene|FirstScene|UP)\b|\b(construct|flow)\b/g
@@ -294,7 +295,7 @@ export default class extends Controller {
 
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-  async say(who, text, { pose, choices, input, hold, until, back } = {}) {
+  async say(who, text, { pose, choices, input, hold, slider, until, back } = {}) {
     if (this.gone) return new Promise(() => {})
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
@@ -305,7 +306,7 @@ export default class extends Controller {
     this.choicesTarget.replaceChildren()
     this.nextTarget.hidden = true
     this.dialogTarget.classList.remove("story__dialog--pop"); void this.dialogTarget.offsetWidth; this.dialogTarget.classList.add("story__dialog--pop")
-    const decision = !!(choices || input || hold)
+    const decision = !!(choices || input || hold || slider)
     if (decision) this.skipping = false
     this.skipTarget.hidden = decision
     this.backTarget.hidden = true
@@ -319,7 +320,7 @@ export default class extends Controller {
     if (!decision && this.skipping) return
     if (decision) {
       // ◂ back answers the question with BACK, and whoever asked steps back.
-      const answer = choices ? this.offer(choices) : input ? this.ask(input) : this.holdToSign(hold)
+      const answer = choices ? this.offer(choices) : input ? this.ask(input) : slider ? this.slide(slider) : this.holdToSign(hold)
       this.backTarget.hidden = !back
       const result = await Promise.race([answer, new Promise(r => { this.goBack = back ? () => r(BACK) : null })])
       this.goBack = null
@@ -468,6 +469,36 @@ export default class extends Controller {
     this.goBack()
   }
 
+  // k, wherever it shows: the field, the code, the readout; a soft tick each time it crosses a tenth.
+  setK(k) {
+    const tenth = Math.round(k * 10)
+    if (tenth !== this.kTenth) {
+      if (this.kTenth !== undefined && !this.skipping) sfx.tick(Math.round((k - .2) / 2.8 * 7))
+      this.kTenth = tenth
+    }
+    this.scene.k = k
+    if (this.kEl) this.kEl.textContent = k.toFixed(1)
+  }
+
+  slide({ min, max, step }) {
+    this.kFrom = undefined
+    return new Promise(resolve => {
+      this.choicesTarget.innerHTML = `<div class="story__slider">
+        <span class="story__slider-k"><i>k</i> = <b>${this.scene.k.toFixed(1)}</b></span>
+        <input type="range" min="${min}" max="${max}" step="${step}" value="${this.scene.k.toFixed(1)}" aria-label="k">
+        <button type="button" class="story__choice">Next →</button></div>`
+      const range = this.choicesTarget.querySelector("input"), out = this.choicesTarget.querySelector("b")
+      const next = this.choicesTarget.querySelector("button")
+      range.addEventListener("input", () => {
+        this.setK(Number(range.value))
+        out.textContent = this.scene.k.toFixed(1)
+        this.choicesTarget.querySelector(".story__slider").classList.add("story__slider--moved")
+      })
+      next.addEventListener("click", e => { e.stopPropagation(); sfx.tick(4); this.choicesTarget.replaceChildren(); resolve(this.scene.k) })
+      range.focus({ preventScroll: true })
+    })
+  }
+
   pause(ms) { return wait(this.skipping ? ms * .15 : ms) }
 
   // ── The story ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -504,9 +535,15 @@ export default class extends Controller {
     this.want = { field: 1, epi: 0 }
     this.renderCode()
     this.reveal("code")
+    this.light("field")
+    await this.say("code", "Psst, I'm { }. These few lines made that whole field.")
+    // k, on purpose: it's pointed at, swept slowly with a readout on the stage, then handed to you on a slider.
     this.light("k")
-    this.kFrom = this.clock + .6
-    await this.say("code", "Psst, I'm { }. These few lines made that field. Watch what happens when k changes.", { until: this.kFrom + 6 })
+    this.showK = true
+    this.kFrom = this.clock + 1.2
+    await this.say("code", "See k? It's one number. Watch the field as it changes.", { until: this.kFrom + K_SWEEP + .4 })
+    this.answers.k = await this.say("code", "Your turn. Drag it!", { slider: { min: .2, max: 3, step: .1 } })
+    this.showK = false
     this.light(null)
 
     // The questions, one step each, so ◂ back can take you to the one before.
@@ -665,11 +702,11 @@ export default class extends Controller {
     // Your scene, saved now, so the editor opens this one even if you have others. Offline, it waits in localStorage
     // instead, which the editor turns into a scene when you have none yet.
     try {
-      const response = await this.post(this.scenesUrlValue, { scene: { code: sceneCode(a.idea) } })
+      const response = await this.post(this.scenesUrlValue, { scene: { code: sceneCode(a.idea, this.scene.k) } })
       if (response.ok) this.sceneId = (await response.json()).id
     } catch { /* offline */ }
     try {
-      if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea))
+      if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea, this.scene.k))
       localStorage.setItem(VIEW_KEY, "code")
     } catch { /* storage unavailable */ }
   }
@@ -827,15 +864,15 @@ export default class extends Controller {
     for (const k of ["x", "y", "w", "h"]) this.rect[k] = ease(this.rect[k], t[k], dt, 6)
     this.s = Math.min(this.rect.w / W_UNITS, this.rect.h / H_UNITS)
     this.scene.field = ease(this.scene.field, this.want.field, dt, 3)
+    this.scene.kShow = ease(this.scene.kShow ?? 0, this.showK ? 1 : 0, dt, 5)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     if (this.titleStart !== undefined) this.scene.title = clamp((this.clock - this.titleStart) / 1.6, 0, 1)
     if (this.kFrom !== undefined) {
-      const u = this.clock - this.kFrom, keys = [[0, 1], [1.2, 2.2], [3, .6], [4.6, 1.4], [6, 1]]
+      const u = this.clock - this.kFrom, keys = [[0, 1], [2, 2.4], [4.4, .5], [6.2, 1.5], [K_SWEEP, 1]]
       let k = 1
       for (let i = 0; i < keys.length - 1; i++) if (u >= keys[i][0] && u < keys[i + 1][0]) k = lerp(keys[i][1], keys[i + 1][1], smooth((u - keys[i][0]) / (keys[i + 1][0] - keys[i][0])))
-      this.scene.k = k
-      if (this.kEl) this.kEl.textContent = k.toFixed(1)
-      if (u > 6) this.kFrom = undefined
+      if (u > 0) this.setK(k)
+      if (u > K_SWEEP) this.kFrom = undefined
     }
     const p = this.pointer
     if (p) { const k = Math.exp(-dt * 5); p.vx *= k; p.vy *= k }
@@ -920,6 +957,7 @@ export default class extends Controller {
     }
 
     if (this.scene.epi > .01) this.drawEpicycles(this.scene.epi)
+    if (this.scene.kShow > .01) this.drawK(this.scene.kShow)
     if (this.answers.idea && this.titleStart !== undefined) this.drawTitle(this.answers.idea, this.scene.title)
     this.drawSparks()
     ctx.restore()
@@ -963,6 +1001,24 @@ export default class extends Controller {
       ctx.beginPath(); ctx.moveTo(X, Y); ctx.lineTo(NX, NY); ctx.stroke()
       x = nx; y = ny
     }
+    ctx.globalAlpha = 1
+  }
+
+  // k's value, big in the corner of the stage while it's the thing to watch.
+  drawK(alpha) {
+    const ctx = this.ctx, s = this.s, size = .62 * s, [X, Y] = this.px(-W_UNITS / 2 + .5, H_UNITS / 2 - .7)
+    const pad = size * .45, label = ` = ${this.scene.k.toFixed(1)}`
+    ctx.font = `italic ${size}px ${this.serif}`
+    const kw = ctx.measureText("k").width
+    ctx.font = `${size}px ${this.serif}`
+    const w = kw + ctx.measureText(label).width
+    ctx.globalAlpha = alpha * .85
+    ctx.fillStyle = "#0b0c0e"
+    ctx.beginPath(); ctx.roundRect(X - pad, Y - size * .8, w + pad * 2, size * 1.6, 10); ctx.fill()
+    ctx.globalAlpha = alpha
+    ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillStyle = "#F4D345"
+    ctx.font = `italic ${size}px ${this.serif}`; ctx.fillText("k", X, Y)
+    ctx.font = `${size}px ${this.serif}`; ctx.fillText(label, X + kw, Y)
     ctx.globalAlpha = 1
   }
 
