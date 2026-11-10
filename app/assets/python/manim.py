@@ -1409,6 +1409,32 @@ class NumberPlane(Axes):
         self.submobjects.insert(0, grid)
 
 
+class ArrowVectorField(VGroup):
+    """manim's ArrowVectorField: an arrow at each point of a grid, pointing where func(point) says, longer and warmer
+    (blue → teal → yellow) where the field is stronger. The story onboarding's opening scene is one of these."""
+
+    def __init__(self, func, x_range=(-7, 7, 0.5), y_range=(-4, 4, 0.5), colors=(BLUE, TEAL, YELLOW_D),
+                 max_length=0.4, stroke_width=3, **kwargs):
+        super().__init__(**kwargs)
+        self.func = func
+        xmin, xmax, xs = x_range
+        ymin, ymax, ys = y_range
+        for x in np.arange(xmin + xs / 2, xmax, xs):
+            for y in np.arange(ymin + ys / 2, ymax, ys):
+                p = np.array([x, y, 0.0])
+                v = np.array(func(p), dtype=float)[:3]
+                v = np.pad(v, (0, 3 - len(v)))
+                mag = float(np.linalg.norm(v))
+                if mag < 1e-6:
+                    continue
+                length = max_length * (1 - math.exp(-1.5 * mag))
+                k = min(1.0, mag / 1.45) * (len(colors) - 1)
+                i = min(int(k), len(colors) - 2)
+                color = interpolate_color(colors[i], colors[i + 1], k - i)
+                d = v / mag * length
+                self.add(Arrow(p - d / 2, p + d / 2, buff=0, stroke_width=stroke_width, tip_length=0.12, color=color))
+
+
 class NumberLine(Line):
     def __init__(self, x_range=(-8, 8, 1), length=None, include_numbers=False, color=LIGHT_GRAY, **kwargs):
         xmin, xmax = x_range[0], x_range[1]
