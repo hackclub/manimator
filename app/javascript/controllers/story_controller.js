@@ -17,7 +17,8 @@ import { sfx } from "sfx"
 const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
-const POSTER_KEY = "manimator:poster" // the story's last frame, shown on the editor's stage until Python draws
+const POSTER_KEY = "manimator:poster"
+const BACK = Symbol("back") // what a question answers when ◂ back is pressed // the story's last frame, shown on the editor's stage until Python draws
 const HOLD_MS = 1300
 const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
@@ -109,7 +110,7 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip"]
+  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object, classes: Array,
     drawUrl: String, claimUrl: String, pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number }
 
@@ -293,7 +294,7 @@ export default class extends Controller {
 
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-  async say(who, text, { pose, choices, input, hold, until } = {}) {
+  async say(who, text, { pose, choices, input, hold, until, back } = {}) {
     if (this.gone) return new Promise(() => {})
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
@@ -307,6 +308,7 @@ export default class extends Controller {
     const decision = !!(choices || input || hold)
     if (decision) this.skipping = false
     this.skipTarget.hidden = decision
+    this.backTarget.hidden = true
     const speaker = this.actors[who]
     if (speaker) speaker.talk = true
     await this.type(text, f.note)
@@ -315,9 +317,16 @@ export default class extends Controller {
     // A big moment (∫'s drawing, k turning) holds until it has played out, so a quick click can't cut it short.
     if (until) await this.dwell(until)
     if (!decision && this.skipping) return
-    if (choices) return this.offer(choices)
-    if (input) return this.ask(input)
-    if (hold) return this.holdToSign(hold)
+    if (decision) {
+      // ◂ back answers the question with BACK, and whoever asked steps back.
+      const answer = choices ? this.offer(choices) : input ? this.ask(input) : this.holdToSign(hold)
+      this.backTarget.hidden = !back
+      const result = await Promise.race([answer, new Promise(r => { this.goBack = back ? () => r(BACK) : null })])
+      this.goBack = null
+      this.backTarget.hidden = true
+      if (result === BACK) { cancelAnimationFrame(this.holdRaf); this.choicesTarget.replaceChildren() }
+      return result
+    }
     this.nextTarget.hidden = false
     await new Promise(r => { this.advance = r })
     this.advance = null
@@ -405,6 +414,7 @@ export default class extends Controller {
   }
 
   key(event) {
+    if (event.key === "Escape" && this.goBack) return this.back(event)
     if (event.target.closest?.("input, button")) return
     if (event.key === " " || event.key === "Enter") { event.preventDefault(); audio.unlock(); this.next() }
   }
@@ -443,6 +453,14 @@ export default class extends Controller {
       const check = () => (this.skipping || this.clock >= until || this.gone) ? resolve() : requestAnimationFrame(check)
       check()
     })
+  }
+
+  back(event) {
+    event?.stopPropagation()
+    if (!this.goBack) return
+    capture("onboarding_back", { variant: "story", step: this.beat, seconds: this.seconds })
+    sfx.tick(0)
+    this.goBack()
   }
 
   pause(ms) { return wait(this.skipping ? ms * .15 : ms) }
@@ -486,51 +504,13 @@ export default class extends Controller {
     await this.say("code", "Psst, I'm { }. These few lines made that field. Watch what happens when k changes.", { until: this.kFrom + 6 })
     this.light(null)
 
-    // Your idea
-    this.step("idea")
-    const idea = await this.pickIdea()
-    Object.assign(this.answers, idea)
-    this.renderCode()
-    this.light("title")
-    this.titleStart = this.clock
-    sfx.write(1.6)
-    this.reveal("timeline")
-    this.renderTimeline()
-    await this.pause(1700)
-    this.light(null)
-    await this.say("pi", "That's your first frame. Look at it!", { pose: "awe" })
-    // ∞ and your buddy
-    this.step("buddy")
-    this.enter("inf")
-    await this.pause(800)
-    await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
-    this.meet("inf")
-    const slots = Object.keys(this.slotsValue)
-    this.answers.when = await this.say("inf", "When do you usually have time?", { choices: slots.map(s => ({ label: s })) })
-    this.answers.days = this.answers.when === "weekends" ? 2 : await this.say("inf", "How many days a week?",
-      { choices: this.daysValue.map(d => ({ label: d === 7 ? "every day" : `${d} days`, value: d })) })
-    this.answers.minutes = Number(await this.say("inf", "And for how long each time?",
-      { choices: Object.entries(this.sessionsValue).map(([m, label]) => ({ label, value: m })) }))
-    this.answers.shipBy = this.shipBy()
-    await this.say("inf", `At that pace your video is done by ${shortDate(this.answers.shipBy)}. I'll check in ${this.answers.when === "weekends" ? "on weekends" : `around ${clockTime(this.slotsValue[this.answers.when])}`}.`)
-
-    // Σ and the board
-    this.step("prize")
-    this.enter("sig", { from: -1 })
-    await this.pause(800)
-    await this.say("sig", "And I'm Σ. I add up everyone who ships.")
-    this.meet("sig")
-    const prizeId = await this.say("sig", "Ship it, and the 3Blue1Brown store mails you one of these. Pick one.",
-      { choices: this.prizesValue.map(p => ({ label: p.name, sub: `about ${p.videos}`, image: p.image, value: p.id })) })
-    this.answers.prize = prizeId
-    const prize = this.prizesValue.find(p => p.id === prizeId)
-    await this.say("sig", `The ${prize.name}. Good choice.`)
-
-    // Signing
-    this.step("sign")
-    await this.say("pi", `So: "${this.answers.idea}", done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
-    await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign" })
-    await this.sign()
+    // The questions, one step each, so ◂ back can take you to the one before.
+    const steps = [() => this.askIdea(), () => this.askWhen(), () => this.askDays(), () => this.askMinutes(), () => this.askPrize(), () => this.askSign()]
+    for (let i = 0; i < steps.length;) {
+      if (await steps[i]() !== BACK) { i++; continue }
+      i = Math.max(0, i - 1)
+      if (i === 2 && this.answers.when === "weekends") i = 1 // weekends never asked how many days
+    }
     this.signed = true
     this.step("signed")
     this.cheer()
@@ -541,19 +521,112 @@ export default class extends Controller {
     await this.handOff()
   }
 
+  // Your idea, written onto the stage as the scene's title.
+  async askIdea() {
+    this.step("idea")
+    const again = !!this.answers.idea
+    Object.assign(this.answers, await this.pickIdea())
+    this.renderCode()
+    this.light("title")
+    this.titleStart = this.clock
+    sfx.write(1.6)
+    this.reveal("timeline")
+    this.renderTimeline()
+    await this.pause(1700)
+    this.light(null)
+    await this.say("pi", again ? "A new first frame. Look at it!" : "That's your first frame. Look at it!", { pose: "awe" })
+  }
+
+  // ∞ and your buddy: when, how often, how long.
+  async askWhen() {
+    this.step("buddy")
+    if (!this.actors.inf) {
+      this.enter("inf")
+      await this.pause(800)
+      await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
+      this.meet("inf")
+    }
+    const slots = Object.keys(this.slotsValue)
+    const when = await this.say("inf", "When do you usually have time?", { choices: slots.map(s => ({ label: s })), back: true })
+    if (when === BACK) return BACK
+    this.answers.when = when
+    if (when === "weekends") this.answers.days = 2
+  }
+
+  async askDays() {
+    if (this.answers.when === "weekends") return
+    const days = await this.say("inf", "How many days a week?",
+      { choices: this.daysValue.map(d => ({ label: d === 7 ? "every day" : `${d} days`, value: d })), back: true })
+    if (days === BACK) return BACK
+    this.answers.days = days
+  }
+
+  async askMinutes() {
+    const minutes = await this.say("inf", "And for how long each time?",
+      { choices: Object.entries(this.sessionsValue).map(([m, label]) => ({ label, value: m })), back: true })
+    if (minutes === BACK) return BACK
+    this.answers.minutes = Number(minutes)
+    this.answers.shipBy = this.shipBy()
+    await this.say("inf", `At that pace your video is done by ${shortDate(this.answers.shipBy)}. I'll check in ${this.answers.when === "weekends" ? "on weekends" : `around ${clockTime(this.slotsValue[this.answers.when])}`}.`)
+  }
+
+  // Σ and the board: the prize.
+  async askPrize() {
+    this.step("prize")
+    if (!this.actors.sig) {
+      this.enter("sig", { from: -1 })
+      await this.pause(800)
+      await this.say("sig", "And I'm Σ. I add up everyone who ships.")
+      this.meet("sig")
+    }
+    const prizeId = await this.say("sig", "Ship it, and the 3Blue1Brown store mails you one of these. Pick one.",
+      { choices: this.prizesValue.map(p => ({ label: p.name, sub: `about ${p.videos}`, image: p.image, value: p.id })), back: true })
+    if (prizeId === BACK) return BACK
+    this.answers.prize = prizeId
+    const prize = this.prizesValue.find(p => p.id === prizeId)
+    await this.say("sig", `The ${prize.name}. Good choice.`)
+  }
+
+  async askSign() {
+    this.step("sign")
+    const prize = this.prizesValue.find(p => p.id === this.answers.prize)
+    await this.say("pi", `So: "${this.answers.idea}", done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
+    if (await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign", back: true }) === BACK) return BACK
+    await this.sign()
+  }
+
+  // Your own idea, or one drawn from your class. ◂ back steps through it too: ideas → class → how.
   async pickIdea() {
-    const how = await this.say("pi", "That's Manimator: write a little, and math moves. Your turn! What do you wish someone could finally see?",
-      { pose: "happy", choices: [{ label: "Surprise me", value: "draw" }, { label: "I have an idea", value: "own" }] })
-    if (how === "own") return { idea: await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "how attention works in transformers", button: "That one" } }), ideaId: null }
-    const klass = await this.say("pi", "What math class are you in? I'll find you ideas nobody else has.",
-      { pose: "thinking", choices: this.classesValue.map(c => ({ label: c.label, value: c.key })) })
+    for (;;) {
+      const how = await this.say("pi", "That's Manimator: write a little, and math moves. Your turn! What do you wish someone could finally see?",
+        { pose: "happy", choices: [{ label: "Surprise me", value: "draw" }, { label: "I have an idea", value: "own" }] })
+      if (how === "own") {
+        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "how attention works in transformers", button: "That one" }, back: true })
+        if (idea !== BACK) return { idea, ideaId: null }
+        continue
+      }
+      for (;;) {
+        const klass = await this.say("pi", "What math class are you in? I'll find you ideas nobody else has.",
+          { pose: "thinking", choices: this.classesValue.map(c => ({ label: c.label, value: c.key })), back: true })
+        if (klass === BACK) break
+        const picked = await this.pickDrawn(klass)
+        if (picked !== BACK) return picked
+      }
+    }
+  }
+
+  async pickDrawn(klass) {
     let seen = []
     for (;;) {
       const ideas = await this.drawIdeas(klass, seen)
-      if (!ideas.length) return { idea: await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "how attention works in transformers", button: "That one" } }), ideaId: null }
+      if (!ideas.length) {
+        const idea = await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "how attention works in transformers", button: "That one" }, back: true })
+        return idea === BACK ? BACK : { idea, ideaId: null }
+      }
       seen = [...seen, ...ideas.map(i => i.id)]
       const pick = await this.say("pi", "Here are three. Whichever you pick, nobody else gets it.",
-        { pose: "speaking", choices: [...ideas.map(i => ({ label: i.title, sub: i.line, value: i.id })), { label: "Show me others", value: "more" }] })
+        { pose: "speaking", choices: [...ideas.map(i => ({ label: i.title, sub: i.line, value: i.id })), { label: "Show me others", value: "more" }], back: true })
+      if (pick === BACK) return BACK
       if (pick !== "more") { const idea = ideas.find(i => i.id === pick); return { idea: idea.title, ideaId: idea.id } }
     }
   }
