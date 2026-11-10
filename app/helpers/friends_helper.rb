@@ -3,24 +3,39 @@
 module FriendsHelper
   FRIENDS = {
     "home" => { id: "pi", name: "π", color: "#58C4DD" },
-    "code" => { id: "code", name: "{ }", color: "#9A72AC", glyph: "{ }", size: 74, base: 82, eyes: [ [ 38, 50 ], [ 62, 50 ] ] },
-    "buddy" => { id: "inf", name: "∞", color: "#83C167", glyph: "∞", size: 104, base: 90, eyes: [ [ 31, 64 ], [ 69, 64 ] ] },
-    "board" => { id: "sig", name: "Σ", color: "#FC6255", glyph: "Σ", size: 100, base: 94, eyes: [ [ 42, 40 ], [ 60, 40 ] ] },
-    "examples" => { id: "int", name: "∫", color: "#5CD0B3", glyph: "∫", size: 120, base: 96, eyes: [ [ 57, 26 ], [ 70, 23 ] ] }
+    "code" => { id: "code", name: "{ }", color: "#9A72AC", glyph: "{ }", size: 74, base: 82, eyes: [ [ 41.3, 47 ], [ 58.7, 47 ] ] },
+    "buddy" => { id: "inf", name: "∞", color: "#83C167", glyph: "∞", size: 104, base: 90, eyes: [ [ 41.3, 42 ], [ 58.7, 42 ] ] },
+    "board" => { id: "sig", name: "Σ", color: "#FC6255", glyph: "Σ", size: 100, base: 94, eyes: [ [ 43, 25 ], [ 60.3, 25 ] ] },
+    "examples" => { id: "int", name: "∫", color: "#5CD0B3", glyph: "∫", size: 120, base: 96, eyes: [ [ 66, 13 ], [ 82, 8 ] ], tilt: -18 }
   }.freeze
 
   def friend_glyph(view)
     friend = FRIENDS.fetch(view)
     return image_tag("pi_creature/plain.svg", alt: "", class: "friend", draggable: false) unless friend[:glyph]
 
-    eyes = friend[:eyes].map do |x, y|
-      tag.g(class: "eye") do
-        tag.circle(cx: x, cy: y, r: 8.5, fill: "#fff") + tag.circle(class: "pupil", cx: x + 1.6, cy: y + 1, r: 4.2, fill: "#16181b")
-      end
-    end
+    eyes = friend[:eyes].map { |x, y| pi_eye(x, y, friend[:tilt] || 0) }
     tag.svg(class: "friend", viewBox: "0 0 100 110", aria: { hidden: true }) do
       tag.text(friend[:glyph], x: 50, y: friend[:base], "text-anchor": "middle", "font-size": friend[:size],
         style: "font-family: var(--serif)", fill: friend[:color]) + safe_join(eyes)
+    end
+  end
+
+  private
+
+  EYE_R = 6
+
+  # π's eye, from pi_creature/plain.svg: a dome cut flat 0.6r below its middle, a thin dark rim, and a big pupil up
+  # and to the right with a glint. (x, y) is the middle of the flat bottom, where it sits. Kept in step with
+  # piEye in story_controller.js. The tilt sits on an outer group so the blink's CSS transform doesn't replace it.
+  def pi_eye(x, y, tilt, r = EYE_R)
+    n = ->(v) { v.round(2) }
+    cy = y - 0.6 * r
+    tag.g(transform: "rotate(#{tilt} #{x} #{y})") do
+      tag.g(class: "eye") do
+        tag.path(d: "M#{n[x - 0.8 * r]} #{y}A#{r} #{r} 0 1 1 #{n[x + 0.8 * r]} #{y}Z", fill: "#fff", stroke: "#16181b", "stroke-width": n[r * 0.1]) +
+          tag.circle(class: "pupil", cx: n[x + 0.44 * r], cy: n[cy - 0.43 * r], r: n[0.4 * r], fill: "#16181b") +
+          tag.circle(cx: n[x + 0.29 * r], cy: n[cy - 0.65 * r], r: n[0.13 * r], fill: "#fff")
+      end
     end
   end
 end

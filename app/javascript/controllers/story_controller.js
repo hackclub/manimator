@@ -22,10 +22,10 @@ const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 // The friends, in the editor rail's order. Each is its symbol in the serif, with π's eyes.
 const FRIENDS = {
   pi: { name: "π", tool: "home", note: 72, color: "#58C4DD" },
-  code: { name: "{ }", tool: "code", note: 76, color: "#9A72AC", glyph: "{ }", size: 74, base: 82, feet: .86, eyes: [[38, 50], [62, 50]] },
-  inf: { name: "∞", tool: "buddy", note: 74, color: "#83C167", glyph: "∞", size: 104, base: 90, feet: .84, eyes: [[31, 64], [69, 64]] },
-  sig: { name: "Σ", tool: "board", note: 67, color: "#FC6255", glyph: "Σ", size: 100, base: 94, feet: .86, eyes: [[42, 40], [60, 40]] },
-  int: { name: "∫", tool: "examples", note: 79, color: "#5CD0B3", glyph: "∫", size: 120, base: 96, feet: .97, eyes: [[57, 26], [70, 23]] },
+  code: { name: "{ }", tool: "code", note: 76, color: "#9A72AC", glyph: "{ }", size: 74, base: 82, feet: .86, eyes: [[41.3, 47], [58.7, 47]] },
+  inf: { name: "∞", tool: "buddy", note: 74, color: "#83C167", glyph: "∞", size: 104, base: 90, feet: .84, eyes: [[41.3, 42], [58.7, 42]] },
+  sig: { name: "Σ", tool: "board", note: 67, color: "#FC6255", glyph: "Σ", size: 100, base: 94, feet: .86, eyes: [[43, 25], [60.3, 25]] },
+  int: { name: "∫", tool: "examples", note: 79, color: "#5CD0B3", glyph: "∫", size: 120, base: 96, feet: .97, eyes: [[66, 13], [82, 8]], tilt: -18 },
 }
 const RAIL = ["pi", "code", "inf", "sig", "int"]
 // Where everyone stands once there's a crowd, along the bottom of the stage.
@@ -45,11 +45,21 @@ const wait = ms => new Promise(r => setTimeout(r, ms))
 const clockTime = hhmm => { const [h, m] = hhmm.split(":").map(Number); return `${h % 12 || 12}${m ? `:${String(m).padStart(2, "0")}` : ""}${h < 12 ? "am" : "pm"}` }
 const shortDate = d => d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
 
+// π's eye, from pi_creature/plain.svg: a dome cut flat 0.6r below its middle, a thin dark rim, and a
+// big pupil up and to the right with a glint. (x, y) is the middle of the flat bottom, where it sits.
+const EYE_R = 6
+function piEye(x, y, tilt = 0, r = EYE_R) {
+  const n = v => +v.toFixed(2), cy = y - .6 * r
+  return `<g transform="rotate(${tilt} ${x} ${y})"><g class="eye">`
+    + `<path d="M${n(x - .8 * r)} ${y}A${r} ${r} 0 1 1 ${n(x + .8 * r)} ${y}Z" fill="#fff" stroke="#16181b" stroke-width="${n(r * .1)}"/>`
+    + `<circle class="pupil" cx="${n(x + .44 * r)}" cy="${n(cy - .43 * r)}" r="${n(.4 * r)}" fill="#16181b"/>`
+    + `<circle cx="${n(x + .29 * r)}" cy="${n(cy - .65 * r)}" r="${n(.13 * r)}" fill="#fff"/></g></g>`
+}
+
 function friendSvg(id, { silhouette = false } = {}) {
   const f = FRIENDS[id]
   const fill = silhouette ? "#25282d" : f.color
-  const eyes = silhouette ? "" : f.eyes.map(([x, y]) =>
-    `<g class="eye"><circle cx="${x}" cy="${y}" r="8.5" fill="#fff"/><circle class="pupil" cx="${x + 1.6}" cy="${y + 1}" r="4.2" fill="#16181b"/></g>`).join("")
+  const eyes = silhouette ? "" : f.eyes.map(([x, y]) => piEye(x, y, f.tilt)).join("")
   return `<svg viewBox="0 0 100 110" aria-hidden="true"><text x="50" y="${f.base}" text-anchor="middle" font-size="${f.size}"
     style="font-family: var(--serif)" fill="${fill}">${f.glyph}</text>${eyes}</svg>`
 }
