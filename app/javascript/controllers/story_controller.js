@@ -17,6 +17,7 @@ const VIEW_KEY = "manimator:view"
 const HOLD_MS = 1300
 const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
+const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 
 // The friends, in the editor rail's order. Each is its symbol in the serif, with π's eyes.
 const FRIENDS = {
@@ -260,7 +261,7 @@ export default class extends Controller {
     const s = this.s, r = this.rect
     for (const a of Object.values(this.actors)) {
       if (!a.falling) {
-        const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * (this.skipping ? 20 : 5.5))
+        const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * (this.skipping ? 20 : 4))
         a.x += step
         a.y = ease(a.y, a.ty, dt, 8)
         a.walk = Math.abs(dx) > .02 ? a.walk + dt * 13 : 0
@@ -282,7 +283,7 @@ export default class extends Controller {
 
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-  async say(who, text, { pose, choices, input, hold } = {}) {
+  async say(who, text, { pose, choices, input, hold, until } = {}) {
     if (this.gone) return new Promise(() => {})
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
@@ -301,6 +302,9 @@ export default class extends Controller {
     await this.type(text, f.note)
     if (speaker) speaker.talk = false
     if (!decision && this.skipping) return
+    // A big moment (∫'s drawing, k turning) holds until it has played out, so a quick click can't cut it short.
+    if (until) await this.dwell(until)
+    if (!decision && this.skipping) return
     if (choices) return this.offer(choices)
     if (input) return this.ask(input)
     if (hold) return this.holdToSign(hold)
@@ -317,7 +321,7 @@ export default class extends Controller {
       this.skipTyping = () => { i = text.length }
       const step = now => {
         if (this.gone) return
-        acc += (now - last) / 1000 * 62; last = now
+        acc += (now - last) / 1000 * 40; last = now
         while (acc >= 1 && i < text.length) {
           acc -= 1; i++
           const c = text[i - 1]
@@ -422,6 +426,13 @@ export default class extends Controller {
     capture("onboarding_abandoned", { variant: "story", step: this.beat, seconds: this.seconds })
   }
 
+  dwell(until) {
+    return new Promise(resolve => {
+      const check = () => (this.skipping || this.clock >= until || this.gone) ? resolve() : requestAnimationFrame(check)
+      check()
+    })
+  }
+
   pause(ms) { return wait(this.skipping ? ms * .15 : ms) }
 
   // ── The story ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -430,6 +441,7 @@ export default class extends Controller {
     this.step("drop")
     await this.drop()
     this.step("hello")
+    await this.pause(700)
     this.meet("pi")
     // The first click is a choice: it should feel like playing, not reading.
     const hi = await this.say("pi", "Whoa! Hi, I'm π. Wave your cursor around. The field tickles.",
@@ -440,26 +452,26 @@ export default class extends Controller {
     this.step("examples")
     this.moveTo("pi", -3.2, -2.4)
     this.enter("int", { x: 3.2, y: -2.4 })
-    await this.pause(900)
+    await this.pause(1300)
     this.meet("int")
     this.reveal("frame")
     this.want = { field: .22, epi: 1 }
     this.epiStart = this.clock
     this.lineUp()
-    setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, 2600)
-    await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.")
+    setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, EPI_LOOP * 1000)
+    await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.", { until: this.clock + EPI_LOOP + .6 })
 
     // { } and the code: the field comes back, with what made it.
     this.step("code")
     this.enter("code", { from: -1 })
-    await this.pause(700)
+    await this.pause(1100)
     this.meet("code")
     this.want = { field: 1, epi: 0 }
     this.renderCode()
     this.reveal("code")
     this.light("k")
     this.kFrom = this.clock + .6
-    await this.say("code", "Psst, I'm { }. These 8 lines made that field. Watch what happens when k changes.")
+    await this.say("code", "Psst, I'm { }. These 8 lines made that field. Watch what happens when k changes.", { until: this.kFrom + 6 })
     this.light(null)
 
     // Your idea
@@ -781,7 +793,7 @@ export default class extends Controller {
   // ∫'s example: circles on circles, tracing π.
   drawEpicycles(alpha) {
     const ctx = this.ctx, s = this.s, scale = 1.45, cy = .75
-    const phase = ((this.clock - (this.epiStart ?? 0)) / 5) * Math.PI * 2
+    const phase = ((this.clock - (this.epiStart ?? 0)) / EPI_LOOP) * Math.PI * 2
     const tip = ph => {
       let x = 0, y = 0
       for (const c of CIRCLES) { const a = c.freq * ph + c.phase; x += c.amp * Math.cos(a); y += c.amp * Math.sin(a) }
