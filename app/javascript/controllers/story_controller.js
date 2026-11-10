@@ -24,6 +24,9 @@ const HOLD_MS = 1300
 const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
 const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
+const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
+const MORE = Symbol("more") // the prize step's "show me the rest" card
+const videos = n => n === 1 ? "your first video" : `${n} videos`
 
 // The friends, in the editor rail's order. How they look comes from FriendsHelper (the rail's markup is cloned for
 // the stage and the dialogue); here is how they sound, where their feet are, and what they're called.
@@ -360,11 +363,13 @@ export default class extends Controller {
 
   offer(choices) {
     // Choices with a line under them (ideas) stack as a list, every row the same width.
-    this.choicesTarget.classList.toggle("story__choices--list", choices.some(c => c.sub && !c.image))
+    this.choicesTarget.classList.toggle("story__choices--list", choices.some(c => c.sub && !c.image && !c.peek))
+    // A long row of cards (the whole prize shelf) scrolls sideways instead of piling up over the stage.
+    this.choicesTarget.classList.toggle("story__choices--shelf", choices.filter(c => c.image).length > 6)
     return new Promise(resolve => {
       this.choicesTarget.innerHTML = choices.map((c, i) => {
-        const button = `<button type="button" class="story__choice ${c.image ? "story__choice--card" : ""}" data-i="${i}">
-          ${c.image ? `<img src="${c.image}" alt="">` : ""}<span class="story__choice-label">${esc(c.label)}</span>${c.sub ? `<span class="story__choice-sub">${esc(c.sub)}</span>` : ""}</button>`
+        const button = `<button type="button" class="story__choice ${c.image ? "story__choice--card" : ""} ${c.peek ? "story__choice--card story__choice--more" : ""}" data-i="${i}">
+          ${c.image ? `<img src="${c.image}" alt="">` : ""}${c.peek ? `<span class="story__peek">${c.peek.map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}<span class="story__choice-label">${esc(c.label)}</span>${c.sub ? `<span class="story__choice-sub">${esc(c.sub)}</span>` : ""}</button>`
         // A link can't sit inside a button, so it goes under it: where an idea comes from, to read up on.
         return c.link ? `<div class="story__choice-wrap" style="--i:${i}">${button}<a class="story__choice-link" href="${esc(c.link.href)}" target="_blank" rel="noopener">${esc(c.link.label)} ↗</a></div>` : button
       }).join("")
@@ -613,46 +618,62 @@ export default class extends Controller {
     await this.say("inf", `At that pace your video is done by ${shortDate(this.answers.shipBy)}. I'll check in ${this.answers.when === "weekends" ? "on weekends" : `around ${clockTime(this.slotsValue[this.answers.when])}`}.`)
   }
 
-  // Σ and the board: the one prize you're working toward. Σ draws your sessions on the stage as bars on a calendar,
-  // each as tall as a session is long (so their area is your hours), up to the date each prize lands at your pace.
+  // Σ and the board: the one prize you're working toward. ∫ draws the area under your curve on the stage, split into
+  // videos, with the prizes standing on the video lines they take. Hovering a prize fills the area up to it; picking
+  // one replays it a video at a time, then pours it into the prize and empties, since your next prize starts over.
   async askPrize() {
     this.step("prize")
     if (!this.actors.sig) {
       this.enter("sig", { from: -1 })
       await this.pause(800)
-      await this.say("sig", "And I'm Σ. I add up everyone's hours.")
+      await this.say("sig", "And I'm Σ. I add up your hours.")
       this.meet("sig")
     }
-    this.sum = { prize: null, start: this.clock }
-    this.showSum = true
-    this.want = { field: .2, epi: 0 }
-    // Hovering or focusing a prize previews its bars before you pick.
-    const preview = e => { const b = e.target.closest?.("button[data-i]"); if (b) this.sumTo(this.prizesValue[b.dataset.i]?.id) }
+    this.loadPrizes()
+    const featured = this.prizesValue.filter(p => p.featured), rest = this.prizesValue.filter(p => !p.featured)
+    this.curve = { start: this.clock, focus: this.answers.prize ?? featured[featured.length > 2 ? 2 : 0].id, all: false }
+    this.showCurve = true
+    this.want = { field: .25, epi: 0 }
+    let shown = []
+    const preview = e => { const b = e.target.closest?.("button[data-i]"); const p = shown[b?.dataset.i]; if (p) this.curve.focus = p.id }
     this.choicesTarget.addEventListener("pointerover", preview)
     this.choicesTarget.addEventListener("focusin", preview)
-    const prizeId = await this.say("sig", "Pick the one prize you're working toward, and I'll count your sessions toward it.",
-      { choices: this.prizesValue.map(p => ({ label: p.name, sub: `${p.hours} hours · ${shortDate(this.shipBy(p.hours))}`, image: p.image, value: p.id })), back: true })
+    let prizeId
+    for (;;) {
+      const all = this.curve.all
+      shown = this.prizesValue.filter(p => all || p.featured || p.id === this.answers.prize)
+      const choices = shown.map(p => ({ label: p.name, sub: videos(p.videos), image: p.image, value: p.id }))
+      if (!all) choices.push({ label: `${rest.length} more`, sub: "shirts, a mug, a tie…", peek: rest.slice(0, 3).map(p => p.image), value: MORE })
+      prizeId = await this.say("int", all ? "The whole shelf. Pick the one you want." : "Every video you ship fills in a piece of this. Bigger prizes take more videos. Pick the one you're working toward.",
+        { choices, back: true })
+      if (prizeId !== MORE) break
+      this.curve.all = true
+    }
     this.choicesTarget.removeEventListener("pointerover", preview)
     this.choicesTarget.removeEventListener("focusin", preview)
-    if (prizeId === BACK) { this.showSum = false; this.want = { field: 1, epi: 0 }; return BACK }
+    if (prizeId === BACK) { this.showCurve = false; this.want = { field: 1, epi: 0 }; return BACK }
     this.answers.prize = prizeId
-    this.sumTo(prizeId)
-    this.renderTimeline()
     const prize = this.prizesValue.find(p => p.id === prizeId)
-    await this.say("sig", `The ${prize.name}: ${prize.hours} hours, so ${shortDate(this.shipBy(prize.hours))} at your pace. Hours count once your video ships. You can switch before then, but you get one.`)
-    this.showSum = false
+    Object.assign(this.curve, { focus: prizeId, pickedAt: this.clock, shipped: 0, popped: false, drainAt: undefined })
+    this.scene.fill = 0
+    const by = shortDate(this.shipBy(prize.videos * this.hoursValue))
+    await this.say("int", prize.videos === 1 ? `A postcard of your video's last frame. Ship it by ${by} and it's in the mail.`
+      : `The ${prize.name}: ${prize.videos} videos, so ${by} at your pace. Your hours go to this one, and your next prize starts from zero.`,
+      { until: this.clock + prize.videos * REPLAY_VIDEO + 1 })
+    this.curve.drainAt = this.clock
+    await this.pause(900)
+    this.showCurve = false
     this.want = { field: 1, epi: 0 }
   }
 
-  sumTo(id) {
-    if (!id || this.sum.prize === id) return
-    this.sum = { prize: id, start: this.clock }
+  loadPrizes() {
+    this.prizeImages ??= Object.fromEntries(this.prizesValue.map(p => { const img = new Image(); img.src = p.image; return [p.id, img] }))
   }
 
   async askSign() {
     this.step("sign")
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
-    const reward = prize.hours <= this.hoursValue ? `Then the ${prize.name} is yours.` : `Every hour counts toward the ${prize.name}.`
+    const reward = prize.videos === 1 ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
     if (await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign", back: true }) === BACK) return BACK
     if (await this.sign()) return
@@ -907,7 +928,8 @@ export default class extends Controller {
     this.s = Math.min(this.rect.w / W_UNITS, this.rect.h / H_UNITS)
     this.scene.field = ease(this.scene.field, this.want.field, dt, 3)
     this.scene.kShow = ease(this.scene.kShow ?? 0, this.showK ? 1 : 0, dt, 5)
-    this.scene.sum = ease(this.scene.sum ?? 0, this.showSum ? 1 : 0, dt, 5)
+    this.scene.curve = ease(this.scene.curve ?? 0, this.showCurve ? 1 : 0, dt, 4)
+    if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     if (this.titleStart !== undefined) this.scene.title = clamp((this.clock - this.titleStart) / 1.6, 0, 1)
     if (this.kFrom !== undefined) {
@@ -1001,7 +1023,7 @@ export default class extends Controller {
 
     if (this.scene.epi > .01) this.drawEpicycles(this.scene.epi)
     if (this.scene.kShow > .01) this.drawK(this.scene.kShow)
-    if (this.scene.sum > .01 && this.sum) this.drawSum(this.scene.sum)
+    if (this.scene.curve > .01 && this.curve) this.drawCurve(this.scene.curve)
     if (this.answers.idea && this.titleStart !== undefined) this.drawTitle(this.answers.idea, this.scene.title)
     this.drawSparks()
     ctx.restore()
@@ -1066,64 +1088,96 @@ export default class extends Controller {
     ctx.globalAlpha = 1
   }
 
-  // Σ's board: a calendar from today, a pin on the day each prize lands at your pace, and your sessions as bars up to
-  // the prize you're looking at. A bar is as tall as a session is long, so the bars' area is the hours.
-  drawSum(alpha) {
-    const ctx = this.ctx, s = this.s, prizes = this.prizesValue, per = this.answers.minutes / 60
-    const dayOf = p => this.sessionDay(this.sessions(p.hours))
-    const span = Math.max(...prizes.map(dayOf)) * 1.08 || 1
-    const x0 = -5.8, x1 = 5.8, base = -.3, unit = 1.1
-    const X = d => x0 + (x1 - x0) * d / span
-    const goal = prizes.find(p => p.id === this.sum.prize)
-    const day = d => { const t = new Date(); t.setDate(t.getDate() + d); return t.toLocaleDateString("en-US", { month: "short", day: "numeric" }) }
-    this.prizeImages ??= Object.fromEntries(prizes.map(p => { const img = new Image(); img.src = p.image; return [p.id, img] }))
+  // How much of the area is filled, in hours: up to the prize you're looking at, or, once you've picked, a video at a
+  // time (each one ticks off as it ships), then back to nothing.
+  fillTarget() {
+    const c = this.curve, hpv = this.hoursValue, prize = this.prizesValue.find(p => p.id === c.focus)
+    if (!prize) return 0
+    if (c.drainAt !== undefined) return 0
+    if (c.pickedAt === undefined) return prize.videos * hpv
+    const v = Math.min(prize.videos, (this.clock - c.pickedAt) / REPLAY_VIDEO), done = Math.floor(v + 1e-6)
+    if (done > c.shipped) { c.shipped = done; sfx.tick(Math.min(done, 7)) }
+    if (done >= prize.videos && !c.popped) { c.popped = true; c.popAt = this.clock; this.burst(...this.pinAt(prize), 50); sfx.land() }
+    return (Math.floor(v) + smooth(v % 1)) * hpv
+  }
+
+  // The curve's frame, in stage units: x is time (hours), split into videos.
+  curveFrame() {
+    const hpv = this.hoursValue, most = Math.max(...this.prizesValue.map(p => p.videos)), H = most * hpv
+    const x0 = -5.6, x1 = 5.6, base = -.15
+    return { hpv, most, base, x0, x1, X: h => x0 + (x1 - x0) * h / H, Y: h => base + .95 + .3 * Math.sin(h / H * 8.5 + .6) }
+  }
+
+  // The prizes standing on the curve: the featured ones, plus whichever you're looking at or picked. The whole shelf
+  // lives in the dialog; on the stage it would just be a pile.
+  onStage() {
+    const c = this.curve
+    return this.prizesValue.filter(p => p.featured || p.id === c.focus || p.id === this.answers.prize)
+  }
+
+  // Where a prize's photo stands: above its video line, fanned out from the others that share it.
+  pinAt(prize) {
+    const { hpv, X, Y } = this.curveFrame(), c = this.curve
+    const mates = this.onStage().filter(p => p.videos === prize.videos)
+    const k = Math.max(0, mates.indexOf(prize)), spread = Math.min(.8, 1.4 / Math.max(1, mates.length - 1))
+    return [X(prize.videos * hpv) + (k - (mates.length - 1) / 2) * spread, Y(prize.videos * hpv) + .62]
+  }
+
+  drawCurve(alpha) {
+    const ctx = this.ctx, s = this.s, c = this.curve, { hpv, most, base, x0, x1, X, Y } = this.curveFrame()
+    const focus = this.prizesValue.find(p => p.id === c.focus), fill = this.scene.fill ?? 0
+    const grow = smooth(clamp((this.clock - c.start) / 1.1, 0, 1)), H = most * hpv
     ctx.save()
     ctx.globalAlpha = alpha
+    ctx.lineCap = "round"
 
-    // The calendar, a tick a week.
-    ctx.strokeStyle = "rgba(236,233,226,.75)"; ctx.lineWidth = 1.5
-    ctx.beginPath(); ctx.moveTo(...this.px(x0 - .25, base)); ctx.lineTo(...this.px(x1 + .25, base)); ctx.stroke()
-    ctx.font = `${.2 * s}px ${this.mono}`; ctx.textAlign = "center"; ctx.textBaseline = "top"; ctx.fillStyle = "#80868e"
-    for (let d = 0; d <= span; d += 7) {
-      const [TX, TY] = this.px(X(d), base)
-      ctx.beginPath(); ctx.moveTo(TX, TY); ctx.lineTo(TX, TY + .1 * s); ctx.stroke()
-      ctx.fillText(d ? day(d) : "today", TX, TY + .16 * s)
+    // The video lines, faint, and their names under the axis. Shipped ones turn yellow.
+    ctx.font = `${.19 * s}px ${this.mono}`; ctx.textAlign = "center"; ctx.textBaseline = "top"
+    for (let v = 1; v <= most; v++) {
+      const [LX, LY] = this.px(X(v * hpv), base), [, TY] = this.px(0, Y(v * hpv) + .1)
+      ctx.strokeStyle = "rgba(236,233,226,.14)"; ctx.lineWidth = 1; ctx.setLineDash([4, 6])
+      ctx.beginPath(); ctx.moveTo(LX, LY); ctx.lineTo(LX, TY); ctx.stroke(); ctx.setLineDash([])
+      const shipped = c.pickedAt !== undefined && c.drainAt === undefined && v <= (c.shipped ?? 0)
+      ctx.fillStyle = shipped ? "#F4D345" : v <= (focus?.videos ?? 0) ? "#a9aeb5" : "#4b5058"
+      ctx.globalAlpha = alpha * grow
+      ctx.fillText(shipped ? `video ${v} ✓` : `video ${v}`, this.px(X((v - .5) * hpv), 0)[0], LY + .14 * s)
+      ctx.globalAlpha = alpha
     }
 
-    // Your sessions, growing one after another toward the prize.
-    if (goal) {
-      const n = this.sessions(goal.hours), w = clamp((x1 - x0) / span * 7 / this.answers.days * .55, .05, .2)
-      let top = 0
-      for (let i = 0; i < n; i++) {
-        const grow = smooth(clamp((this.clock - this.sum.start - i * .06) / .35, 0, 1))
-        const h = Math.min(per, goal.hours - i * per) * unit * grow
-        if (h <= 0) continue
-        const [BX, BY] = this.px(X(this.sessionDay(i + 1)) - w / 2, base + h)
-        ctx.fillStyle = "rgba(252,98,85,.35)"; ctx.strokeStyle = "#FC6255"; ctx.lineWidth = 1.2
-        ctx.beginPath(); ctx.roundRect(BX, BY, w * s, h * s, 2); ctx.fill(); ctx.stroke()
-        top = Math.max(top, h)
-      }
-      const [LX, LY] = this.px(X(dayOf(goal)) / 2, base + top + .3)
-      ctx.font = `italic ${.36 * s}px ${this.serif}`; ctx.textBaseline = "alphabetic"; ctx.fillStyle = "#FC6255"
-      ctx.fillText(`Σ = ${goal.hours} h`, LX, LY)
+    // The area under the curve, filled up to now.
+    if (fill > .01) {
+      ctx.beginPath(); ctx.moveTo(...this.px(X(0), base))
+      for (let h = 0; h <= fill; h += H / 240) ctx.lineTo(...this.px(X(h), Y(h)))
+      ctx.lineTo(...this.px(X(fill), Y(fill))); ctx.lineTo(...this.px(X(fill), base)); ctx.closePath()
+      ctx.fillStyle = "rgba(244,211,69,.3)"; ctx.fill()
+      ctx.strokeStyle = "#F4D345"; ctx.lineWidth = 2.5
+      ctx.beginPath(); ctx.moveTo(...this.px(X(fill), base)); ctx.lineTo(...this.px(X(fill), Y(fill))); ctx.stroke()
     }
 
-    // A pin per prize, on its day. The one you're looking at stands out; the rest wait.
-    for (const p of prizes) {
-      const on = !goal || p.id === goal.id, [PX, PY] = this.px(X(dayOf(p)), base), r = (on && goal ? .32 : .26) * s
-      const [, HY] = this.px(0, base + 2.05)
-      ctx.globalAlpha = alpha * (on ? 1 : .35)
-      ctx.strokeStyle = on && goal ? "#FC6255" : "#3a3e45"; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4])
-      ctx.beginPath(); ctx.moveTo(PX, PY); ctx.lineTo(PX, HY + r); ctx.stroke(); ctx.setLineDash([])
-      ctx.save()
-      ctx.beginPath(); ctx.arc(PX, HY, r, 0, Math.PI * 2); ctx.fillStyle = "#f3efe4"; ctx.fill(); ctx.clip()
-      const img = this.prizeImages[p.id]
-      if (img.complete && img.naturalWidth) ctx.drawImage(img, PX - r, HY - r, r * 2, r * 2)
+    // The axis and the curve, drawn on the way manim's Create does.
+    ctx.strokeStyle = "rgba(236,233,226,.8)"; ctx.lineWidth = 1.5
+    ctx.beginPath(); ctx.moveTo(...this.px(x0 - .15, base)); ctx.lineTo(...this.px(x0 - .15 + (x1 - x0 + .3) * grow, base)); ctx.stroke()
+    ctx.strokeStyle = "#58C4DD"; ctx.lineWidth = 3
+    ctx.beginPath()
+    for (let h = 0; h <= H * grow; h += H / 240) { const [PX, PY] = this.px(X(h), Y(h)); h ? ctx.lineTo(PX, PY) : ctx.moveTo(PX, PY) }
+    ctx.stroke()
+
+    // The prizes, standing on their video lines. The one you're looking at is big; the rest wait.
+    const shown = this.onStage()
+    const order = [...shown.filter(p => p.id !== c.focus), ...shown.filter(p => p.id === c.focus)]
+    for (const p of order) {
+      const on = p.id === c.focus, [PX, PY] = this.px(...this.pinAt(p)), img = this.prizeImages[p.id]
+      const pop = on && c.popAt !== undefined ? 1 + .25 * Math.exp(-(this.clock - c.popAt) * 4) * Math.sin((this.clock - c.popAt) * 18) : 1
+      const r = (on ? .36 : .22) * s * pop * grow, bob = on ? Math.sin(this.clock * 2.4) * .04 * s : 0
+      ctx.globalAlpha = alpha * (on ? 1 : .5)
+      if (on) { ctx.shadowColor = "rgba(244,211,69,.55)"; ctx.shadowBlur = c.popped ? 28 : 14 }
+      ctx.fillStyle = "#f3efe4"; ctx.beginPath(); ctx.arc(PX, PY - bob, r, 0, Math.PI * 2); ctx.fill()
+      ctx.shadowBlur = 0
+      ctx.save(); ctx.beginPath(); ctx.arc(PX, PY - bob, r, 0, Math.PI * 2); ctx.clip()
+      if (img?.complete && img.naturalWidth) ctx.drawImage(img, PX - r, PY - bob - r, r * 2, r * 2)
       ctx.restore()
-      ctx.lineWidth = on && goal ? 3 : 1.5
-      ctx.beginPath(); ctx.arc(PX, HY, r, 0, Math.PI * 2); ctx.stroke()
-      ctx.font = `${.2 * s}px ${this.mono}`; ctx.textBaseline = "bottom"; ctx.fillStyle = on && goal ? "#FC6255" : "#a9aeb5"
-      ctx.fillText(`${p.hours} h`, PX, HY - r - .08 * s)
+      ctx.strokeStyle = on ? "#F4D345" : "#3a3e45"; ctx.lineWidth = on ? 2.5 : 1.5
+      ctx.beginPath(); ctx.arc(PX, PY - bob, r, 0, Math.PI * 2); ctx.stroke()
     }
     ctx.restore()
   }

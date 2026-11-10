@@ -154,6 +154,18 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__choice--card { width: 104px; padding: 8px 8px 10px; align-items: stretch; }
 .story__choice--card::before { display: none; }
 .story__choice--card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
+/* The prize step's "N more" card: a little fan of what's behind it. */
+.story__choice--more { border-style: dashed; }
+.story__peek { position: relative; width: 100%; aspect-ratio: 1; margin-bottom: 6px; }
+.story__peek img { position: absolute; width: 62%; aspect-ratio: 1; margin: 0; border-radius: 50%; box-shadow: 0 0 0 2px var(--bg-raised); }
+.story__peek img:nth-child(1) { left: 0; top: 4%; transform: rotate(-8deg); }
+.story__peek img:nth-child(2) { right: 0; top: 0; transform: rotate(6deg); }
+.story__peek img:nth-child(3) { left: 19%; bottom: 0; }
+.story__choice--more:hover .story__peek img:nth-child(1) { transform: rotate(-14deg) translateX(-3px); }
+.story__choice--more:hover .story__peek img:nth-child(2) { transform: rotate(12deg) translateX(3px); }
+.story__peek img { transition: transform .2s; }
+.story__choices--shelf { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.story__choices--shelf .story__choice--card { flex: none; }
 .story__choice--card .story__choice-label { font-size: 13px; line-height: 1.2; }
 .story__choice--card .story__choice-sub { font-size: 10.5px; }
 
