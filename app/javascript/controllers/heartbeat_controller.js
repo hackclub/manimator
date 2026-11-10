@@ -19,7 +19,8 @@ export default class extends Controller {
     // Capturing, so a scroll inside a panel or a key the editor swallows still counts
     SIGNS.forEach(sign => window.addEventListener(sign, this.noteActivity, { capture: true, passive: true }))
     this.timer = setInterval(() => this.beat(), EVERY)
-    this.ask()
+    // Opening the editor is the first beat, so the clock starts now and the next beat has something to count from
+    this.beat({ opening: true })
   }
 
   disconnect() {
@@ -40,8 +41,8 @@ export default class extends Controller {
     return this.tick(fetch(`${this.urlValue}?timezone=${encodeURIComponent(this.timezone)}`, { headers: { Accept: "application/json" } }))
   }
 
-  beat() {
-    if (!this.working) return
+  beat({ opening = false } = {}) {
+    if (!opening && !this.working) return
     return this.tick(fetch(this.urlValue, {
       method: "POST", body: JSON.stringify({ timezone: this.timezone }),
       headers: { "Content-Type": "application/json", Accept: "application/json",

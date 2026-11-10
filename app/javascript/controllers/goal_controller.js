@@ -6,13 +6,21 @@ import { Renderer } from "editor/renderer"
 // Today's goal, and what meeting it gets you. It's all driven by heartbeat:tick (heartbeat_controller), which says
 // how long you've worked today, the goal, your streak and your time in all.
 //
-// The goal is one full turn. An arc around π in the bar grows from 0 to 2π, the way angles go (from the right,
+// The goal is one full turn. When the editor opens π says the session has started, and a clock in the bar runs while
+// you work and says "paused" when you stop. An arc around π in the bar grows from 0 to 2π, the way angles go (from the right,
 // counterclockwise), and reads out θ as it does. The moment it closes while you're here, π says so once ("Day 1 ✓"),
 // the frame on the stage is saved as the scene's picture (Scene#frame) and shown as a postcard in pencil, and on
 // your first day ∞ asks when you'll sit down next (Pledge#next_session_at, which π messages you at). An hour in, all
 // told, the postcard is made: the pencil turns to colour and it's stamped.
 const DONE_KEY = "manimator:goal" // the day π last said you'd met the goal
 const MADE_KEY = "manimator:postcard" // "made" once π's said the postcard is made
+const START_KEY = "manimator:session" // the day π last said your session had started
+// The clock in the bar runs on its own between heartbeats, while you're working: the same signs and the same two
+// minutes the heartbeat goes by (heartbeat_controller), and never further ahead of the server than AHEAD seconds.
+const SIGNS = ["keydown", "pointermove", "pointerdown", "wheel", "scroll"]
+const IDLE_AFTER = 120_000
+const AHEAD = 45
+const START_FOR = 9_000
 const SNAP_EVERY = 60_000
 const WIDTH = 960
 const MAX_FRAME = 380_000 // characters of data URL; the server takes 400 KB
@@ -21,6 +29,8 @@ const read = key => { try { return localStorage.getItem(key) } catch { return nu
 const write = (key, value) => { try { localStorage.setItem(key, value) } catch { /* storage unavailable */ } }
 const today = () => new Date().toDateString()
 const minutes = seconds => Math.floor(seconds / 60)
+// "0:42", "10:00"
+const mmss = seconds => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`
 
 // 0.25 of a turn is "0.5π"; a half is "π"; all of it is "2π".
 function theta(turn) {
@@ -36,7 +46,7 @@ function clock(date) {
 
 export default class extends Controller {
   static targets = ["dial", "arc", "hand", "minutes", "theta", "shade", "card", "pi", "bubble", "postcard", "picture",
-    "caption", "next", "question", "times", "signIn"]
+    "caption", "next", "question", "times", "signIn", "start"]
   static values = { poses: Object, scenesUrl: String, pledgeUrl: String, slot: String, frame: String, signedIn: Boolean }
 
   connect() {
@@ -44,11 +54,23 @@ export default class extends Controller {
     this.met = false // today's goal has been met, now or before the page opened
     this.snappedAt = 0
     this.picture = null // the frame as last snapped here, a data URL
+    this.shown = 0 // today's seconds as the bar shows them, running ahead of the last heartbeat
+    this.activeAt = Date.now() // opening the editor counts as being here
+    this.noteActivity = () => { this.activeAt = Date.now() }
+    SIGNS.forEach(sign => window.addEventListener(sign, this.noteActivity, { capture: true, passive: true }))
+    this.clock = setInterval(() => this.run(), 1000)
   }
 
   disconnect() {
     this.mascot?.stop()
     clearTimeout(this.inking)
+    clearTimeout(this.starting)
+    clearInterval(this.clock)
+    SIGNS.forEach(sign => window.removeEventListener(sign, this.noteActivity, { capture: true }))
+  }
+
+  get working() {
+    return document.visibilityState === "visible" && Date.now() - this.activeAt < IDLE_AFTER
   }
 
   get editor() {
@@ -60,7 +82,11 @@ export default class extends Controller {
     const was = this.last
     this.last = detail
     this.met ||= detail.completed
-    this.draw(detail)
+    // The server's count is the truth; the bar only keeps its own if it's a few seconds ahead, so it never ticks back
+    const ahead = this.shown - detail.today_seconds
+    this.shown = was && ahead > 0 && ahead < 20 ? this.shown : detail.today_seconds
+    this.draw({ ...detail, today_seconds: this.shown })
+    if (!was && !detail.completed && read(START_KEY) !== today()) this.start(detail)
 
     const made = detail.total_seconds >= detail.postcard_seconds
     const justMet = was && !was.completed && detail.completed && read(DONE_KEY) !== today()
@@ -69,12 +95,40 @@ export default class extends Controller {
     else if (justMade) this.celebrate(detail, true, { hour: true })
   }
 
+  // Every second: while you're working the clock runs, so you can see the session is on; when you stop, it says so.
+  run() {
+    const tick = this.last
+    if (!tick || tick.completed) return
+    const working = this.working
+    this.element.classList.toggle("goal--paused", !working)
+    if (working) this.shown = Math.min(this.shown + 1, tick.today_seconds + AHEAD, tick.goal_seconds - 1)
+    this.draw({ ...tick, today_seconds: this.shown })
+    if (!working) this.thetaTarget.textContent = "paused"
+  }
+
+  // The session's on: π says so once a day, under the dial, and the dial pops.
+  start({ first_day, goal_seconds }) {
+    write(START_KEY, today())
+    this.startTarget.textContent = first_day ? `Your first session has started. ${minutes(goal_seconds)} minutes in here closes the circle.`
+      : `Today’s session has started. ${minutes(goal_seconds)} minutes closes the circle.`
+    this.startTarget.hidden = false
+    this.dialTarget.classList.add("goal__dial--pop")
+    this.starting = setTimeout(() => this.dismissStart(), START_FOR)
+    capture("editor_session_started", { first_day })
+  }
+
+  dismissStart() {
+    clearTimeout(this.starting)
+    this.startTarget.hidden = true
+    if (this.shadeTarget.hidden) this.dialTarget.classList.remove("goal__dial--pop")
+  }
+
   draw({ today_seconds, goal_seconds, completed }) {
     const turn = completed ? 1 : Math.min(today_seconds / goal_seconds, 1)
     this.arcTarget.style.strokeDasharray = `${turn} 1`
     this.handTarget.style.transform = `rotate(${-turn * 360}deg)`
     this.element.classList.toggle("goal--met", completed)
-    this.minutesTarget.textContent = completed ? `${minutes(today_seconds)} min today` : `${minutes(today_seconds)} of ${minutes(goal_seconds)} min`
+    this.minutesTarget.textContent = completed ? `${minutes(today_seconds)} min today` : `${mmss(today_seconds)} of ${mmss(goal_seconds)}`
     this.thetaTarget.textContent = `θ = ${theta(turn)}${completed ? " ✓" : ""}`
     this.dialTarget.title = completed ? "Full turn. Today’s goal is met."
       : `Today’s goal is one full turn: ${minutes(goal_seconds)} minutes in the editor.`

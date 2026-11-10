@@ -19,6 +19,8 @@
     <span data-goal-target="minutes">today</span>
     <span class="goal__theta" data-goal-target="theta">θ = 0</span>
   </div>
+  <%# π saying the session's on, once a day when the editor opens %>
+  <p class="goal__start bubble" hidden data-goal-target="start" data-action="click->goal#dismissStart"></p>
 
   <div class="goal__shade" hidden data-goal-target="shade" data-action="click->goal#closeOutside">
     <div class="goal__card" role="dialog" aria-label="Today’s goal" data-goal-target="card">
