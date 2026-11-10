@@ -242,17 +242,7 @@ export default class extends Controller {
   renderTimeline() {
     this.timelineTarget.innerHTML = `<span class="story__clip story__clip--blue" style="left:0;width:30%">field</span>
       ${this.answers.idea ? `<span class="story__clip story__clip--teal" style="left:31%;width:34%">Write(title)</span>` : ""}
-      <span class="story__head" style="left:${this.answers.idea ? 65 : 30}%"></span>${this.sumBars()}`
-  }
-
-  // Σ's sum, kept in the timeline once you've picked: one bar per session until your prize.
-  sumBars() {
-    const prize = this.answers.prize && this.prizesValue.find(p => p.id === this.answers.prize)
-    if (!prize) return ""
-    const per = this.answers.minutes / 60
-    const bars = Array.from({ length: this.sessions(prize.hours) }, (_, i) =>
-      `<i style="height:${Math.round(100 * Math.min(per, prize.hours - i * per) / 1.5)}%;animation-delay:${i * 50}ms"></i>`)
-    return `<span class="story__sum">${bars.join("")}<b>Σ = ${prize.hours} h</b></span>`
+      <span class="story__head" style="left:${this.answers.idea ? 65 : 30}%"></span>`
   }
 
   // ── The cast ─────────────────────────────────────────────────────────────────────────────────────────────────
