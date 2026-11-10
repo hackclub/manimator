@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :pledges, dependent: :nullify
   has_many :scenes, dependent: :destroy
   has_many :activities, dependent: :destroy
+  has_many :nudges, dependent: :destroy
 
   validates :hca_id, presence: true, uniqueness: true
 
@@ -47,6 +48,26 @@ class User < ApplicationRecord
 
   def hours
     (seconds_total / 3600.0).round(1)
+  end
+
+  # Stops π's Slack messages, and counts it against the nudge whose link they stopped them from.
+  def mute_slack!(nudge)
+    transaction do
+      update!(slack_muted_at: Time.current) unless slack_muted_at
+      nudge.update!(opted_out_at: Time.current) unless nudge.opted_out_at
+    end
+  end
+
+  def unmute_slack!(nudge)
+    transaction do
+      update!(slack_muted_at: nil)
+      nudge.update!(opted_out_at: nil)
+    end
+  end
+
+  # π DMed you just now. Everything it sends keeps this, so its messages are spaced out (Nudge::MESSAGE_GAP).
+  def slack_dmed!(at = Time.current)
+    update_column(:slack_dmed_at, at) if slack_dmed_at.nil? || at > slack_dmed_at
   end
 
   def display_name
