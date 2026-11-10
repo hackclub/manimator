@@ -173,7 +173,7 @@
           <div class="home__week">
             <div class="home__week-line"></div>
             <% p[:week].each_with_index do |d, i| %>
-              <div class="home__weekday"><span class="home__pip <%= "home__pip--done" if i < p[:streak] %>"></span><span class="mono-xs c-faint"><%= d %></span></div>
+              <div class="home__weekday"><span class="home__pip"></span><span class="mono-xs c-faint"><%= d %></span></div>
             <% end %>
           </div>
         </div>
