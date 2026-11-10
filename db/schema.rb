@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_10_120300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "visitor_id"
+    t.date "activity_date", null: false
+    t.integer "seconds", default: 0, null: false
+    t.datetime "last_beat_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "activity_date"], name: "index_activities_on_user_id_and_activity_date", unique: true, where: "(user_id IS NOT NULL)"
+    t.index ["user_id"], name: "index_activities_on_user_id"
+    t.index ["visitor_id", "activity_date"], name: "index_activities_on_visitor_id_and_activity_date", unique: true, where: "(user_id IS NULL)"
+  end
 
   create_table "ideas", force: :cascade do |t|
     t.string "key", null: false
@@ -35,6 +48,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
     t.index ["key"], name: "index_ideas_on_key", unique: true
   end
 
+  create_table "nudges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "kind", null: false
+    t.string "arm", null: false
+    t.integer "variant"
+    t.text "text"
+    t.boolean "holdout", default: false, null: false
+    t.string "token", null: false
+    t.datetime "sent_at"
+    t.boolean "delivered", default: false, null: false
+    t.string "slack_channel"
+    t.string "slack_ts"
+    t.datetime "clicked_at"
+    t.integer "clicks", default: 0, null: false
+    t.datetime "opted_out_at"
+    t.integer "reward"
+    t.datetime "rewarded_at"
+    t.date "built_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_nudges_on_token", unique: true
+    t.index ["user_id", "sent_at"], name: "index_nudges_on_user_id_and_sent_at"
+    t.index ["user_id"], name: "index_nudges_on_user_id"
+  end
+
   create_table "pledges", force: :cascade do |t|
     t.string "visitor_id", null: false
     t.string "name"
@@ -51,6 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.datetime "next_session_at"
     t.index ["idea_record_id"], name: "index_pledges_on_idea_record_id"
     t.index ["user_id"], name: "index_pledges_on_user_id"
     t.index ["visitor_id"], name: "index_pledges_on_visitor_id"
@@ -65,6 +104,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
     t.datetime "edited_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "frame"
+    t.datetime "frame_at"
     t.index ["user_id", "edited_at"], name: "index_scenes_on_user_id_and_edited_at"
     t.index ["user_id"], name: "index_scenes_on_user_id"
     t.index ["visitor_id"], name: "index_scenes_on_visitor_id"
@@ -242,9 +283,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_140000) do
     t.string "timezone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "current_streak", default: 0, null: false
+    t.datetime "slack_muted_at"
+    t.datetime "slack_dm_failed_at"
+    t.datetime "slack_dmed_at"
     t.index ["hca_id"], name: "index_users_on_hca_id", unique: true
   end
 
+  add_foreign_key "activities", "users"
+  add_foreign_key "nudges", "users"
   add_foreign_key "pledges", "ideas", column: "idea_record_id"
   add_foreign_key "pledges", "users"
   add_foreign_key "scenes", "users"
