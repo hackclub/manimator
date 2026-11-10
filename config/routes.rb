@@ -24,6 +24,12 @@ Rails.application.routes.draw do
   get "frames/:id" => "frames#show", as: :frame
   resource :heartbeat, only: %i[show create]
 
+  # The links in π's Slack messages (Nudge::Message): the button, and stopping the messages.
+  get "n/:token" => "nudge_links#show", as: :nudge_link
+  get "n/:token/stop" => "nudge_links#stop", as: :nudge_stop
+  post "n/:token/stop" => "nudge_links#mute"
+  delete "n/:token/stop" => "nudge_links#unmute"
+
   # Hack Club Auth. Signing in is a POST to /auth/hackclub (OmniAuth's middleware), which comes back here.
   get "auth/:provider/callback" => "sessions#create", as: :auth_callback
   get "auth/failure" => "sessions#failure", as: :auth_failure

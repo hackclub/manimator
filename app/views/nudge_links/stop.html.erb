@@ -1,0 +1,15 @@
+<% muted = @nudge.user.slack_muted_at.present? %>
+<% content_for :title, "π's messages · Manimator" %>
+<main style="min-height: 100vh; display: grid; place-items: center; padding: 24px;">
+  <section class="card" style="max-width: 520px; padding: 32px; gap: 20px;">
+    <% if muted %>
+      <h1 style="margin: 0; font-weight: 400;">π won't message you anymore.</h1>
+      <p class="muted" style="margin: 0;">Your scenes, hours and streak all keep working. Changed your mind?</p>
+      <%= button_to "Keep sending them", nudge_stop_path(@nudge.token), method: :delete, class: "btn btn--ghost" %>
+    <% else %>
+      <h1 style="margin: 0; font-weight: 400;">Stop π's messages?</h1>
+      <p class="muted" style="margin: 0;">You won't hear from π on Slack anymore. Your scenes, hours and streak all keep working.</p>
+      <%= button_to "Stop messages", nudge_stop_path(@nudge.token), class: "btn btn--primary" %>
+    <% end %>
+  </section>
+</main>
