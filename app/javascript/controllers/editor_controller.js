@@ -72,6 +72,13 @@ export default class extends Controller {
     // Playback state
     this.renderer = new Renderer(this.stageTarget)
     this.thumbRenderer = new Renderer(this.thumbTarget)
+    // Canvas text only picks up the webfont once it has loaded, so redraw when it does
+    Promise.all(["100px 'Computer Modern Serif'", "italic 100px 'Computer Modern Serif'"].map((f) => document.fonts?.load(f)))
+      .then(() => {
+        this.renderer.widthCache.clear()
+        this.thumbRenderer.widthCache.clear()
+        this.dirty = true
+      }, () => {})
     this.store = null // what's on screen
     this.incoming = null // run in progress, swapped in on its first chunk
     this.frame = 0

@@ -3,8 +3,8 @@ import { HEADER } from "editor/frames"
 const FRAME_HEIGHT = 8
 const FRAME_WIDTH = (FRAME_HEIGHT * 16) / 9
 const FONTS = [
-  `"Inter", "Helvetica Neue", Helvetica, Arial, sans-serif`,
-  `"Latin Modern Math", "STIX Two Math", "Cambria Math", "Times New Roman", serif`,
+  `"Computer Modern Serif", "Latin Modern Roman", "Times New Roman", serif`,
+  `"Computer Modern Serif", "Latin Modern Math", "STIX Two Math", "Times New Roman", serif`,
   `ui-monospace, "SF Mono", Menlo, Consolas, monospace`,
 ]
 const FONT_STYLE = ["", "italic ", ""]

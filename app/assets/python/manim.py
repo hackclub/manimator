@@ -1136,7 +1136,7 @@ def _text_width(s, em, font):
         return 0.6 * em * len(s)
     w = 0.0
     for ch in s:
-        w += 0.3 if ch in _NARROW else 0.85 if ch in _WIDE else 0.56 if ch.islower() else 0.66
+        w += 0.3 if ch in _NARROW else 0.85 if ch in _WIDE else 0.5 if ch.islower() else 0.65
     return w * em
 
 
