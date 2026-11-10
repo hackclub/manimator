@@ -83,6 +83,7 @@ class ActivityTest < ActiveSupport::TestCase
 
   test "reaching the goal counts the streak again and tells π, once" do
     told = []
+    original = Nudge.method(:day_completed)
     Nudge.define_singleton_method(:day_completed) { |user, date| told << [ user, date ] }
     travel_to NOON + 15.minutes do
       beats(20)
@@ -92,14 +93,15 @@ class ActivityTest < ActiveSupport::TestCase
       assert_equal [ [ @user, Date.new(2026, 11, 10) ] ], told
     end
   ensure
-    Nudge.singleton_class.remove_method(:day_completed)
+    Nudge.define_singleton_method(:day_completed, original)
   end
 
   test "a visitor reaching the goal tells nobody" do
+    original = Nudge.method(:day_completed)
     Nudge.define_singleton_method(:day_completed) { |*| raise "a visitor has no Slack" }
     assert beats(22, visitor_id: "v1").completed?
   ensure
-    Nudge.singleton_class.remove_method(:day_completed)
+    Nudge.define_singleton_method(:day_completed, original)
   end
 end
 

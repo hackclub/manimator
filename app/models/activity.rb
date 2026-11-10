@@ -71,7 +71,7 @@ class Activity < ApplicationRecord
 
       if user && just_completed
         user.recalculate_streak!
-        Nudge.day_completed(user, day.activity_date) if Nudge.respond_to?(:day_completed)
+        Nudge.day_completed(user, day.activity_date)
       end
       day
     end
