@@ -655,6 +655,8 @@ export default class extends Controller {
         if (!this.unsaved) this.setSaved("saved", "green")
       }
       this.renderOthers()
+      // For whoever keeps something else of the scene's up to date (goal_controller's picture of it)
+      if (scene === this.scene) this.dispatch("saved", { detail: { id: scene.id } })
     }).catch(() => {
       // Tried again on the next edit
       if (scene === this.scene) { this.unsaved = true; this.setSaved("not saved", "red") }
