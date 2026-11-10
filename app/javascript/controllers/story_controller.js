@@ -634,7 +634,11 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     await this.say("pi", `So: "${this.answers.idea}", done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
     if (await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign", back: true }) === BACK) return BACK
-    await this.sign()
+    if (await this.sign()) return
+    // Someone claimed your drawn idea while you were deciding: pick again, then sign again.
+    await this.say("pi", "Oh no, someone just took that idea! Let's find you another.", { pose: "erm" })
+    await this.askIdea()
+    return this.askSign()
   }
 
   // Your own idea, or one drawn from your class. ◂ back steps through it too: ideas → class → how.
@@ -661,6 +665,14 @@ export default class extends Controller {
     let seen = []
     for (;;) {
       const ideas = await this.drawIdeas(klass, seen)
+      if (!ideas) {
+        const next = await this.say("pi", "Hmm, I couldn't reach the idea pile.",
+          { pose: "erm", choices: [{ label: "Try again", value: "retry" }, { label: "I'll tell you mine", value: "own" }], back: true })
+        if (next === BACK) return BACK
+        if (next === "retry") continue
+        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
+        return idea === BACK ? BACK : { idea, ideaId: null }
+      }
       if (!ideas.length) {
         const idea = await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
         return idea === BACK ? BACK : { idea, ideaId: null }
@@ -673,11 +685,13 @@ export default class extends Controller {
     }
   }
 
+  // Ideas for your class; [] when they're all taken (204), null when the request failed.
   async drawIdeas(klass, except) {
     try {
       const response = await this.post(this.drawUrlValue, { klass, except })
-      return response.status === 200 ? await response.json() : []
-    } catch { return [] }
+      if (response.status === 204) return []
+      return response.ok ? await response.json() : null
+    } catch { return null }
   }
 
   shipBy() {
@@ -688,10 +702,12 @@ export default class extends Controller {
     return date
   }
 
-  // Keeps the same Pledge the pledge page does, and leaves your idea in the editor.
+  // Keeps the same Pledge the pledge page does, and leaves your idea in the editor. False if your drawn idea was taken.
   async sign() {
     const a = this.answers
-    if (a.ideaId) { try { await this.post(this.claimUrlValue.replace("ID", a.ideaId)) } catch { /* offline: keep going */ } }
+    if (a.ideaId) {
+      try { if ((await this.post(this.claimUrlValue.replace("ID", a.ideaId))).status === 409) return false } catch { /* offline: keep going */ }
+    }
     try {
       await this.post(this.pledgeUrlValue, { pledge: {
         idea: a.idea, idea_record_id: a.ideaId, prize: a.prize, build_time: a.when, days_per_week: a.days,
@@ -709,6 +725,7 @@ export default class extends Controller {
       if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea, this.scene.k))
       localStorage.setItem(VIEW_KEY, "code")
     } catch { /* storage unavailable */ }
+    return true
   }
 
   post(url, body = {}) {
