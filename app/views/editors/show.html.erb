@@ -9,11 +9,11 @@
 
 <%# ?view= opens on a tool (the story onboarding hands over to code), so the first paint is already right. %>
 <% view_now = params[:view].presence_in(%w[home code buddy board examples]) || "home" %>
-<div class="app" data-controller="shell editor" data-view="<%= view_now %>"
+<div class="app" data-controller="shell editor coach" data-view="<%= view_now %>" data-coach-poses-value="<%= pi_pose_urls %>"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
      data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
      data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
-     data-action="keydown@window->editor#key shell:changed->editor#viewChanged">
+     data-action="keydown@window->editor#key shell:changed->editor#viewChanged editor:ready->coach#ready editor:scrubbed->coach#scrubbed">
   <header class="app__bar">
     <%= link_to "Manimator", root_path, class: "app__brand" %>
     <span class="app__slash">/</span>
@@ -51,6 +51,12 @@
     <section class="app__left">
       <div class="app__pane app__pane--code">
         <div class="app__code" data-editor-target="code"></div>
+        <%# π's tips (coach_controller): one thing to try, in the code you already have. %>
+        <div class="coach" hidden data-coach-target="card">
+          <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
+          <p class="coach__bubble bubble" data-coach-target="bubble"></p>
+          <button class="coach__hide" aria-label="Hide π’s tips" title="Hide π’s tips" data-action="coach#hide">×</button>
+        </div>
         <div class="app__error" hidden data-editor-target="error"></div>
         <div class="app__hint">⌥/alt + drag a number to scrub it · click the canvas to jump to code</div>
       </div>

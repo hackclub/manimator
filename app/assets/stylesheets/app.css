@@ -345,3 +345,16 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
   .resume, .home__scenes { grid-template-columns: 1fr; }
   .resume__code { border-right: 0; border-bottom: 1px solid var(--line); }
 }
+
+/* π's tips under the code (coach_controller) */
+.coach { position: relative; display: flex; align-items: flex-end; gap: 14px; padding: 12px 40px 12px 16px; border-top: 1px solid var(--line); }
+.coach[hidden] { display: none; }
+.coach__pi { width: 52px; height: 52px; flex: none; user-select: none; }
+.coach__bubble { margin: 0 0 6px; padding: 9px 14px; font-size: 17px; border-radius: 14px; }
+.coach__bubble::after { right: auto; left: -6px; bottom: 12px; width: 14px; height: 14px; }
+.coach__bubble code { padding: 0 4px; border-radius: 4px; background: rgba(0, 0, 0, .1); font: 15px var(--mono); }
+.coach__hide { position: absolute; top: 6px; right: 8px; width: 26px; height: 26px; border: 0; border-radius: 50%; background: none; color: var(--ink-faint); font-size: 18px; line-height: 1; cursor: pointer; }
+.coach__hide:hover { color: var(--ink); background: var(--line); }
+.app .cm-scrub-hint { border-radius: 4px; box-shadow: 0 2px 0 var(--yellow); cursor: ew-resize; animation: scrub-hint 1.4s ease-in-out infinite; }
+@keyframes scrub-hint { 50% { background: rgba(244, 211, 69, .28); } }
+@media (prefers-reduced-motion: reduce) { .app .cm-scrub-hint { animation: none; background: rgba(244, 211, 69, .18); } }
