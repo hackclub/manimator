@@ -7,25 +7,30 @@ import { sfx } from "sfx"
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
 // buddy, Σ the board. The editor assembles itself around you as they arrive: the stage gets a frame, the code pane slides
 // in, then the timeline, the rail of friends and the top bar. The questions are theirs to ask, as dialogue choices; at
-// the end you sign, which keeps the same Pledge as the pledge page and opens the editor with your idea in it.
+// the end you sign, which keeps the same Pledge as the pledge page, and the friends hop into their rail slots as the
+// editor finishes assembling. Every piece is at the editor's own size and the stage ends where the editor's canvas is,
+// so the hand-over to /editor (a full page load: Python needs it) changes nothing on screen; a snapshot of the last
+// frame stands in on the editor's stage until Python has drawn the first one.
 //
 // Click, Space or Enter moves the dialogue on; skip fast-forwards to the next question, the way a game skips a
 // cutscene (you still answer everything, so the pledge still gets made). The script is run(): a plain list of beats.
 const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
+const POSTER_KEY = "manimator:poster" // the story's last frame, shown on the editor's stage until Python draws
 const HOLD_MS = 1300
 const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
 const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 
-// The friends, in the editor rail's order. Each is its symbol in the serif, with π's eyes.
+// The friends, in the editor rail's order. How they look comes from FriendsHelper (the rail's markup is cloned for
+// the stage and the dialogue); here is how they sound, where their feet are, and what they're called.
 const FRIENDS = {
   pi: { name: "π", tool: "home", note: 72, color: "#58C4DD" },
-  code: { name: "{ }", tool: "code", note: 76, color: "#9A72AC", glyph: "{ }", size: 74, base: 82, feet: .86, eyes: [[41.3, 47], [58.7, 47]] },
-  inf: { name: "∞", tool: "buddy", note: 74, color: "#83C167", glyph: "∞", size: 104, base: 90, feet: .84, eyes: [[41.3, 42], [58.7, 42]] },
-  sig: { name: "Σ", tool: "board", note: 67, color: "#FC6255", glyph: "Σ", size: 100, base: 94, feet: .86, eyes: [[43, 25], [60.3, 25]] },
-  int: { name: "∫", tool: "examples", note: 79, color: "#5CD0B3", glyph: "∫", size: 120, base: 96, feet: .97, eyes: [[66, 13], [82, 8]], tilt: -18 },
+  code: { name: "{ }", tool: "code", note: 76, color: "#9A72AC", feet: .86 },
+  inf: { name: "∞", tool: "buddy", note: 74, color: "#83C167", feet: .84 },
+  sig: { name: "Σ", tool: "board", note: 67, color: "#FC6255", feet: .86 },
+  int: { name: "∫", tool: "examples", note: 79, color: "#5CD0B3", feet: .97 },
 }
 const RAIL = ["pi", "code", "inf", "sig", "int"]
 // Where everyone stands once there's a crowd, along the bottom of the stage.
@@ -45,38 +50,42 @@ const wait = ms => new Promise(r => setTimeout(r, ms))
 const clockTime = hhmm => { const [h, m] = hhmm.split(":").map(Number); return `${h % 12 || 12}${m ? `:${String(m).padStart(2, "0")}` : ""}${h < 12 ? "am" : "pm"}` }
 const shortDate = d => d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
 
-// π's eye, from pi_creature/plain.svg: a dome cut flat 0.6r below its middle, a thin dark rim, and a
-// big pupil up and to the right with a glint. (x, y) is the middle of the flat bottom, where it sits.
-const EYE_R = 6
-function piEye(x, y, tilt = 0, r = EYE_R) {
-  const n = v => +v.toFixed(2), cy = y - .6 * r
-  return `<g transform="rotate(${tilt} ${x} ${y})"><g class="eye">`
-    + `<path d="M${n(x - .8 * r)} ${y}A${r} ${r} 0 1 1 ${n(x + .8 * r)} ${y}Z" fill="#fff" stroke="#16181b" stroke-width="${n(r * .1)}"/>`
-    + `<circle class="pupil" cx="${n(x + .44 * r)}" cy="${n(cy - .43 * r)}" r="${n(.4 * r)}" fill="#16181b"/>`
-    + `<circle cx="${n(x + .29 * r)}" cy="${n(cy - .65 * r)}" r="${n(.13 * r)}" fill="#fff"/></g></g>`
+// The scene as the editor opens it: the field you met π in, and your idea written over it. The code pane shows the
+// same lines as they come in. Each line is [id, text]; ids are what light() points at.
+function sceneLines(idea, k = 1) {
+  const lines = [
+    ["", "from manim import *"], ["", ""], ["", ""],
+    ["", "class FirstScene(Scene):"],
+    ["", "    def construct(self):"],
+    ["k", `        k = ${k.toFixed(1)}`],
+    ["", ""],
+    ["field", "        def flow(p):"],
+    ["field", "            x, y = p[0], p[1]"],
+    ["field", "            return [np.sin(k * y), np.sin(k * x), 0]"],
+    ["", ""],
+    ["field", "        self.add(ArrowVectorField(flow))"],
+  ]
+  if (idea) lines.push(
+    ["title", `        title = Text(${JSON.stringify(idea)}, font_size=48)`],
+    ["title", "        if title.width > 12:"],
+    ["title", "            title.scale_to_fit_width(12)"],
+    ["title", "        title.to_edge(UP)"],
+    ["title", "        self.play(Write(title))"],
+    ["title", "        self.wait()"])
+  return lines
 }
+const sceneCode = idea => sceneLines(idea).map(([, text]) => text).join("\n") + "\n"
 
-function friendSvg(id, { silhouette = false } = {}) {
-  const f = FRIENDS[id]
-  const fill = silhouette ? "#25282d" : f.color
-  const eyes = silhouette ? "" : f.eyes.map(([x, y]) => piEye(x, y, f.tilt)).join("")
-  return `<svg viewBox="0 0 100 110" aria-hidden="true"><text x="50" y="${f.base}" text-anchor="middle" font-size="${f.size}"
-    style="font-family: var(--serif)" fill="${fill}">${f.glyph}</text>${eyes}</svg>`
-}
-
-// The first scene for an idea, as the pledge page writes it: the idea, written on screen.
-function starter(idea) {
-  return `from manim import *
-
-
-class MyScene(Scene):
-    def construct(self):
-        title = Text(${JSON.stringify(idea)}, font_size=48)
-        if title.width > 12:
-            title.scale_to_fit_width(12)
-        self.play(Write(title))
-        self.wait()
-`
+// Just enough Python colouring for these lines, in the editor's colours.
+const TOKEN = /("(?:[^"\\]|\\.)*")|\b(from|import|class|def|lambda|if|return)\b|\b(\d+(?:\.\d+)?)\b|\b(ArrowVectorField|Text|Write|Scene|FirstScene|UP)\b|\b(construct|flow)\b/g
+function highlight(line) {
+  let out = "", at = 0
+  for (const m of line.matchAll(TOKEN)) {
+    const cls = m[1] ? "c-str" : m[2] ? "c-kw" : m[3] ? "c-num" : m[4] ? "c-fn" : "c-def"
+    out += esc(line.slice(at, m.index)) + `<span class="${cls}">${esc(m[0])}</span>`
+    at = m.index + m[0].length
+  }
+  return out + esc(line.slice(at))
 }
 
 // The discrete Fourier transform of a closed path, biggest circles first.
@@ -100,9 +109,9 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "bar", "go", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip"]
+  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object, classes: Array,
-    drawUrl: String, claimUrl: String, pledgeUrl: String, hours: Number }
+    drawUrl: String, claimUrl: String, pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number }
 
   connect() {
     this.clock = 0
@@ -121,7 +130,6 @@ export default class extends Controller {
     this.images = {}
     for (const [pose, src] of Object.entries(this.posesValue)) { const img = new Image(); img.src = src; this.images[pose] = img }
 
-    this.buildRail()
     this.layout()
     this.particles()
     this.onResize = () => this.size()
@@ -165,18 +173,25 @@ export default class extends Controller {
   // Each piece of the editor is a CSS variable the others lay out around; the stage's frame follows in frame().
   layout() {
     const narrow = innerWidth < 760, s = this.show, st = this.element.style
-    st.setProperty("--bar", s.bar ? "56px" : "0px")
-    st.setProperty("--rail", s.rail ? (narrow ? "52px" : "68px") : "0px")
-    st.setProperty("--code", s.code && !narrow ? "min(400px, 34vw)" : "0px")
-    st.setProperty("--tl", s.timeline ? "64px" : "0px")
+    st.setProperty("--bar", s.bar ? "60px" : "0px")
+    st.setProperty("--rail", s.rail ? "64px" : "0px")
+    st.setProperty("--code", s.code && !narrow ? (innerWidth <= 1240 ? "420px" : "520px") : "0px")
+    st.setProperty("--tl", this.final ? "250px" : s.timeline ? "64px" : "0px")
     for (const part of ["bar", "rail", "code", "timeline", "dialog"]) this.element.toggleAttribute(`data-${part}`, s[part])
     this.element.toggleAttribute("data-frame", s.frame)
+    this.element.toggleAttribute("data-final", !!this.final)
   }
 
   targetRect() {
     const cs = getComputedStyle(this.element), px = v => parseFloat(cs.getPropertyValue(v)) || 0
     const W = innerWidth, H = innerHeight
     if (!this.show.frame) return { x: 0, y: 0, w: W, h: H }
+    if (this.final) {
+      // Where the editor puts its canvas: 16:9, as big as fits in its pane less 40 × 32 of padding, centred.
+      const x0 = px("--rail") + px("--code"), y0 = px("--bar"), pw = W - x0, ph = H - y0 - px("--tl")
+      const w = Math.max(0, Math.floor(Math.min(pw - 40, (ph - 32) * 16 / 9))), h = Math.floor(w * 9 / 16)
+      return { x: x0 + (pw - w) / 2, y: y0 + (ph - h) / 2, w, h }
+    }
     const pad = W < 760 ? 10 : 20
     const left = px("--rail") + (this.show.code ? this.codeTarget.getBoundingClientRect().width : 0) + pad
     const top = px("--bar") + pad
@@ -184,18 +199,14 @@ export default class extends Controller {
     return { x: left, y: top, w: Math.max(100, W - left - pad), h: Math.max(80, H - top - bottom) }
   }
 
-  buildRail() {
-    this.railTarget.innerHTML = RAIL.map(id => `<div class="story__slot" data-friend="${id}">
-      <span class="story__glyph">${id === "pi" ? `<img src="${this.posesValue.plain}" alt="">` : friendSvg(id, { silhouette: true })}</span>
-      <span class="story__tool">${FRIENDS[id].tool}</span></div>`).join("")
-  }
+  // A friend as FriendsHelper drew them in the rail, for the stage and the dialogue.
+  friend(id) { return this.railTarget.querySelector(`[data-friend="${id}"] .friend`).outerHTML }
 
   meet(id) {
     if (this.met.has(id)) return
     this.met.add(id)
     if (!this.show.rail) this.reveal("rail")
     const slot = this.railTarget.querySelector(`[data-friend="${id}"]`)
-    if (id !== "pi") slot.querySelector(".story__glyph").innerHTML = friendSvg(id)
     slot.classList.add("story__slot--met")
     sfx.meet(FRIENDS[id].note)
     this.toast(id, slot)
@@ -216,22 +227,10 @@ export default class extends Controller {
 
   // The code pane: what you're looking at, as manim code. Lines light up as someone talks about them.
   renderCode() {
-    const k = `<span class="c-num" data-k>${this.scene.k.toFixed(1)}</span>`
-    const lines = [
-      ["", `<span class="c-kw">from</span> manim <span class="c-kw">import</span> *`],
-      ["", ""],
-      ["", `<span class="c-kw">class</span> <span class="c-fn">FirstScene</span>(Scene):`],
-      ["", `    <span class="c-kw">def</span> <span class="c-def">construct</span>(self):`],
-      ["k", `        k = ${k}`],
-      ["field", `        field = <span class="c-fn">ArrowVectorField</span>(`],
-      ["field", `            <span class="c-kw">lambda</span> p: [sin(k*p[1]), sin(k*p[0]), 0])`],
-      ["add", `        self.add(field, <span class="c-fn">StreamLines</span>(field))`],
-    ]
-    if (this.answers.idea) lines.push(
-      ["title", `        title = <span class="c-fn">Text</span>(<span class="c-str">"${esc(this.answers.idea)}"</span>)`],
-      ["title", `        self.play(<span class="c-fn">Write</span>(title))`])
-    this.codeTarget.innerHTML = `<div class="story__tab">first_scene.py</div>` + lines.map(([id, html], i) =>
-      `<div class="sl ${id && id === this.lit ? "sl--lit" : ""} ${id === "title" ? "sl--new" : ""}"><span class="sl__n">${i + 1}</span><span>${html || " "}</span></div>`).join("")
+    this.codeTarget.innerHTML = sceneLines(this.answers.idea, this.scene.k).map(([id, text], i) => {
+      const html = id === "k" ? `        k = <span class="c-num" data-k>${this.scene.k.toFixed(1)}</span>` : highlight(text)
+      return `<div class="sl ${id && id === this.lit ? "sl--lit" : ""} ${id === "title" ? "sl--new" : ""}"><span class="sl__n">${i + 1}</span><span>${html || " "}</span></div>`
+    }).join("")
     this.kEl = this.codeTarget.querySelector("[data-k]")
   }
 
@@ -248,7 +247,7 @@ export default class extends Controller {
   enter(id, { x, y = -2.9, from = 1 } = {}) {
     const el = document.createElement("div")
     el.className = "story__actor"
-    el.innerHTML = id === "pi" ? `<img alt="" draggable="false">` : friendSvg(id)
+    el.innerHTML = id === "pi" ? `<img alt="" draggable="false">` : this.friend(id)
     this.castTarget.append(el)
     const a = this.actors[id] = { id, el, x: from * (W_UNITS / 2 + 1.5), y, tx: x ?? SPOT[id], ty: y, walk: 0, hop: 0, talk: false, pose: "plain", sx: 1, sy: 1 }
     if (id === "pi") this.setPose("plain")
@@ -270,6 +269,7 @@ export default class extends Controller {
   moveActors(dt) {
     const s = this.s, r = this.rect
     for (const a of Object.values(this.actors)) {
+      if (a.home) continue
       if (!a.falling) {
         const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * (this.skipping ? 20 : 4))
         a.x += step
@@ -298,7 +298,7 @@ export default class extends Controller {
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
     const f = FRIENDS[who]
-    this.portraitTarget.innerHTML = who === "pi" ? `<img src="${this.posesValue[pose ?? this.actors.pi?.pose ?? "plain"]}" alt="">` : friendSvg(who)
+    this.portraitTarget.innerHTML = who === "pi" ? `<img src="${this.posesValue[pose ?? this.actors.pi?.pose ?? "plain"]}" alt="">` : this.friend(who)
     this.nameTarget.textContent = f.name
     this.nameTarget.style.color = f.color
     this.choicesTarget.replaceChildren()
@@ -483,7 +483,7 @@ export default class extends Controller {
     this.reveal("code")
     this.light("k")
     this.kFrom = this.clock + .6
-    await this.say("code", "Psst, I'm { }. These 8 lines made that field. Watch what happens when k changes.", { until: this.kFrom + 6 })
+    await this.say("code", "Psst, I'm { }. These few lines made that field. Watch what happens when k changes.", { until: this.kFrom + 6 })
     this.light(null)
 
     // Your idea
@@ -537,8 +537,8 @@ export default class extends Controller {
     this.reveal("bar")
     this.burst(0, 1, 60)
     sfx.land()
-    await this.say("pi", "It's official! Your scene is waiting in the editor.", { pose: "hooray", choices: [{ label: "Open the editor →", value: "go" }] })
-    this.goTarget.click()
+    await this.say("pi", "It's official! Let's go make it move.", { pose: "hooray", choices: [{ label: "Open the editor →", value: "go" }] })
+    await this.handOff()
   }
 
   async pickIdea() {
@@ -584,7 +584,16 @@ export default class extends Controller {
       } })
     } catch { /* offline */ }
     capture("onboarding_pledge_signed", { variant: "story", idea: a.idea, prize: a.prize, when: a.when, days: a.days, minutes: a.minutes })
-    try { localStorage.setItem(CODE_KEY, starter(a.idea)); localStorage.setItem(VIEW_KEY, "code") } catch { /* storage unavailable */ }
+    // Your scene, saved now, so the editor opens this one even if you have others. Offline, it waits in localStorage
+    // instead, which the editor turns into a scene when you have none yet.
+    try {
+      const response = await this.post(this.scenesUrlValue, { scene: { code: sceneCode(a.idea) } })
+      if (response.ok) this.sceneId = (await response.json()).id
+    } catch { /* offline */ }
+    try {
+      if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea))
+      localStorage.setItem(VIEW_KEY, "code")
+    } catch { /* storage unavailable */ }
   }
 
   post(url, body = {}) {
@@ -631,6 +640,53 @@ export default class extends Controller {
       wobble()
     })
     this.setPose("awe")
+  }
+
+  // ── Into the editor ──────────────────────────────────────────────────────────────────────────────────────────
+
+  // The dialogue goes, the timeline opens to its full height, everyone hops home into their rail slot and the music
+  // fades; then a snapshot of the stage for the editor to show while Python wakes up, and over we go.
+  async handOff() {
+    this.step("editor")
+    this.final = true
+    this.light(null)
+    this.reveal("dialog", false)
+    audio.stopBed(1.8)
+    RAIL.forEach((id, i) => setTimeout(() => this.goHome(id), 250 + i * 170))
+    await wait(250 + RAIL.length * 170 + 1000)
+    this.savePoster()
+    const url = new URL(this.editorUrlValue, location.href)
+    if (this.sceneId) url.searchParams.set("scene", this.sceneId)
+    location.assign(url)
+  }
+
+  goHome(id) {
+    const a = this.actors[id], slot = this.railTarget.querySelector(`[data-friend="${id}"]`)
+    if (!a || !slot) return
+    const g = slot.querySelector(".friend").getBoundingClientRect(), r = a.el.getBoundingClientRect()
+    a.home = true
+    const scale = g.height / r.height, tx = g.left + g.width / 2 - r.width / 2, ty = g.top + g.height / 2 - r.height / 2
+    a.el.style.transformOrigin = "50% 50%"
+    const hop = a.el.animate([
+      { transform: `translate(${r.left}px, ${r.top}px)` },
+      { transform: `translate(${(r.left + tx) / 2}px, ${Math.min(r.top, ty) - 90}px) scale(${(1 + scale) / 2}) rotate(-12deg)`, offset: .45 },
+      { transform: `translate(${tx}px, ${ty}px) scale(${scale})` },
+    ], { duration: 720, easing: "cubic-bezier(.45, 0, .25, 1)", fill: "forwards" })
+    hop.finished.then(() => {
+      a.el.remove()
+      delete this.actors[id]
+      slot.classList.remove("story__slot--home"); void slot.offsetWidth; slot.classList.add("story__slot--home")
+      sfx.blip(FRIENDS[id].note)
+    })
+  }
+
+  savePoster() {
+    try {
+      const r = this.rect, d = this.canvasTarget.width / innerWidth, c = document.createElement("canvas")
+      c.width = Math.round(r.w * d); c.height = Math.round(r.h * d)
+      c.getContext("2d").drawImage(this.canvasTarget, r.x * d, r.y * d, r.w * d, r.h * d, 0, 0, c.width, c.height)
+      sessionStorage.setItem(POSTER_KEY, c.toDataURL("image/jpeg", .85))
+    } catch { /* storage full or unavailable: the editor just starts dark */ }
   }
 
   // ── The stage ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -727,7 +783,7 @@ export default class extends Controller {
     ctx.fillStyle = "#0e0f11"
     ctx.fillRect(0, 0, W, H)
     ctx.save()
-    ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, this.show.frame ? 8 : 0); ctx.clip()
+    ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, this.show.frame ? 10 : 0); ctx.clip()
     ctx.fillStyle = "#0b0c0e"; ctx.fillRect(r.x, r.y, r.w, r.h)
 
     const ux = r.w / 2 / s, uy = r.h / 2 / s, field = this.scene.field
@@ -792,7 +848,7 @@ export default class extends Controller {
 
     if (this.show.frame) {
       ctx.strokeStyle = "#26292e"; ctx.lineWidth = 1
-      ctx.beginPath(); ctx.roundRect(r.x + .5, r.y + .5, r.w - 1, r.h - 1, 8); ctx.stroke()
+      ctx.beginPath(); ctx.roundRect(r.x + .5, r.y + .5, r.w - 1, r.h - 1, 10); ctx.stroke()
     }
   }
 
@@ -839,7 +895,7 @@ export default class extends Controller {
     ctx.font = `${size * s}px ${this.serif}`
     const max = (W_UNITS - 1.6) * s, w = ctx.measureText(str).width
     if (w > max) { size *= max / w; ctx.font = `${size * s}px ${this.serif}` }
-    const width = ctx.measureText(str).width, [X, Y] = this.px(0, 2.9)
+    const width = ctx.measureText(str).width, [X, Y] = this.px(0, 3.14) // where title.to_edge(UP) puts it
     ctx.textAlign = "center"; ctx.textBaseline = "middle"
     const drawn = clamp(p / .65, 0, 1), fill = clamp((p - .55) / .45, 0, 1)
     ctx.save()

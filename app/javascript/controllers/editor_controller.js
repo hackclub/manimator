@@ -6,6 +6,9 @@ import { Renderer } from "editor/renderer"
 
 // Where the editor kept your code before scenes were saved on the server: read once, to save it as your first scene.
 const STORAGE_KEY = "manimator:code"
+// The story onboarding's last frame, shown on the stage until Python has drawn the first one, so arriving from it
+// doesn't start on a black canvas.
+const POSTER_KEY = "manimator:poster"
 const OLD_KEYS = [STORAGE_KEY, "manimator:edited", "manimator:cursor"]
 // Saves wait until typing stops for this long.
 const SAVE_MS = 800
@@ -101,10 +104,12 @@ export default class extends Controller {
     this.renderOthers()
 
     // Keep the stage at 16:9 inside its pane
+    this.showPoster()
     this.resizeObserver = new ResizeObserver(() => {
       const { width, height } = this.wrapTarget.getBoundingClientRect()
       const w = Math.min(width - 40, ((height - 32) * 16) / 9)
       this.renderer.resize(Math.max(0, Math.floor(w)), Math.max(0, Math.floor((w * 9) / 16)))
+      if (this.poster) Object.assign(this.poster.style, { width: `${Math.floor(w)}px`, height: `${Math.floor((w * 9) / 16)}px` })
       this.dirty = true
     })
     this.resizeObserver.observe(this.wrapTarget)
@@ -142,6 +147,24 @@ export default class extends Controller {
     // Code from before scenes were saved here becomes your first scene
     if (local != null) this.edited()
     this.dispatch("ready")
+  }
+
+  showPoster() {
+    let src = null
+    try { src = sessionStorage.getItem(POSTER_KEY); sessionStorage.removeItem(POSTER_KEY) } catch { /* storage unavailable */ }
+    if (!src) return
+    this.poster = el("img", "app__poster")
+    this.poster.src = src
+    this.poster.alt = ""
+    this.wrapTarget.append(this.poster)
+  }
+
+  dropPoster() {
+    const poster = this.poster
+    if (!poster) return
+    this.poster = null
+    poster.classList.add("app__poster--out")
+    setTimeout(() => poster.remove(), 700)
   }
 
   disconnect() {
@@ -421,6 +444,7 @@ export default class extends Controller {
         if (this.store !== this.incoming) {
           this.store = this.incoming
           this.setFrame(this.frame)
+          this.dropPoster()
         }
         this.setStatus(`rendering… ${this.store.length} frames`, "busy")
         this.timelineDirty = true

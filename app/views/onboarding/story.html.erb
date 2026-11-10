@@ -13,22 +13,32 @@
      data-story-draw-url-value="<%= draw_ideas_path %>"
      data-story-claim-url-value="<%= claim_idea_path("ID") %>"
      data-story-pledge-url-value="<%= pledge_path %>"
-     data-story-hours-value="<%= Pledge::HOURS_PER_VIDEO %>">
+     data-story-hours-value="<%= Pledge::HOURS_PER_VIDEO %>"
+     data-story-scenes-url-value="<%= scenes_path %>"
+     data-story-editor-url-value="<%= editor_path(view: "code") %>">
   <canvas class="story__canvas" data-story-target="canvas" aria-hidden="true"></canvas>
 
   <header class="story__bar" data-story-target="bar">
     <%= link_to "Manimator", root_path, class: "onboard__brand" %>
     <span class="onboard__slash">/</span>
-    <span class="story__file">first_scene.py</span>
-    <span class="story__spacer"></span>
-    <a class="btn btn--primary story__go" href="<%= editor_path %>" data-story-target="go">Open the editor →</a>
+    <span class="story__file">scene</span>
   </header>
 
-  <nav class="story__rail" data-story-target="rail" aria-label="Friends you've met"></nav>
+  <%# The friends you'll meet, as silhouettes until you do: the editor's rail, one tool each (FriendsHelper). %>
+  <nav class="story__rail" data-story-target="rail" aria-label="Friends you've met">
+    <% FriendsHelper::FRIENDS.each do |view, friend| %>
+      <div class="story__slot" data-friend="<%= friend[:id] %>" data-view="<%= view %>">
+        <span class="story__glyph"><%= friend_glyph(view) %></span><span class="story__tool"><%= view %></span>
+      </div>
+    <% end %>
+  </nav>
 
   <section class="story__code" data-story-target="code" aria-label="The code for this scene"></section>
 
-  <div class="story__timeline" data-story-target="timeline" aria-hidden="true"></div>
+  <div class="story__timeline" aria-hidden="true">
+    <div class="tl__bar story__tl-bar"><span class="tl__play">▶</span><span class="tl__time">0.00<span class="c-faint"> / 0.00s</span></span></div>
+    <div class="story__clips" data-story-target="timeline"></div>
+  </div>
 
   <div class="story__cast" data-story-target="cast"></div>
 

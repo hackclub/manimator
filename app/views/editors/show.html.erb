@@ -7,7 +7,9 @@
 <%= javascript_importmap_module_preload_tags entry_point: "editor" %>
 <% p = placeholder %>
 
-<div class="app" data-controller="shell editor" data-view="home"
+<%# ?view= opens on a tool (the story onboarding hands over to code), so the first paint is already right. %>
+<% view_now = params[:view].presence_in(%w[home code buddy board examples]) || "home" %>
+<div class="app" data-controller="shell editor" data-view="<%= view_now %>"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
      data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
      data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
@@ -31,7 +33,7 @@
     <nav class="app__rail">
       <%# Each tool is one of π's friends (FriendsHelper), the ones you meet in the story onboarding. %>
       <% %w[home code buddy board examples].each do |view| %>
-        <button class="app__rail-item" data-view="<%= view %>" data-action="shell#show" data-shell-view-param="<%= view %>">
+        <button class="app__rail-item <%= "app__rail-item--on" if view == view_now %>" data-view="<%= view %>" data-action="shell#show" data-shell-view-param="<%= view %>">
           <span class="app__glyph"><%= friend_glyph(view) %></span><span class="app__rail-label"><%= view %></span>
           <% if view == "buddy" %><span class="app__rail-dot"></span><% end %>
         </button>

@@ -9,43 +9,51 @@
 html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none; }
 .story__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
-/* The editor, arriving */
-.story__bar, .story__rail, .story__code, .story__timeline { position: absolute; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .6s, left .8s cubic-bezier(.2, .8, .2, 1), top .8s cubic-bezier(.2, .8, .2, 1); }
+/* The editor, arriving. Every piece has the editor's own size (app.css), so when the story hands over to /editor
+   nothing moves: bar 60, rail 64, code 520 (420 on narrower screens), timeline 250 once the story is done. */
+.story__bar, .story__rail, .story__code, .story__timeline {
+  position: absolute; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .6s, left .8s cubic-bezier(.2, .8, .2, 1),
+    top .8s cubic-bezier(.2, .8, .2, 1), bottom .8s cubic-bezier(.2, .8, .2, 1), height .8s cubic-bezier(.2, .8, .2, 1);
+}
 
 .story__bar {
-  top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; gap: 10px; padding: 0 20px; box-sizing: border-box;
+  top: 0; left: 0; right: 0; height: 60px; display: flex; align-items: center; gap: 16px; padding: 0 20px; box-sizing: border-box;
   border-bottom: 1px solid var(--line); background: var(--bg); transform: translateY(-100%); opacity: 0;
 }
 .story[data-bar] .story__bar { transform: none; opacity: 1; }
-.story__file { font: 13px var(--mono); color: var(--ink-muted); }
-.story__spacer { flex: 1; }
-.story__go { padding: 7px 14px; font-size: 14px; line-height: 1.2; }
+.story__file { font: 15px var(--serif); color: var(--ink); }
 
 .story__rail {
-  top: var(--bar); bottom: 0; left: 0; width: 68px; display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding-top: 14px; box-sizing: border-box; border-right: 1px solid var(--line); background: var(--bg-raised);
-  transform: translateX(-100%); opacity: 0;
+  top: var(--bar); bottom: 0; left: 0; width: 64px; display: flex; flex-direction: column; gap: 2px; padding: 10px 0 16px;
+  box-sizing: border-box; border-right: 1px solid var(--line); background: var(--bg-footer); transform: translateX(-100%); opacity: 0;
 }
 .story[data-rail] .story__rail { transform: none; opacity: 1; }
-.story__slot { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 56px; padding: 6px 0; border-radius: 8px; }
-.story__glyph { width: 34px; height: 37px; display: grid; place-items: center; }
-.story__glyph svg, .story__glyph img { width: 100%; height: 100%; object-fit: contain; }
-.story__slot:not(.story__slot--met) .story__glyph img { filter: brightness(0) invert(.14); }
-.story__tool { font: 10px var(--mono); color: var(--ink-faint); opacity: 0; transition: opacity .4s .3s; }
+.story__slot {
+  height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  border-left: 2px solid transparent; color: var(--ink-faint); transition: border-color .4s, color .4s;
+}
+.story[data-final] .story__slot[data-view="code"] { border-left-color: var(--blue); color: var(--ink); }
+.story__glyph { display: block; }
+.story__glyph .friend { display: block; width: 26px; height: 28px; object-fit: contain; overflow: visible; transition: filter .5s, opacity .5s; }
+.story__slot:not(.story__slot--met) .friend { filter: brightness(0) invert(.16); }
+.story__slot:not(.story__slot--met) .eye { visibility: hidden; }
+.story__tool { font: 11px var(--mono); opacity: 0; transition: opacity .4s .3s; }
 .story__slot--met .story__tool { opacity: 1; }
 .story__slot--met .story__glyph { animation: slot-pop .7s cubic-bezier(.3, 1.6, .5, 1); }
+.story__slot--home .story__glyph { animation: slot-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
 @keyframes slot-pop { 0% { transform: scale(.4) rotate(-12deg); } 60% { transform: scale(1.25) rotate(4deg); } }
 
+/* The code: the same font and gutter as the editor's CodeMirror, showing the code the editor will open with. */
 .story__code {
-  top: var(--bar); bottom: var(--tl); left: var(--rail); width: min(400px, 34vw); box-sizing: border-box; padding: 0 0 20px;
-  border-right: 1px solid var(--line); background: var(--bg-raised); font: 12.5px/24px var(--mono); color: var(--ink);
-  overflow: auto; transform: translateX(-105%); opacity: 0; user-select: text; -webkit-user-select: text;
+  top: var(--bar); bottom: var(--tl); left: var(--rail); width: 520px; box-sizing: border-box; padding: 14px 0;
+  border-right: 1px solid var(--line); background: var(--bg-raised); font: 15px/1.55 var(--mono); color: var(--ink);
+  overflow: hidden; transform: translateX(-105%); opacity: 0; user-select: text; -webkit-user-select: text;
 }
-.story[data-code] .story__code { transform: none; opacity: 1; }
+@media (max-width: 1240px) { .story__code { width: 420px; } }
 @media (max-width: 760px) { .story__code { display: none; } }
-.story__tab { padding: 10px 16px; margin-bottom: 10px; border-bottom: 1px solid var(--line); font-size: 11px; color: var(--ink-faint); }
+.story[data-code] .story__code { transform: none; opacity: 1; }
 .sl { display: flex; white-space: pre; padding-right: 12px; transition: background-color .3s, box-shadow .3s; }
-.sl__n { flex: none; width: 34px; padding-right: 14px; text-align: right; color: #4b5058; }
+.sl__n { flex: none; width: 33px; padding: 0 14px 0 6px; text-align: right; color: var(--ink-faint); }
 .sl--lit { background: color-mix(in srgb, var(--yellow) 10%, transparent); box-shadow: inset 2px 0 0 var(--yellow); }
 .sl--new { animation: sl-new .6s ease-out; }
 @keyframes sl-new { from { opacity: 0; transform: translateX(-8px); } }
@@ -54,21 +62,25 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .c-def { color: var(--blue); }
 .c-str, .c-num { color: var(--yellow); }
 
+/* The timeline: a strip of clips while the story runs, then the editor's own (play button, time) at its full height. */
 .story__timeline {
-  left: calc(var(--rail) + var(--code)); right: 0; bottom: 0; height: 64px; box-sizing: border-box; padding: 14px var(--corner) 14px 20px;
-  border-top: 1px solid var(--line); background: var(--bg-raised); transform: translateY(100%); opacity: 0;
+  left: var(--rail); right: 0; bottom: 0; height: var(--tl); box-sizing: border-box; overflow: hidden;
+  border-top: 1px solid var(--line); background: var(--bg-footer); font-family: var(--mono); transform: translateY(100%); opacity: 0;
 }
-.story__timeline::before { content: ""; position: absolute; inset: 14px var(--corner) 14px 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
 .story[data-timeline] .story__timeline { transform: none; opacity: 1; }
+.story__tl-bar { display: none; }
+.story[data-final] .story__tl-bar { display: flex; animation: choice-in .4s ease-out; }
+.story[data-final] .story__clips { opacity: 0; }
+.story__clips { position: absolute; inset: 14px var(--corner) 14px 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); transition: opacity .4s; }
 .story__clip {
-  position: absolute; top: 18px; bottom: 18px; margin-left: 24px; border-radius: 4px; padding-left: 8px; box-sizing: border-box;
-  font: 11px/26px var(--mono); border: 1px solid; overflow: hidden; white-space: nowrap; max-width: calc(100% - var(--corner) - 28px);
+  position: absolute; top: 4px; bottom: 4px; margin-left: 4px; border-radius: 4px; padding-left: 8px; box-sizing: border-box;
+  font: 11px/26px var(--mono); border: 1px solid; overflow: hidden; white-space: nowrap;
   animation: clip-grow .6s cubic-bezier(.2, .8, .3, 1.2); transform-origin: left;
 }
 @keyframes clip-grow { from { transform: scaleX(0); } }
 .story__clip--blue { color: var(--blue); background: color-mix(in srgb, var(--blue) 20%, transparent); border-color: color-mix(in srgb, var(--blue) 50%, transparent); }
 .story__clip--teal { color: var(--teal); background: color-mix(in srgb, var(--teal) 20%, transparent); border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
-.story__head { position: absolute; top: 8px; bottom: 8px; width: 2px; margin-left: 24px; background: var(--red); transition: left .8s; }
+.story__head { position: absolute; top: -6px; bottom: -6px; width: 2px; margin-left: 4px; background: var(--red); transition: left .8s; }
 
 .story__toast {
   position: absolute; left: calc(var(--rail) + 10px); top: 0; z-index: 5; transform: translateY(-50%); padding: 7px 14px;

@@ -168,6 +168,12 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
 /* Stage */
 .app__stage { position: relative; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 16px 20px; }
 .app__stage canvas { display: block; border-radius: 10px; border: 1px solid var(--line); }
+/* The story onboarding's last frame, over the canvas until Python draws (editor_controller showPoster). */
+.app__poster {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); box-sizing: content-box; border-radius: 10px;
+  border: 1px solid var(--line); pointer-events: none; transition: opacity .6s ease;
+}
+.app__poster--out { opacity: 0; }
 .app__tooltip {
   position: absolute; padding: 6px 10px; border-radius: 8px; background: var(--ink); color: var(--bg);
   font: 13px var(--mono); white-space: nowrap; pointer-events: none; z-index: 2;
