@@ -4,7 +4,7 @@ module FriendsHelper
   FRIENDS = {
     "home" => { id: "pi", name: "π", color: "#58C4DD" },
     "code" => { id: "code", name: "{ }", color: "#9A72AC", glyph: "{ }", size: 74, base: 82, eyes: [ [ 41.3, 47 ], [ 58.7, 47 ] ], round: true },
-    "buddy" => { id: "inf", name: "∞", color: "#83C167", glyph: "∞", size: 104, base: 90, eyes: [ [ 41.3, 42 ], [ 58.7, 42 ] ] },
+    "buddy" => { id: "inf", name: "∞", color: "#83C167", glyph: "∞", size: 104, base: 90, eyes: [ [ 31, 39.5 ], [ 69, 39.5 ] ] },
     "board" => { id: "sig", name: "Σ", color: "#FC6255", glyph: "Σ", size: 100, base: 94, eyes: [ [ 43, 25 ], [ 60.3, 25 ] ] },
     "examples" => { id: "int", name: "∫", color: "#5CD0B3", glyph: "∫", size: 120, base: 96, eyes: [ [ 66, 13 ], [ 82, 8 ] ], tilt: -18, round: true }
   }.freeze
