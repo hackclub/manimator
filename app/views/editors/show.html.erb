@@ -9,7 +9,7 @@
 
 <%# ?view= opens on a tool (the story onboarding hands over to code), so the first paint is already right. %>
 <% view_now = params[:view].presence_in(%w[home code buddy board examples]) || "home" %>
-<div class="app" data-controller="shell editor coach heartbeat" data-heartbeat-url-value="<%= heartbeat_path %>" data-view="<%= view_now %>"data-coach-poses-value="<%= pi_pose_urls %>"
+<div class="app" data-controller="shell editor coach heartbeat" data-heartbeat-url-value="<%= heartbeat_path %>" data-view="<%= view_now %>" data-coach-poses-value="<%= pi_pose_urls %>"
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
      data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
      data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
@@ -23,8 +23,9 @@
     <div class="app__spacer"></div>
     <%# Today's goal, as a turn of the circle around π, and what closing it gets you (goal_controller) %>
     <%= render "goal" %>
-    <div class="app__streak wide-only"><span class="app__week"><%= week_dots "app__day" %></span><span><%= p[:streak] %>-day streak</span></div>
-    <div class="app__total wide-only"><span><%= p[:total] %></span><span class="c-faint">total</span></div>
+    <%# Your real streak and time, filled in by each heartbeat (heartbeat_controller) %>
+    <div class="app__streak wide-only"><span><span data-heartbeat-target="streak">0</span>-day streak</span></div>
+    <div class="app__total wide-only"><span data-heartbeat-target="total">0m</span><span class="c-faint">total</span></div>
     <% unless signed_in? %>
       <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-sm", form: { class: "app__sign-in", data: { turbo: false } } %>
     <% end %>
@@ -168,7 +169,7 @@
 
       <aside class="home__side">
         <div class="panel home__streak">
-          <div class="row-base"><span class="home__big"><%= p[:streak] %></span><span class="home__unit">day streak</span><div class="app__spacer"></div><span class="mono-sm c-faint"><%= p[:total] %> total</span></div>
+          <div class="row-base"><span class="home__big" data-heartbeat-target="streak">0</span><span class="home__unit">day streak</span><div class="app__spacer"></div><span class="mono-sm c-faint"><span data-heartbeat-target="total">0m</span> total</span></div>
           <div class="home__week">
             <div class="home__week-line"></div>
             <% p[:week].each_with_index do |d, i| %>

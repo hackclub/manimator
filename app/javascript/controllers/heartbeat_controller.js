@@ -8,9 +8,10 @@ const SIGNS = ["keydown", "pointermove", "pointerdown", "wheel", "scroll"]
 // Counts your time in the editor. While the tab's showing and you've typed, moved the pointer or scrolled in the last
 // two minutes, it tells the server you're still here every 30 seconds; the server does the counting
 // (HeartbeatsController). Whatever comes back (today's seconds, the goal, your streak) goes out on window as
-// heartbeat:tick, for anything that shows it.
+// heartbeat:tick, for anything that shows it, and the bar's streak and total are filled in here.
 export default class extends Controller {
   static values = { url: { type: String, default: "/heartbeat" } }
+  static targets = ["streak", "total"]
 
   connect() {
     this.activeAt = 0
@@ -53,7 +54,17 @@ export default class extends Controller {
     try {
       const response = await request
       if (!response.ok) return
-      window.dispatchEvent(new CustomEvent("heartbeat:tick", { detail: await response.json() }))
+      const standing = await response.json()
+      this.show(standing)
+      window.dispatchEvent(new CustomEvent("heartbeat:tick", { detail: standing }))
     } catch {}
+  }
+
+  // Your streak in days and all your time ("2h 05m", or "40m" under an hour), wherever the page shows them
+  show({ streak, total_seconds }) {
+    const minutes = Math.floor(total_seconds / 60)
+    const total = minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, "0")}m`
+    this.streakTargets.forEach(target => { target.textContent = streak })
+    this.totalTargets.forEach(target => { target.textContent = total })
   }
 }
