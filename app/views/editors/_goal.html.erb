@@ -3,7 +3,7 @@
     the first day, ∞ asking when you'll sit down next. An hour in, the postcard is made and the pencil turns to colour. %>
 <% slot = usual_time(latest_pledge) %>
 <div class="goal" data-controller="goal" data-goal-poses-value="<%= pi_pose_urls %>" data-goal-scenes-url-value="<%= scenes_path %>"
-     data-goal-pledge-url-value="<%= pledge_path %>" data-goal-slot-value="<%= slot %>" data-goal-signed-in-value="<%= signed_in? %>"
+     data-goal-pledge-url-value="<%= pledge_path %>" data-goal-slot-value="<%= slot %>" data-goal-signed-in-value="<%= signed_in? %>" data-goal-needs-address-value="<%= signed_in? && current_user.needs_address? %>"
      data-goal-frame-value="<%= frame_path(@scene.signed_id(purpose: :frame)) if @scene&.frame? %>"
      data-action="heartbeat:tick@window->goal#tick editor:saved@window->goal#saved keydown.esc@window->goal#close">
   <div class="goal__dial" data-goal-target="dial" title="Today’s goal is one full turn around the circle.">
@@ -36,6 +36,17 @@
         <span class="goal__postmark">made</span>
       </figure>
       <p class="goal__caption" data-goal-target="caption"></p>
+
+      <%# The π sticker for finishing your first session (Sticker): shown on day one %>
+      <div class="goal__sticker" hidden data-goal-target="sticker">
+        <span class="goal__badge"><%= friend_glyph "home" %></span>
+        <div class="goal__ask">
+          <p class="goal__question" data-goal-target="stickerLine"></p>
+          <% unless signed_in? %>
+            <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-xs", form: { data: { turbo: false } } %>
+          <% end %>
+        </div>
+      </div>
 
       <% if slot %>
         <div class="goal__next" hidden data-goal-target="next">

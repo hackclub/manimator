@@ -48,6 +48,11 @@
 .goal__postcard--made .goal__postmark { opacity: .9; transform: rotate(-16deg); transition: opacity .2s ease 1.5s, transform .25s cubic-bezier(.3, 1.6, .5, 1) 1.5s; }
 .goal__caption { margin: 0; font-size: 17px; line-height: 1.35; color: var(--ink-muted); }
 
+/* The π sticker: die-cut, a little crooked */
+.goal__sticker { display: flex; align-items: center; gap: 14px; padding-top: 16px; border-top: 1px solid var(--line); animation: goal-rise .4s ease-out .9s backwards; }
+.goal__sticker[hidden] { display: none; }
+.goal__badge { flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--yellow); border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, .45); transform: rotate(-9deg); }
+.goal__badge .friend { width: 30px; height: 30px; }
 .goal__next { display: flex; align-items: flex-start; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); animation: goal-rise .4s ease-out 1.4s backwards; }
 .goal__friend .friend { display: block; width: 40px; height: 44px; overflow: visible; }
 .goal__ask { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
@@ -59,5 +64,5 @@
 .goal__on { align-self: flex-end; }
 @media (prefers-reduced-motion: reduce) {
   .goal__arc, .goal__hand, .goal__postcard, .goal__postcard img, .goal__stamp, .goal__postmark { transition: none; }
-  .goal__dial--pop, .goal__shade, .goal__card, .goal__next, .goal__start { animation: none; }
+  .goal__dial--pop, .goal__shade, .goal__card, .goal__next, .goal__start, .goal__sticker { animation: none; }
 }

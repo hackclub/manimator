@@ -9,8 +9,8 @@ import { Renderer } from "editor/renderer"
 // The goal is one full turn. When the editor opens π says the session has started, and a clock in the bar runs while
 // you work and says "paused" when you stop. An arc around π in the bar grows from 0 to 2π, the way angles go (from the right,
 // counterclockwise), and reads out θ as it does. The moment it closes while you're here, π says so once ("Day 1 ✓"),
-// the frame on the stage is saved as the scene's picture (Scene#frame) and shown as a postcard in pencil, and on
-// your first day ∞ asks when you'll sit down next (Pledge#next_session_at, which π messages you at). An hour in, all
+// the frame on the stage is saved as the scene's picture (Scene#frame) and shown as a postcard in pencil, on your
+// first day you've earned a π sticker (Sticker) and ∞ asks when you'll sit down next (Pledge#next_session_at, which π messages you at). An hour in, all
 // told, the postcard is made: the pencil turns to colour and it's stamped.
 const DONE_KEY = "manimator:goal" // the day π last said you'd met the goal
 const MADE_KEY = "manimator:postcard" // "made" once π's said the postcard is made
@@ -46,8 +46,8 @@ function clock(date) {
 
 export default class extends Controller {
   static targets = ["dial", "arc", "hand", "minutes", "theta", "shade", "card", "pi", "bubble", "postcard", "picture",
-    "caption", "next", "question", "times", "signIn", "start"]
-  static values = { poses: Object, scenesUrl: String, pledgeUrl: String, slot: String, frame: String, signedIn: Boolean }
+    "caption", "next", "question", "times", "signIn", "start", "sticker", "stickerLine"]
+  static values = { poses: Object, scenesUrl: String, pledgeUrl: String, slot: String, frame: String, signedIn: Boolean, needsAddress: Boolean }
 
   connect() {
     this.last = null // the tick before this one
@@ -109,7 +109,7 @@ export default class extends Controller {
   // The session's on: π says so once a day, under the dial, and the dial pops.
   start({ first_day, goal_seconds }) {
     write(START_KEY, today())
-    this.startTarget.textContent = first_day ? `Your first session has started. ${minutes(goal_seconds)} minutes in here closes the circle.`
+    this.startTarget.textContent = first_day ? `Your first session has started. ${minutes(goal_seconds)} minutes in here and a π sticker is in the post.`
       : `Today’s session has started. ${minutes(goal_seconds)} minutes closes the circle.`
     this.startTarget.hidden = false
     this.dialTarget.classList.add("goal__dial--pop")
@@ -145,6 +145,11 @@ export default class extends Controller {
     // Just made: it opens in pencil and the colour comes in. Made a while ago: it's in colour already.
     this.postcardTarget.classList.toggle("goal__postcard--made", made && !firstMade)
     if (firstMade) this.inking = setTimeout(() => this.postcardTarget.classList.add("goal__postcard--made"), 900)
+    // Day one earns the sticker (Sticker): we post it once we know who they are and where they live
+    this.stickerTarget.hidden = hour || !tick.first_day
+    this.stickerLineTarget.textContent = !this.signedInValue ? "A π sticker is yours. Sign in so we know where to post it."
+      : this.needsAddressValue ? "A π sticker is yours. Add your address at auth.hackclub.com, sign in here again, and we’ll post it."
+      : "A π sticker is yours. We’ll post it to the address Hack Club has for you."
     const left = Math.max(1, Math.ceil((tick.postcard_seconds - tick.total_seconds) / 60))
     this.captionTarget.textContent = made
       ? "Your postcard is made. It’s mailed free with whatever prize you earn. On its own, it’s your prize for one video."
