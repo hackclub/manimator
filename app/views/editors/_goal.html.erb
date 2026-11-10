@@ -1,0 +1,55 @@
+<%# Today's goal is one full turn: the arc around π grows counterclockwise from 0 to 2π as the minutes add up
+    (heartbeat:tick). Closing it opens the card below: π's "Day 1 ✓", your frame as a postcard in pencil, and, on
+    the first day, ∞ asking when you'll sit down next. An hour in, the postcard is made and the pencil turns to colour. %>
+<% slot = usual_time(latest_pledge) %>
+<div class="goal" data-controller="goal" data-goal-poses-value="<%= pi_pose_urls %>" data-goal-scenes-url-value="<%= scenes_path %>"
+     data-goal-pledge-url-value="<%= pledge_path %>" data-goal-slot-value="<%= slot %>" data-goal-signed-in-value="<%= signed_in? %>"
+     data-goal-frame-value="<%= frame_path(@scene.signed_id(purpose: :frame)) if @scene&.frame? %>"
+     data-action="heartbeat:tick@window->goal#tick editor:saved@window->goal#saved keydown.esc@window->goal#close">
+  <div class="goal__dial" data-goal-target="dial" title="Today’s goal is one full turn around the circle.">
+    <svg class="goal__ring" viewBox="-20 -20 40 40" aria-hidden="true">
+      <circle class="goal__track" r="16" />
+      <%# Flipped so it runs the way angles do: from the right, counterclockwise %>
+      <circle class="goal__arc" r="16" pathLength="1" transform="scale(1 -1)" data-goal-target="arc" />
+      <g class="goal__hand" data-goal-target="hand"><line x1="9" x2="16" /><circle cx="16" r="2.4" /></g>
+    </svg>
+    <span class="goal__pi"><%= friend_glyph "home" %></span>
+  </div>
+  <div class="goal__text">
+    <span data-goal-target="minutes">today</span>
+    <span class="goal__theta" data-goal-target="theta">θ = 0</span>
+  </div>
+
+  <div class="goal__shade" hidden data-goal-target="shade" data-action="click->goal#closeOutside">
+    <div class="goal__card" role="dialog" aria-label="Today’s goal" data-goal-target="card">
+      <button class="goal__close" aria-label="Close" data-action="goal#close">×</button>
+      <div class="goal__says">
+        <%= image_tag "pi_creature/hooray.svg", alt: "π", class: "goal__mascot", draggable: false, data: { goal_target: "pi" } %>
+        <p class="goal__bubble bubble" data-goal-target="bubble"></p>
+      </div>
+
+      <figure class="goal__postcard" data-goal-target="postcard">
+        <img alt="A frame of your scene" hidden data-goal-target="picture">
+        <span class="goal__stamp">1h</span>
+        <span class="goal__postmark">made</span>
+      </figure>
+      <p class="goal__caption" data-goal-target="caption"></p>
+
+      <% if slot %>
+        <div class="goal__next" hidden data-goal-target="next">
+          <span class="goal__friend"><%= friend_glyph "buddy" %></span>
+          <div class="goal__ask">
+            <p class="goal__question" data-goal-target="question">When’s your next sit-down?</p>
+            <div class="goal__times" data-goal-target="times"></div>
+            <% unless signed_in? %>
+              <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-xs",
+                    form: { class: "goal__sign-in", hidden: true, data: { turbo: false, goal_target: "signIn" } } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <button class="btn-sm goal__on" data-action="goal#close">Keep going</button>
+    </div>
+  </div>
+</div>

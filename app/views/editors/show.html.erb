@@ -21,6 +21,8 @@
     <span class="app__crumb app__crumb--scene" data-editor-target="sceneName">scene</span>
     <span class="badge badge--green app__saved" data-editor-target="saved">saved</span>
     <div class="app__spacer"></div>
+    <%# Today's goal, as a turn of the circle around π, and what closing it gets you (goal_controller) %>
+    <%= render "goal" %>
     <div class="app__streak wide-only"><span class="app__week"><%= week_dots "app__day" %></span><span><%= p[:streak] %>-day streak</span></div>
     <div class="app__total wide-only"><span><%= p[:total] %></span><span class="c-faint">total</span></div>
     <% unless signed_in? %>
