@@ -6,7 +6,15 @@ class User < ApplicationRecord
   has_many :activities, dependent: :destroy
   has_many :nudges, dependent: :destroy
 
+  has_one :sticker, dependent: :destroy
+
   validates :hca_id, presence: true, uniqueness: true
+
+  # Where to post things, from Hack Club Auth (its address claim), as wrong tool keeps it: street_address, locality,
+  # region, postal_code and country. Encrypted.
+  ADDRESS_FIELDS = %w[street_address locality region postal_code country].freeze
+  serialize :address, coder: JSON
+  encrypts :address
 
   # Colours the editor's avatars come in (app.css .avatar--*), picked from your Hack Club ID so it's always the same.
   AVATAR_COLORS = %w[yellow blue teal green purple red].freeze
@@ -20,9 +28,24 @@ class User < ApplicationRecord
         first_name: auth.info.first_name,
         slack_id: claims[:slack_id],
         verification_status: claims[:verification_status],
-        ysws_eligible: claims[:ysws_eligible] || false
+        ysws_eligible: claims[:ysws_eligible] || false,
+        # Kept if this sign-in didn't share one.
+        address: address_from(claims[:address]) || user.address
       )
     end
+  end
+
+  # The address claim as we keep it: its fields, as strings, blanks dropped. Nil if there's nothing to it.
+  def self.address_from(claim)
+    claim = JSON.parse(claim) if claim.is_a?(String)
+    claim.to_h.stringify_keys.slice(*ADDRESS_FIELDS).transform_values { |value| value.to_s.strip }.compact_blank.presence
+  rescue JSON::ParserError
+    nil
+  end
+
+  # We don't have their address (they didn't share it when signing in): posting them anything waits for it.
+  def needs_address?
+    address.blank?
   end
 
   # What a visitor did before signing in (keyed by ApplicationController#visitor_id) becomes theirs: their pledge,
@@ -31,6 +54,8 @@ class User < ApplicationRecord
     Pledge.where(visitor_id:, user_id: nil).update_all(user_id: id)
     Scene.where(visitor_id:, user_id: nil).update_all(user_id: id)
     adopt_activities!(visitor_id)
+    # A first session finished before signing in earns its sticker now that we know who they are
+    Sticker.earn(self)
   end
 
   # Your streak: days in a row you reached the day's goal in the editor (Activity), ending today or yesterday, since

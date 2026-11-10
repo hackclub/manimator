@@ -71,6 +71,7 @@ class Activity < ApplicationRecord
 
       if user && just_completed
         user.recalculate_streak!
+        Sticker.earn(user)
         Nudge.day_completed(user, day.activity_date)
       end
       day

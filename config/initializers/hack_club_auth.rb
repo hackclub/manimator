@@ -6,8 +6,9 @@
 # (HACK_CLUB_AUTH_CLIENT_ID, HACK_CLUB_AUTH_CLIENT_SECRET).
 hack_club_auth = ->(key) { Rails.application.credentials.dig(:hack_club_auth, key) || ENV["HACK_CLUB_AUTH_#{key.upcase}"] }
 
-# Only what the editor needs: who you are, your Slack ID (for π's messages) and whether you're eligible for prizes.
-Rails.application.config.x.hack_club_auth_scopes = %i[openid profile email slack_id verification_status]
+# Only what the editor needs: who you are, your Slack ID (for π's messages), whether you're eligible for prizes, and
+# your address (for the sticker and the prizes we post).
+Rails.application.config.x.hack_club_auth_scopes = %i[openid profile email address slack_id verification_status]
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :openid_connect,
