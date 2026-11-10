@@ -27,7 +27,9 @@ const DREW_IDEA = "Here are three. Any of them grab you?"
 const OUT_OF_IDEAS = "That’s every idea for that class taken! Try another class, or write your own."
 const IDEA_GONE = "Someone just took that idea, sorry! Here’s the idea step again."
 const PICKED_FOR = you => `Then let’s make it so ${you} gets it.`
-const PICKED_PRIZE = (name, hours) => `Nice pick! The ${name} takes ${hours} hours of shipped work.`
+// The postcard is made an hour in and mailed with whatever you pick; picked alone, it's the prize for one video.
+const PICKED_PRIZE = (name, videos) => `Nice pick! The ${name} takes ${videos} videos. Your postcard is mailed with it, free.`
+const PICKED_POSTCARD = "Just the postcard, then. It’s made one hour in, and on its own it’s your prize for one video."
 
 function load(storage, key) {
   try { return JSON.parse(storage.getItem(key)) ?? {} } catch { return {} }
@@ -135,8 +137,8 @@ export default class extends Controller {
     this.answer("idea", { forWhom, ideaPhase: null }, PICKED_FOR(this.forValue[forWhom].you))
   }
 
-  pickPrize({ params: { id, name, hours } }) {
-    this.answer("prize", { prize: id, prizeName: name, prizeHours: hours }, PICKED_PRIZE(name, hours))
+  pickPrize({ params: { id, name, videos, alone } }) {
+    this.answer("prize", { prize: id, prizeName: name }, alone ? PICKED_POSTCARD : PICKED_PRIZE(name, videos))
   }
 
   // When, how often and how long: enough to say when a first video ships.
@@ -391,7 +393,8 @@ export default class extends Controller {
     this.pledgeRhythmTarget.textContent = a.when ? this.rhythmText() : ""
     this.pledgeShipByTarget.textContent = this.rhythmReady ? shortDate(this.shipBy()) : ""
     this.pledgeForTarget.textContent = forWhom?.pledge ?? "someone"
-    this.pledgePrizeTarget.textContent = a.prizeName || "prize"
+    const alone = this.prizeTargets.find(el => el.dataset.prize === a.prize)?.dataset.pledgeAloneParam === "true"
+    this.pledgePrizeTarget.textContent = !a.prizeName ? "prize" : alone ? "postcard of my frame" : `${a.prizeName}, and my postcard with it`
     this.renderMessage()
 
     this.holdTarget.disabled = !a.name || !!a.signed

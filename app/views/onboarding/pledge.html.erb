@@ -85,18 +85,19 @@
         </button>
         <div class="ostep__body">
           <h2 class="ostep__q">Pick the one prize you’re working toward.</h2>
-          <p class="ostep__hint">Your hours count once your video ships. A video is about 3 hours. You can switch before then,
-            but you get one.</p>
+          <p class="ostep__hint"><%= OnboardingHelper::POSTCARD_RULE %></p>
+          <p class="ostep__hint">Your hours count once your video ships, and a video is about <%= Pledge::HOURS_PER_VIDEO %> hours.
+            You can switch before then, but you pick one prize.</p>
           <div class="prizes">
             <% onboarding_prizes.each do |prize| %>
               <button class="prize" aria-pressed="false" data-pledge-target="prize" data-prize="<%= prize[:id] %>"
-                      data-action="pledge#pickPrize" data-pledge-id-param="<%= prize[:id] %>" data-pledge-name-param="<%= prize[:name] %>" data-pledge-hours-param="<%= prize[:hours] %>">
+                      data-action="pledge#pickPrize" data-pledge-id-param="<%= prize[:id] %>" data-pledge-name-param="<%= prize[:name] %>" data-pledge-videos-param="<%= prize[:videos] %>" data-pledge-alone-param="<%= prize[:with_every_prize] ? true : false %>">
                 <span class="prize__photo">
                   <%= image_tag prize[:image], alt: prize[:name], class: "prize__image", loading: "lazy" %>
                   <span class="prize__kind mono-xs"><%= prize[:kind] %></span>
                 </span>
                 <span class="prize__name"><%= prize[:name] %></span>
-                <span class="prize__hours mono-xs"><%= prize[:hours] %> hours</span>
+                <span class="prize__hours mono-xs"><%= pluralize(prize[:videos], "video") %> · <%= prize[:with_every_prize] ? "on its own" : "#{prize[:hours]} hours" %></span>
               </button>
             <% end %>
           </div>
