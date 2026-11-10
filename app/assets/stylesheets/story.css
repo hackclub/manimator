@@ -129,7 +129,14 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .story__choices:empty { display: none; }
 .story__choices--list { flex-direction: column; }
-.story__choices--list .story__choice { width: 100%; box-sizing: border-box; }
+.story__choices--list .story__choice, .story__choices--list .story__choice-wrap { width: 100%; box-sizing: border-box; }
+.story__choice-wrap { display: flex; flex-direction: column; gap: 4px; max-width: 100%; }
+.story__choice-wrap .story__choice { animation-delay: calc(var(--i) * .04s); }
+.story__choice-link {
+  align-self: flex-start; padding-left: 26px; font: 11px var(--mono); color: var(--ink-faint);
+  text-decoration: underline; text-underline-offset: 3px; animation: choice-in .3s ease-out backwards; animation-delay: calc(var(--i) * .04s);
+}
+.story__choice-link:hover, .story__choice-link:focus-visible { color: var(--ink-muted); }
 .story__choice {
   position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 9px 16px 9px 26px;
   border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg); color: var(--ink); font: 16px var(--serif);

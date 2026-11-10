@@ -360,8 +360,13 @@ export default class extends Controller {
     // Choices with a line under them (ideas) stack as a list, every row the same width.
     this.choicesTarget.classList.toggle("story__choices--list", choices.some(c => c.sub && !c.image))
     return new Promise(resolve => {
-      this.choicesTarget.innerHTML = choices.map((c, i) => `<button type="button" class="story__choice ${c.image ? "story__choice--card" : ""}" data-i="${i}">
-        ${c.image ? `<img src="${c.image}" alt="">` : ""}<span class="story__choice-label">${esc(c.label)}</span>${c.sub ? `<span class="story__choice-sub">${esc(c.sub)}</span>` : ""}</button>`).join("")
+      this.choicesTarget.innerHTML = choices.map((c, i) => {
+        const button = `<button type="button" class="story__choice ${c.image ? "story__choice--card" : ""}" data-i="${i}">
+          ${c.image ? `<img src="${c.image}" alt="">` : ""}<span class="story__choice-label">${esc(c.label)}</span>${c.sub ? `<span class="story__choice-sub">${esc(c.sub)}</span>` : ""}</button>`
+        // A link can't sit inside a button, so it goes under it: where an idea comes from, to read up on.
+        return c.link ? `<div class="story__choice-wrap" style="--i:${i}">${button}<a class="story__choice-link" href="${esc(c.link.href)}" target="_blank" rel="noopener">${esc(c.link.label)} ↗</a></div>` : button
+      }).join("")
+      this.choicesTarget.querySelectorAll("a").forEach(a => a.addEventListener("click", e => e.stopPropagation()))
       const buttons = [...this.choicesTarget.querySelectorAll("button")]
       buttons.forEach((b, i) => b.addEventListener("click", e => {
         e.stopPropagation()
@@ -415,7 +420,7 @@ export default class extends Controller {
 
   key(event) {
     if (event.key === "Escape" && this.goBack) return this.back(event)
-    if (event.target.closest?.("input, button")) return
+    if (event.target.closest?.("input, button, a")) return
     if (event.key === " " || event.key === "Enter") { event.preventDefault(); audio.unlock(); this.next() }
   }
 
@@ -625,7 +630,7 @@ export default class extends Controller {
       }
       seen = [...seen, ...ideas.map(i => i.id)]
       const pick = await this.say("pi", "Here are three. Whichever you pick, nobody else gets it.",
-        { pose: "speaking", choices: [...ideas.map(i => ({ label: i.title, sub: i.line, value: i.id })), { label: "Show me others", value: "more" }], back: true })
+        { pose: "speaking", choices: [...ideas.map(i => ({ label: i.title, sub: i.line, value: i.id, link: i.source_url && { href: i.source_url, label: i.source_title } })), { label: "Show me others", value: "more" }], back: true })
       if (pick === BACK) return BACK
       if (pick !== "more") { const idea = ideas.find(i => i.id === pick); return { idea: idea.title, ideaId: idea.id } }
     }
