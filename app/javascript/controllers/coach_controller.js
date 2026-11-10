@@ -2,21 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 import { capture } from "analytics"
 import { Mascot } from "mascot"
 
-// π in the editor, under your code, with one thing to try that needs no typing: drag a number. The scene the story
-// onboarding leaves you with has k in it, the number you watched { } turn, so π points at that one (it pulses, and
-// drags without holding Alt); anywhere else, it's any number.
-//
-// Under π are three chips for what to do next, each of which writes a line or two at the end of construct() and plays
-// it: a new shape, a move, a colour. They're choices, not lessons: the code they leave is real and yours to change.
-// × hides π for good.
-const KEY = "manimator:coach" // "scrubbed" once you've dragged a number, "off" once hidden
-const ALT = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌥" : "Alt"
-
-const LINES = {
-  k: ["Drag the number after `k`. The field follows.", "speaking"],
-  any: [`Hold ${ALT} and drag any number in your code. The picture follows.`, "speaking"],
-  scrubbed: [`Every number does that. Hold ${ALT} and drag. What next?`, "hooray"],
-}
+// π in the editor, under your code, for when you don't know what to do next. It doesn't teach (the story onboarding
+// already showed you the field and let you turn k): it offers three chips, each of which writes a line or two at the
+// end of construct() and plays it: a new shape, a move, a colour. They're choices, not lessons, and the code they
+// leave is real and yours to change. × hides π for good.
+const KEY = "manimator:coach" // "off" once hidden
+const HELLO = ["Not sure what’s next? Pick one and I’ll write the line.", "speaking"]
 
 // Shapes come in this order, each somewhere the last one isn't.
 const SHAPES = [
@@ -31,12 +22,8 @@ const COLOURS = ["YELLOW", "PINK", "TEAL", "ORANGE", "RED"]
 const NAMED = /^[ \t]*(\w+)[ \t]*=[ \t]*(?:Circle|Square|Triangle|Star|Text|MathTex|Tex|Rectangle|Dot|Line|Arrow|Polygon|RegularPolygon|Ellipse)\(/gm
 const count = (code, pattern) => code.match(pattern)?.length ?? 0
 
-function load() {
-  try { return localStorage.getItem(KEY) } catch { return null }
-}
-
-function save(value) {
-  try { localStorage.setItem(KEY, value) } catch { /* storage unavailable */ }
+function hidden() {
+  try { return localStorage.getItem(KEY) === "off" } catch { return false }
 }
 
 export default class extends Controller {
@@ -53,25 +40,12 @@ export default class extends Controller {
   }
 
   ready() {
-    const seen = load()
-    if (seen === "off" || !this.code) return
+    if (hidden() || !this.code) return
     this.mascot = new Mascot(this.piTarget, this.bubbleTarget, this.posesValue)
     this.cardTarget.hidden = false
-    if (seen === "scrubbed") return this.mascot.say(...LINES.scrubbed.with(1, "happy"))
-    this.waiting = true
-    const line = this.code.hintNumber("k") ? LINES.k : LINES.any
-    this.mascot.say(line[0], "plain")
-    this.mascot.wave(line[1])
+    this.mascot.say(HELLO[0], "plain")
+    this.mascot.wave(HELLO[1])
     capture("editor_coach_shown", {})
-  }
-
-  scrubbed() {
-    if (!this.waiting) return
-    this.waiting = false
-    this.code?.clearHint()
-    save("scrubbed")
-    this.mascot.say(...LINES.scrubbed)
-    capture("editor_coach_scrubbed", {})
   }
 
   // A shape, and the line that draws it. A second circle is circle2.
@@ -109,18 +83,14 @@ export default class extends Controller {
   add(chip, lines, reply) {
     const first = this.code.addToConstruct(lines)
     if (!first) return this.mascot.say("I can’t find `construct` in this file, so I don’t know where to write.", "erm")
-    this.waiting = false
-    this.code.clearHint()
     this.editor.playFrom(first + lines.length - 1)
     this.mascot.say(reply, "happy")
     capture("editor_coach_chip", { chip })
   }
 
   hide() {
-    this.waiting = false
-    this.code?.clearHint()
     this.cardTarget.hidden = true
-    save("off")
+    try { localStorage.setItem(KEY, "off") } catch { /* storage unavailable */ }
     capture("editor_coach_hidden", {})
   }
 

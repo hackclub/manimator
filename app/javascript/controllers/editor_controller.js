@@ -140,7 +140,6 @@ export default class extends Controller {
       onScrub: () => {
         clearTimeout(this.debounce)
         this.requestRun(this.editor.code)
-        this.dispatch("scrubbed")
       },
       onCursorLine: line => {
         if (this.cursorLine !== line) {

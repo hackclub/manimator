@@ -355,9 +355,6 @@ body.scrubbing, body.scrubbing * { cursor: ew-resize !important; user-select: no
 .coach__bubble code { padding: 0 4px; border-radius: 4px; background: rgba(0, 0, 0, .1); font: 15px var(--mono); }
 .coach__hide { position: absolute; top: 6px; right: 8px; width: 26px; height: 26px; border: 0; border-radius: 50%; background: none; color: var(--ink-faint); font-size: 18px; line-height: 1; cursor: pointer; }
 .coach__hide:hover { color: var(--ink); background: var(--line); }
-.app .cm-scrub-hint { border-radius: 4px; box-shadow: 0 2px 0 var(--yellow); cursor: ew-resize; animation: scrub-hint 1.4s ease-in-out infinite; }
-@keyframes scrub-hint { 50% { background: rgba(244, 211, 69, .28); } }
-@media (prefers-reduced-motion: reduce) { .app .cm-scrub-hint { animation: none; background: rgba(244, 211, 69, .18); } }
 .coach__body { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
 .coach__chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .coach .coach__chip { padding: 5px 9px; border: 1px solid var(--line-hover); border-radius: 999px; background: none; color: var(--ink); font: 12px var(--mono); white-space: nowrap; cursor: pointer; transition: transform .12s ease, border-color .12s ease, color .12s ease; }

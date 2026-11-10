@@ -13,7 +13,7 @@
      data-editor-worker-value="<%= asset_path "workers/python_worker.js" %>" data-editor-manim-value="<%= asset_path "manim.py" %>"
      data-editor-scenes-url-value="<%= scenes_path %>" data-editor-scene-value="<%= @scene&.to_json || "{}" %>"
      data-editor-scenes-value="<%= @scenes.map { |s| { id: s.id, name: s.name, edited_at: s.edited_at.iso8601 } }.to_json %>"
-     data-action="keydown@window->editor#key shell:changed->editor#viewChanged editor:ready->coach#ready editor:scrubbed->coach#scrubbed">
+     data-action="keydown@window->editor#key shell:changed->editor#viewChanged editor:ready->coach#ready">
   <header class="app__bar">
     <%= link_to "Manimator", root_path, class: "app__brand" %>
     <span class="app__slash">/</span>
@@ -51,7 +51,7 @@
     <section class="app__left">
       <div class="app__pane app__pane--code">
         <div class="app__code" data-editor-target="code"></div>
-        <%# π's tips (coach_controller): a number to drag, then chips that each write a line for you. %>
+        <%# π's tips (coach_controller): chips that each write the next line for you. %>
         <div class="coach" hidden data-coach-target="card">
           <%= image_tag "pi_creature/plain.svg", alt: "π", class: "coach__pi", draggable: false, data: { coach_target: "pi" } %>
           <div class="coach__body">

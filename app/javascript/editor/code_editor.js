@@ -61,27 +61,6 @@ const marksField = StateField.define({
   provide: (f) => EditorView.decorations.from(f),
 })
 
-// One number π is pointing at (the coach's first tip): it pulses, and drags without holding Alt. Editing it lets it go.
-const setHint = StateEffect.define()
-
-const hintField = StateField.define({
-  create: () => Decoration.none,
-  update(deco, tr) {
-    deco = deco.map(tr.changes)
-    for (const e of tr.effects) {
-      if (e.is(setHint)) deco = e.value ? Decoration.set([Decoration.mark({ class: "cm-scrub-hint" }).range(e.value.from, e.value.to)]) : Decoration.none
-    }
-    return deco
-  },
-  provide: (f) => EditorView.decorations.from(f),
-})
-
-function hinted(view, pos) {
-  let on = false
-  view.state.field(hintField).between(pos, pos, () => { on = true })
-  return on
-}
-
 // A number literal: not part of an identifier like BLUE_E or x2.
 const NUMBER = /(?<![\w.])-?\d+(?:\.\d+)?(?![\w])/g
 
@@ -95,12 +74,13 @@ function numberAt(view, pos) {
   return null
 }
 
-// Alt/Option + drag on a number literal scrubs its value, Bret Victor style. The hinted number needs no Alt.
+// Alt/Option + drag on a number literal scrubs its value, Bret Victor style.
 function numberScrubber(onScrub) {
   return EditorView.domEventHandlers({
     mousedown(e, view) {
+      if (!e.altKey) return false
       const pos = view.posAtCoords({ x: e.clientX, y: e.clientY })
-      if (pos == null || !(e.altKey || hinted(view, pos))) return false
+      if (pos == null) return false
       const num = numberAt(view, pos)
       if (!num) return false
       e.preventDefault()
@@ -147,7 +127,6 @@ export function createEditor(parent, doc, hooks) {
         theme,
         syntaxHighlighting(highlight),
         marksField,
-        hintField,
         numberScrubber(hooks.onScrub),
         EditorView.updateListener.of((u) => {
           if (u.docChanged) hooks.onChange(u.state.doc.toString())
@@ -180,15 +159,6 @@ export function createEditor(parent, doc, hooks) {
         effects: EditorView.scrollIntoView(l.from, { y: "center" }),
       })
       view.focus()
-    },
-    // Points at the number a variable is set to ("k = 1.0" is the 1.0). Returns false if there isn't one.
-    hintNumber(name) {
-      const m = new RegExp(`^[ \\t]*${name}[ \\t]*=[ \\t]*(-?\\d+(?:\\.\\d+)?)`, "md").exec(view.state.doc.toString())
-      view.dispatch({ effects: setHint.of(m ? { from: m.indices[1][0], to: m.indices[1][1] } : null) })
-      return !!m
-    },
-    clearHint() {
-      view.dispatch({ effects: setHint.of(null) })
     },
     lineText(line) {
       return view.state.doc.line(Math.min(line, view.state.doc.lines)).text
