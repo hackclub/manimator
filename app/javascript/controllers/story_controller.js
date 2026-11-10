@@ -91,7 +91,7 @@ const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
   static targets = ["canvas", "bar", "go", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip"]
-  static values = { poses: Object, prizes: Array, for: Array, slots: Object, days: Array, sessions: Object, classes: Array,
+  static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object, classes: Array,
     drawUrl: String, claimUrl: String, pledgeUrl: String, hours: Number }
 
   connect() {
@@ -489,12 +489,6 @@ export default class extends Controller {
     await this.pause(1700)
     this.light(null)
     await this.say("pi", "That's your first frame. Look at it!", { pose: "awe" })
-    this.step("for")
-    this.answers.forWhom = await this.say("pi", "Who's it for? Who should finally get it?",
-      { pose: "thinking", choices: this.forValue.map(f => ({ label: f.label, value: f.key })) })
-    const you = this.forValue.find(f => f.key === this.answers.forWhom).you
-    await this.say("pi", `Then let's make it so ${you} gets it.`, { pose: "happy" })
-
     // ∞ and your buddy
     this.step("buddy")
     this.enter("inf")
@@ -524,7 +518,7 @@ export default class extends Controller {
 
     // Signing
     this.step("sign")
-    await this.say("pi", `So: "${this.answers.idea}", for ${you}, done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
+    await this.say("pi", `So: "${this.answers.idea}", done by ${shortDate(this.answers.shipBy)}. Then the ${prize.name} is yours.`, { pose: "speaking" })
     await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign" })
     await this.sign()
     this.signed = true
@@ -575,11 +569,11 @@ export default class extends Controller {
     if (a.ideaId) { try { await this.post(this.claimUrlValue.replace("ID", a.ideaId)) } catch { /* offline: keep going */ } }
     try {
       await this.post(this.pledgeUrlValue, { pledge: {
-        idea: a.idea, idea_record_id: a.ideaId, for_whom: a.forWhom, prize: a.prize, build_time: a.when, days_per_week: a.days,
+        idea: a.idea, idea_record_id: a.ideaId, prize: a.prize, build_time: a.when, days_per_week: a.days,
         session_minutes: a.minutes, timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, ship_by: a.shipBy.toISOString().slice(0, 10),
       } })
     } catch { /* offline */ }
-    capture("onboarding_pledge_signed", { variant: "story", idea: a.idea, for_whom: a.forWhom, prize: a.prize, when: a.when, days: a.days, minutes: a.minutes })
+    capture("onboarding_pledge_signed", { variant: "story", idea: a.idea, prize: a.prize, when: a.when, days: a.days, minutes: a.minutes })
     try { localStorage.setItem(CODE_KEY, starter(a.idea)); localStorage.setItem(VIEW_KEY, "code") } catch { /* storage unavailable */ }
   }
 

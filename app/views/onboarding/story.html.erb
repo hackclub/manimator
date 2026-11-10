@@ -6,7 +6,6 @@
 <div class="story" data-controller="story"
      data-story-poses-value="<%= pi_pose_urls %>"
      data-story-prizes-value="<%= onboarding_prizes.map { |p| p.slice(:id, :name, :videos).merge(image: image_path(p[:image])) }.to_json %>"
-     data-story-for-value="<%= onboarding_for.map { |key, who| { key:, label: who[:label], you: who[:you] } }.to_json %>"
      data-story-slots-value="<%= Pledge::SLOTS.to_json %>"
      data-story-days-value="<%= onboarding_days.to_json %>"
      data-story-sessions-value="<%= onboarding_sessions.to_json %>"
