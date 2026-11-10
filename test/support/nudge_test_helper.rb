@@ -1,10 +1,13 @@
 # For tests of π's Slack messages: someone who pledged, a bot token that isn't real, and Slack's answer faked at the
 # one place a request would leave (SlackBot.post), so nothing is ever sent. Nobody's held out unless a test says so.
+require_relative "goal_test_helper"
+
 module NudgeTestHelper
   FRAME = "data:image/jpeg;base64,#{Base64.strict_encode64("\xFF\xD8\xFF\xE0 a picture".b)}".freeze
 
   def self.included(base)
     base.include ActiveJob::TestHelper
+    base.include GoalTestHelper
 
     base.setup do
       Rails.configuration.x.slack_configured = true

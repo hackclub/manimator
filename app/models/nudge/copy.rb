@@ -12,11 +12,11 @@ module Nudge::Copy
       "You said %{local_time}. %{left_today} on %{idea} and today counts.",
       "This is the time you picked to come back to %{idea}. Change one number first and watch what moves."
     ],
-    # Pledged, but no day has reached its goal: what's left of the five minutes, and one tiny thing to do.
+    # Pledged, but no day has reached its goal: what's left of the fifteen minutes, and one tiny thing to do.
     "first_frame" => [
       "%{left_today} more on %{idea} and your first day is done and a π sticker is yours. Change one number and watch what moves.",
-      "Your first day takes five minutes and earns you a π sticker. You have %{left_today} to go. Open %{idea}, change one color, and see how it looks.",
-      "Five minutes makes a first day, and a π sticker. You're %{left_today} away. Pick any number in %{idea} and make it bigger."
+      "Your first day takes fifteen minutes and earns you a π sticker. You have %{left_today} to go. Open %{idea}, change one color, and see how it looks.",
+      "Fifteen minutes makes a first day, and a π sticker. You're %{left_today} away. Pick any number in %{idea} and make it bigger."
     ],
     # An hour in the editor: the postcard exists. Mailed free with whatever prize they earn; on its own, it's the
     # prize for one video.

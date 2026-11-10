@@ -1,6 +1,9 @@
 require "test_helper"
+require "support/goal_test_helper"
 
 class StickerTest < ActiveSupport::TestCase
+  include GoalTestHelper
+
   NOON = Time.utc(2026, 11, 10, 12)
   ADDRESS = { "street_address" => "15 Falls Rd", "locality" => "Shelburne", "region" => "VT", "postal_code" => "05482", "country" => "US" }.freeze
 
@@ -15,9 +18,9 @@ class StickerTest < ActiveSupport::TestCase
   end
 
   test "finishing your first session earns one sticker, once" do
-    beats(10)
+    beats(beats_for(first_day_goal) - 1) # one beat short
     assert_nil @user.reload.sticker
-    beats(11)
+    beats(beats_for(first_day_goal))
     sticker = @user.reload.sticker
     assert sticker
     assert_no_difference -> { Sticker.count } do
@@ -30,7 +33,7 @@ class StickerTest < ActiveSupport::TestCase
   end
 
   test "a session finished before signing in earns it at sign-in" do
-    beats(11, visitor_id: "v1")
+    beats(beats_for(first_day_goal), visitor_id: "v1")
     assert_difference -> { Sticker.count }, 1 do
       @user.adopt!("v1")
     end

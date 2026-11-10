@@ -1,6 +1,9 @@
 require "test_helper"
+require "support/goal_test_helper"
 
 class ActivityTest < ActiveSupport::TestCase
+  include GoalTestHelper
+
   NOON = Time.utc(2026, 11, 10, 12)
 
   setup { @user = User.create!(hca_id: "ident!ada", timezone: "UTC") }
@@ -53,17 +56,19 @@ class ActivityTest < ActiveSupport::TestCase
     assert_equal [ Date.new(2026, 11, 10), 60 ], [ morning.activity_date, morning.seconds ]
   end
 
-  test "your first day needs five minutes, every day after twenty" do
-    first = beats(11) # five minutes
+  test "your first day has a goal of its own, shorter than every day after" do
+    assert_operator first_day_goal, :<, daily_goal
+    first = beats(beats_for(first_day_goal))
     assert first.first_day?
     assert_equal Activity::FIRST_DAY_GOAL_SECONDS, first.goal_seconds
     assert first.completed?
 
-    second = beats(21, from: NOON + 1.day)
+    # What made a first day isn't enough for a second, until the rest of the daily goal is on it
+    second = beats(beats_for(first_day_goal), from: NOON + 1.day)
     assert_not second.first_day?
     assert_equal Activity::DAILY_GOAL_SECONDS, second.goal_seconds
     assert_not second.completed?
-    assert beats(21, from: NOON + 1.day + 630).completed?
+    assert beats((daily_goal - first_day_goal) / 30, from: NOON + 1.day + first_day_goal + 30).completed?
   end
 
   test "a day with no time on it isn't your first day" do
@@ -86,9 +91,9 @@ class ActivityTest < ActiveSupport::TestCase
     original = Nudge.method(:day_completed)
     Nudge.define_singleton_method(:day_completed) { |user, date| told << [ user, date ] }
     travel_to NOON + 15.minutes do
-      beats(10)
+      beats(beats_for(first_day_goal) - 1) # one beat short
       assert_equal [ 0, [] ], [ @user.reload.current_streak, told ]
-      beats(5, from: NOON + 300)
+      beats(3, from: NOON + first_day_goal) # the one that reaches it, and two more
       assert_equal 1, @user.reload.current_streak
       assert_equal [ [ @user, Date.new(2026, 11, 10) ] ], told
     end
@@ -99,7 +104,7 @@ class ActivityTest < ActiveSupport::TestCase
   test "a visitor reaching the goal tells nobody" do
     original = Nudge.method(:day_completed)
     Nudge.define_singleton_method(:day_completed) { |*| raise "a visitor has no Slack" }
-    assert beats(22, visitor_id: "v1").completed?
+    assert beats(beats_for(first_day_goal), visitor_id: "v1").completed?
   ensure
     Nudge.define_singleton_method(:day_completed, original)
   end

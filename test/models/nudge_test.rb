@@ -4,14 +4,14 @@ require "support/nudge_test_helper"
 class NudgeTest < ActiveSupport::TestCase
   include NudgeTestHelper
 
-  test "pledged but no first day yet: what's left of the five minutes, with their frame" do
+  test "pledged but no first day yet: what's left of the first day's goal, with their frame" do
     work(10, 2)
     @user.scenes.create!(code: "class A(Scene): pass", frame: NudgeTestHelper::FRAME)
 
     nudge = deliver
 
     assert_equal [ "first_frame", "first_frame" ], [ nudge.kind, nudge.arm ]
-    assert_match(/3 minutes/, nudge.text)
+    assert_match(/\b#{first_day_minutes - 2} minutes/, nudge.text)
     assert_includes nudge.text, "“Why e^(iπ) = −1”"
     assert_includes 0...Nudge::Copy::ARMS["first_frame"].size, nudge.variant
     assert nudge.delivered
@@ -132,32 +132,32 @@ class NudgeTest < ActiveSupport::TestCase
   end
 
   test "a streak of two days gets saved at their slot, not every day" do
-    work(8, 5)
-    work(9, 20)
+    work(8, first_day_minutes)
+    work(9, daily_minutes)
     @user.update_column(:current_streak, 0) # stale; it's counted afresh
 
     nudge = deliver
     assert_equal "streak_saver", nudge.kind
     assert_match(/2 days/, nudge.text)
-    assert_match(/20 minutes today/, nudge.text)
+    assert_match(/\b#{daily_minutes} minutes today/, nudge.text)
 
-    work(10, 22)
+    work(10, daily_minutes + 2)
     assert_nil deliver(at(11)), "said within the streak's length"
   end
 
   test "a streak that lapsed while they were away isn't one" do
-    work(5, 15)
-    work(6, 25)
+    work(5, first_day_minutes)
+    work(6, daily_minutes + 5)
     @user.update_column(:current_streak, 2)
 
     assert_equal "comeback", deliver.kind
   end
 
   test "nothing once today's goal is met, or while they're in the editor" do
-    work(10, 5)
+    work(10, first_day_minutes)
     assert_nil deliver
 
-    @user.activities.update_all(seconds: 240, last_beat_at: at(10, min: 3))
+    @user.activities.update_all(seconds: first_day_goal - 60, last_beat_at: at(10, min: 3))
     assert_nil deliver, "working right now"
   end
 
@@ -237,7 +237,7 @@ class NudgeTest < ActiveSupport::TestCase
 
     assert_empty @posts
     assert_equal [ "first_frame", true, false, at(10) ], [ nudge.kind, nudge.holdout, nudge.delivered, nudge.sent_at ]
-    assert_match(/3 minutes/, nudge.text)
+    assert_match(/\b#{first_day_minutes - 2} minutes/, nudge.text)
     assert_nil nudge.slack_ts
     assert_nil @user.reload.slack_dmed_at
     assert_nil @user.slack_dm_failed_at
@@ -294,10 +294,10 @@ class NudgeTest < ActiveSupport::TestCase
   end
 
   test "a cheer worked if they reached the next day's goal" do
-    work(9, 5)
+    work(9, first_day_minutes)
     came_back = sent!("cheer", at: at(9, hour: 20), built_on: Date.new(2026, 11, 9))
     didnt = sent!("cheer", at: at(10, hour: 20), built_on: Date.new(2026, 11, 10))
-    work(10, 25)
+    work(10, daily_minutes + 5)
 
     Nudge.worked!(@user, at(10, hour: 20, min: 30))
     assert_nil didnt.reload.reward, "the day's goal doesn't score that day's cheer"
@@ -326,7 +326,7 @@ class NudgeTest < ActiveSupport::TestCase
   test "with no bot token nothing happens at all" do
     Rails.configuration.x.slack_configured = false
     Rails.configuration.x.slack_bot_token = nil
-    work(10, 4)
+    work(10, first_day_minutes - 1)
 
     travel_to(at(10)) { Nudge.deliver_due }
     assert_nil deliver

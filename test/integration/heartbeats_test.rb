@@ -1,6 +1,9 @@
 require "test_helper"
+require "support/goal_test_helper"
 
 class HeartbeatsTest < ActionDispatch::IntegrationTest
+  include GoalTestHelper
+
   KEYS = %w[today_seconds goal_seconds completed first_day streak total_seconds postcard_seconds].freeze
   NOON = Time.utc(2026, 11, 10, 12)
 
@@ -26,7 +29,7 @@ class HeartbeatsTest < ActionDispatch::IntegrationTest
     get heartbeat_path, params: { timezone: "UTC" }
     assert_response :ok
     assert_equal KEYS, response.parsed_body.keys
-    assert_equal({ "today_seconds" => 0, "goal_seconds" => 300, "completed" => false, "first_day" => true, "streak" => 0,
+    assert_equal({ "today_seconds" => 0, "goal_seconds" => first_day_goal, "completed" => false, "first_day" => true, "streak" => 0,
                    "total_seconds" => 0, "postcard_seconds" => 3600 }, response.parsed_body)
     assert_equal 0, Activity.count
 
@@ -51,15 +54,17 @@ class HeartbeatsTest < ActionDispatch::IntegrationTest
 
   test "someone signed in: the goal, the streak and all their time" do
     user = sign_in
-    Activity.create!(user:, activity_date: Date.new(2026, 11, 9), seconds: 700)
-    Activity.create!(user:, activity_date: Date.new(2026, 11, 10), seconds: 1190, last_beat_at: NOON - 30.seconds)
+    # Yesterday was a first day, done. Today is ten seconds short until the next beat adds its thirty.
+    almost = daily_goal - 10
+    Activity.create!(user:, activity_date: Date.new(2026, 11, 9), seconds: first_day_goal)
+    Activity.create!(user:, activity_date: Date.new(2026, 11, 10), seconds: almost, last_beat_at: NOON - 30.seconds)
 
     get heartbeat_path
-    assert_equal({ "today_seconds" => 1190, "goal_seconds" => 1200, "completed" => false, "first_day" => false, "streak" => 1,
-                   "total_seconds" => 1890, "postcard_seconds" => 3600 }, response.parsed_body)
+    assert_equal({ "today_seconds" => almost, "goal_seconds" => daily_goal, "completed" => false, "first_day" => false, "streak" => 1,
+                   "total_seconds" => first_day_goal + almost, "postcard_seconds" => 3600 }, response.parsed_body)
 
-    assert_equal({ "today_seconds" => 1220, "goal_seconds" => 1200, "completed" => true, "first_day" => false, "streak" => 2,
-                   "total_seconds" => 1920, "postcard_seconds" => 3600 }, beat)
+    assert_equal({ "today_seconds" => almost + 30, "goal_seconds" => daily_goal, "completed" => true, "first_day" => false, "streak" => 2,
+                   "total_seconds" => first_day_goal + almost + 30, "postcard_seconds" => 3600 }, beat)
     assert_equal 2, user.reload.current_streak
   end
 
