@@ -9,7 +9,8 @@ class OnboardingController < ApplicationController
   # what it tries, and what the personas who played it scored it (out of 10; nil until they have).
   IDEA_GENS = {
     1 => { tries: "Pick a question π plays for you, or type your own. π says what you're building.", scores: nil },
-    2 => { tries: "Questions you could settle with your hands. π deals each person a catch, so videos differ. You leave with research notes.", scores: nil }
+    2 => { tries: "Questions you could settle with your hands. π deals each person a catch, so videos differ. You leave with research notes.", scores: { clear: 6.3, want: 6.3, start: 5.3 } },
+    3 => { tries: "The catch is now a twist, dealt on the stage with cards. Notes are written for your twist. Your own question gets its own path.", scores: nil }
   }.freeze
 
   def ideas

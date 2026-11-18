@@ -100,5 +100,6 @@
   .pick__card--on { border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); }
   .pick__card--on .pick__card-go { display: block; }
   .pick__chip { padding: 10px 14px; }
+  .pick__chip--go { flex: 1 1 100%; text-align: center; padding: 12px 14px; }
   .pick__chip--quiet { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 3px; }
 }
