@@ -11,7 +11,7 @@ class OnboardingController < ApplicationController
     1 => { tries: "Pick a question π plays for you, or type your own. π says what you're building.", scores: nil },
     2 => { tries: "Questions you could settle with your hands. π deals each person a catch, so videos differ. You leave with research notes.", scores: { clear: 6.3, want: 6.3, start: 5.3 } },
     3 => { tries: "The catch is now a twist, dealt on the stage with cards. Notes are written for your twist. Your own question gets its own path.", scores: { clear: 5.5, want: 6.5, start: 4.8 } },
-    4 => { tries: "Sixteen questions. π plays a finished 20-second video. Your own question is dealt cards too. Notes: what to draw first, look up and crack. No filming.", scores: nil }
+    4 => { tries: "Sixteen questions. π plays a finished 20-second video. Your own question is dealt cards too. Notes: what to draw first, look up and crack. No filming.", scores: { clear: 6.5, want: 6.5, start: 5.8 } }
   }.freeze
 
   def ideas
