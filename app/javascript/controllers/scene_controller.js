@@ -4,6 +4,7 @@ const ANIMS = ["Write", "FadeIn", "Create", "GrowFromCenter", "SpinInFromNothing
 const HOLD = 1.2 // seconds the finished frame stays up before an animation replays
 const SHIP = 7 // length of the "ship it" loop
 const INK = "#ece9e2"
+const IDEA = "why 0.999… = 1"
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
 // manim's default rate function eases in and out; smoothstep is close enough here
@@ -17,7 +18,7 @@ const RED = "#FC6255", YELLOW = "#F4D345"
 // middle of the screen: step 1 shows your idea, step 2 plays it with the
 // animation and run_time picked in the code, step 3 ships it and mails something back.
 export default class extends Controller {
-  static targets = ["canvas", "caption", "step", "idea", "anim", "runTime"]
+  static targets = ["canvas", "step"]
   static values = { whoamiUrl: String }
 
   connect() {
@@ -27,7 +28,6 @@ export default class extends Controller {
     this.start = performance.now()
     this.visible = false
     this.name = "you"
-    this.fitIdea()
     this.askWhoami()
 
     this.resizeObserver = new ResizeObserver(() => this.size())
@@ -70,54 +70,7 @@ export default class extends Controller {
     this.start = performance.now()
   }
 
-  restart() { this.start = performance.now() }
-
-  // Controls in the code
-  retype() { this.fitIdea(); this.setPhase(0) }
-  showIdea() { this.setPhase(0) }
-
-  nextAnim() {
-    this.anim = (this.anim + 1) % ANIMS.length
-    this.animTarget.textContent = ANIMS[this.anim]
-    this.animTarget.setAttribute("aria-label", `Animation: ${ANIMS[this.anim]}. Click for another`)
-    this.phase = 1
-    this.restart()
-  }
-
-  dragStart(event) {
-    const el = this.runTimeTarget, x0 = event.clientX, v0 = this.runTime
-    el.setPointerCapture(event.pointerId)
-    const move = e => this.setRunTime(v0 + (e.clientX - x0) * .03)
-    const up = () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up) }
-    el.addEventListener("pointermove", move)
-    el.addEventListener("pointerup", up)
-    el.addEventListener("pointercancel", up)
-  }
-
-  nudge(event) {
-    const d = { ArrowRight: .1, ArrowUp: .1, ArrowLeft: -.1, ArrowDown: -.1 }[event.key]
-    if (!d) return
-    event.preventDefault()
-    this.setRunTime(this.runTime + d)
-  }
-
-  // Snaps to π when you pass near it, so PI is easy to get back to.
-  setRunTime(v) {
-    v = clamp(v, .3, 10)
-    if (Math.abs(v - Math.PI) < .08) v = Math.PI
-    this.runTime = v
-    const label = v === Math.PI ? "PI" : v.toFixed(1)
-    this.runTimeTarget.textContent = label
-    this.phase = 1
-    this.restart()
-  }
-
-  fitIdea() {
-    const el = this.ideaTarget
-    el.style.width = `${Math.max(4, el.value.length + .5)}ch`
-  }
-
-  get idea() { return this.ideaTarget.value.trim() || " " }
+  get idea() { return IDEA }
 
   size() {
     const c = this.canvasTarget, r = c.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1)
@@ -163,7 +116,6 @@ export default class extends Controller {
     g.translate(this.W / 2, this.H / 2)
     this.text(g, { alpha: span(t, 0, .35) })
     g.restore()
-    this.caption("idea")
   }
 
   drawPlay(g, t) {
@@ -172,7 +124,6 @@ export default class extends Controller {
     g.translate(this.W / 2, this.H / 2)
     this.animate(g, name, smooth(p))
     g.restore()
-    this.caption(`${name}(idea)  ·  ${Math.min(local, this.runTime).toFixed(2)} / ${this.runTime.toFixed(2)} s`)
   }
 
   animate(g, name, p) {
@@ -218,7 +169,6 @@ export default class extends Controller {
       if (u > 4.6) this.typeFor(g, u - 4.6)
     }
     g.globalAlpha = 1
-    this.caption(u < 1.4 ? "rendering" : u < 2.3 ? "shipped" : "something’s coming back")
   }
 
   // "for <name>" types itself out above the heart, one letter at a time, with a blinking caret while it does.
@@ -344,11 +294,5 @@ export default class extends Controller {
     g.beginPath()
     g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r)
     g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath()
-  }
-
-  caption(text) {
-    if (this.lastCaption === text) return
-    this.lastCaption = text
-    this.captionTarget.textContent = text
   }
 }
