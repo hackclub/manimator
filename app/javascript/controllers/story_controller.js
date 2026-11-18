@@ -18,6 +18,8 @@ const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
 const POSTER_KEY = "manimator:poster"
+// Your answers, kept in this tab while you're off signing in with Hack Club, so coming back to /start signs the pledge.
+const SIGNING_KEY = "manimator:signing"
 const K_SWEEP = 7.5 // seconds { } takes to sweep k before you get the slider
 const BACK = Symbol("back") // what a question answers when ◂ back is pressed // the story's last frame, shown on the editor's stage until Python draws
 const HOLD_MS = 1300
@@ -114,9 +116,10 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back"]
+  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object, classes: Array,
-    drawUrl: String, claimUrl: String, pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number }
+    drawUrl: String, claimUrl: String, pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number,
+    signedIn: Boolean, name: String, whoamiUrl: String, alert: String }
 
   connect() {
     this.clock = 0
@@ -155,7 +158,9 @@ export default class extends Controller {
     this.raf = requestAnimationFrame(loop)
 
     const decoded = Promise.all(Object.values(this.images).map(img => img.decode().catch(() => {})))
-    Promise.race([decoded, wait(800)]).then(() => this.run())
+    const signing = takeSigning()
+    if (!this.signedInValue) this.whoami()
+    Promise.race([decoded, wait(800)]).then(() => signing ? this.resume(signing) : this.run())
   }
 
   disconnect() {
@@ -208,12 +213,13 @@ export default class extends Controller {
   // A friend as FriendsHelper drew them in the rail, for the stage and the dialogue.
   friend(id) { return this.railTarget.querySelector(`[data-friend="${id}"] .friend`).outerHTML }
 
-  meet(id) {
+  meet(id, { quiet } = {}) {
     if (this.met.has(id)) return
     this.met.add(id)
     if (!this.show.rail) this.reveal("rail")
     const slot = this.railTarget.querySelector(`[data-friend="${id}"]`)
     slot.classList.add("story__slot--met")
+    if (quiet) return
     sfx.meet(FRIENDS[id].note)
     this.toast(id, slot)
   }
@@ -455,7 +461,7 @@ export default class extends Controller {
   get seconds() { return Math.round((performance.now() - this.startedAt) / 100) / 10 }
 
   abandoned() {
-    if (this.signed || this.left) return
+    if (this.signed || this.left || this.signingIn) return
     this.left = true
     capture("onboarding_abandoned", { variant: "story", step: this.beat, seconds: this.seconds })
   }
@@ -552,13 +558,21 @@ export default class extends Controller {
     this.showK = false
     this.light(null)
 
-    // The questions, one step each, so ◂ back can take you to the one before.
+    await this.questions()
+    await this.finish()
+  }
+
+  // The questions, one step each, so ◂ back can take you to the one before. Starts at `i` (5 is signing).
+  async questions(i = 0) {
     const steps = [() => this.askIdea(), () => this.askWhen(), () => this.askDays(), () => this.askMinutes(), () => this.askPrize(), () => this.askSign()]
-    for (let i = 0; i < steps.length;) {
+    while (i < steps.length) {
       if (await steps[i]() !== BACK) { i++; continue }
       i = Math.max(0, i - 1)
       if (i === 2 && this.answers.when === "weekends") i = 1 // weekends never asked how many days
     }
+  }
+
+  async finish() {
     this.signed = true
     this.step("signed")
     this.cheer()
@@ -677,12 +691,70 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
-    if (await this.say("pi", "Sign it and it's official. We'll all be cheering.", { pose: "happy", hold: "Hold to sign", back: true }) === BACK) return BACK
+    const name = this.nameValue || this.whoName
+    if (await this.say("pi", `Sign it${name ? `, ${name},` : ""} and it's official. We'll all be cheering.`,
+      { pose: "happy", hold: this.signedInValue ? "Hold to sign" : "Hold to sign with Hack Club", back: true }) === BACK) return BACK
+    return this.signHere()
+  }
+
+  // Signing the pledge is signing in, as hackclub/wrong-tool does it. Signed in, it signs right here; otherwise your
+  // answers wait in this tab while Hack Club Auth signs you in, and back on /start, resume() signs it.
+  async signHere() {
+    if (!this.signedInValue) return this.signIn()
     if (await this.sign()) return
     // Someone claimed your drawn idea while you were deciding: pick again, then sign again.
     await this.say("pi", "Oh no, someone just took that idea! Let's find you another.", { pose: "erm" })
     await this.askIdea()
     return this.askSign()
+  }
+
+  signIn() {
+    try {
+      sessionStorage.setItem(SIGNING_KEY, JSON.stringify({ answers: this.answers, k: this.scene.k }))
+    } catch { /* storage unavailable: you'll come back to the start of the story */ }
+    this.step("sign_in")
+    this.signingIn = true
+    this.signInTarget.submit()
+    return new Promise(() => {}) // the page is leaving
+  }
+
+  // Signed in to Hack Club but not to us yet? Hack Club Auth's whoami tells us your first name, so π can ask you to
+  // sign by name. Anything else (not signed in there, or not allowed from here) leaves it out.
+  async whoami() {
+    if (!this.whoamiUrlValue) return
+    try {
+      const response = await fetch(this.whoamiUrlValue, { credentials: "include" })
+      const { signed_in: signedIn, first_name: firstName } = await response.json()
+      const name = signedIn && (firstName || "").trim().slice(0, 40)
+      if (name) this.whoName = name
+    } catch { /* not on a hackclub.com subdomain, or not allowed: no name */ }
+  }
+
+  // Back from Hack Club Auth: the story's last moment, set straight back up (everyone met, the editor around the
+  // stage, your title on it). Signed in, the pledge signs; if signing in didn't work, π asks you to try again.
+  async resume({ answers, k }) {
+    Object.assign(this.answers, answers, { shipBy: new Date(answers.shipBy) })
+    this.setK(k ?? this.answers.k ?? 1)
+    this.want = { field: 1, epi: 0 }
+    for (const id of RAIL) {
+      const a = this.enter(id)
+      a.x = a.tx
+      this.meet(id, { quiet: true })
+    }
+    this.setPose("happy")
+    for (const part of ["frame", "code", "timeline"]) this.reveal(part)
+    this.renderCode()
+    this.renderTimeline()
+    this.titleStart = this.clock - 2
+    if (this.signedInValue) {
+      this.step("signed_in")
+      if (await this.signHere() === BACK) await this.questions(4)
+    } else {
+      this.step("sign_in_failed")
+      await this.say("pi", this.alertValue ? `${this.alertValue} Want to try again?` : "Welcome back! Your pledge is right where you left it.", { pose: "erm" })
+      await this.questions(5)
+    }
+    await this.finish()
   }
 
   // Your own idea, or one drawn from your class. ◂ back steps through it too: ideas → class → how.
@@ -1252,4 +1324,13 @@ export default class extends Controller {
     ctx.globalAlpha = 1
     ctx.globalCompositeOperation = "source-over"
   }
+}
+
+// Your answers if you've just come back from signing in with Hack Club (see signIn()), once.
+function takeSigning() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(SIGNING_KEY))
+    sessionStorage.removeItem(SIGNING_KEY)
+    return saved?.answers?.idea && saved.answers.prize ? saved : null
+  } catch { return null }
 }

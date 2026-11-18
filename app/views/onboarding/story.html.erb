@@ -15,7 +15,16 @@
      data-story-pledge-url-value="<%= pledge_path %>"
      data-story-hours-value="<%= Pledge::HOURS_PER_VIDEO %>"
      data-story-scenes-url-value="<%= scenes_path %>"
-     data-story-editor-url-value="<%= editor_path(view: "code") %>">
+     data-story-editor-url-value="<%= editor_path(view: "code") %>"
+     data-story-signed-in-value="<%= signed_in? %>"
+     data-story-name-value="<%= current_user&.first_name %>"
+     data-story-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
+     data-story-alert-value="<%= alert %>">
+  <%# Signing the pledge is signing in, as in hackclub/wrong-tool: holding the button sends this form to Hack Club
+      Auth, and you come back to /start, where your answers wait in this tab and the pledge signs itself. %>
+  <%= form_tag "/auth/hackclub", hidden: true, data: { story_target: "signIn", turbo: false } do %>
+    <%= hidden_field_tag :origin, onboarding_path %>
+  <% end %>
   <canvas class="story__canvas" data-story-target="canvas" aria-hidden="true"></canvas>
 
   <header class="story__bar" data-story-target="bar">

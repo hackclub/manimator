@@ -43,4 +43,30 @@ class SessionsTest < ActionDispatch::IntegrationTest
     get editor_path
     assert_select "form[action='/auth/hackclub']"
   end
+
+  test "the story's pledge sends you to Hack Club Auth and back to /start" do
+    get onboarding_path
+    assert_select "form[action='/auth/hackclub'][data-story-target='signIn'] input[name='origin'][value='#{onboarding_path}']"
+    assert_select "[data-story-signed-in-value='false']"
+
+    post "/auth/hackclub", params: { origin: onboarding_path }
+    follow_redirect!
+    assert_redirected_to onboarding_path
+    follow_redirect!
+    assert_select "[data-story-signed-in-value='true'][data-story-name-value='Ada']"
+  end
+
+  test "a failed sign-in goes back where it started, saying why" do
+    get "/auth/failure", params: { message: "access_denied", origin: "http://localhost#{onboarding_path}" }
+    assert_redirected_to onboarding_path
+    follow_redirect!
+    assert_select "[data-story-alert-value*='access denied']"
+  end
+
+  test "a failed sign-in never sends you off the site" do
+    get "/auth/failure", params: { message: "access_denied", origin: "https://evil.example/start" }
+    assert_redirected_to onboarding_path # just the path, on this site
+    get "/auth/failure", params: { message: "access_denied", origin: "javascript:alert(1)" }
+    assert_redirected_to root_path
+  end
 end
