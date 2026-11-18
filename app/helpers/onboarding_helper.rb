@@ -36,8 +36,6 @@ module OnboardingHelper
 
   def onboarding_classes = Idea::CLASSES
   def onboarding_prizes = PRIZES
-  def onboarding_when = Pledge::SLOTS.keys
   def onboarding_days = Pledge::DAYS
   def onboarding_sessions = Pledge::SESSIONS
-  def onboarding_for = Pledge::FOR
 end

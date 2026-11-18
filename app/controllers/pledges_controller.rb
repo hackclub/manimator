@@ -1,4 +1,4 @@
-# Keeps what someone signed on the pledge page (Pledge), for nudges.
+# Keeps what someone signed at the end of onboarding (Pledge), for nudges.
 class PledgesController < ApplicationController
   def create
     pledge = Pledge.new(pledge_params.merge(visitor_id:, user: current_user, signed_at: Time.current))

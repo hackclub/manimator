@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// The corner player's CD (onboarding/pledge.html.erb). Its rim is a circle, which is the 1:1 Lissajous figure
+// The corner player's CD (onboarding/_player.html.erb). Its rim is a circle, which is the 1:1 Lissajous figure
 // (x = sin(t + π/2), y = sin t). While music plays it morphs, point by point as manim's Transform does, through the
 // figures of musical intervals, with a light running along the curve; on pause it folds back into the circle.
 // sound_controller says when playback starts and stops (sound:change).

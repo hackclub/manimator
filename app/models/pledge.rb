@@ -1,4 +1,4 @@
-# What someone signed at the end of onboarding (the pledge page): their idea, who it's for, the prize, and when and
+# What someone signed at the end of onboarding (the story's last step): their idea, who it's for, the prize, and when and
 # how long they'll work. Nudges read it: the time to send, the pace, the finish date, and the words to fill in.
 class Pledge < ApplicationRecord
   # Who you're making it for: how the chip reads, how the pledge says it, and how π says it back to you.

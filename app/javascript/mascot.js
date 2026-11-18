@@ -1,4 +1,4 @@
-// π, talking you through onboarding: a pose and a speech bubble (the pledge page).
+// π, talking you through onboarding: a pose and a speech bubble (the goal dial in the editor).
 const WAVE = ["wave_1", "wave_2", "wave_3", "wave_2", "wave_3", "wave_2", "wave_1"]
 const DANCE = ["hooray", "dance_1", "dance_2", "dance_3", "dance_2", "dance_1", "hooray"]
 

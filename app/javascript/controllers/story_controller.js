@@ -7,7 +7,7 @@ import { sfx } from "sfx"
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
 // buddy, Σ the board. The editor assembles itself around you as they arrive: the stage gets a frame, the code pane slides
 // in, then the timeline, the rail of friends and the top bar. The questions are theirs to ask, as dialogue choices; at
-// the end you sign, which keeps the same Pledge as the pledge page, and the friends hop into their rail slots as the
+// the end you sign, which signs you in with Hack Club and keeps a Pledge, and the friends hop into their rail slots as the
 // editor finishes assembling. Every piece is at the editor's own size and the stage ends where the editor's canvas is,
 // so the hand-over to /editor (a full page load: Python needs it) changes nothing on screen; a snapshot of the last
 // frame stands in on the editor's stage until Python has drawn the first one.
@@ -452,7 +452,7 @@ export default class extends Controller {
     this.advance?.()
   }
 
-  // Each beat is a step, logged like the pledge page's, so the two can be compared and drop-off read beat by beat.
+  // Each beat is a step, logged so drop-off can be read beat by beat.
   step(name) {
     this.beat = name
     capture("onboarding_step_viewed", { variant: "story", step: name, seconds: this.seconds })
@@ -822,7 +822,7 @@ export default class extends Controller {
   // How many days from today your nth session lands.
   sessionDay(n) { return Math.max(n - 1, Math.ceil(n / this.answers.days * 7)) }
 
-  // Keeps the same Pledge the pledge page does, and leaves your idea in the editor. False if your drawn idea was taken.
+  // Keeps your Pledge, and leaves your idea in the editor. False if your drawn idea was taken.
   async sign() {
     const a = this.answers
     if (a.ideaId) {
