@@ -1,0 +1,37 @@
+<% content_for :title, "Idea step, generation #{@gen} · Manimator" %>
+<% id = "ideas-gen#{@gen}"; gen = OnboardingController::IDEA_GENS[@gen] %>
+
+<%# Generations of the idea step (/start/ideas/N), each driven by its own ideas_genN_controller.js. The bar at the top
+    flips between them and says what each one tries and how the personas scored it. Nothing is saved. %>
+<div class="pick" data-controller="<%= id %>" data-<%= id %>-poses-value="<%= pi_pose_urls %>">
+  <header class="pick__bar">
+    <%= link_to "Manimator", root_path, class: "onboard__brand" %>
+    <span class="onboard__slash">/</span>
+    <nav class="pick__gens" aria-label="Generations of the idea step">
+      <span class="pick__note">idea step, generation</span>
+      <% OnboardingController::IDEA_GENS.each_key do |n| %>
+        <%= link_to n, onboarding_ideas_path(gen: n), class: "pick__gen", aria: { current: (n == @gen ? "page" : nil) }, title: OnboardingController::IDEA_GENS[n][:tries] %>
+      <% end %>
+    </nav>
+    <p class="pick__about">
+      <%= gen[:tries] %>
+      <% if gen[:scores] %>
+        <span class="pick__scores"><% gen[:scores].each do |what, score| %><span><%= what %> <b><%= score %></b></span><% end %></span>
+      <% end %>
+    </p>
+  </header>
+
+  <div class="pick__stage">
+    <canvas data-<%= id %>-target="stage" aria-hidden="true"></canvas>
+    <span class="pick__tag" data-<%= id %>-target="tag" hidden>π's rough sketch</span>
+  </div>
+
+  <section class="pick__dialog" aria-live="polite">
+    <div class="pick__portrait" data-<%= id %>-target="portrait"></div>
+    <div class="pick__speech">
+      <span class="pick__name">π</span>
+      <p class="pick__text" data-<%= id %>-target="text"></p>
+      <div class="pick__choices" data-<%= id %>-target="choices"></div>
+    </div>
+  </section>
+</div>

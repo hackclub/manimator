@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "start" => "onboarding#show", as: :onboarding
+  # Generations of a new idea step, not linked from anywhere: /start/ideas is the newest, /start/ideas/2 the second.
+  get "start/ideas(/:gen)" => "onboarding#ideas", as: :onboarding_ideas
   resource :pledge, only: %i[create update]
   resources :ideas, only: [] do
     post :draw, on: :collection

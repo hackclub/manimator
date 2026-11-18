@@ -1,0 +1,95 @@
+/* The idea step demo (/start/ideas, ideas_demo_controller.js): a stage π performs on, and π's dialogue under it, whose
+   choices are cards that each play a small clip. */
+.pick {
+  position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 0 20px 20px; background: var(--bg); overflow: auto;
+}
+.pick__bar { align-self: stretch; flex: none; height: 60px; display: flex; align-items: center; gap: 16px; }
+.pick__note { font: 12px var(--mono); color: var(--ink-faint); }
+/* Flipping between generations, and what this one tries. */
+.pick__gens { display: flex; align-items: center; gap: 6px; flex: none; }
+.pick__gen {
+  min-width: 26px; padding: 3px 0; border: 1px solid var(--line-hover); border-radius: 6px; text-align: center;
+  font: 12px var(--mono); color: var(--ink-muted);
+}
+.pick__gen:hover { border-color: var(--yellow); color: var(--yellow); }
+.pick__gen[aria-current] { border-color: var(--yellow); background: var(--yellow); color: var(--bg); }
+.pick__about { flex: 1; min-width: 0; margin: 0; font: 12px/1.4 var(--mono); color: var(--ink-faint); }
+.pick__scores { display: inline-flex; gap: 10px; margin-left: 10px; color: var(--ink-muted); }
+.pick__scores b { color: var(--teal); font-weight: 500; }
+
+.pick__stage {
+  position: relative; flex: 1 1 0; min-height: 200px; max-width: 100%; aspect-ratio: 14.2 / 8;
+  border: 1px solid var(--line); border-radius: 10px; background: #08090a; overflow: hidden;
+}
+.pick__stage canvas { display: block; width: 100%; height: 100%; }
+.pick__dialog {
+  flex: none; width: min(980px, 100%); display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px 18px;
+  border: 1px solid var(--line-hover); border-radius: 14px; background: #16181b; box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
+}
+.pick__portrait {
+  flex: none; width: 64px; height: 64px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line);
+  display: grid; place-items: center;
+}
+.pick__portrait img { width: 52px; height: 52px; object-fit: contain; }
+.pick__speech { flex: 1; min-width: 0; }
+.pick__name { display: block; font: 600 15px var(--serif); color: var(--blue); margin-bottom: 2px; }
+.pick__text { margin: 0; min-height: 1.45em; font: 20px/1.45 var(--serif); color: var(--ink); }
+
+.pick__choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.pick__choices:empty { display: none; }
+.pick__row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+.pick__card, .pick__chip {
+  border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg); color: var(--ink); font: 16px var(--serif);
+  text-align: left; cursor: pointer; transition: border-color .15s, background-color .15s, transform .15s;
+  animation: pick-in .3s ease-out backwards; animation-delay: calc(var(--i, 0) * .05s);
+}
+@keyframes pick-in { from { opacity: 0; transform: translateY(6px); } }
+.pick__card:hover, .pick__card:focus-visible, .pick__chip:hover, .pick__chip:focus-visible {
+  border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); outline: none;
+}
+.pick__card { display: flex; flex-direction: column; gap: 4px; padding: 8px 8px 10px; }
+.pick__card:hover { transform: translateY(-2px); }
+.pick__card canvas { display: block; width: 100%; aspect-ratio: 14.2 / 8; border-radius: 6px; background: #08090a; margin-bottom: 4px; }
+.pick__card-title { font-size: 16px; line-height: 1.25; padding: 0 4px; }
+.pick__card-sub { font: 12px/1.4 var(--mono); color: var(--ink-faint); padding: 0 4px; }
+.pick__chip { padding: 8px 14px; }
+.pick__chip--quiet { border-color: transparent; background: none; color: var(--ink-faint); font: 13px var(--mono); }
+.pick__ask { display: flex; gap: 8px; flex: 1 1 260px; }
+.pick__input {
+  flex: 1; min-width: 0; padding: 9px 14px; border: 1px solid var(--line-hover); border-radius: 10px; background: var(--bg);
+  color: var(--yellow); font: 15px var(--mono); outline: none;
+}
+.pick__input:focus { border-color: var(--yellow); }
+
+/* The stage says when what's on it is only π's sketch of your idea. */
+.pick__tag {
+  position: absolute; top: 10px; left: 12px; padding: 3px 9px; border: 1px dashed var(--line-hover); border-radius: 999px;
+  font: 11px var(--mono); color: var(--ink-faint); pointer-events: none;
+}
+.pick__tag[hidden] { display: none; }
+
+.pick__card-go { display: none; align-self: flex-start; margin: 4px 4px 0; font: 12px var(--mono); color: var(--yellow); }
+.pick__chip--go { margin-left: auto; border-color: var(--yellow); color: var(--yellow); font: 500 14px var(--mono); }
+.pick__row .pick__ask { flex: 1 1 320px; }
+
+/* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
+@media (max-width: 760px) {
+  .pick { padding: 0 10px 10px; gap: 10px; }
+  .pick__bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 8px; padding: 6px 0; }
+  .pick__about { display: none; }
+  .pick__stage { position: sticky; top: 0; z-index: 2; flex: none; width: 100%; min-height: 0; }
+  .pick__tag { display: none; }
+  .pick__dialog { padding: 12px; gap: 10px; }
+  .pick__portrait { width: 44px; height: 44px; }
+  .pick__portrait img { width: 36px; height: 36px; }
+  .pick__text { font-size: 17px; }
+  .pick__choices { grid-template-columns: 1fr; gap: 8px; }
+  .pick__card { padding: 10px; }
+  .pick__card canvas { display: none; }
+  .pick__card--on { border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); }
+  .pick__card--on .pick__card-go { display: block; }
+  .pick__chip { padding: 10px 14px; }
+  .pick__chip--quiet { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 3px; }
+}
