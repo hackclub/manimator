@@ -8,7 +8,8 @@ class OnboardingController < ApplicationController
   # Generations of the idea step, each its own page (ideas_genN_controller.js) so they can be compared side by side:
   # what it tries, and what the personas who played it scored it (out of 10; nil until they have).
   IDEA_GENS = {
-    1 => { tries: "Pick a question π plays for you, or type your own. π says what you're building.", scores: nil }
+    1 => { tries: "Pick a question π plays for you, or type your own. π says what you're building.", scores: nil },
+    2 => { tries: "Questions you could settle with your hands. π deals each person a catch, so videos differ. You leave with research notes.", scores: nil }
   }.freeze
 
   def ideas
