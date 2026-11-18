@@ -10,8 +10,10 @@ class SessionsController < ApplicationController
     redirect_to return_to || editor_path
   end
 
+  # Back where you were (OmniAuth passes the origin along): from the story's pledge, that's /start, which picks up at
+  # the signing again and says what went wrong.
   def failure
-    redirect_to root_path, alert: "Couldn't sign you in with Hack Club (#{params[:message].to_s.humanize.downcase})."
+    redirect_to safe_return_path(params[:origin]) || root_path, alert: "Couldn't sign you in with Hack Club (#{params[:message].to_s.humanize.downcase})."
   end
 
   def destroy
