@@ -65,7 +65,7 @@
 
 /* The stage says when what's on it is only π's sketch of your idea. */
 .pick__tag {
-  position: absolute; top: 10px; left: 12px; padding: 3px 9px; border: 1px dashed var(--line-hover); border-radius: 999px;
+  position: absolute; bottom: 10px; left: 12px; padding: 3px 9px; border: 1px dashed var(--line-hover); background: #08090a; border-radius: 999px;
   font: 11px var(--mono); color: var(--ink-faint); pointer-events: none;
 }
 .pick__tag[hidden] { display: none; }
@@ -98,7 +98,7 @@
   .pick__card { padding: 10px; }
   .pick__card canvas { display: none; }
   .pick__card--on { border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); }
-  .pick__card--on .pick__card-go { display: block; }
+  .pick__card--on .pick__card-go { display: block; padding: 6px 12px; border: 1px solid var(--yellow); border-radius: 999px; font-size: 13px; }
   .pick__chip { padding: 10px 14px; }
   .pick__chip--go { flex: 1 1 100%; text-align: center; padding: 12px 14px; }
   .pick__chip--quiet { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 3px; }
