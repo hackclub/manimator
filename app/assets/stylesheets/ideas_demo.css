@@ -150,6 +150,17 @@
 .pick__row .story__choice::before, .pick__yours .story__choice::before { display: none; }
 .pick__yours .story__choice { padding-left: 16px; border-color: var(--yellow); }
 
+/* Generation 12: the video's name on the stage is yours to type over, and the other what-ifs sit under the slider. */
+.pick__tag--name { pointer-events: auto; cursor: text; padding: 5px 12px; font: 15px var(--serif); background: color-mix(in srgb, #08090a 80%, transparent); outline: none; min-width: 3ch; }
+.pick__tag--name::after { content: "  rename"; font: 10px var(--mono); color: var(--ink-faint); }
+.pick__tag--name:focus { border-style: dashed; }
+.pick__tag--name:focus::after { content: ""; }
+.pick__or { gap: 4px 0; }
+.pick__row .story__choice b { font-weight: 400; color: var(--yellow); }
+.pick__or span { margin-right: 12px; font: italic 15px var(--serif); color: var(--ink-faint); }
+.pick__or .pick__quiet { font: 15px var(--serif); color: var(--ink-muted, var(--ink-faint)); }
+.pick__or .pick__quiet--far { margin-left: auto; margin-right: 0; font: 12px var(--mono); color: var(--ink-faint); }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
@@ -170,6 +181,10 @@
   .pick__naming input::placeholder { font-size: 13px; }
   .pick__stage { position: sticky; top: 0; z-index: 2; flex: none; width: 100%; min-height: 0; }
   .pick__tag { display: none; }
+  .pick__tag--name { display: block; top: 6px; right: 6px; font-size: 13px; padding: 3px 9px; }
+  .pick__tag--name[hidden] { display: none; }
+  .pick__or .pick__quiet { flex: 1 1 100%; text-align: left; padding: 8px 0; }
+  .pick__or .pick__quiet--far { margin-left: 0; }
   .pick__dialog { padding: 12px; gap: 10px; }
   .pick__portrait { width: 44px; height: 44px; }
   .pick__portrait img { width: 36px; height: 36px; }
