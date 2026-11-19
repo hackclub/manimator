@@ -126,12 +126,19 @@
 .pick__vitals dt { line-height: 1.9; }
 .pick__vitals dd { margin: 0; font: 16px/1.4 var(--serif); color: var(--ink); }
 
+.pick__tag--top { bottom: auto; left: auto; top: 10px; right: 12px; border-style: solid; border-color: var(--yellow); color: var(--yellow); }
+.pick__mine--box input { border: 1px dashed var(--yellow); border-radius: 6px; padding: 3px 8px; }
+.pick__mine--box i { font-style: normal; font-size: 15px; color: var(--yellow); opacity: .7; }
+@media (min-width: 761px) { .pick__choices--four { grid-template-columns: repeat(4, 1fr); } }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
   .pick__bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 8px; padding: 6px 0; }
   .pick__about { display: none; }
   .pick__gens { flex-wrap: wrap; min-width: 0; }
+  .pick__vitals { grid-template-columns: 1fr; gap: 0; }
+  .pick__vitals dt { margin-top: 8px; }
   .pick__mine { flex-wrap: wrap; white-space: normal; }
   .pick__mine input { flex: 1 1 100%; font-size: 17px; }
   .pick__ticket { padding: 12px; min-width: 0; }
