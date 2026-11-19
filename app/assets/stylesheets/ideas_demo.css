@@ -165,12 +165,27 @@
 .pick__or .pick__quiet { font: 15px var(--serif); color: var(--ink-muted, var(--ink-faint)); }
 .pick__or .pick__quiet--far { margin-left: auto; margin-right: 0; font: 12px var(--mono); color: var(--ink-faint); }
 
+/* Generation 15: three what-ifs turn over at once, side by side, and you take one. */
+.pick__pulls--open { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 4px 0 0; }
+.pick__pulls--open .pick__pull { width: 100%; height: 96px; rotate: none; }
+.pick__pulls--open .pick__pull-back { font-size: 40px; }
+.pick__pulls--open .pick__pull-face { padding: 10px 14px; font: 18px/1.25 var(--serif); }
+.pick__pulls--open .pick__pull--up { transform: rotateY(180deg); cursor: pointer; }
+.pick__pulls--open .pick__pull--up:hover, .pick__pulls--open .pick__pull--up:focus-visible { transform: rotateY(180deg) translateY(-6px) scale(1.03); }
+.pick__sides { margin-top: 2px; }
+.pick__sides .pick__quiet--far { margin-left: auto; margin-right: 0; }
+.pick__sides .story__choice { border-color: var(--yellow); }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
   .pick__bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 8px; padding: 6px 0; }
   .pick__about { display: none; }
   .pick__gens { flex-wrap: wrap; min-width: 0; }
+  .pick__pulls--open { grid-template-columns: 1fr; gap: 8px; }
+  .pick__pulls--open .pick__pull { height: 64px; }
+  .pick__pulls--open .pick__pull-face { font-size: 16px; }
+  .pick__sides .story__choice { flex: 1 1 100%; }
   .pick__yours .story__choice { flex: 1 1 100%; align-items: center; padding: 12px 16px; }
   .pick__line { font-size: 17px; }
   .pick__ticket { scroll-margin-top: 250px; }

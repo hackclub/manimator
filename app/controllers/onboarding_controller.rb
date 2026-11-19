@@ -21,7 +21,8 @@ class OnboardingController < ApplicationController
     11 => { tries: "One ask, in the real onboarding's look. The card holds, tucks away, the sketch plays alone; then π asks for the one number on a slider, and that button is the way out.", scores: { clear: 6.8, want: 6.0, start: 4.5, mine: 4.5 } },
     12 => { tries: "Shorter wait. The two what-ifs π did not pick sit under the slider, one tap to swap. The name on the stage can be typed over. The ending is two lines: what you have, and what scene two is.", scores: { clear: 7.3, want: 6.8, start: 4.5, mine: 5.0 } },
     13 => { tries: "The way out is a bet: π asks what it could not settle and the two answers are the buttons. Scene two is finding out if you are right. No rename pill.", scores: { clear: 6.8, want: 7.0, start: 5.3, mine: 5.0 } },
-    14 => { tries: "The bet again, with an ending that says what scene two actually is for your what-if, and the one place you can name the video: optional, and its button is the way out.", scores: nil }
+    14 => { tries: "The bet again, with an ending that says what scene two actually is for your what-if, and the one place you can name the video: optional, and its button is the way out.", scores: { clear: 7.5, want: 6.8, start: 4.8, mine: 5.0 } },
+    15 => { tries: "You choose the what-if: three cards turn over at once and you take one. The last screen is the slider and the bet together, so it is no more clicks than before.", scores: nil }
   }.freeze
 
   def ideas
