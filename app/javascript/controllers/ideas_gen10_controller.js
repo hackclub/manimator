@@ -392,7 +392,7 @@ export default class extends Controller {
     await this.say(line ?? `Back to yours${mine.name ? "" : ". Still needs a name"}.`, "hooray")
     this.choicesTarget.className = "pick__choices"
     this.choicesTarget.innerHTML = `<div class="pick__ticket pick__ticket--baby">
-        <label class="pick__name"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" value="${esc(mine.name ?? "")}" placeholder="${esc(q.name)}?  (my guess. Yours will be better)"></label>
+        <label class="pick__naming"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" value="${esc(mine.name ?? "")}" placeholder="${esc(q.name)}?  (my guess. Yours will be better)"></label>
         <p class="pick__ticket-title"><span>${esc(q.title)}</span><label class="pick__mine pick__mine--box">What if <input value="${esc(mine.whatif ?? text)}" maxlength="70" autocomplete="off" spellcheck="false" aria-label="your what-if"><i>✎</i></label></p>
         <p class="pick__ticket-hint"></p>
         <label class="pick__code"><span>your first move. This is a line of my code. Change the number.</span>
@@ -404,7 +404,7 @@ export default class extends Controller {
       <button type="button" class="pick__chip pick__chip--quiet" data-do="example">see a finished one</button>
       <button type="button" class="pick__chip pick__chip--go" data-do="next">It's mine. Open it ▸</button></div>`
     const find = sel => this.choicesTarget.querySelector(sel)
-    const name = find(".pick__name input"), whatif = find(".pick__mine input"), number = find(".pick__code input"), called = () => name.value.trim() || q.name
+    const name = find(".pick__naming input"), whatif = find(".pick__mine input"), number = find(".pick__code input"), called = () => name.value.trim() || q.name
     // Typing your own what-if changes what the idea is chasing, and takes nothing away.
     const show = () => {
       const own = whatif.value.trim() !== text && whatif.value.trim() !== ""

@@ -390,7 +390,7 @@ export default class extends Controller {
     await this.say(line ?? `Back to yours. Still one scene old${mine.name ? "" : ", still needs a name"}.`, "hooray")
     this.choicesTarget.className = "pick__choices"
     this.choicesTarget.innerHTML = `<div class="pick__ticket pick__ticket--baby">
-        <label class="pick__name"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" value="${esc(mine.name ?? "")}" placeholder="${esc(q.name)}?  (my guess. Yours will be better)"></label>
+        <label class="pick__naming"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" value="${esc(mine.name ?? "")}" placeholder="${esc(q.name)}?  (my guess. Yours will be better)"></label>
         <p class="pick__ticket-title"><span>${esc(q.title)}</span><label class="pick__mine pick__mine--box">What if <input value="${esc(mine.whatif ?? text)}" maxlength="70" autocomplete="off" spellcheck="false" aria-label="your what-if"><i>✎</i></label></p>
         <p class="pick__ticket-hint"></p>
         <dl class="pick__vitals"><dt>age</dt><dd>1 scene. It grows about a scene for every hour you put in; most end up with four or five.</dd>
@@ -403,7 +403,7 @@ export default class extends Controller {
       <button type="button" class="pick__chip pick__chip--quiet" data-do="example">see a finished one</button>
       <button type="button" class="pick__chip pick__chip--go" data-do="next">It's mine. Open it ▸</button></div>`
     const find = sel => this.choicesTarget.querySelector(sel)
-    const name = find(".pick__name input"), whatif = find(".pick__mine input"), called = () => name.value.trim() || q.name
+    const name = find(".pick__naming input"), whatif = find(".pick__mine input"), called = () => name.value.trim() || q.name
     // Typing your own what-if changes the card: it asks your question, π owns up that its drawing is out of date,
     // and your first move becomes redrawing it.
     const show = () => {

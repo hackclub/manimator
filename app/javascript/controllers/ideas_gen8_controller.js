@@ -385,7 +385,7 @@ export default class extends Controller {
     await this.say(line ?? "Still yours. Still one scene old. Still needs a name.", "hooray")
     this.choicesTarget.className = "pick__choices"
     this.choicesTarget.innerHTML = `<div class="pick__ticket pick__ticket--baby">
-        <label class="pick__name"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" placeholder="${esc(q.name)}?  (that's my best guess. Yours will be better)"></label>
+        <label class="pick__naming"><span>name</span><input maxlength="40" autocomplete="off" spellcheck="false" placeholder="${esc(q.name)}?  (that's my best guess. Yours will be better)"></label>
         <p class="pick__ticket-title"><span>${esc(q.title)}</span><label class="pick__mine">What if <input value="${esc(text)}" maxlength="70" autocomplete="off" spellcheck="false" aria-label="your what-if"></label></p>
         <p class="pick__ticket-hint">↑ the what-if was my idea. Type over it if yours is better.</p>
         <dl class="pick__vitals"><dt>age</dt><dd>1 scene</dd><dt>made by</dt><dd>you (I only drew the first bit)</dd><dt>keeps asking</dt><dd>“${esc(asks)}”</dd></dl>
@@ -395,7 +395,7 @@ export default class extends Controller {
       <button type="button" class="pick__chip pick__chip--quiet" data-do="again">a different what-if</button>
       <button type="button" class="pick__chip pick__chip--quiet" data-do="example">see a grown-up one</button>
       <button type="button" class="pick__chip pick__chip--go" data-do="next">It's mine. Take it home ▸</button></div>`
-    const name = this.choicesTarget.querySelector(".pick__name input"), called = () => name.value.trim() || q.name
+    const name = this.choicesTarget.querySelector(".pick__naming input"), called = () => name.value.trim() || q.name
     name.addEventListener("input", () => this.tag(called()))
     // Typing your own what-if has to change something: what the idea keeps asking becomes your words, and π owns up
     // that its drawing is now out of date.
