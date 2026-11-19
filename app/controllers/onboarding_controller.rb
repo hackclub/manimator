@@ -16,7 +16,8 @@ class OnboardingController < ApplicationController
     6 => { tries: "The twist is back as a what-if you pull yourself: π says it is coming, you turn over one of three cards, the sketch redraws. No slider. Same ticket to leave with.", scores: { clear: 7.0, want: 6.8, start: 5.3 } },
     7 => { tries: "Two clicks. You pick; π says \"ooh, wait, what if…\" and a card turns over on the stage by itself; the screen it lands on is the one you leave from, and you can type over the what-if to make it yours.", scores: { clear: 7.3, want: 6.5, start: 5.3, mine: 5.0 } },
     8 => { tries: "Same two clicks, but the idea hatches: it is one scene old and yours to name and look after. The open question is what it keeps asking, not a task.", scores: { clear: 6.8, want: 6.3, start: 4.5, mine: 5.8 } },
-    9 => { tries: "Less baby talk, same name box. The card ends on a ten-second first move that puts your own number in. What you type is kept. Four questions to a page.", scores: nil }
+    9 => { tries: "Less baby talk, same name box. The card ends on a ten-second first move that puts your own number in. What you type is kept. Four questions to a page.", scores: { clear: 6.8, want: 6.3, start: 6.8, mine: 5.0 } },
+    10 => { tries: "The card is three things: a name, the what-if, and one line of π's code. Put your own number in that line and the sketch redraws: the first move, made here.", scores: nil }
   }.freeze
 
   def ideas

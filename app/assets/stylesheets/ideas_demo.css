@@ -131,12 +131,24 @@
 .pick__mine--box i { font-style: normal; font-size: 15px; color: var(--yellow); opacity: .7; }
 @media (min-width: 761px) { .pick__choices--four { grid-template-columns: repeat(4, 1fr); } }
 
+/* One line of π's code, with its number in a box you can type in. */
+.pick__code { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 4px 0 0; padding: 12px 14px; border-radius: 8px; background: #08090a; border: 1px solid var(--line-hover); }
+.pick__code span { flex: 1 1 100%; font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+.pick__code code { font: 20px var(--mono); color: var(--ink); white-space: pre; }
+.pick__code input { width: 5.5ch; padding: 2px 4px; border: 2px solid var(--yellow); border-radius: 6px; background: color-mix(in srgb, var(--yellow) 12%, transparent); color: var(--yellow); font: inherit; text-align: center; outline: none; -moz-appearance: textfield; }
+.pick__code input::-webkit-outer-spin-button, .pick__code input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pick__code em { font: italic 16px var(--serif); color: var(--yellow); }
+.pick__ticket--baby .pick__ticket-foot { font: 14px/1.5 var(--serif); color: var(--ink-faint); }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
   .pick__bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 8px; padding: 6px 0; }
   .pick__about { display: none; }
   .pick__gens { flex-wrap: wrap; min-width: 0; }
+  .pick__ticket { scroll-margin-top: 250px; }
+  .pick__mine--box i { display: none; }
+  .pick__code code { font-size: 17px; }
   .pick__vitals { grid-template-columns: 1fr; gap: 0; }
   .pick__vitals dt { margin-top: 8px; }
   .pick__mine { flex-wrap: wrap; white-space: normal; }
