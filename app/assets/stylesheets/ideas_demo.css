@@ -132,6 +132,11 @@
   .pick__bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 8px; padding: 6px 0; }
   .pick__about { display: none; }
   .pick__gens { flex-wrap: wrap; min-width: 0; }
+  .pick__mine { flex-wrap: wrap; white-space: normal; }
+  .pick__mine input { flex: 1 1 100%; font-size: 17px; }
+  .pick__ticket { padding: 12px; min-width: 0; }
+  .pick__name input { font-size: 20px; }
+  .pick__name input::placeholder { font-size: 13px; }
   .pick__stage { position: sticky; top: 0; z-index: 2; flex: none; width: 100%; min-height: 0; }
   .pick__tag { display: none; }
   .pick__dialog { padding: 12px; gap: 10px; }
