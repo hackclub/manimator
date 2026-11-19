@@ -380,7 +380,7 @@ export default class extends Controller {
   // The idea has hatched and it's yours: name it, change its what-if if you like, take it home.
   async yours(q, n, line) {
     const [mode, text, asks, hole] = q.whatifs[n]
-    this.perform(q.clip(mode))
+    if (!line) this.perform(q.clip(mode))  // straight from the deal, the stage is still playing the card: leave it be
     this.tag(q.name)
     await this.say(line ?? "Still yours. Still one scene old. Still needs a name.", "hooray")
     this.choicesTarget.className = "pick__choices"

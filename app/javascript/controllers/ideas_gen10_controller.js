@@ -387,7 +387,7 @@ export default class extends Controller {
   // own number into π's line of code. What you type is kept in this.mine, so looking at the example doesn't lose it.
   async yours(q, n, line) {
     const [mode, text, asks, hole] = q.whatifs[n], mine = this.mine ??= {}, [before, num, after, put] = q.code
-    this.perform(q.clip(mode, mine))
+    if (!line) this.perform(q.clip(mode, mine))  // straight from the deal, the stage is still playing the card: leave it be
     this.tag(mine.name || q.name)
     await this.say(line ?? `Back to yours${mine.name ? "" : ". Still needs a name"}.`, "hooray")
     this.choicesTarget.className = "pick__choices"

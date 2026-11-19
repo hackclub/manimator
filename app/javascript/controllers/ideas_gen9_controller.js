@@ -385,7 +385,7 @@ export default class extends Controller {
   // is kept in this.mine, so looking at the example or asking for another what-if doesn't throw it away.
   async yours(q, n, line) {
     const [mode, text, asks, hole] = q.whatifs[n], mine = this.mine ??= {}
-    this.perform(q.clip(mode))
+    if (!line) this.perform(q.clip(mode))  // straight from the deal, the stage is still playing the card: leave it be
     this.tag(mine.name || q.name)
     await this.say(line ?? `Back to yours. Still one scene old${mine.name ? "" : ", still needs a name"}.`, "hooray")
     this.choicesTarget.className = "pick__choices"
