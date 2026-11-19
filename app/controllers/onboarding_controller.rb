@@ -13,7 +13,7 @@ class OnboardingController < ApplicationController
     3 => { tries: "The catch is now a twist, dealt on the stage with cards. Notes are written for your twist. Your own question gets its own path.", scores: { clear: 5.5, want: 6.5, start: 4.8 } },
     4 => { tries: "Sixteen questions. π plays a finished 20-second video. Your own question is dealt cards too. Notes: what to draw first, look up and crack. No filming.", scores: { clear: 6.5, want: 6.5, start: 5.8 } },
     5 => { tries: "No dealt twist. Questions from your own life; π asks one thing about you and the sketch redraws as you drag. You leave with a title, a drawn first scene and one mystery.", scores: { clear: 6.5, want: 6.5, start: 5.0 } },
-    6 => { tries: "The twist is back as a what-if you pull yourself: π says it is coming, you turn over one of three cards, the sketch redraws. No slider. Same ticket to leave with.", scores: nil },
+    6 => { tries: "The twist is back as a what-if you pull yourself: π says it is coming, you turn over one of three cards, the sketch redraws. No slider. Same ticket to leave with.", scores: { clear: 7.0, want: 6.8, start: 5.3 } },
     7 => { tries: "Two clicks. You pick; π says \"ooh, wait, what if…\" and a card turns over on the stage by itself; the screen it lands on is the one you leave from, and you can type over the what-if to make it yours.", scores: nil },
     8 => { tries: "Same two clicks, but the idea hatches: it is one scene old and yours to name and look after. The open question is what it keeps asking, not a task.", scores: nil }
   }.freeze
