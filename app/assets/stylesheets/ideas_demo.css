@@ -97,6 +97,20 @@
 .pick__ticket-mystery span { display: block; color: var(--teal); }
 .pick__ticket-foot { margin-top: 12px !important; font: 12px/1.5 var(--mono); color: var(--ink-faint); }
 
+/* Three what-ifs, face down. The one you click turns over; the others drop away. */
+.pick__pulls { grid-column: 1 / -1; display: flex; justify-content: center; gap: 18px; padding: 6px 0; perspective: 900px; }
+.pick__pull { position: relative; width: 150px; height: 190px; border: 0; padding: 0; background: none; cursor: pointer; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, 1.4, .5, 1), opacity .4s; animation: pick-in .35s ease-out backwards; animation-delay: calc(var(--i) * .12s); rotate: calc((var(--i) - 1) * 3deg); }
+.pick__pull:hover, .pick__pull:focus-visible { transform: translateY(-10px); outline: none; }
+.pick__pull-back, .pick__pull-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; backface-visibility: hidden; }
+.pick__pull-back { border: 2px solid var(--blue, #58C4DD); background: #14181d; color: var(--blue, #58C4DD); font: 64px var(--serif); }
+.pick__pull:hover .pick__pull-back { border-color: var(--yellow); color: var(--yellow); }
+.pick__pull-face { gap: 6px; padding: 12px; background: var(--yellow); color: #08090a; font: 19px/1.25 var(--serif); text-align: center; transform: rotateY(180deg); }
+.pick__pull-face small { font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.pick__pull--up { transform: rotateY(180deg) scale(1.12); rotate: 0deg; cursor: default; }
+.pick__pull--up:hover { transform: rotateY(180deg) scale(1.12); }
+.pick__pull--gone { opacity: 0; transform: translateY(30px); pointer-events: none; }
+.pick__ticket-title span { display: block; color: var(--ink); font-size: 18px; }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
@@ -109,6 +123,9 @@
   .pick__portrait img { width: 36px; height: 36px; }
   .pick__text { font-size: 17px; }
   .pick__choices { grid-template-columns: 1fr; gap: 8px; }
+  .pick__pulls { gap: 10px; }
+  .pick__pull { width: 104px; height: 150px; }
+  .pick__pull-face { font-size: 15px; padding: 8px; }
   .pick__card { padding: 10px; }
   .pick__card canvas { display: none; }
   .pick__card--on { border-color: var(--yellow); background: color-mix(in srgb, var(--yellow) 8%, var(--bg)); }

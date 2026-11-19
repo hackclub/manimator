@@ -12,7 +12,8 @@ class OnboardingController < ApplicationController
     2 => { tries: "Questions you could settle with your hands. π deals each person a catch, so videos differ. You leave with research notes.", scores: { clear: 6.3, want: 6.3, start: 5.3 } },
     3 => { tries: "The catch is now a twist, dealt on the stage with cards. Notes are written for your twist. Your own question gets its own path.", scores: { clear: 5.5, want: 6.5, start: 4.8 } },
     4 => { tries: "Sixteen questions. π plays a finished 20-second video. Your own question is dealt cards too. Notes: what to draw first, look up and crack. No filming.", scores: { clear: 6.5, want: 6.5, start: 5.8 } },
-    5 => { tries: "No dealt twist. Questions from your own life; π asks one thing about you and the sketch redraws as you drag. You leave with a title, a drawn first scene and one mystery.", scores: nil }
+    5 => { tries: "No dealt twist. Questions from your own life; π asks one thing about you and the sketch redraws as you drag. You leave with a title, a drawn first scene and one mystery.", scores: nil },
+    6 => { tries: "The twist is back as a what-if you pull yourself: π says it is coming, you turn over one of three cards, the sketch redraws. No slider. Same ticket to leave with.", scores: nil }
   }.freeze
 
   def ideas
