@@ -115,6 +115,17 @@
 .pick__mine input:focus { border-bottom-style: solid; background: color-mix(in srgb, var(--yellow) 16%, transparent); }
 .pick__ticket-hint { margin: -6px 0 12px !important; font: 12px var(--mono); color: var(--ink-faint); }
 
+/* The idea, just hatched: a name to give it, and its vitals. */
+.pick__name { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.pick__name span, .pick__vitals dt { font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.pick__name input { flex: 1; min-width: 0; padding: 6px 10px; border: 0; border-bottom: 2px solid var(--yellow); border-radius: 6px 6px 0 0; background: color-mix(in srgb, var(--yellow) 10%, transparent); color: var(--ink); font: 28px var(--serif); outline: none; }
+.pick__name input::placeholder { color: var(--ink-faint); font-size: 16px; }
+.pick__ticket--baby .pick__ticket-title { font-size: 19px; margin-bottom: 8px !important; }
+.pick__ticket--baby .pick__ticket-title span { font-size: 15px; color: var(--ink-faint); }
+.pick__vitals { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
+.pick__vitals dt { line-height: 1.9; }
+.pick__vitals dd { margin: 0; font: 16px/1.4 var(--serif); color: var(--ink); }
+
 /* On a phone the stage stays put at the top and does the playing; cards are rows, and the lit one is on the stage. */
 @media (max-width: 760px) {
   .pick { padding: 0 10px 10px; gap: 10px; }
