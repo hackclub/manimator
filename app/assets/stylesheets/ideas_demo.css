@@ -156,6 +156,7 @@
 .pick__tag--name:focus { border-style: dashed; }
 .pick__tag--name:focus::after { content: ""; }
 .pick__or { gap: 4px 0; }
+.pick__aside { margin-right: 14px; font: 12px var(--mono); color: var(--ink-faint); }
 .pick__row .story__choice b { font-weight: 400; color: var(--yellow); }
 .pick__or span { margin-right: 12px; font: italic 15px var(--serif); color: var(--ink-faint); }
 .pick__or .pick__quiet { font: 15px var(--serif); color: var(--ink-muted, var(--ink-faint)); }
