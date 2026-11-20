@@ -160,7 +160,7 @@ export default class extends Controller {
 
     const decoded = Promise.all(Object.values(this.images).map(img => img.decode().catch(() => {})))
     const signing = takeSigning()
-    if (!this.signedInValue) this.whoami()
+    this.whoamiDone = this.signedInValue ? Promise.resolve() : this.whoami()
     Promise.race([decoded, wait(800)]).then(() => signing ? this.resume(signing) : this.run())
   }
 
@@ -568,6 +568,7 @@ export default class extends Controller {
     this.lineUp()
     setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, EPI_LOOP * 1000)
     await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.", { until: this.clock + EPI_LOOP + .6 })
+    await this.askEmail()
 
     // { } and the code: the field comes back, with what made it.
     this.step("code")
@@ -635,6 +636,41 @@ export default class extends Controller {
   choose(on) {
     this.choosing = on
     this.element.toggleAttribute("data-choosing", on)
+  }
+
+  // Right after the first wow, π asks where to send your spot in case you wander off, unless we already know (you're
+  // signed in, or Hack Club Auth's whoami told us). Skipping is one click and π doesn't mind.
+  async askEmail() {
+    await Promise.race([this.whoamiDone, wait(1500)])
+    if (this.signedInValue || this.email) return
+    this.step("email")
+    capture("email_ask_shown", { variant: "story" })
+    const email = await this.say("pi", "Psst. If you wander off, I'll save your spot. Where should I send it?",
+      { pose: "speaking", pick: (el, done) => this.emailForm(el, done) })
+    if (!email) {
+      capture("email_skipped", { variant: "story" })
+      this.save({ email_skipped: true })
+      return
+    }
+    this.email = email
+    setPerson({ email })
+    capture("email_given", { variant: "story" })
+    this.save({ email, email_source: "asked" })
+    await this.say("pi", "Got it. Now, back to the fun part.", { pose: "happy" })
+  }
+
+  emailForm(el, done) {
+    el.innerHTML = `<div class="story__email"><form class="story__ask">
+        <input class="story__input" type="email" maxlength="254" spellcheck="false" autocomplete="email" placeholder="you@example.com" required>
+        <button class="story__choice" disabled>Save my spot</button>
+        <button type="button" class="story__choice" data-skip>Skip</button></form>
+      <p class="story__fine">Only about Manimator, from Hack Club. Unsubscribe anytime.</p></div>`
+    const form = el.querySelector("form"), input = form.querySelector("input"), ok = form.querySelector("button")
+    input.addEventListener("input", () => { ok.disabled = !input.checkValidity() })
+    form.addEventListener("submit", e => { e.preventDefault(); if (input.checkValidity()) { sfx.tick(3); done(input.value.trim()) } })
+    form.querySelector("[data-skip]").addEventListener("click", e => { e.stopPropagation(); sfx.tick(0); done(null) })
+    el.addEventListener("click", e => e.stopPropagation())
+    input.focus({ preventScroll: true })
   }
 
   // Something that's bugged you, then a what-if π blurts out: your first scene. The video takes π's name for it, and

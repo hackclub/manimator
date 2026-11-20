@@ -198,6 +198,10 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 }
 .story__input:focus { border-color: var(--yellow); }
 .story__ask .story__choice { padding-left: 16px; }
+/* π asking where to send your spot: the email, a way past it, and what it's for in small print. */
+.story__email { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.story__email .story__ask { flex-wrap: wrap; }
+.story__fine { margin: 0; color: var(--ink-faint); font: 12px var(--mono); }
 
 /* Choosing your idea (onboarding/sketches.js, with the idea step's cards from ideas_demo.css): the cast steps out of the
    way of π's sketch, and the dialogue keeps one height so the stage above it keeps its size. */
