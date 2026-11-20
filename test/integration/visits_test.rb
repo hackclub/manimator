@@ -17,11 +17,27 @@ class VisitsTest < ActionDispatch::IntegrationTest
     assert_equal "https://hackclub.slack.com/", visit.referrer
   end
 
-  test "where you came from is your first visit's" do
+  test "where you came from is the first place we heard of" do
+    visit_step(step: "drop")
     visit_step(step: "drop", utm: { ref: "first" })
     visit = visit_step(step: "drop", utm: { ref: "second" }, referrer: "https://later.example/")
     assert_equal({ "ref" => "first" }, visit.utm)
     assert_nil visit.referrer
+  end
+
+  test "Hack Club Auth's email is kept, and one typed in later doesn't replace it" do
+    visit_step(email: "Heidi@HackClub.com", email_source: "whoami", first_name: "Heidi")
+    visit = visit_step(email: "other@example.com", email_source: "asked")
+    assert_equal [ "heidi@hackclub.com", "whoami", "Heidi" ], visit.values_at(:email, :email_source, :first_name)
+  end
+
+  test "a typed email can be corrected, and one that isn't an email is refused" do
+    visit_step(email: "me@exmaple.com", email_source: "asked")
+    visit = visit_step(email: "me@example.com", email_source: "asked")
+    assert_equal "me@example.com", visit.email
+    patch visit_path, params: { visit: { email: "not an email", email_source: "asked" } }, as: :json
+    assert_response :unprocessable_content
+    assert_equal "me@example.com", visit.reload.email
   end
 
   test "answers too big to be the story's are refused" do

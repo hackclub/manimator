@@ -4,7 +4,7 @@ class VisitsController < ApplicationController
   def update
     visit = OnboardingVisit.for(visitor_id)
     visit.user ||= current_user
-    attributes = params.expect(visit: [ :step, :question_index, :k, :referrer, answers: {}, utm: {} ])
+    attributes = params.expect(visit: [ :step, :question_index, :k, :referrer, :email, :email_source, :first_name, :email_skipped, answers: {}, utm: {} ])
     visit.record!(
       step: attributes[:step].to_s.first(40),
       question_index: attributes[:question_index].presence&.to_i,
@@ -13,6 +13,8 @@ class VisitsController < ApplicationController
       referrer: attributes[:referrer],
       utm: attributes[:utm]&.to_h
     )
+    visit.remember_email!(attributes[:email], source: attributes[:email_source], first_name: attributes[:first_name]) if attributes[:email].present?
+    visit.email_skipped! if attributes[:email_skipped].present?
     head :no_content
   rescue ActiveRecord::RecordInvalid
     head :unprocessable_content

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { capture } from "analytics"
+import { capture, setPerson } from "analytics"
 import { audio } from "audio"
 import { sfx } from "sfx"
 import { Pen, QUESTIONS } from "onboarding/sketches"
@@ -833,15 +833,23 @@ export default class extends Controller {
     return new Promise(() => {}) // the page is leaving
   }
 
-  // Signed in to Hack Club but not to us yet? Hack Club Auth's whoami tells us your first name, so π can ask you to
-  // sign by name. Anything else (not signed in there, or not allowed from here) leaves it out.
+  // Signed in to Hack Club but not to us yet? Hack Club Auth's whoami (hackclub/auth#279) tells us your first name, so
+  // π can ask you to sign by name, and your email, kept on your OnboardingVisit so we can bring you back if you wander
+  // off, and π doesn't have to ask for it. Anything else (not signed in there, or this site's origin not allowed)
+  // leaves both out.
   async whoami() {
     if (!this.whoamiUrlValue) return
     try {
       const response = await fetch(this.whoamiUrlValue, { credentials: "include" })
-      const { signed_in: signedIn, first_name: firstName } = await response.json()
-      const name = signedIn && (firstName || "").trim().slice(0, 40)
+      const { signed_in: signedIn, first_name: firstName, email } = await response.json()
+      if (!signedIn) return
+      const name = (firstName || "").trim().slice(0, 40)
       if (name) this.whoName = name
+      if (email) {
+        this.email = email
+        setPerson({ email })
+        this.save({ email, email_source: "whoami", first_name: name })
+      }
     } catch { /* not on a hackclub.com subdomain, or not allowed: no name */ }
   }
 
