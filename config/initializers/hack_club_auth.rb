@@ -19,8 +19,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: Rails.configuration.x.hack_club_auth_scopes,
     client_options: {
       identifier: hack_club_auth.(:client_id),
-      secret: hack_club_auth.(:client_secret),
-      redirect_uri: hack_club_auth.(:redirect_uri) || "#{ENV.fetch("APP_URL", "http://localhost:3000")}/auth/hackclub/callback"
+      secret: hack_club_auth.(:client_secret)
+    },
+    # The callback goes back to whichever host the sign-in started on, so the session (and its OAuth state) is the
+    # same one, on prod, localhost or an ngrok tunnel, without APP_URL having to be right. A credentials/env
+    # redirect_uri still wins.
+    setup: ->(env) {
+      env["omniauth.strategy"].options.client_options.redirect_uri =
+        hack_club_auth.(:redirect_uri) || "#{Rack::Request.new(env).base_url}/auth/hackclub/callback"
     }
 end
 
