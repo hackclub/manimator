@@ -69,4 +69,20 @@ class SessionsTest < ActionDispatch::IntegrationTest
     get "/auth/failure", params: { message: "access_denied", origin: "javascript:alert(1)" }
     assert_redirected_to root_path
   end
+
+  test "the email π has for you is sent to Hack Club Auth as login_hint, until you're signed in" do
+    get onboarding_path
+    assert_select("input[name=login_hint]") { |input| assert_predicate input.first["value"], :blank? }
+
+    patch visit_path, params: { visit: { email: "ada@example.com", email_source: "asked" } }, as: :json
+    get onboarding_path
+    assert_select "input[name=login_hint][value='ada@example.com']"
+    get editor_path
+    assert_select "form[action='/auth/hackclub'] input[name=login_hint][value='ada@example.com']"
+
+    post "/auth/hackclub"
+    follow_redirect!
+    get editor_path
+    assert_select "input[name=login_hint]", count: 0
+  end
 end

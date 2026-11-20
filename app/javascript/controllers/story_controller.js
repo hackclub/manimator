@@ -116,7 +116,7 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
+  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
@@ -781,6 +781,7 @@ export default class extends Controller {
       this.perform(q.clip(mode, { v: guess(q, n) }))
       this.tagName = q.name
       await this.say("pi", `“${q.name}”, then. ${mystery}`, { pose: "awe" })
+      if (await this.newcomer()) await this.explain("personal_project", "pi", "At Hack Club we'd call this a personal project: something you make because you want it to exist. Those are the best kind.", { pose: "happy" })
       return { idea: q.name, qi: QUESTIONS.indexOf(q), wi: n, question: q.title, whatif: `What if ${whatif}` }
     }
   }
@@ -859,6 +860,7 @@ export default class extends Controller {
       await this.pause(800)
       await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
       this.meet("inf")
+      if (await this.newcomer()) await this.explain("ship", "inf", "“Shipping” is what makers call putting what you made out in the real world, to find out if it works. Here, that's people watching your video.")
     }
     const slots = Object.keys(this.slotsValue)
     const when = await this.say("inf", "When do you usually have time?", { choices: slots.map(s => ({ label: s })), back: true })
@@ -906,6 +908,7 @@ export default class extends Controller {
     const preview = e => { const b = e.target.closest?.("button[data-i]"); const p = shown[b?.dataset.i]; if (p) this.curve.focus = p.id }
     this.choicesTarget.addEventListener("pointerover", preview)
     this.choicesTarget.addEventListener("focusin", preview)
+    if (await this.newcomer()) await this.explain("ysws", "int", "Here's Hack Club's deal: you ship, we ship. You ship a video, and we ship you something real, in the mail.")
     let prizeId
     for (;;) {
       const all = this.curve.all
@@ -945,6 +948,7 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
+    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club: teenagers who build things with technology, and grow into great humans who happen to be great engineers. You'll sign in with a free Hack Club account.", { pose: "happy" })
     this.trap()
     const name = this.nameValue || this.whoName
     const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}${this.signedInValue ? "" : ". It signs you in with Hack Club"}.`
@@ -1039,8 +1043,25 @@ export default class extends Controller {
     } catch { /* storage unavailable: you'll come back to the start of the story */ }
     this.step("sign_in")
     this.signingIn = true
+    if (typeof this.email === "string") this.loginHintTarget.value = this.email // asked for, or from whoami, on this page
     this.signInTarget.submit()
     return new Promise(() => {}) // the page is leaving
+  }
+
+  // New to Hack Club: not signed in here, and Hack Club Auth's whoami had no email for you. Only newcomers get the
+  // jargon (shipping, Hack Club itself) explained; people already in Hack Club know it.
+  async newcomer() {
+    await Promise.race([this.whoamiDone, wait(1500)])
+    return !this.signedInValue && !this.hackClubber
+  }
+
+  // A newcomer's explanation of one term, once each, even if ◂ back comes past it again.
+  async explain(term, who, text, options = {}) {
+    this.explained ??= new Set()
+    if (this.explained.has(term)) return
+    this.explained.add(term)
+    capture("onboarding_jargon_explained", { variant: "story", term })
+    await this.say(who, text, options)
   }
 
   // Signed in to Hack Club but not to us yet? Hack Club Auth's whoami (hackclub/auth#279) tells us your first name, so
@@ -1056,6 +1077,7 @@ export default class extends Controller {
       const name = (firstName || "").trim().slice(0, 40)
       if (name) this.whoName = name
       if (email) {
+        this.hackClubber = true // already has a Hack Club account: no explaining what shipping or Hack Club is
         this.email = email
         setPerson({ email })
         this.save({ email, email_source: "whoami", first_name: name })
