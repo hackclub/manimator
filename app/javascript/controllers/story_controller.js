@@ -114,7 +114,7 @@ const CIRCLES = epicycles(PI_PATH)
 export default class extends Controller {
   static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
-    pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number,
+    pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String }
 
   connect() {
@@ -467,10 +467,25 @@ export default class extends Controller {
     this.advance?.()
   }
 
-  // Each beat is a step, logged so drop-off can be read beat by beat.
+  // Each beat is a step, logged so drop-off can be read beat by beat, in PostHog and in our own OnboardingVisit.
   step(name) {
     this.beat = name
     capture("onboarding_step_viewed", { variant: "story", step: name, seconds: this.seconds })
+    this.save()
+  }
+
+  // Where you are and what you've answered so far (OnboardingVisit), so we can see where people stop and set you back
+  // there if you come back. Where you came from goes along the first time.
+  save(extra = {}) {
+    if (!this.visitUrlValue) return
+    const visit = { step: this.beat, question_index: this.at ?? null, answers: this.answers, k: this.scene.k, ...extra }
+    if (!this.sentSource) {
+      this.sentSource = true
+      const params = new URLSearchParams(location.search)
+      visit.referrer = document.referrer
+      visit.utm = Object.fromEntries(["utm_source", "utm_medium", "utm_campaign", "utm_content", "ref"].filter(k => params.has(k)).map(k => [k, params.get(k)]))
+    }
+    return this.send(this.visitUrlValue, { visit }, "PATCH").catch(() => {})
   }
 
   get seconds() { return Math.round((performance.now() - this.startedAt) / 100) / 10 }
@@ -581,6 +596,9 @@ export default class extends Controller {
   async questions(i = 0) {
     const steps = [() => this.askIdea(), () => this.askWhen(), () => this.askDays(), () => this.askMinutes(), () => this.askPrize(), () => this.askSign()]
     while (i < steps.length) {
+      // Which question you're on, so coming back to /start can pick up here (resumeVisit). Kept with your answers
+      // so far, since the asks that share a beat (∞'s three) don't each send one.
+      if (this.at !== i) { this.at = i; if (i > 0) this.save() }
       if (await steps[i]() !== BACK) { i++; continue }
       i = Math.max(0, i - 1)
       if (i === 2 && this.answers.when === "weekends") i = 1 // weekends never asked how many days
@@ -888,9 +906,12 @@ export default class extends Controller {
     } catch { /* storage unavailable */ }
   }
 
-  post(url, body = {}) {
+  post(url, body = {}) { return this.send(url, body) }
+
+  // Where you are (save) goes keepalive, so what's sent as you close the tab still arrives.
+  send(url, body = {}, method = "POST") {
     return fetch(url, {
-      method: "POST",
+      method, keepalive: method === "PATCH",
       headers: { "Content-Type": "application/json", "X-CSRF-Token": document.querySelector("meta[name=csrf-token]")?.content },
       body: JSON.stringify(body),
     })

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # Generations of a new idea step, not linked from anywhere: /start/ideas is the newest, /start/ideas/2 the second.
   get "start/ideas(/:gen)" => "onboarding#ideas", as: :onboarding_ideas
   resource :pledge, only: %i[create update]
+  # Where you are in onboarding, kept as you go (OnboardingVisit).
+  resource :visit, only: :update
   resources :ideas, only: [] do
     post :draw, on: :collection
     post :claim, on: :member

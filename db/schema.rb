@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_10_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_20_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,6 +71,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_10_130000) do
     t.index ["token"], name: "index_nudges_on_token", unique: true
     t.index ["user_id", "sent_at"], name: "index_nudges_on_user_id_and_sent_at"
     t.index ["user_id"], name: "index_nudges_on_user_id"
+  end
+
+  create_table "onboarding_visits", force: :cascade do |t|
+    t.string "visitor_id", null: false
+    t.bigint "user_id"
+    t.string "last_step"
+    t.integer "question_index"
+    t.jsonb "answers", default: {}, null: false
+    t.float "k"
+    t.string "referrer"
+    t.jsonb "utm", default: {}, null: false
+    t.datetime "last_seen_at", null: false
+    t.datetime "pledged_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["last_seen_at"], name: "index_onboarding_visits_on_last_seen_at"
+    t.index ["user_id"], name: "index_onboarding_visits_on_user_id"
+    t.index ["visitor_id"], name: "index_onboarding_visits_on_visitor_id", unique: true
   end
 
   create_table "pledges", force: :cascade do |t|
@@ -302,6 +320,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_10_130000) do
 
   add_foreign_key "activities", "users"
   add_foreign_key "nudges", "users"
+  add_foreign_key "onboarding_visits", "users"
   add_foreign_key "pledges", "ideas", column: "idea_record_id"
   add_foreign_key "pledges", "users"
   add_foreign_key "scenes", "users"

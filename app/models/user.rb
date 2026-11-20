@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :scenes, dependent: :destroy
   has_many :activities, dependent: :destroy
   has_many :nudges, dependent: :destroy
+  has_many :onboarding_visits, dependent: :nullify
 
   has_one :sticker, dependent: :destroy
 
@@ -53,6 +54,7 @@ class User < ApplicationRecord
   def adopt!(visitor_id)
     Pledge.where(visitor_id:, user_id: nil).update_all(user_id: id)
     Scene.where(visitor_id:, user_id: nil).update_all(user_id: id)
+    OnboardingVisit.where(visitor_id:, user_id: nil).update_all(user_id: id)
     adopt_activities!(visitor_id)
     # A first session finished before signing in earns its sticker now that we know who they are
     Sticker.earn(self)

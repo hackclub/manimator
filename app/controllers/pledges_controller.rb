@@ -3,7 +3,9 @@ class PledgesController < ApplicationController
   def create
     pledge = Pledge.new(pledge_params.merge(visitor_id:, user: current_user, signed_at: Time.current))
     pledge.days_per_week = 2 if pledge.build_time == "weekends"
-    pledge.save ? head(:created) : render(json: pledge.errors, status: :unprocessable_content)
+    return render(json: pledge.errors, status: :unprocessable_content) unless pledge.save
+    OnboardingVisit.find_by(visitor_id:)&.pledged!
+    head :created
   end
 
   # When you'll next sit down, which ∞ asks once your first day's done (goal_controller.js). π messages you then.
