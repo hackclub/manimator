@@ -3,6 +3,7 @@ import { capture } from "analytics"
 import { audio } from "audio"
 import { sfx } from "sfx"
 import { Pen, QUESTIONS } from "onboarding/sketches"
+import { sceneFor } from "onboarding/scenes"
 
 // Onboarding (/start, onboarding/story.html.erb), as a story. π drops into a vector field, and as the story goes on you
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
@@ -30,6 +31,8 @@ const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
 const MORE = Symbol("more") // the prize step's "show me the rest" card, and the idea step's "show me the other four"
 const STAGE_BG = "#0b0c0e"
+// π's number for a question's what-if: the one the sketch is drawn with and the scene's code starts from.
+const guess = (q, n) => { const [mode, , , , , , own] = q.whatifs[n]; return (own?.code ?? q.code)[1](mode) }
 const videos = n => n === 1 ? "your first video" : `${n} videos`
 
 // The friends, in the editor rail's order. How they look comes from FriendsHelper (the rail's markup is cloned for
@@ -59,10 +62,10 @@ const wait = ms => new Promise(r => setTimeout(r, ms))
 const clockTime = hhmm => { const [h, m] = hhmm.split(":").map(Number); return `${h % 12 || 12}${m ? `:${String(m).padStart(2, "0")}` : ""}${h < 12 ? "am" : "pm"}` }
 const shortDate = d => d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
 
-// The scene as the editor opens it: the field you met π in, and your idea written over it. The code pane shows the
-// same lines as they come in. Each line is [id, text]; ids are what light() points at.
-function sceneLines(idea, k = 1) {
-  const lines = [
+// The scene you met π in: the field, as manim code. The code pane shows the same lines as they come in. Each line is
+// [id, text]; ids are what light() points at. Once you have an idea, the scene is π's sketch of it (onboarding/scenes.js).
+function sceneLines(k = 1) {
+  return [
     ["", "from manim import *"], ["", ""], ["", ""],
     ["", "class FirstScene(Scene):"],
     ["", "    def construct(self):"],
@@ -74,23 +77,14 @@ function sceneLines(idea, k = 1) {
     ["", ""],
     ["field", "        self.add(ArrowVectorField(flow))"],
   ]
-  if (idea) lines.push(
-    ["title", `        title = Text(${JSON.stringify(idea)}, font_size=48)`],
-    ["title", "        if title.width > 12:"],
-    ["title", "            title.scale_to_fit_width(12)"],
-    ["title", "        title.to_edge(UP)"],
-    ["title", "        self.play(Write(title))"],
-    ["title", "        self.wait()"])
-  return lines
 }
-const sceneCode = (idea, k) => sceneLines(idea, k).map(([, text]) => text).join("\n") + "\n"
 
 // Just enough Python colouring for these lines, in the editor's colours.
-const TOKEN = /("(?:[^"\\]|\\.)*")|\b(from|import|class|def|lambda|if|return)\b|\b(\d+(?:\.\d+)?)\b|\b(ArrowVectorField|Text|Write|Scene|FirstScene|UP)\b|\b(construct|flow)\b/g
+const TOKEN = /(#.*$)|(f?"(?:[^"\\]|\\.)*")|\b(from|import|class|def|lambda|if|else|for|in|not|and|or|return)\b|\b(\d+(?:\.\d+)?)\b|\b([A-Z][A-Za-z]+)\b|\b(self|construct|flow)\b/g
 function highlight(line) {
   let out = "", at = 0
   for (const m of line.matchAll(TOKEN)) {
-    const cls = m[1] ? "c-str" : m[2] ? "c-kw" : m[3] ? "c-num" : m[4] ? "c-fn" : "c-def"
+    const cls = m[1] ? "c-faint" : m[2] ? "c-str" : m[3] ? "c-kw" : m[4] ? "c-num" : m[5] ? "c-fn" : "c-def"
     out += esc(line.slice(at, m.index)) + `<span class="${cls}">${esc(m[0])}</span>`
     at = m.index + m[0].length
   }
@@ -248,18 +242,26 @@ export default class extends Controller {
 
   // The code pane: what you're looking at, as manim code. Lines light up as someone talks about them.
   renderCode() {
-    this.codeTarget.innerHTML = sceneLines(this.answers.idea, this.scene.k).map(([id, text], i) => {
+    this.codeTarget.innerHTML = this.lines().map(([id, text], i) => {
       const html = id === "k" ? `        k = <span class="c-num" data-k>${this.scene.k.toFixed(1)}</span>` : highlight(text)
-      return `<div class="sl ${id && id === this.lit ? "sl--lit" : ""} ${id === "title" ? "sl--new" : ""}"><span class="sl__n">${i + 1}</span><span>${html || " "}</span></div>`
+      return `<div class="sl ${id && id === this.lit ? "sl--lit" : ""} ${id === "number" ? "sl--new" : ""}"><span class="sl__n">${i + 1}</span><span>${html || " "}</span></div>`
     }).join("")
     this.kEl = this.codeTarget.querySelector("[data-k]")
   }
 
   light(id) { this.lit = id; this.renderCode() }
 
+  // The scene's lines: the field you met π in, until you have an idea; then π's sketch of it, in manim.
+  lines() {
+    const { qi, wi, idea } = this.answers, q = QUESTIONS[qi]
+    return q?.whatifs[wi] ? sceneFor(q, wi, undefined, idea).lines : sceneLines(this.scene.k)
+  }
+
+  get code() { return this.lines().map(([, text]) => text).join("\n") + "\n" }
+
   renderTimeline() {
     this.timelineTarget.innerHTML = `<span class="story__clip story__clip--blue" style="left:0;width:30%">field</span>
-      ${this.answers.idea ? `<span class="story__clip story__clip--teal" style="left:31%;width:34%">Write(title)</span>` : ""}
+      ${this.answers.idea ? `<span class="story__clip story__clip--teal" style="left:31%;width:34%">${esc(this.answers.idea)}</span>` : ""}
       <span class="story__head" style="left:${this.answers.idea ? 65 : 30}%"></span>`
   }
 
@@ -603,10 +605,12 @@ export default class extends Controller {
     const idea = await this.pickIdea()
     this.choose(false)
     Object.assign(this.answers, idea)
-    capture("onboarding_idea_picked", { variant: "story", question: idea.question, whatif: idea.whatif, number: idea.number, bet: idea.bet, named: idea.idea !== QUESTIONS[idea.qi].name })
-    this.renderCode()
+    capture("onboarding_idea_picked", { variant: "story", question: idea.question, whatif: idea.whatif })
+    this.light("number") // the line with π's number on it: yours to change
     this.reveal("timeline")
     this.renderTimeline()
+    await this.pause(1800)
+    this.light(null)
   }
 
   // While you choose, the cast steps out of the way of the sketch, and the stage sits above the dialogue.
@@ -615,23 +619,18 @@ export default class extends Controller {
     this.element.toggleAttribute("data-choosing", on)
   }
 
-  // Something that's bugged you, then a what-if π blurts out, then your own number in it and a bet on what scene two
-  // will show, then its name. ◂ back steps back through them.
+  // Something that's bugged you, then a what-if π blurts out: your first scene. The video takes π's name for it, and
+  // π's numbers, which are one line each at the top of the scene for you to change in the editor. ◂ back steps back.
   async pickIdea() {
-    let q, n, bet
-    for (let at = "question"; ;) {
-      if (at === "question") { q = await this.pickQuestion(); at = "whatif" }
-      else if (at === "whatif") {
-        n = await this.pickWhatIf(q)
-        if (n === BACK) { at = "question"; continue }
-        this.mine = { v: (q.whatifs[n][6]?.code ?? q.code)[1](q.whatifs[n][0]) } // π's number, until you drag it
-        at = "bet"
-      } else if (at === "bet") { bet = await this.pickBet(q, n); at = bet === BACK ? "whatif" : "name" }
-      else {
-        const name = await this.pickName(q, n, bet)
-        if (name === BACK) { at = "bet"; continue }
-        return { idea: name, qi: QUESTIONS.indexOf(q), wi: n, question: q.title, whatif: `What if ${q.whatifs[n][1]}`, bet, number: this.mine.v }
-      }
+    for (;;) {
+      const q = await this.pickQuestion()
+      const n = await this.pickWhatIf(q)
+      if (n === BACK) continue
+      const [mode, whatif, mystery] = q.whatifs[n]
+      this.perform(q.clip(mode, { v: guess(q, n) }))
+      this.tagName = q.name
+      await this.say("pi", `“${q.name}”, then. ${mystery}`, { pose: "awe" })
+      return { idea: q.name, qi: QUESTIONS.indexOf(q), wi: n, question: q.title, whatif: `What if ${whatif}` }
     }
   }
 
@@ -691,60 +690,14 @@ export default class extends Controller {
     } })
   }
 
-  // Your number on a slider, and the bet. π asks both in one breath; the sketch redraws as you drag; the two sides
-  // of the bet are the way on.
-  pickBet(q, n) {
-    const [mode, , , , [question, ...sides], , own] = q.whatifs[n], mine = this.mine, ctl = { ...q, ...own }, [before, num, after] = ctl.code, [min, max, step] = ctl.range
-    const show = v => step < .1 ? (+v).toFixed(2) : step < 1 ? (+v).toFixed(1) : `${v}`
-    this.perform(q.clip(mode, mine))
-    this.tagName = q.name
-    return this.say("pi", `${ctl.ask(num(mode))} Then bet me. ${question}`, { pose: "tease", back: true, pick: (el, done) => {
-      el.className = "pick__choices"
-      el.innerHTML = `<div class="story__slider pick__yours">
-          <code class="pick__line">${esc(before)}<b>${show(mine.v)}</b>${esc(after)}</code>
-          <input type="range" min="${min}" max="${max}" step="${step}" value="${clamp(mine.v, min, max)}" aria-label="your number">
-        </div>
-        <div class="pick__row pick__sides">${sides.map((side, i) => `<button type="button" class="story__choice" data-side="${i}">${esc(side)}</button>`).join("")}</div>`
-      const range = el.querySelector("input"), out = el.querySelector(".pick__line b"), slider = el.querySelector(".story__slider")
-      let tenth
-      range.addEventListener("input", () => {
-        mine.v = +range.value; out.textContent = show(mine.v); slider.classList.add("story__slider--moved")
-        const at = Math.round((mine.v - min) / (max - min) * 7)
-        if (at !== tenth) { sfx.tick(at); tenth = at }
-      })
-      el.querySelectorAll("[data-side]").forEach(b => b.addEventListener("click", () => { sfx.tick(4); done(sides[+b.dataset.side]) }))
-      range.focus({ preventScroll: true })
-    } })
-  }
-
-  // π takes the bet, says what scene two is, and asks the one thing nobody has to answer: its name. π's name for it
-  // stands in, so the button works either way.
-  async pickName(q, n, bet) {
-    const next = q.whatifs[n][5]
-    const name = await this.say("pi", `“${bet}.” You're on. Scene one's done. Scene two settles it: ${next}. What are we calling this?`, { pose: "hooray", back: true, pick: (el, done) => {
-      el.className = "pick__choices"
-      el.innerHTML = `<form class="story__ask pick__naming-ask"><input class="story__input" maxlength="40" spellcheck="false" autocomplete="off" placeholder="${esc(q.name)}">
-        <button class="story__choice">Call it that</button></form>`
-      const form = el.querySelector("form"), input = form.querySelector("input")
-      input.addEventListener("input", () => { this.tagName = input.value.trim() || q.name })
-      form.addEventListener("submit", e => { e.preventDefault(); sfx.tick(3); done(input.value.trim() || q.name) })
-      if (!this.touch) input.focus({ preventScroll: true })
-    } })
-    if (name === BACK) return BACK
-    this.tagName = name
-    await this.say("pi", `“${name}” it is. Look at it go!`, { pose: "awe" })
-    return name
-  }
-
   // The sketch on the stage, from its beginning.
   perform(clip) { this.sketch = { clip, t0: this.clock } }
 
   // π's sketch of the idea in answers, as you left it.
-  showIdea({ qi, wi, number }) {
+  showIdea({ qi, wi }) {
     const q = QUESTIONS[qi]
     if (!q?.whatifs[wi]) return
-    this.mine = { v: number }
-    this.perform(q.clip(q.whatifs[wi][0], this.mine))
+    this.perform(q.clip(q.whatifs[wi][0], { v: guess(q, wi) }))
     this.tagName = this.answers.idea
   }
 
@@ -926,11 +879,11 @@ export default class extends Controller {
     // Your scene, saved now, so the editor opens this one even if you have others. Offline, it waits in localStorage
     // instead, which the editor turns into a scene when you have none yet.
     try {
-      const response = await this.post(this.scenesUrlValue, { scene: { code: sceneCode(a.idea, this.scene.k) } })
+      const response = await this.post(this.scenesUrlValue, { scene: { code: this.code } })
       if (response.ok) this.sceneId = (await response.json()).id
     } catch { /* offline */ }
     try {
-      if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea, this.scene.k))
+      if (!this.sceneId) localStorage.setItem(CODE_KEY, this.code)
       localStorage.setItem(VIEW_KEY, "code")
     } catch { /* storage unavailable */ }
   }
