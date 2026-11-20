@@ -5,7 +5,9 @@ class OnboardingController < ApplicationController
   # follow-up email links here with ?v=, which makes this browser that visit's, so the link works on any device.
   def show
     return follow_back(params[:v]) if params[:v].present?
-    @progress = OnboardingVisit.find_by(visitor_id:)&.progress
+    visit = OnboardingVisit.for(visitor_id)
+    @progress = visit.progress
+    @email_arm = visit.email_arm
     render :story
   end
 

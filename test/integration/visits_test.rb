@@ -58,7 +58,7 @@ class VisitsTest < ActionDispatch::IntegrationTest
     visit_step(step: "buddy", question_index: 1, answers: { idea: "Minecraft circles" }, k: 1.4)
     get onboarding_path
     progress = JSON.parse(css_select("[data-controller=story]").first["data-story-progress-value"])
-    assert_equal({ "at" => 1, "answers" => { "idea" => "Minecraft circles" }, "k" => 1.4 }, progress)
+    assert_equal({ "at" => 1, "answers" => { "idea" => "Minecraft circles" }, "k" => 1.4, "email" => false }, progress)
   end
 
   test "there's nothing to pick up before the questions, after signing, or after starting over" do
@@ -71,5 +71,21 @@ class VisitsTest < ActionDispatch::IntegrationTest
     visit_step(step: "sign", question_index: 5, answers: { idea: "Circles" })
     visit.reload.pledged!
     assert_nil visit.progress
+  end
+
+  test "each visitor is in one email-ask group for good, and the groups split about evenly" do
+    get onboarding_path
+    arm = css_select("[data-controller=story]").first["data-story-email-arm-value"]
+    assert_includes OnboardingVisit::EMAIL_ARMS, arm
+    get onboarding_path
+    assert_equal arm, css_select("[data-controller=story]").first["data-story-email-arm-value"]
+    arms = 400.times.map { OnboardingVisit.email_arm_for(SecureRandom.uuid) }.tally
+    assert arms.values.all? { |n| n.between?(150, 250) }, arms.inspect
+  end
+
+  test "coming back, the story knows whether we already have your email" do
+    visit_step(step: "buddy", question_index: 1, answers: { idea: "Circles" }, email: "me@example.com", email_source: "asked")
+    get onboarding_path
+    assert_equal true, JSON.parse(css_select("[data-controller=story]").first["data-story-progress-value"])["email"]
   end
 end

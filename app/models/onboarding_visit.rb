@@ -10,6 +10,10 @@ class OnboardingVisit < ApplicationRecord
   # Where an email came from: Hack Club Auth's whoami (you're signed in at auth.hackclub.com, so we know it without
   # asking), or π asked and you told it.
   EMAIL_SOURCES = %w[whoami asked].freeze
+  # Where π asks for it: right after you say hi ("hello"), or once you've picked your idea ("idea", where π offers to
+  # keep it for you). Half and half, by visitor, so each person always gets the same one. The question is which ends
+  # with more emails per visitor without losing more people before the editor (`bin/rails onboarding:email_ab`).
+  EMAIL_ARMS = %w[hello idea].freeze
 
   # π's one follow-up email (sent by Loops, via OnboardingVisit::LoopsSync): a day after someone with an email we know stops without signing,
   # and only within a week of that. A tenth are held out, never emailed, so we can tell whether it brings anyone
@@ -45,9 +49,15 @@ class OnboardingVisit < ApplicationRecord
   end
 
   def self.for(visitor_id)
-    find_or_create_by!(visitor_id:) { |visit| visit.last_seen_at = Time.current }
+    visit = find_or_create_by!(visitor_id:) { |v| v.last_seen_at = Time.current }
+    visit.update_column(:email_arm, email_arm_for(visitor_id)) unless visit.email_arm
+    visit
   rescue ActiveRecord::RecordNotUnique
     retry
+  end
+
+  def self.email_arm_for(visitor_id)
+    EMAIL_ARMS[Digest::SHA256.hexdigest(visitor_id.to_s).first(8).to_i(16) % EMAIL_ARMS.size]
   end
 
   # Where the story is now, and where they came from.
@@ -83,7 +93,7 @@ class OnboardingVisit < ApplicationRecord
   # far and your k. Nil before the questions start (the opening is short enough to play again) and once you've signed.
   def progress
     return if pledged_at || question_index.nil?
-    { at: question_index, answers:, k: }
+    { at: question_index, answers:, k:, email: email_known? }
   end
 
   # "Start over": forget where you were, but not who you are or where you came from.

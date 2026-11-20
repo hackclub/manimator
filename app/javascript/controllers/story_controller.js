@@ -119,7 +119,7 @@ export default class extends Controller {
   static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
-    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object }
+    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
 
   connect() {
     this.clock = 0
@@ -172,6 +172,8 @@ export default class extends Controller {
     const decoded = Promise.all(Object.values(this.images).map(img => img.decode().catch(() => {})))
     const signing = takeSigning()
     this.whoamiDone = this.signedInValue ? Promise.resolve() : this.whoami()
+    // Which email-ask test group you're in (OnboardingVisit::EMAIL_ARMS), on every event from here on.
+    if (this.emailArmValue) window.posthog?.register?.({ email_arm: this.emailArmValue })
     const progress = !signing && this.hasProgressValue && this.progressValue?.answers ? this.progressValue : null
     Promise.race([decoded, wait(800)]).then(() => signing ? this.resume(signing) : progress ? this.resumeVisit(progress) : this.run())
   }
@@ -633,7 +635,7 @@ export default class extends Controller {
     const hi = await this.say("pi", "Whoa! Hi, I'm π. Wave your cursor around. The field tickles.",
       { pose: "hooray", choices: [{ label: "Hi π!", value: "hi" }, { label: "Where am I?", value: "where" }] })
     if (hi === "where") await this.say("pi", "In a vector field! Every arrow points where sin y and sin x say to.", { pose: "awe" })
-    await this.askEmail()
+    await this.askEmail("hello")
 
     // ∫ and the examples: it shows off while it talks.
     this.step("examples")
@@ -725,6 +727,7 @@ export default class extends Controller {
       const lines = this.lines(), parts = partsOf(lines.map(([, text]) => text))
       if (parts.length) await this.say("code", `Your video is ${lines.length} lines of code. That's a lot to start with, so I folded it into ${parts.length} parts. Click one to open it.`)
     }
+    await this.askEmail("idea")
   }
 
   // While you choose, the cast steps out of the way of the sketch, and the stage sits above the dialogue.
@@ -733,20 +736,26 @@ export default class extends Controller {
     this.element.toggleAttribute("data-choosing", on)
   }
 
-  // As soon as you've said hi, π asks for your email, so whatever you make here stays yours (and we can bring you back
-  // to it), unless we already know it (you're signed in, or Hack Club Auth's whoami told us). There's no skipping it.
-  async askEmail() {
+  // π asks for your email, unless we already know it (you're signed in, or Hack Club Auth's whoami told us). Where it
+  // asks is a test (OnboardingVisit::EMAIL_ARMS): right after you say hi, or once you've picked your idea, when it has
+  // something of yours to keep. Coming back without one, π asks first thing. There's no skipping it.
+  async askEmail(where) {
+    if (where !== "resume" && where !== this.emailArmValue && this.emailArmValue) return
+    if (!this.emailArmValue && where === "idea") return // no test group: ask after hi, as before
     await Promise.race([this.whoamiDone, wait(1500)])
     if (this.signedInValue || this.email) return
     this.step("email")
-    capture("email_ask_shown", { variant: "story" })
-    const email = await this.say("pi", "Before we go exploring: what's your email? Everything we make together stays yours, and I'll keep your place if you need a break.",
-      { pose: "happy", pick: (el, done) => this.emailForm(el, done) })
+    capture("email_ask_shown", { variant: "story", email_arm: this.emailArmValue, where })
+    const idea = this.answers.idea
+    const ask = where === "idea" && idea
+      ? `I love “${idea}”. Where should I send it? I'll keep it safe, and keep your place if you need a break.`
+      : "Before we go exploring: what's your email? Everything we make together stays yours, and I'll keep your place if you need a break."
+    const email = await this.say("pi", ask, { pose: "happy", pick: (el, done) => this.emailForm(el, done) })
     this.email = email
     setPerson({ email })
-    capture("email_given", { variant: "story" })
+    capture("email_given", { variant: "story", email_arm: this.emailArmValue, where })
     this.save({ email, email_source: "asked" })
-    await this.say("pi", "Got it! Now, let me show you around.", { pose: "happy" })
+    await this.say("pi", where === "hello" || !idea ? "Got it! Now, let me show you around." : "Got it! It's safe with me.", { pose: "happy" })
   }
 
   emailForm(el, done) {
@@ -1084,7 +1093,8 @@ export default class extends Controller {
   // Back on /start without having signed (OnboardingVisit#progress): everyone you'd met, the editor as far as it had
   // come, and π asks whether to pick up at the question you left or start over. A question whose earlier answers
   // didn't make it back is asked again from the last one that did.
-  async resumeVisit({ at, answers, k }) {
+  async resumeVisit({ at, answers, k, email }) {
+    if (email) this.email = true // we have it: π won't ask again
     Object.assign(this.answers, answers)
     if (answers.shipBy) this.answers.shipBy = new Date(answers.shipBy)
     if (at >= 5 && !this.answers.prize) at = 4
@@ -1112,6 +1122,7 @@ export default class extends Controller {
       this.restarting = true
       return location.reload()
     }
+    await this.askEmail("resume")
     await this.questions(at)
     await this.finish()
   }
