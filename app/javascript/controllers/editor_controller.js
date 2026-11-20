@@ -9,6 +9,8 @@ const STORAGE_KEY = "manimator:code"
 // The story onboarding's last frame, shown on the stage until Python has drawn the first one, so arriving from it
 // doesn't start on a black canvas.
 const POSTER_KEY = "manimator:poster"
+// The parts of the story's scene you'd opened there (editor/parts.js): the scene arrives folded the same way, once.
+const OPEN_PARTS_KEY = "manimator:open-parts"
 const OLD_KEYS = [STORAGE_KEY, "manimator:edited", "manimator:cursor"]
 // Saves wait until typing stops for this long.
 const SAVE_MS = 800
@@ -149,6 +151,11 @@ export default class extends Controller {
         }
       },
     })
+    const openParts = load(OPEN_PARTS_KEY, null)
+    if (openParts != null) {
+      forget([OPEN_PARTS_KEY])
+      try { this.editor.foldParts(JSON.parse(openParts)) } catch { /* not a list: leave it unfolded */ }
+    }
     this.requestRun(this.editor.code)
     this.renderHome()
     // Code from before scenes were saved here becomes your first scene

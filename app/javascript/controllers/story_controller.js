@@ -4,6 +4,7 @@ import { audio } from "audio"
 import { sfx } from "sfx"
 import { Pen, QUESTIONS } from "onboarding/sketches"
 import { sceneFor } from "onboarding/scenes"
+import { partsOf } from "editor/parts"
 
 // Onboarding (/start, onboarding/story.html.erb), as a story. π drops into a vector field, and as the story goes on you
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
@@ -20,6 +21,8 @@ const W_UNITS = 14.2, H_UNITS = 8
 const CODE_KEY = "manimator:code"
 const VIEW_KEY = "manimator:view"
 const POSTER_KEY = "manimator:poster"
+// The parts of your scene you opened in the story, so the editor opens with the same ones open (editor/parts.js).
+const OPEN_PARTS_KEY = "manimator:open-parts"
 // Your answers, kept in this tab while you're off signing in with Hack Club, so coming back to /start signs the pledge.
 const SIGNING_KEY = "manimator:signing"
 const K_SWEEP = 7.5 // seconds { } takes to sweep k before you get the slider
@@ -150,6 +153,8 @@ export default class extends Controller {
     addEventListener("keydown", this.onKey)
     this.element.addEventListener("click", this.onClick)
     addEventListener("pointermove", this.onMove)
+    this.onPart = e => this.togglePart(e)
+    this.codeTarget.addEventListener("click", this.onPart)
     this.onLeave = () => this.abandoned()
     addEventListener("pagehide", this.onLeave)
     this.size()
@@ -172,6 +177,7 @@ export default class extends Controller {
     removeEventListener("keydown", this.onKey)
     removeEventListener("pointermove", this.onMove)
     removeEventListener("pagehide", this.onLeave)
+    this.codeTarget.removeEventListener("click", this.onPart)
     this.abandoned()
     cancelAnimationFrame(this.holdRaf)
   }
@@ -241,13 +247,51 @@ export default class extends Controller {
     setTimeout(() => el.remove(), 3200)
   }
 
-  // The code pane: what you're looking at, as manim code. Lines light up as someone talks about them.
+  // The code pane: what you're looking at, as manim code. Lines light up as someone talks about them. Once it's your
+  // scene, which is a lot of code to start with, it's folded into its named parts (editor/parts.js), and the pane
+  // says so: open any part, or all of it.
   renderCode() {
-    this.codeTarget.innerHTML = this.lines().map(([id, text], i) => {
+    const lines = this.lines(), parts = partsOf(lines.map(([, text]) => text))
+    const row = ([id, text], i) => {
       const html = id === "k" ? `        k = <span class="c-num" data-k>${this.scene.k.toFixed(1)}</span>` : highlight(text)
       return `<div class="sl ${id && id === this.lit ? "sl--lit" : ""} ${id === "number" ? "sl--new" : ""}"><span class="sl__n">${i + 1}</span><span>${html || " "}</span></div>`
-    }).join("")
+    }
+    this.codeTarget.classList.toggle("story__code--parts", parts.length > 0)
+    if (!parts.length) {
+      this.codeTarget.innerHTML = lines.map(row).join("")
+    } else {
+      this.openParts ??= new Set()
+      const all = parts.every(p => this.openParts.has(p.name))
+      let html = lines.slice(0, parts[0].heading).map(row).join("")
+      for (const p of parts) {
+        const open = this.openParts.has(p.name)
+        html += `<button type="button" class="sl-part ${open ? "sl-part--open" : ""}" data-part="${esc(p.name)}" aria-expanded="${open}">
+          <span class="sl__n">${p.heading + 1}</span><span class="sl-part__name">${highlight(lines[p.heading][1].trim())}</span><span class="sl-part__count">${open ? "fold" : `${p.lines} lines`}</span></button>`
+        if (open) html += lines.slice(p.start, p.end + 1).map((line, j) => row(line, p.start + j)).join("")
+      }
+      html += `<div class="sl-fold"><span>Folded so it isn't a wall. Nothing's hidden for good.</span>
+        <button type="button" class="sl-fold__all" data-all>${all ? "Fold it back up" : `Show all ${lines.length} lines`}</button></div>`
+      this.codeTarget.innerHTML = html
+    }
     this.kEl = this.codeTarget.querySelector("[data-k]")
+  }
+
+  // Opening or folding a part of your scene, or all of them.
+  togglePart(event) {
+    const part = event.target.closest("[data-part]"), all = event.target.closest("[data-all]")
+    if (!part && !all) return
+    this.openParts ??= new Set()
+    if (part) {
+      const name = part.dataset.part
+      this.openParts.has(name) ? this.openParts.delete(name) : this.openParts.add(name)
+    } else {
+      const names = partsOf(this.lines().map(([, text]) => text)).map(p => p.name)
+      const open = !names.every(n => this.openParts.has(n))
+      names.forEach(n => open ? this.openParts.add(n) : this.openParts.delete(n))
+    }
+    sfx.tick(part ? 2 : 4)
+    capture("onboarding_code_part_toggled", { variant: "story", part: part?.dataset.part ?? "all" })
+    this.renderCode()
   }
 
   light(id) { this.lit = id; this.renderCode() }
@@ -642,6 +686,12 @@ export default class extends Controller {
     this.renderTimeline()
     await this.pause(1800)
     this.light(null)
+    // Your scene is a lot of code, folded into parts; { } says so, once, instead of hiding it quietly.
+    if (!this.toldParts) {
+      this.toldParts = true
+      const lines = this.lines(), parts = partsOf(lines.map(([, text]) => text))
+      if (parts.length) await this.say("code", `Your video is ${lines.length} lines of code. That's a lot to start with, so I folded it into ${parts.length} parts. Click one to open it.`)
+    }
   }
 
   // While you choose, the cast steps out of the way of the sketch, and the stage sits above the dialogue.
@@ -987,6 +1037,7 @@ export default class extends Controller {
     try {
       if (!this.sceneId) localStorage.setItem(CODE_KEY, this.code)
       localStorage.setItem(VIEW_KEY, "code")
+      localStorage.setItem(OPEN_PARTS_KEY, JSON.stringify([...(this.openParts ?? [])]))
     } catch { /* storage unavailable */ }
   }
 

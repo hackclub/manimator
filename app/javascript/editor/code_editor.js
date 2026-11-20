@@ -1,9 +1,10 @@
 import { basicSetup, EditorView } from "codemirror"
 import { python } from "@codemirror/lang-python"
-import { HighlightStyle, indentUnit, syntaxHighlighting } from "@codemirror/language"
+import { codeFolding, foldEffect, foldService, HighlightStyle, indentUnit, syntaxHighlighting } from "@codemirror/language"
 import { tags as t } from "@lezer/highlight"
 import { EditorState, StateEffect, StateField } from "@codemirror/state"
-import { Decoration, keymap } from "@codemirror/view"
+import { Decoration, keymap, ViewPlugin } from "@codemirror/view"
+import { PART, partsOf } from "editor/parts"
 import { indentWithTab } from "@codemirror/commands"
 
 // The landing page's look: raised panel, Computer Modern Typewriter, 3Blue1Brown colors.
@@ -18,6 +19,9 @@ const theme = EditorView.theme({
   ".cm-activeLineGutter": { backgroundColor: "transparent", color: "var(--ink)" },
   ".cm-matchingBracket, &.cm-focused .cm-matchingBracket": { backgroundColor: "rgba(244, 211, 69, .16)", outline: "none" },
   ".cm-foldPlaceholder": { backgroundColor: "var(--line)", border: "none", color: "var(--ink-muted)" },
+  // A part's heading (editor/parts.js) as the story's code pane draws it: a row you open, its size beside it.
+  ".cm-part": { backgroundColor: "var(--bg)", boxShadow: "inset 0 0 0 1px var(--line)", borderRadius: "8px" },
+  ".cm-part .cm-foldPlaceholder": { marginLeft: "12px", padding: "0 8px", borderRadius: "999px", backgroundColor: "transparent", color: "var(--ink-faint)", fontSize: "13px", cursor: "pointer" },
   ".cm-tooltip": { backgroundColor: "var(--bg)", border: "1px solid var(--line-hover)", borderRadius: "8px" },
   ".cm-tooltip-autocomplete > ul > li[aria-selected]": { backgroundColor: "var(--line-strong)", color: "var(--ink)" },
   ".cm-panels": { backgroundColor: "var(--bg)", color: "var(--ink)" },
@@ -112,6 +116,49 @@ function numberScrubber(onScrub) {
   })
 }
 
+// A scene's named parts (editor/parts.js) fold from the end of their heading down to their last line.
+function partRanges(state) {
+  const texts = []
+  for (let i = 1; i <= state.doc.lines; i++) texts.push(state.doc.line(i).text)
+  return partsOf(texts).filter(p => p.lines > 0).map(p => ({
+    name: p.name, lines: p.lines, from: state.doc.line(p.heading + 1).to, to: state.doc.line(p.end + 1).to,
+  }))
+}
+
+const partFolding = [
+  foldService.of((state, from) => {
+    const line = state.doc.lineAt(from)
+    if (!PART.test(line.text)) return null
+    return partRanges(state).find(r => r.from === line.to) ?? null
+  }),
+  codeFolding({
+    preparePlaceholder: (state, range) => state.doc.lineAt(range.to).number - state.doc.lineAt(range.from).number,
+    placeholderDOM: (view, onclick, lines) => {
+      const el = document.createElement("span")
+      el.className = "cm-foldPlaceholder"
+      el.textContent = `${lines} lines`
+      el.title = "Open this part"
+      el.onclick = onclick
+      return el
+    },
+  }),
+  ViewPlugin.fromClass(class {
+    constructor(view) { this.decorations = this.build(view) }
+    update(u) { if (u.docChanged || u.viewportChanged) this.decorations = this.build(u.view) }
+    build(view) {
+      const marks = []
+      for (const { from, to } of view.visibleRanges) {
+        for (let pos = from; pos <= to;) {
+          const line = view.state.doc.lineAt(pos)
+          if (PART.test(line.text)) marks.push(Decoration.line({ class: "cm-part" }).range(line.from))
+          pos = line.to + 1
+        }
+      }
+      return Decoration.set(marks)
+    }
+  }, { decorations: v => v.decorations }),
+]
+
 export function createEditor(parent, doc, hooks) {
   const view = new EditorView({
     parent,
@@ -127,6 +174,7 @@ export function createEditor(parent, doc, hooks) {
         theme,
         syntaxHighlighting(highlight),
         marksField,
+        partFolding,
         numberScrubber(hooks.onScrub),
         EditorView.updateListener.of((u) => {
           if (u.docChanged) hooks.onChange(u.state.doc.toString())
@@ -206,6 +254,12 @@ export function createEditor(parent, doc, hooks) {
         userEvent: "input",
       })
       return before ? last : last + 1
+    },
+    // Folds the scene's named parts, all but the ones named in `open`: how a scene from the story arrives, folded as
+    // you left it there.
+    foldParts(open = []) {
+      const effects = partRanges(view.state).filter(r => !open.includes(r.name)).map(({ from, to }) => foldEffect.of({ from, to }))
+      if (effects.length) view.dispatch({ effects })
     },
     setDoc(text) {
       view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text } })
