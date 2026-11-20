@@ -859,7 +859,7 @@ export default class extends Controller {
       await this.pause(800)
       await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
       this.meet("inf")
-      if (await this.newcomer()) await this.explain("ship", "inf", "“Ship” is Hack Club for finishing something and putting it out for everyone to see. Here, that's your video.")
+      if (await this.newcomer()) await this.explain("ship", "inf", "“Shipping” is Hack Club for putting what you made out in the real world, to find out if it works. Here, that's people watching your video.")
     }
     const slots = Object.keys(this.slotsValue)
     const when = await this.say("inf", "When do you usually have time?", { choices: slots.map(s => ({ label: s })), back: true })
@@ -946,7 +946,7 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
-    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club, a nonprofit where teenagers make things together. You'll sign in with a free Hack Club account.", { pose: "happy" })
+    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club, a community of teenagers who build things with technology. You'll sign in with a free Hack Club account.", { pose: "happy" })
     this.trap()
     const name = this.nameValue || this.whoName
     const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}${this.signedInValue ? "" : ". It signs you in with Hack Club"}.`
