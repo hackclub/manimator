@@ -657,7 +657,7 @@ export default class extends Controller {
 
   emailForm(el, done) {
     el.innerHTML = `<div class="story__email"><form class="story__ask">
-        <input class="story__input" type="email" maxlength="254" spellcheck="false" autocomplete="email" placeholder="you@example.com" required>
+        <input class="story__input" type="email" maxlength="254" spellcheck="false" autocomplete="email" placeholder="kartikey@hackclub.com" required>
         <button class="story__choice" disabled>Let's go</button></form>
       <p class="story__fine">Just Manimator things, from Hack Club. Unsubscribe anytime.</p></div>`
     const form = el.querySelector("form"), input = form.querySelector("input"), ok = form.querySelector("button")
