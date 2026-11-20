@@ -15,9 +15,11 @@ export function setPerson(properties) {
   window.posthog?.setPersonProperties?.(properties)
 }
 
+// Without PostHog (no credentials) there's no window.posthog, and this runs as the page's scripts load: throwing
+// here would stop every script after it, so it does nothing instead.
 function identify() {
   const userId = document.body?.dataset.posthogUserId
-  if (userId && window.posthog?.get_distinct_id?.() !== userId) window.posthog.identify(userId)
+  if (userId && window.posthog?.identify && window.posthog.get_distinct_id?.() !== userId) window.posthog.identify(userId)
 }
 identify()
 addEventListener("turbo:load", identify)
