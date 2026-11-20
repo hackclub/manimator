@@ -30,6 +30,9 @@ gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 2.0"
 gem "omniauth_openid_connect", "~> 0.8"
 
+# Airtable, for the `_users` table Hack Club syncs into Loops (OnboardingVisit::LoopsSync), as hackclub/stardance does it.
+gem "norairrecord", "~> 0.5"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

@@ -1,27 +1,42 @@
 require "test_helper"
 
 class OnboardingFollowupTest < ActionDispatch::IntegrationTest
-  include ActionMailer::TestHelper
-
   def left(email: "maya@example.com", ago: 2.days, **attributes)
     OnboardingVisit.create!(visitor_id: SecureRandom.uuid, email:, email_source: "asked", last_seen_at: ago.ago,
       answers: { "idea" => "Minecraft circles" }, **attributes)
   end
 
-  test "a day after someone with an email stops, π emails them once, with the way back and a way out" do
+  test "a day after someone with an email stops, they're put in an arm once" do
     visit = left
-    assert_enqueued_emails(1) { assert_equal "sent", visit.follow_up!(holdout: false) }
-    assert_no_enqueued_emails { assert_nil visit.follow_up!(holdout: false) }
-    mail = OnboardingMailer.followup(visit.reload)
-    assert_equal [ "maya@example.com" ], mail.to
-    assert_match "Minecraft circles", mail.subject
-    assert_includes mail.text_part.body.to_s, visit.back_url
-    assert_equal "<#{visit.unsubscribe_url}>", mail["List-Unsubscribe"].to_s
+    assert_equal "sent", visit.follow_up!(holdout: false)
+    assert_nil visit.follow_up!(holdout: false)
+    assert visit.reload.followup_token
+    assert_equal "sent", visit.followup_arm
   end
 
-  test "the holdout is never emailed, and is still counted" do
+  test "the Loops fields carry the way back and the idea, and only for the sent arm" do
+    sent = left.tap { |visit| visit.follow_up!(holdout: false) }
+    held = left(email: "held@example.com").tap { |visit| visit.follow_up!(holdout: true) }
+    sync = OnboardingVisit::LoopsSync.new
+    fields = sync.fields(sent)
+    assert_equal sent.back_url, fields["Loops - manimatorFollowupUrl"]
+    assert_equal "Minecraft circles", fields["Loops - manimatorFollowupIdea"]
+    assert_equal sent.followup_at.iso8601, fields["Loops - manimatorFollowupAt"]
+    assert_equal "maya@example.com", fields["email"]
+    assert_not sync.fields(held).key?("Loops - manimatorFollowupAt")
+  end
+
+  test "only visits with an email that changed since the last sync go to Airtable" do
+    synced = left(email: "synced@example.com")
+    synced.update_column(:loops_synced_at, 1.minute.from_now)
+    changed = left
+    left(email: nil)
+    assert_equal [ changed ], OnboardingVisit.loops_unsynced.to_a
+  end
+
+  test "the holdout is counted, and never gets the fields that send it" do
     visit = left
-    assert_no_enqueued_emails { assert_equal "holdout", visit.follow_up!(holdout: true) }
+    assert_equal "holdout", visit.follow_up!(holdout: true)
     assert visit.reload.followup_at
   end
 
@@ -31,7 +46,6 @@ class OnboardingFollowupTest < ActionDispatch::IntegrationTest
     left(ago: 10.days)
     left(email: nil)
     left(pledged_at: Time.current)
-    left(unsubscribed_at: Time.current)
     assert_equal [ due ], OnboardingVisit.followup_due.to_a
   end
 
@@ -54,13 +68,31 @@ class OnboardingFollowupTest < ActionDispatch::IntegrationTest
     assert_equal 2, progress["at"]
   end
 
-  test "unsubscribing asks first, then stops the email for good" do
-    visit = left
-    visit.follow_up!(holdout: true)
-    get visit_unsubscribe_path(visit.followup_token)
-    assert_response :ok
-    assert_nil visit.reload.unsubscribed_at
-    post visit_unsubscribe_path(visit.followup_token)
-    assert visit.reload.unsubscribed_at
+  test "a sync upserts one row per email by email, the followed-up visit's, and marks them synced" do
+    sent = left.tap { |visit| visit.follow_up!(holdout: false) }
+    twin = left.tap { |visit| visit.follow_up!(holdout: false) }
+    assert_equal "duplicate", twin.reload.followup_arm
+    table = FakeTable.new
+    sync = OnboardingVisit::LoopsSync.new
+    sync.instance_variable_set(:@table, table)
+    with_loops_sync { sync.run }
+    assert_equal "email", table.key
+    assert_equal 1, table.rows.size
+    assert_equal sent.back_url, table.rows.first["Loops - manimatorFollowupUrl"]
+    assert_empty OnboardingVisit.loops_unsynced
   end
+
+  private
+    class FakeTable
+      attr_reader :rows, :key
+      def new(fields) = fields
+      def batch_upsert(rows, key) = (@rows, @key = rows, key)
+    end
+
+    def with_loops_sync
+      Rails.configuration.x.loops_sync_configured = true
+      yield
+    ensure
+      Rails.configuration.x.loops_sync_configured = false
+    end
 end

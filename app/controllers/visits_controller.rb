@@ -1,10 +1,6 @@
 # Where you are in onboarding, as the story goes (OnboardingVisit): it sends the beat you're on and your answers so
 # far at each step, so we know where people stop, and can set you back there when you return.
 class VisitsController < ApplicationController
-  # Mail clients' one-click unsubscribe (List-Unsubscribe-Post) has no CSRF token; the link's token is enough.
-  skip_forgery_protection only: :confirm_unsubscribe
-  before_action :find_by_token, only: %i[unsubscribe confirm_unsubscribe]
-
   def update
     visit = OnboardingVisit.for(visitor_id)
     visit.user ||= current_user
@@ -24,19 +20,4 @@ class VisitsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     head :unprocessable_content
   end
-
-  # Asks before unsubscribing, since mail scanners open links ahead of people.
-  def unsubscribe
-  end
-
-  def confirm_unsubscribe
-    @visit.unsubscribe!
-    redirect_to visit_unsubscribe_path(@visit.followup_token)
-  end
-
-  private
-    def find_by_token
-      @visit = OnboardingVisit.find_by(followup_token: params[:token].to_s)
-      redirect_to root_path unless @visit
-    end
 end

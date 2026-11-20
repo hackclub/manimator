@@ -11,7 +11,7 @@ class OnboardingVisit < ApplicationRecord
   # asking), or π asked and you told it.
   EMAIL_SOURCES = %w[whoami asked].freeze
 
-  # π's one follow-up (OnboardingMailer#followup): a day after someone with an email we know stops without signing,
+  # π's one follow-up email (sent by Loops, via OnboardingVisit::LoopsSync): a day after someone with an email we know stops without signing,
   # and only within a week of that. A tenth are held out, never emailed, so we can tell whether it brings anyone
   # back (compare followup_arm "sent" with "holdout": followup_clicked_at, coming back at all, pledged_at). Someone
   # whose email already pledged or was already followed up on another visit is "duplicate" and gets nothing.
@@ -29,13 +29,18 @@ class OnboardingVisit < ApplicationRecord
   scope :pledged, -> { where.not(pledged_at: nil) }
   scope :unpledged, -> { where(pledged_at: nil) }
   scope :followup_due, -> {
-    unpledged.where(followup_at: nil, unsubscribed_at: nil).where.not(email: nil)
+    unpledged.where(followup_at: nil).where.not(email: nil)
       .where(last_seen_at: FOLLOWUP_WINDOW.ago..FOLLOWUP_AFTER.ago)
   }
 
-  # Every 15 minutes (OnboardingFollowupJob). Without email set up, nobody is put in an arm.
+  # Changed since it last went to Airtable (OnboardingVisit::LoopsSync), with an email to key it by.
+  scope :loops_unsynced, -> {
+    where.not(email: nil).where("loops_synced_at IS NULL OR onboarding_visits.updated_at > loops_synced_at")
+  }
+
+  # Every 5 minutes (OnboardingFollowupJob). Without the Loops sync set up, nobody is put in an arm.
   def self.follow_up_due
-    return unless Rails.configuration.x.mail_configured
+    return unless Rails.configuration.x.loops_sync_configured
     followup_due.find_each(&:follow_up!)
   end
 
@@ -86,29 +91,22 @@ class OnboardingVisit < ApplicationRecord
     update!(question_index: nil, answers: {}, k: nil)
   end
 
-  # Decide this visit's arm, once, and email if it's "sent".
+  # Decide this visit's arm, once. "sent" is emailed by Loops once the sync carries it over.
   def follow_up!(holdout: rand < FOLLOWUP_HOLDOUT)
-    arm = with_lock do
-      next if followup_at || pledged_at || unsubscribed_at
+    with_lock do
+      next if followup_at || pledged_at
       arm = already_reached? ? "duplicate" : holdout ? "holdout" : "sent"
       self.followup_token ||= self.class.generate_unique_secure_token
       update!(followup_at: Time.current, followup_arm: arm)
       arm
     end
-    OnboardingMailer.followup(self).deliver_later if arm == "sent"
-    arm
   end
 
   # Their link back: it opens /start as this visit (OnboardingController#show), wherever they open it.
   def back_url = "#{Rails.configuration.x.app_url}/start?v=#{followup_token}"
-  def unsubscribe_url = "#{Rails.configuration.x.app_url}/visit/unsubscribe/#{followup_token}"
 
   def followup_clicked!
     update!(followup_clicked_at: Time.current) unless followup_clicked_at
-  end
-
-  def unsubscribe!
-    update!(unsubscribed_at: Time.current) unless unsubscribed_at
   end
 
   def pledged!
@@ -119,7 +117,7 @@ class OnboardingVisit < ApplicationRecord
     # The same email already pledged (on another visit or as a signed-in user), or was already followed up.
     def already_reached?
       others = OnboardingVisit.where(email:).where.not(id:)
-      others.where.not(followup_at: nil).or(others.pledged).or(others.where.not(unsubscribed_at: nil)).exists? ||
+      others.where.not(followup_at: nil).or(others.pledged).exists? ||
         User.joins(:pledges).where("LOWER(users.email) = ?", email).exists?
     end
 
