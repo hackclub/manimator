@@ -337,13 +337,14 @@ export default class extends Controller {
     this.backTarget.hidden = true
     const speaker = this.actors[who]
     if (speaker) speaker.talk = true
-    // A moment that can be rushed (∫'s drawing, k's sweep) finishes on a click, even mid-sentence.
+    await this.type(text, f.note)
+    // A moment that can be rushed (∫'s drawing) finishes on a click once the line is out. A click while it's still
+    // typing only finishes the line, as everywhere else.
     let rushed = false
     this.rush = rush ? () => { rushed = true; this.rush = null; rush() } : null
-    await this.type(text, f.note)
     if (speaker) speaker.talk = false
     if (!decision && this.skipping) return
-    // A big moment holds until it has played out; one that can be rushed jumps to its end when you click.
+    // A big moment (k turning, the prize replay) holds until it has played out; ∫'s drawing jumps to its end on a click.
     if (until) await this.dwell(until, () => rushed)
     this.rush = null
     if (!decision && this.skipping) return
@@ -458,7 +459,8 @@ export default class extends Controller {
   }
 
   next() {
-    if (this.skipTyping || this.rush) { this.skipTyping?.(); this.rush?.(); return }
+    if (this.skipTyping) return this.skipTyping()
+    if (this.rush) return this.rush()
     this.advance?.()
   }
 
@@ -592,8 +594,7 @@ export default class extends Controller {
     this.light("k")
     this.showK = true
     this.kFrom = this.clock + 1.2
-    await this.say("code", "See k? It's one number. Watch the field as it changes.",
-      { until: this.kFrom + K_SWEEP + .4, rush: () => { if (this.kFrom !== undefined) this.kFrom = this.clock - K_SWEEP - .01 } })
+    await this.say("code", "See k? It's one number. Watch the field as it changes.", { until: this.kFrom + K_SWEEP + .4 })
     this.answers.k = await this.say("code", "Your turn. Drag it!", { slider: { min: .2, max: 3, step: .1 } })
     this.showK = false
     this.light(null)
