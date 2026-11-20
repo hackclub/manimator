@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   post "n/:token/stop" => "nudge_links#mute"
   delete "n/:token/stop" => "nudge_links#unmute"
 
+  # PostHog, through our own domain (IngestController).
+  match "ingest/*path" => "ingest#forward", via: %i[get post options], format: false
+
   # Hack Club Auth. Signing in is a POST to /auth/hackclub (OmniAuth's middleware), which comes back here.
   get "auth/:provider/callback" => "sessions#create", as: :auth_callback
   get "auth/failure" => "sessions#failure", as: :auth_failure

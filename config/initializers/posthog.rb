@@ -8,3 +8,5 @@ Rails.application.config.x.posthog_host = posthog.(:host)
 # Tests would otherwise send real events.
 Rails.application.config.x.posthog_configured =
   Rails.application.config.x.posthog_project_token.present? && Rails.application.config.x.posthog_host.present? && !Rails.env.test?
+# Unless POSTHOG_PROXY=false, the browser sends everything through /ingest on this site (IngestController).
+Rails.application.config.x.posthog_proxy = ENV["POSTHOG_PROXY"] != "false"
