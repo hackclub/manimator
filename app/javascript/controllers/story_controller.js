@@ -116,7 +116,7 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
+  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
@@ -1039,6 +1039,7 @@ export default class extends Controller {
     } catch { /* storage unavailable: you'll come back to the start of the story */ }
     this.step("sign_in")
     this.signingIn = true
+    if (typeof this.email === "string") this.loginHintTarget.value = this.email // asked for, or from whoami, on this page
     this.signInTarget.submit()
     return new Promise(() => {}) // the page is leaving
   }

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  helper_method :current_user, :signed_in?
+  helper_method :current_user, :signed_in?, :known_email
 
   private
     def current_user
@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
     # The scenes that are yours: by account once you've signed in, by visitor id until then.
     def scenes
       signed_in? ? current_user.scenes : Scene.where(visitor_id:, user_id: nil)
+    end
+
+    # The email we already have for someone not signed in yet (π asked for it, or Hack Club Auth's whoami told us),
+    # sent along as login_hint when they sign in so Hack Club Auth's email box is already filled in.
+    def known_email
+      return if signed_in?
+      return @known_email if defined?(@known_email)
+      @known_email = OnboardingVisit.find_by(visitor_id:)&.email
     end
 
     # Whoever this is before they sign in: a random id kept in a cookie. Signing in takes along what's kept under it

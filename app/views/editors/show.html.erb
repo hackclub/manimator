@@ -27,7 +27,7 @@
     <div class="app__streak wide-only"><span><span data-heartbeat-target="streak">0</span>-day streak</span></div>
     <div class="app__total wide-only"><span data-heartbeat-target="total">0m</span><span class="c-faint">total</span></div>
     <% unless signed_in? %>
-      <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-sm", form: { class: "app__sign-in", data: { turbo: false } } %>
+      <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path, login_hint: known_email }.compact, class: "btn-sm", form: { class: "app__sign-in", data: { turbo: false } } %>
     <% end %>
     <button class="app__ship" title="Shipping opens soon">Ship →</button>
   </header>

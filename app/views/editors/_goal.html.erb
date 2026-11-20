@@ -43,7 +43,7 @@
         <div class="goal__ask">
           <p class="goal__question" data-goal-target="stickerLine"></p>
           <% unless signed_in? %>
-            <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-xs", form: { data: { turbo: false } } %>
+            <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path, login_hint: known_email }.compact, class: "btn-xs", form: { data: { turbo: false } } %>
           <% end %>
         </div>
       </div>
@@ -55,7 +55,7 @@
             <p class="goal__question" data-goal-target="question">When’s your next sit-down?</p>
             <div class="goal__times" data-goal-target="times"></div>
             <% unless signed_in? %>
-              <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path }, class: "btn-xs",
+              <%= button_to "Sign in with Hack Club", "/auth/hackclub", params: { origin: editor_path, login_hint: known_email }.compact, class: "btn-xs",
                     form: { class: "goal__sign-in", hidden: true, data: { turbo: false, goal_target: "signIn" } } %>
             <% end %>
           </div>
