@@ -781,6 +781,7 @@ export default class extends Controller {
       this.perform(q.clip(mode, { v: guess(q, n) }))
       this.tagName = q.name
       await this.say("pi", `“${q.name}”, then. ${mystery}`, { pose: "awe" })
+      if (await this.newcomer()) await this.explain("personal_project", "pi", "At Hack Club we'd call this a personal project: something you make because you want it to exist. Those are the best kind.", { pose: "happy" })
       return { idea: q.name, qi: QUESTIONS.indexOf(q), wi: n, question: q.title, whatif: `What if ${whatif}` }
     }
   }
@@ -907,6 +908,7 @@ export default class extends Controller {
     const preview = e => { const b = e.target.closest?.("button[data-i]"); const p = shown[b?.dataset.i]; if (p) this.curve.focus = p.id }
     this.choicesTarget.addEventListener("pointerover", preview)
     this.choicesTarget.addEventListener("focusin", preview)
+    if (await this.newcomer()) await this.explain("ysws", "int", "Here's Hack Club's deal: you ship, we ship. You ship a video, and we ship you something real, in the mail.")
     let prizeId
     for (;;) {
       const all = this.curve.all
@@ -946,7 +948,7 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
-    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club, a community of teenagers who build things with technology. You'll sign in with a free Hack Club account.", { pose: "happy" })
+    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club: teenagers who build things with technology, and grow into great humans who happen to be great engineers. You'll sign in with a free Hack Club account.", { pose: "happy" })
     this.trap()
     const name = this.nameValue || this.whoName
     const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}${this.signedInValue ? "" : ". It signs you in with Hack Club"}.`
