@@ -116,7 +116,7 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
+  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object }
@@ -139,6 +139,7 @@ export default class extends Controller {
     this.sparks = []
     this.pointer = null
     this.ctx = this.canvasTarget.getContext("2d")
+    this.fctx = this.frontTarget.getContext("2d")
     this.serif = getComputedStyle(document.documentElement).getPropertyValue("--serif").trim() || "Georgia, serif"
     this.mono = getComputedStyle(document.documentElement).getPropertyValue("--mono").trim() || "ui-monospace, monospace"
     this.images = {}
@@ -157,7 +158,7 @@ export default class extends Controller {
     // Choices that have only just appeared under the cursor ignore clicks for a moment (CHOICE_ARM_MS): a click meant to
     // move the dialogue on shouldn't pick an answer, or a prize.
     this.onEarly = e => { if (performance.now() - (this.choicesAt ?? 0) < CHOICE_ARM_MS) { e.stopPropagation(); e.preventDefault() } }
-    for (const type of ["click", "pointerdown"]) this.choicesTarget.addEventListener(type, this.onEarly, true)
+    this.choicesTarget.addEventListener("click", this.onEarly, true)
     this.onPart = e => this.togglePart(e)
     this.codeTarget.addEventListener("click", this.onPart)
     this.onLeave = () => this.abandoned()
@@ -183,7 +184,7 @@ export default class extends Controller {
     removeEventListener("pointermove", this.onMove)
     removeEventListener("pagehide", this.onLeave)
     this.codeTarget.removeEventListener("click", this.onPart)
-    for (const type of ["click", "pointerdown"]) this.choicesTarget.removeEventListener(type, this.onEarly, true)
+    this.choicesTarget.removeEventListener("click", this.onEarly, true)
     this.abandoned()
     cancelAnimationFrame(this.holdRaf)
   }
@@ -346,7 +347,7 @@ export default class extends Controller {
     // the rail. Over π's sketch, whoever isn't talking steps back so the sketch can be seen.
     this.castTarget.style.clipPath = this.show.frame && !this.final
       ? `inset(${r.y}px ${innerWidth - r.x - r.w}px ${innerHeight - r.y - r.h}px ${r.x}px round 10px)` : ""
-    const dim = !!this.sketch && !this.final
+    const dim = !!this.sketch && !this.final && !this.cage
     for (const a of Object.values(this.actors)) {
       if (a.home) continue
       a.el.classList.toggle("story__actor--back", dim && a.id !== this.speaker)
@@ -481,14 +482,18 @@ export default class extends Controller {
     })
   }
 
-  holdToSign(label) {
+  // hold is the button's label, or { label, note } for a line under it saying what holding means.
+  holdToSign(hold) {
+    const { label, note } = typeof hold === "string" ? { label: hold } : hold
     return new Promise(resolve => {
-      this.choicesTarget.innerHTML = `<button type="button" class="story__hold"><span class="story__hold-fill"></span><span class="story__hold-label">${esc(label)}</span></button>`
+      this.choicesTarget.innerHTML = `<div class="story__holding"><button type="button" class="story__hold"><span class="story__hold-fill"></span><span class="story__hold-label">${esc(label)}</span></button>
+        ${note ? `<p class="story__fine">${esc(note)}</p>` : ""}</div>`
       const b = this.choicesTarget.querySelector("button"), fill = b.querySelector(".story__hold-fill")
       let held = false, k = 0, last = 0
       const tick = now => {
         const dt = now - last; last = now
         k = clamp(k + (held ? dt / HOLD_MS : -dt / 350), 0, 1)
+        this.holdK = k
         fill.style.transform = `scaleX(${k})`
         if (k >= 1) { resolve(); return }
         if (held || k > 0) this.holdRaf = requestAnimationFrame(tick)
@@ -690,7 +695,7 @@ export default class extends Controller {
     this.reveal("bar")
     this.burst(0, 1, 60)
     sfx.land()
-    await this.say("pi", "It's official! Let's go make it move.", { pose: "hooray", choices: [{ label: "Open the editor →", value: "go" }] })
+    await this.say("pi", "We're free, and it's official! Let's go make it move.", { pose: "hooray", choices: [{ label: "Open the editor →", value: "go" }] })
     await this.handOff()
   }
 
@@ -924,15 +929,92 @@ export default class extends Controller {
     this.prizeImages ??= Object.fromEntries(this.prizesValue.map(p => { const img = new Image(); img.src = p.image; return [p.id, img] }))
   }
 
+  // The end: the plane snaps shut on everyone, and holding the button breaks them out. Holding is signing: the line
+  // under the button says what you're promising and, if you aren't yet, that it signs you in with Hack Club.
   async askSign() {
     this.step("sign")
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
+    this.trap()
     const name = this.nameValue || this.whoName
-    if (await this.say("pi", `Sign it${name ? `, ${name},` : ""} and it's official. We'll all be cheering.`,
-      { pose: "happy", hold: this.signedInValue ? "Hold to sign" : "Hold to sign with Hack Club", back: true }) === BACK) return BACK
+    const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}${this.signedInValue ? "" : ". It signs you in with Hack Club"}.`
+    const held = await this.say("pi", `Oh no. The plane snapped shut on us! Hold the button${name ? `, ${name},` : ""} and break us out.`,
+      { pose: "erm", hold: { label: "Hold to free them", note: promise }, back: true })
+    if (held === BACK) { this.cage = null; return BACK }
+    await this.breakFree()
     return this.signHere()
+  }
+
+  // Bars drop around the whole cast, and everyone looks worried.
+  trap() {
+    this.cage = { at: this.clock, bars: null }
+    this.holdK = 0
+    this.lineUp()
+    sfx.land()
+    capture("onboarding_trapped", { variant: "story" })
+  }
+
+  // The bars fly apart, sparks everywhere, everyone cheers.
+  async breakFree() {
+    const cage = this.cage
+    if (!cage) return
+    cage.broke = this.clock
+    for (const a of Object.values(this.actors)) this.burst(a.x, -2.2, 18)
+    this.cheer()
+    sfx.land()
+    capture("onboarding_freed", { variant: "story" })
+    await wait(1100)
+  }
+
+  // The cages, drawn in front of the cast: one per friend, falling into place, the bars bowing apart as you hold (as
+  // if the friend inside is pushing), shaking when they're about to go, and flying off when they do.
+  drawCage(dt) {
+    const ctx = this.fctx, r = this.rect, s = this.s, cage = this.cage
+    ctx.clearRect(0, 0, innerWidth, innerHeight)
+    if (!cage || this.final || !s) return
+    const half = .52, bottom = -3.12, top = -1.32, BARS = 5
+    cage.bars ??= Object.values(this.actors).flatMap(a => Array.from({ length: BARS }, (_, i) => ({
+      who: a.id, u: -1 + 2 * i / (BARS - 1), dx: 0, dy: 0, spin: 0, vx: 0, vy: 0, vs: 0 })))
+    const drop = clamp((this.clock - cage.at) / .4, 0, 1) ** 2, lift = (1 - drop) * 4.5
+    const k = cage.broke === undefined ? (this.holdK ?? 0) : 1, gone = cage.broke === undefined ? 0 : (this.clock - cage.broke) / .9
+    if (gone >= 1) { this.cage = null; return }
+    ctx.save()
+    ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, 10); ctx.clip()
+    ctx.globalAlpha = 1 - smooth(clamp(gone, 0, 1))
+    ctx.lineCap = "round"
+    ctx.strokeStyle = `rgb(${Math.round(lerp(236, 244, k))},${Math.round(lerp(233, 211, k))},${Math.round(lerp(226, 69, k))})`
+    ctx.shadowColor = "rgba(244,211,69,.7)"; ctx.shadowBlur = 14 * k
+    const shake = k ** 3 * .04
+    // The lids and floors: a short rail above and below each friend, until they break.
+    if (cage.broke === undefined) {
+      ctx.lineWidth = Math.max(2, s * .055)
+      ctx.beginPath()
+      for (const a of Object.values(this.actors)) {
+        for (const y of [top, bottom]) {
+          const [ax, ay] = this.px(a.x - half - .08, y + lift), [bx] = this.px(a.x + half + .08, y + lift)
+          ctx.moveTo(ax, ay); ctx.lineTo(bx, ay)
+        }
+      }
+      ctx.stroke()
+    }
+    ctx.lineWidth = Math.max(1.5, s * .04)
+    cage.bars.forEach((bar, i) => {
+      const a = this.actors[bar.who]
+      if (!a) return
+      // The outer bars bow out the most, the middle one hardly: someone inside is pushing.
+      const bow = k * .2 * bar.u + Math.sin(this.clock * 55 + i * 1.7) * shake
+      if (cage.broke !== undefined) {
+        if (!bar.vx && !bar.vy) { bar.vx = (bar.u || Math.random() - .5) * (3 + Math.random() * 2); bar.vy = 2.5 + Math.random() * 3; bar.vs = (Math.random() - .5) * 10 }
+        bar.vy -= 9 * dt; bar.dx += bar.vx * dt; bar.dy += bar.vy * dt; bar.spin += bar.vs * dt
+      }
+      const len = top - bottom, [cx, cy] = this.px(a.x + bar.u * half + bar.dx, (top + bottom) / 2 + lift + bar.dy)
+      ctx.save()
+      ctx.translate(cx, cy); ctx.rotate(bar.spin)
+      ctx.beginPath(); ctx.moveTo(0, -len / 2 * s); ctx.quadraticCurveTo(bow * s * 2, 0, 0, len / 2 * s); ctx.stroke()
+      ctx.restore()
+    })
+    ctx.restore()
   }
 
   // Signing the pledge is signing in, as hackclub/wrong-tool does it. Signed in, it signs right here; otherwise your
@@ -1169,9 +1251,11 @@ export default class extends Controller {
 
   size() {
     const d = Math.min(2, devicePixelRatio || 1)
-    this.canvasTarget.width = Math.round(innerWidth * d)
-    this.canvasTarget.height = Math.round(innerHeight * d)
-    this.ctx.setTransform(d, 0, 0, d, 0, 0)
+    for (const [canvas, ctx] of [[this.canvasTarget, this.ctx], [this.frontTarget, this.fctx]]) {
+      canvas.width = Math.round(innerWidth * d)
+      canvas.height = Math.round(innerHeight * d)
+      ctx.setTransform(d, 0, 0, d, 0, 0)
+    }
     this.layout()
   }
 
@@ -1230,7 +1314,7 @@ export default class extends Controller {
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
-    this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? 0 : .45, dt, 4)
+    this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? 0 : this.cage ? .12 : .45, dt, 4)
     this.scene.idea = ease(this.scene.idea ?? 0, this.sketch ? 1 : 0, dt, 4) // once there's a sketch, the field is gone for good
     if (this.kFrom !== undefined) {
       const u = this.clock - this.kFrom, keys = [[0, 1], [2, 2.4], [4.4, .5], [6.2, 1.5], [K_SWEEP, 1]]
@@ -1252,6 +1336,7 @@ export default class extends Controller {
 
     this.moveActors(dt)
     this.draw()
+    this.drawCage(dt)
     this.drawScreens(now)
   }
 

@@ -107,6 +107,7 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 
 /* The cast, over the stage */
 .story__cast { position: absolute; inset: 0; pointer-events: none; }
+.story__front { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
 .story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); transition: opacity .4s; }
 /* Over π's sketch, whoever isn't talking steps back. */
 .story__actor--back { opacity: .3; }
@@ -234,6 +235,8 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 }
 .story__hold-fill { position: absolute; inset: 0; background: var(--yellow); transform: scaleX(0); transform-origin: left; }
 .story__hold-label { position: relative; color: var(--yellow); mix-blend-mode: difference; }
+/* What holding means, under the button: your promise, and that it signs you in. */
+.story__holding { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 
 @media (max-width: 760px) {
   .story { --corner: 16px; }
