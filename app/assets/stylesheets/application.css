@@ -179,8 +179,6 @@ html.menu-open { overflow: hidden; }
 @keyframes pi-bob { 50% { transform: translateY(-8px); } }
 
 /* A single still line between the hero and the sections */
-.interlude { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-raised); padding: 26px var(--gutter); text-align: center; }
-.interlude p { margin: 0; font-style: italic; font-size: clamp(20px, 2.2vw, 26px); color: var(--ink-muted); }
 
 /* Sections */
 .section {
@@ -198,39 +196,18 @@ html.menu-open { overflow: hidden; }
 .how .steps { grid-column: 1; grid-row: 1; }
 .stage { grid-column: 2; grid-row: 1; position: sticky; top: 18vh; margin: 32px 0 0; }
 .stage canvas { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: #000; border: 1px solid var(--line); }
-.stage__caption { margin-top: 10px; min-height: 1.4em; font-style: italic; font-size: 16px; color: var(--ink-faint); }
 
 .steps { display: flex; flex-direction: column; border-bottom: 1px solid var(--line-strong); }
 /* The number shares a grid row with the step's title so the two stay centered on each other */
 .step {
   display: grid; grid-template-columns: 64px minmax(0, 1fr);
-  grid-template-areas: "num title" ". text" ". code" ". hint";
+  grid-template-areas: "num title" ". text";
   align-items: center; gap: 8px 28px; padding: 32px 0; border-top: 1px solid var(--line-strong);
 }
 .step__num { grid-area: num; font-size: 60px; font-style: italic; line-height: 1; }
 .step__body { display: contents; }
 .step__body h3 { grid-area: title; margin: 0; font-size: 30px; font-weight: 400; }
-.step__body > p:not(.step__hint) { grid-area: text; align-self: start; margin: 0; max-width: 520px; font-size: 19px; line-height: 1.5; color: var(--ink-muted); text-wrap: pretty; }
-.step__code {
-  grid-area: code; justify-self: start; margin-top: 10px; padding: 12px 16px; border-radius: 10px; background: var(--bg-raised);
-  border: 1px solid var(--line); font-family: var(--mono); font-size: 16px; line-height: 1.5;
-  white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink);
-}
-.step__hint { grid-area: hint; margin: 2px 0 0; font-style: italic; font-size: 16px; color: var(--ink-faint); }
-.step__hint em { font-style: normal; }
-
-/* The bits of code you can play with */
-.code-input {
-  font: inherit; color: inherit; background: transparent; border: 0; border-bottom: 1px dashed currentColor;
-  padding: 0; margin: 0; width: 14ch; min-width: 4ch; outline: none;
-}
-.code-input:focus { border-bottom-style: solid; }
-.code-token {
-  font: inherit; background: transparent; border: 0; padding: 0; margin: 0; cursor: pointer;
-  border-bottom: 1px dashed currentColor;
-}
-.code-token:hover, .code-token:focus-visible { border-bottom-style: solid; outline: none; }
-.code-drag { cursor: ew-resize; touch-action: none; user-select: none; }
+.step__body > p { grid-area: text; align-self: start; margin: 0; max-width: 520px; font-size: 19px; line-height: 1.5; color: var(--ink-muted); text-wrap: pretty; }
 
 @media (max-width: 719.98px) {
   .how { grid-template-columns: minmax(0, 1fr); }
@@ -253,8 +230,8 @@ html.menu-open { overflow: hidden; }
 .card__stage svg { width: 100%; height: 100%; display: block; }
 .card__body { display: flex; flex-direction: column; gap: 6px; padding: 0 6px; }
 .card__body h3 { margin: 0; font-size: 23px; font-weight: 400; }
+.card__body h3 sup { font-size: .65em; line-height: 0; }
 .card__body p { margin: 0; font-size: 17px; line-height: 1.45; color: var(--ink-muted); text-wrap: pretty; }
-.card__body code { font-family: var(--mono); font-size: 13px; color: var(--blue); }
 
 /* FAQ */
 .faq { display: flex; flex-direction: column; border-bottom: 1px solid var(--line-strong); }
@@ -289,7 +266,6 @@ html.menu-open { overflow: hidden; }
   /* The italic Y starts .2em inside its box; pull it back so the ink lines up with the text below */
   margin-left: -.2em;
 }
-.footer__lede { margin: 0; max-width: 480px; font-size: 21px; line-height: 1.45; color: var(--ink-muted); text-wrap: pretty; }
 .footer .bubble { margin-bottom: 110px; max-width: 230px; }
 .footer .pi__hop { width: clamp(140px, 14vw, 210px); aspect-ratio: 1; height: auto; }
 .footer__bottom {
@@ -314,17 +290,4 @@ html.menu-open { overflow: hidden; }
 
 
 
-/* Playable example cards: the handle is the only thing that blocks touch scrolling */
-.card__body .card__hint { font-size: 15px; font-style: italic; color: var(--ink-faint); }
-.knob { cursor: grab; outline: none; touch-action: none; }
-.knob:active { cursor: grabbing; }
-.knob__hit { fill: transparent; pointer-events: all; }
-.knob__ring { fill: var(--yellow); fill-opacity: .2; stroke: var(--ink); stroke-opacity: 0; stroke-width: 1.5; transition: fill-opacity .15s; }
-.knob__dot { fill: var(--yellow); }
-.knob:hover .knob__ring, .card[data-dragging] .knob__ring { fill-opacity: .35; }
-.knob:focus-visible .knob__ring { stroke-opacity: .9; }
-/* Hovering a card warms its handle and lifts the hint a little; nothing moves on its own */
-.card__hint { transition: color .2s; }
-.card:hover .card__hint { color: var(--ink-muted); }
-.card:hover .knob__ring { fill-opacity: .32; }
 
