@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_20_100100) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_20_100200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -90,6 +90,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_20_100100) do
     t.string "email_source"
     t.string "first_name"
     t.datetime "email_skipped_at"
+    t.string "followup_token"
+    t.datetime "followup_at"
+    t.string "followup_arm"
+    t.datetime "followup_clicked_at"
+    t.datetime "unsubscribed_at"
+    t.index ["email"], name: "index_onboarding_visits_on_email"
+    t.index ["followup_token"], name: "index_onboarding_visits_on_followup_token", unique: true
     t.index ["last_seen_at"], name: "index_onboarding_visits_on_last_seen_at"
     t.index ["user_id"], name: "index_onboarding_visits_on_user_id"
     t.index ["visitor_id"], name: "index_onboarding_visits_on_visitor_id", unique: true

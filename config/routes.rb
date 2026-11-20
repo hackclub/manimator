@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   resource :pledge, only: %i[create update]
   # Where you are in onboarding, kept as you go (OnboardingVisit).
   resource :visit, only: :update
+  # Stopping π's follow-up email: the page asks first (mail scanners open links), and mail clients' one-click POSTs.
+  get "visit/unsubscribe/:token" => "visits#unsubscribe", as: :visit_unsubscribe
+  post "visit/unsubscribe/:token" => "visits#confirm_unsubscribe"
   resources :ideas, only: [] do
     post :draw, on: :collection
     post :claim, on: :member

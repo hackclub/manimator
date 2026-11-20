@@ -1,8 +1,10 @@
 class OnboardingController < ApplicationController
   # Onboarding is a story: π and its friends walk you through it while the editor assembles itself around you, and
   # signing keeps a Pledge.
-  # Come back without having signed and the story picks up at the question you left (OnboardingVisit#progress).
+  # Come back without having signed and the story picks up at the question you left (OnboardingVisit#progress). π's
+  # follow-up email links here with ?v=, which makes this browser that visit's, so the link works on any device.
   def show
+    return follow_back(params[:v]) if params[:v].present?
     @progress = OnboardingVisit.find_by(visitor_id:)&.progress
     render :story
   end
@@ -32,4 +34,13 @@ class OnboardingController < ApplicationController
     @gen = (params[:gen] || IDEA_GENS.keys.max).to_i
     head :not_found unless IDEA_GENS.key?(@gen)
   end
+
+  private
+    def follow_back(token)
+      if (visit = OnboardingVisit.find_by(followup_token: token.to_s))
+        visit.followup_clicked!
+        cookies.permanent.signed[:visitor_id] = visit.visitor_id unless signed_in?
+      end
+      redirect_to onboarding_path
+    end
 end

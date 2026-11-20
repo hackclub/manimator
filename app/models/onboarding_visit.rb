@@ -11,12 +11,33 @@ class OnboardingVisit < ApplicationRecord
   # asking), or π asked and you told it.
   EMAIL_SOURCES = %w[whoami asked].freeze
 
+  # π's one follow-up (OnboardingMailer#followup): a day after someone with an email we know stops without signing,
+  # and only within a week of that. A tenth are held out, never emailed, so we can tell whether it brings anyone
+  # back (compare followup_arm "sent" with "holdout": followup_clicked_at, coming back at all, pledged_at). Someone
+  # whose email already pledged or was already followed up on another visit is "duplicate" and gets nothing.
+  FOLLOWUP_AFTER = 1.day
+  FOLLOWUP_WINDOW = 7.days
+  FOLLOWUP_HOLDOUT = 0.1
+  FOLLOWUP_ARMS = %w[sent holdout duplicate].freeze
+
+  has_secure_token :followup_token
+
   validate :answers_small_enough
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 254 }, allow_nil: true
   validates :email_source, inclusion: { in: EMAIL_SOURCES }, allow_nil: true
 
   scope :pledged, -> { where.not(pledged_at: nil) }
   scope :unpledged, -> { where(pledged_at: nil) }
+  scope :followup_due, -> {
+    unpledged.where(followup_at: nil, unsubscribed_at: nil).where.not(email: nil)
+      .where(last_seen_at: FOLLOWUP_WINDOW.ago..FOLLOWUP_AFTER.ago)
+  }
+
+  # Every 15 minutes (OnboardingFollowupJob). Without email set up, nobody is put in an arm.
+  def self.follow_up_due
+    return unless Rails.configuration.x.mail_configured
+    followup_due.find_each(&:follow_up!)
+  end
 
   def self.for(visitor_id)
     find_or_create_by!(visitor_id:) { |visit| visit.last_seen_at = Time.current }
@@ -65,11 +86,43 @@ class OnboardingVisit < ApplicationRecord
     update!(question_index: nil, answers: {}, k: nil)
   end
 
+  # Decide this visit's arm, once, and email if it's "sent".
+  def follow_up!(holdout: rand < FOLLOWUP_HOLDOUT)
+    arm = with_lock do
+      next if followup_at || pledged_at || unsubscribed_at
+      arm = already_reached? ? "duplicate" : holdout ? "holdout" : "sent"
+      self.followup_token ||= self.class.generate_unique_secure_token
+      update!(followup_at: Time.current, followup_arm: arm)
+      arm
+    end
+    OnboardingMailer.followup(self).deliver_later if arm == "sent"
+    arm
+  end
+
+  # Their link back: it opens /start as this visit (OnboardingController#show), wherever they open it.
+  def back_url = "#{Rails.configuration.x.app_url}/start?v=#{followup_token}"
+  def unsubscribe_url = "#{Rails.configuration.x.app_url}/visit/unsubscribe/#{followup_token}"
+
+  def followup_clicked!
+    update!(followup_clicked_at: Time.current) unless followup_clicked_at
+  end
+
+  def unsubscribe!
+    update!(unsubscribed_at: Time.current) unless unsubscribed_at
+  end
+
   def pledged!
     update!(pledged_at: Time.current) unless pledged_at
   end
 
   private
+    # The same email already pledged (on another visit or as a signed-in user), or was already followed up.
+    def already_reached?
+      others = OnboardingVisit.where(email:).where.not(id:)
+      others.where.not(followup_at: nil).or(others.pledged).or(others.where.not(unsubscribed_at: nil)).exists? ||
+        User.joins(:pledges).where("LOWER(users.email) = ?", email).exists?
+    end
+
     def answers_small_enough
       errors.add(:answers, "are too big") if answers.to_json.bytesize > MAX_ANSWERS_BYTES
     end

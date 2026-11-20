@@ -17,6 +17,10 @@ production:
   nudge_delivery:
     class: NudgeDeliveryJob
     schedule: every 15 minutes
+  # π's one email to people who left onboarding with an email we know (OnboardingVisit.follow_up_due).
+  onboarding_followup:
+    class: OnboardingFollowupJob
+    schedule: every 15 minutes
   nudge_scoring:
     class: NudgeScoringJob
     schedule: every hour at minute 40

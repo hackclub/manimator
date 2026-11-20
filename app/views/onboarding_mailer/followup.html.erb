@@ -1,0 +1,14 @@
+<div style="font: 16px/1.5 Georgia, serif; color: #1c1d21; max-width: 520px;">
+  <p>Hi<%= " #{@name}" if @name %>! It's π.</p>
+  <% if @idea %>
+    <p>You left <b>“<%= @idea %>”</b> halfway, so I kept it right where you were. Your first scene is one question from done.</p>
+  <% else %>
+    <p>You wandered off mid-story, so I kept your spot. The field's still tickly.</p>
+  <% end %>
+  <p><a href="<%= @back_url %>" style="display: inline-block; padding: 10px 18px; border-radius: 999px; background: #58C4DD; color: #0b0c0e; text-decoration: none; font-family: ui-monospace, monospace;">Pick up where I left off</a></p>
+  <p>π</p>
+  <p style="margin-top: 32px; font: 12px/1.5 ui-monospace, monospace; color: #777;">
+    You're getting this because you started Manimator, Hack Club's program for making math animations. This is the only
+    one unless you come back. <a href="<%= @unsubscribe_url %>" style="color: #777;">Unsubscribe</a>
+  </p>
+</div>
