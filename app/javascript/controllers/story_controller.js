@@ -556,6 +556,7 @@ export default class extends Controller {
     const hi = await this.say("pi", "Whoa! Hi, I'm π. Wave your cursor around. The field tickles.",
       { pose: "hooray", choices: [{ label: "Hi π!", value: "hi" }, { label: "Where am I?", value: "where" }] })
     if (hi === "where") await this.say("pi", "In a vector field! Every arrow points where sin y and sin x say to.", { pose: "awe" })
+    await this.askEmail()
 
     // ∫ and the examples: it shows off while it talks.
     this.step("examples")
@@ -569,7 +570,6 @@ export default class extends Controller {
     this.lineUp()
     setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, EPI_LOOP * 1000)
     await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.", { until: this.clock + EPI_LOOP + .6 })
-    await this.askEmail()
 
     // { } and the code: the field comes back, with what made it.
     this.step("code")
@@ -639,7 +639,7 @@ export default class extends Controller {
     this.element.toggleAttribute("data-choosing", on)
   }
 
-  // Right after the first wow, π asks where to send your spot in case you wander off, unless we already know (you're
+  // As soon as you've said hi, π asks where to send your spot in case you wander off, unless we already know (you're
   // signed in, or Hack Club Auth's whoami told us). Skipping is one click and π doesn't mind.
   async askEmail() {
     await Promise.race([this.whoamiDone, wait(1500)])
@@ -657,7 +657,7 @@ export default class extends Controller {
     setPerson({ email })
     capture("email_given", { variant: "story" })
     this.save({ email, email_source: "asked" })
-    await this.say("pi", "Got it. Now, back to the fun part.", { pose: "happy" })
+    await this.say("pi", "Got it! Now, let me show you around.", { pose: "happy" })
   }
 
   emailForm(el, done) {
