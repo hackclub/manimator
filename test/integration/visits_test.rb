@@ -53,4 +53,23 @@ class VisitsTest < ActionDispatch::IntegrationTest
     user.adopt!(visit.visitor_id)
     assert_equal user, visit.reload.user
   end
+
+  test "coming back to /start before signing picks up at the question you were on" do
+    visit_step(step: "buddy", question_index: 1, answers: { idea: "Minecraft circles" }, k: 1.4)
+    get onboarding_path
+    progress = JSON.parse(css_select("[data-controller=story]").first["data-story-progress-value"])
+    assert_equal({ "at" => 1, "answers" => { "idea" => "Minecraft circles" }, "k" => 1.4 }, progress)
+  end
+
+  test "there's nothing to pick up before the questions, after signing, or after starting over" do
+    visit = visit_step(step: "code")
+    assert_nil visit.progress
+    visit_step(step: "buddy", question_index: 1, answers: { idea: "Circles" })
+    patch visit_path, params: { visit: { restart: true } }, as: :json
+    assert_nil visit.reload.progress
+    assert_equal "buddy", visit.last_step
+    visit_step(step: "sign", question_index: 5, answers: { idea: "Circles" })
+    visit.reload.pledged!
+    assert_nil visit.progress
+  end
 end

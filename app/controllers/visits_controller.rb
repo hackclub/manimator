@@ -4,7 +4,8 @@ class VisitsController < ApplicationController
   def update
     visit = OnboardingVisit.for(visitor_id)
     visit.user ||= current_user
-    attributes = params.expect(visit: [ :step, :question_index, :k, :referrer, :email, :email_source, :first_name, :email_skipped, answers: {}, utm: {} ])
+    attributes = params.expect(visit: [ :step, :question_index, :k, :referrer, :email, :email_source, :first_name, :email_skipped, :restart, answers: {}, utm: {} ])
+    return visit.restart! && head(:no_content) if attributes[:restart].present?
     visit.record!(
       step: attributes[:step].to_s.first(40),
       question_index: attributes[:question_index].presence&.to_i,

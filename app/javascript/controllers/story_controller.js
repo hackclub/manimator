@@ -115,7 +115,7 @@ export default class extends Controller {
   static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
-    signedIn: Boolean, name: String, whoamiUrl: String, alert: String }
+    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object }
 
   connect() {
     this.clock = 0
@@ -161,7 +161,8 @@ export default class extends Controller {
     const decoded = Promise.all(Object.values(this.images).map(img => img.decode().catch(() => {})))
     const signing = takeSigning()
     this.whoamiDone = this.signedInValue ? Promise.resolve() : this.whoami()
-    Promise.race([decoded, wait(800)]).then(() => signing ? this.resume(signing) : this.run())
+    const progress = !signing && this.hasProgressValue && this.progressValue?.answers ? this.progressValue : null
+    Promise.race([decoded, wait(800)]).then(() => signing ? this.resume(signing) : progress ? this.resumeVisit(progress) : this.run())
   }
 
   disconnect() {
@@ -491,7 +492,7 @@ export default class extends Controller {
   get seconds() { return Math.round((performance.now() - this.startedAt) / 100) / 10 }
 
   abandoned() {
-    if (this.signed || this.left || this.signingIn) return
+    if (this.signed || this.left || this.signingIn || this.restarting) return
     this.left = true
     capture("onboarding_abandoned", { variant: "story", step: this.beat, seconds: this.seconds })
   }
@@ -913,6 +914,41 @@ export default class extends Controller {
       await this.say("pi", this.alertValue ? `${this.alertValue} Want to try again?` : "Welcome back! Your pledge is right where you left it.", { pose: "erm" })
       await this.questions(5)
     }
+    await this.finish()
+  }
+
+  // Back on /start without having signed (OnboardingVisit#progress): everyone you'd met, the editor as far as it had
+  // come, and π asks whether to pick up at the question you left or start over. A question whose earlier answers
+  // didn't make it back is asked again from the last one that did.
+  async resumeVisit({ at, answers, k }) {
+    Object.assign(this.answers, answers)
+    if (answers.shipBy) this.answers.shipBy = new Date(answers.shipBy)
+    if (at >= 5 && !this.answers.prize) at = 4
+    if (at >= 4 && !(this.answers.minutes && this.answers.shipBy)) at = 1
+    if (at >= 1 && !this.answers.idea) at = 0
+    this.setK(k ?? this.answers.k ?? 1)
+    this.want = { field: 1, epi: 0 }
+    const met = ["pi", "code", "int", ...(at >= 1 ? ["inf"] : []), ...(at >= 5 ? ["sig"] : [])]
+    for (const id of met) {
+      const a = this.enter(id)
+      a.x = a.tx
+      this.meet(id, { quiet: true })
+    }
+    for (const part of ["frame", "code"]) this.reveal(part)
+    if (this.answers.idea) { this.reveal("timeline"); this.renderTimeline(); this.showIdea(this.answers) }
+    this.renderCode()
+    this.step("resumed")
+    capture("onboarding_resumed", { variant: "story", at })
+    const where = this.answers.idea ? `“${this.answers.idea}” is right where you left it.` : "I kept your spot."
+    const choice = await this.say("pi", `You're back! ${where}`, { pose: "hooray",
+      choices: [{ label: "Pick up where I left off", value: "go" }, { label: "Start over", value: "over" }] })
+    if (choice === "over") {
+      capture("onboarding_restarted", { variant: "story", at })
+      await this.save({ restart: true })
+      this.restarting = true
+      return location.reload()
+    }
+    await this.questions(at)
     await this.finish()
   }
 

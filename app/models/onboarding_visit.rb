@@ -53,6 +53,18 @@ class OnboardingVisit < ApplicationRecord
 
   def email_known? = email.present?
 
+  # Where to set you back down if you come back without having signed: the question you were on, your answers so
+  # far and your k. Nil before the questions start (the opening is short enough to play again) and once you've signed.
+  def progress
+    return if pledged_at || question_index.nil?
+    { at: question_index, answers:, k: }
+  end
+
+  # "Start over": forget where you were, but not who you are or where you came from.
+  def restart!
+    update!(question_index: nil, answers: {}, k: nil)
+  end
+
   def pledged!
     update!(pledged_at: Time.current) unless pledged_at
   end

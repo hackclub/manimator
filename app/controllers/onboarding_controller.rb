@@ -1,7 +1,9 @@
 class OnboardingController < ApplicationController
   # Onboarding is a story: π and its friends walk you through it while the editor assembles itself around you, and
   # signing keeps a Pledge.
+  # Come back without having signed and the story picks up at the question you left (OnboardingVisit#progress).
   def show
+    @progress = OnboardingVisit.find_by(visitor_id:)&.progress
     render :story
   end
 
