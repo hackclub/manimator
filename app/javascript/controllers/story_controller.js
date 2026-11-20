@@ -318,7 +318,7 @@ export default class extends Controller {
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
   // pick(el, done) lays out a question of its own in the choices and calls done with the answer.
-  async say(who, text, { pose, choices, input, hold, slider, pick, until, back } = {}) {
+  async say(who, text, { pose, choices, input, hold, slider, pick, until, rush, back } = {}) {
     if (this.gone) return new Promise(() => {})
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
@@ -337,11 +337,15 @@ export default class extends Controller {
     this.backTarget.hidden = true
     const speaker = this.actors[who]
     if (speaker) speaker.talk = true
+    // A moment that can be rushed (∫'s drawing, k's sweep) finishes on a click, even mid-sentence.
+    let rushed = false
+    this.rush = rush ? () => { rushed = true; this.rush = null; rush() } : null
     await this.type(text, f.note)
     if (speaker) speaker.talk = false
     if (!decision && this.skipping) return
-    // A big moment (∫'s drawing, k turning) holds until it has played out, so a quick click can't cut it short.
-    if (until) await this.dwell(until)
+    // A big moment holds until it has played out; one that can be rushed jumps to its end when you click.
+    if (until) await this.dwell(until, () => rushed)
+    this.rush = null
     if (!decision && this.skipping) return
     if (decision) {
       // ◂ back answers the question with BACK, and whoever asked steps back.
@@ -454,7 +458,7 @@ export default class extends Controller {
   }
 
   next() {
-    if (this.skipTyping) return this.skipTyping()
+    if (this.skipTyping || this.rush) { this.skipTyping?.(); this.rush?.(); return }
     this.advance?.()
   }
 
@@ -497,9 +501,9 @@ export default class extends Controller {
     capture("onboarding_abandoned", { variant: "story", step: this.beat, seconds: this.seconds })
   }
 
-  dwell(until) {
+  dwell(until, rushed = () => false) {
     return new Promise(resolve => {
-      const check = () => (this.skipping || this.clock >= until || this.gone) ? resolve() : requestAnimationFrame(check)
+      const check = () => (this.skipping || this.clock >= until || this.gone || rushed()) ? resolve() : requestAnimationFrame(check)
       check()
     })
   }
@@ -568,8 +572,11 @@ export default class extends Controller {
     this.want = { field: .22, epi: 1 }
     this.epiStart = this.clock
     this.lineUp()
-    setTimeout(() => { this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }, EPI_LOOP * 1000)
-    await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.", { until: this.clock + EPI_LOOP + .6 })
+    const cheer = () => { clearTimeout(cheering); this.setPose("hooray"); if (this.actors.pi) this.actors.pi.cheerAt = this.clock }
+    const cheering = setTimeout(cheer, EPI_LOOP * 1000)
+    // Click and π is drawn at once: the circles jump to the end of their turn.
+    await this.say("int", "I'm ∫! I collect scenes. Watch: circles riding on circles can draw anything. Even π.",
+      { until: this.clock + EPI_LOOP + .6, rush: () => { this.epiStart = Math.min(this.epiStart, this.clock - EPI_LOOP); cheer() } })
 
     // { } and the code: the field comes back, with what made it.
     this.step("code")
@@ -585,7 +592,8 @@ export default class extends Controller {
     this.light("k")
     this.showK = true
     this.kFrom = this.clock + 1.2
-    await this.say("code", "See k? It's one number. Watch the field as it changes.", { until: this.kFrom + K_SWEEP + .4 })
+    await this.say("code", "See k? It's one number. Watch the field as it changes.",
+      { until: this.kFrom + K_SWEEP + .4, rush: () => { if (this.kFrom !== undefined) this.kFrom = this.clock - K_SWEEP - .01 } })
     this.answers.k = await this.say("code", "Your turn. Drag it!", { slider: { min: .2, max: 3, step: .1 } })
     this.showK = false
     this.light(null)
