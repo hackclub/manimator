@@ -28,6 +28,7 @@ const SIGNING_KEY = "manimator:signing"
 const K_SWEEP = 7.5 // seconds { } takes to sweep k before you get the slider
 const BACK = Symbol("back") // what a question answers when ◂ back is pressed // the story's last frame, shown on the editor's stage until Python draws
 const HOLD_MS = 1300
+const CHOICE_ARM_MS = 450
 const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
 const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
@@ -153,6 +154,10 @@ export default class extends Controller {
     addEventListener("keydown", this.onKey)
     this.element.addEventListener("click", this.onClick)
     addEventListener("pointermove", this.onMove)
+    // Choices that have only just appeared under the cursor ignore clicks for a moment (CHOICE_ARM_MS): a click meant to
+    // move the dialogue on shouldn't pick an answer, or a prize.
+    this.onEarly = e => { if (performance.now() - (this.choicesAt ?? 0) < CHOICE_ARM_MS) { e.stopPropagation(); e.preventDefault() } }
+    for (const type of ["click", "pointerdown"]) this.choicesTarget.addEventListener(type, this.onEarly, true)
     this.onPart = e => this.togglePart(e)
     this.codeTarget.addEventListener("click", this.onPart)
     this.onLeave = () => this.abandoned()
@@ -178,6 +183,7 @@ export default class extends Controller {
     removeEventListener("pointermove", this.onMove)
     removeEventListener("pagehide", this.onLeave)
     this.codeTarget.removeEventListener("click", this.onPart)
+    for (const type of ["click", "pointerdown"]) this.choicesTarget.removeEventListener(type, this.onEarly, true)
     this.abandoned()
     cancelAnimationFrame(this.holdRaf)
   }
@@ -336,8 +342,14 @@ export default class extends Controller {
 
   moveActors(dt) {
     const s = this.s, r = this.rect
+    // On the stage only (walking in from its edge, never over the code), except at the end, when everyone hops into
+    // the rail. Over π's sketch, whoever isn't talking steps back so the sketch can be seen.
+    this.castTarget.style.clipPath = this.show.frame && !this.final
+      ? `inset(${r.y}px ${innerWidth - r.x - r.w}px ${innerHeight - r.y - r.h}px ${r.x}px round 10px)` : ""
+    const dim = !!this.sketch && !this.final
     for (const a of Object.values(this.actors)) {
       if (a.home) continue
+      a.el.classList.toggle("story__actor--back", dim && a.id !== this.speaker)
       if (!a.falling) {
         const dx = a.tx - a.x, step = Math.sign(dx) * Math.min(Math.abs(dx), dt * (this.skipping ? 20 : 4))
         a.x += step
@@ -364,6 +376,7 @@ export default class extends Controller {
   // pick(el, done) lays out a question of its own in the choices and calls done with the answer.
   async say(who, text, { pose, choices, input, hold, slider, pick, until, rush, back } = {}) {
     if (this.gone) return new Promise(() => {})
+    this.speaker = who
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
     const f = FRIENDS[who]
@@ -395,6 +408,7 @@ export default class extends Controller {
     if (!decision && this.skipping) return
     if (decision) {
       // ◂ back answers the question with BACK, and whoever asked steps back.
+      this.choicesAt = performance.now()
       const answer = choices ? this.offer(choices) : input ? this.ask(input) : slider ? this.slide(slider)
         : pick ? new Promise(done => pick(this.choicesTarget, done)) : this.holdToSign(hold)
       this.backTarget.hidden = !back
@@ -453,7 +467,6 @@ export default class extends Controller {
         this.choicesTarget.replaceChildren()
         resolve(choices[i].value ?? choices[i].label)
       }))
-      buttons[0]?.focus({ preventScroll: true })
     })
   }
 
@@ -499,8 +512,16 @@ export default class extends Controller {
 
   key(event) {
     if (event.key === "Escape" && this.goBack) return this.back(event)
-    if (event.target.closest?.("input, button, a")) return
-    if (event.key === " " || event.key === "Enter") { event.preventDefault(); audio.unlock(); this.next() }
+    if (event.key !== " " && event.key !== "Enter") return
+    if (event.target.closest?.("input, textarea, select")) return
+    // A choice you moved to with the keyboard is yours to press. Anything else that kept focus after a click (the
+    // music, a part of the code, skip) doesn't swallow Space: it lets go of focus and the story moves on.
+    const button = event.target.closest?.("button, a")
+    if (button && this.choicesTarget.contains(button)) return
+    button?.blur()
+    event.preventDefault()
+    audio.unlock()
+    this.next()
   }
 
   next() {
@@ -676,6 +697,13 @@ export default class extends Controller {
   // Your idea: π's sketch of it plays on the stage from here on.
   async askIdea() {
     this.step("idea")
+    if (this.answers.idea) {
+      for (const k of ["idea", "qi", "wi", "question", "whatif"]) delete this.answers[k]
+      this.openParts = new Set()
+      this.sketch = null
+      this.renderCode()
+      this.renderTimeline()
+    }
     this.choose(true)
     const idea = await this.pickIdea()
     this.choose(false)
@@ -1202,7 +1230,7 @@ export default class extends Controller {
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
-    this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? .15 : .45, dt, 4)
+    this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? 0 : .45, dt, 4)
     this.scene.idea = ease(this.scene.idea ?? 0, this.sketch ? 1 : 0, dt, 4) // once there's a sketch, the field is gone for good
     if (this.kFrom !== undefined) {
       const u = this.clock - this.kFrom, keys = [[0, 1], [2, 2.4], [4.4, .5], [6.2, 1.5], [K_SWEEP, 1]]

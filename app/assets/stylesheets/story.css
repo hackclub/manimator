@@ -58,7 +58,7 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .sl--new { animation: sl-new .6s ease-out; }
 @keyframes sl-new { from { opacity: 0; transform: translateX(-8px); } }
 /* Your scene, folded into its named parts (editor/parts.js): each part a row you open, and a line saying why. */
-.story__code--parts { overflow-y: auto; scrollbar-width: thin; }
+.story__code--parts { overflow: auto; scrollbar-width: thin; scrollbar-color: var(--line-hover) transparent; }
 .sl-part {
   display: flex; align-items: center; width: calc(100% - 20px); margin: 6px 10px 6px 0; padding: 6px 12px 6px 0; border: 1px solid var(--line);
   border-radius: 8px; background: var(--bg); color: inherit; font: inherit; text-align: left; cursor: pointer; white-space: pre;
@@ -107,7 +107,9 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 
 /* The cast, over the stage */
 .story__cast { position: absolute; inset: 0; pointer-events: none; }
-.story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); }
+.story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); transition: opacity .4s; }
+/* Over π's sketch, whoever isn't talking steps back. */
+.story__actor--back { opacity: .3; }
 .story__actor img, .story__actor svg { display: block; width: 100%; height: auto; }
 .story__actor svg { overflow: visible; }
 
