@@ -639,20 +639,15 @@ export default class extends Controller {
     this.element.toggleAttribute("data-choosing", on)
   }
 
-  // As soon as you've said hi, π asks where to send your spot in case you wander off, unless we already know (you're
-  // signed in, or Hack Club Auth's whoami told us). Skipping is one click and π doesn't mind.
+  // As soon as you've said hi, π asks for your email, so whatever you make here stays yours (and we can bring you back
+  // to it), unless we already know it (you're signed in, or Hack Club Auth's whoami told us). There's no skipping it.
   async askEmail() {
     await Promise.race([this.whoamiDone, wait(1500)])
     if (this.signedInValue || this.email) return
     this.step("email")
     capture("email_ask_shown", { variant: "story" })
-    const email = await this.say("pi", "Psst. If you wander off, I'll save your spot. Where should I send it?",
-      { pose: "speaking", pick: (el, done) => this.emailForm(el, done) })
-    if (!email) {
-      capture("email_skipped", { variant: "story" })
-      this.save({ email_skipped: true })
-      return
-    }
+    const email = await this.say("pi", "Before we go exploring: what's your email? Everything we make together stays yours, and I'll keep your place if you need a break.",
+      { pose: "happy", pick: (el, done) => this.emailForm(el, done) })
     this.email = email
     setPerson({ email })
     capture("email_given", { variant: "story" })
@@ -663,13 +658,11 @@ export default class extends Controller {
   emailForm(el, done) {
     el.innerHTML = `<div class="story__email"><form class="story__ask">
         <input class="story__input" type="email" maxlength="254" spellcheck="false" autocomplete="email" placeholder="you@example.com" required>
-        <button class="story__choice" disabled>Save my spot</button>
-        <button type="button" class="story__choice" data-skip>Skip</button></form>
-      <p class="story__fine">Only about Manimator, from Hack Club. Unsubscribe anytime.</p></div>`
+        <button class="story__choice" disabled>Let's go</button></form>
+      <p class="story__fine">Just Manimator things, from Hack Club. Unsubscribe anytime.</p></div>`
     const form = el.querySelector("form"), input = form.querySelector("input"), ok = form.querySelector("button")
     input.addEventListener("input", () => { ok.disabled = !input.checkValidity() })
     form.addEventListener("submit", e => { e.preventDefault(); if (input.checkValidity()) { sfx.tick(3); done(input.value.trim()) } })
-    form.querySelector("[data-skip]").addEventListener("click", e => { e.stopPropagation(); sfx.tick(0); done(null) })
     el.addEventListener("click", e => e.stopPropagation())
     input.focus({ preventScroll: true })
   }
