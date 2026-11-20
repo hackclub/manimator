@@ -860,7 +860,7 @@ export default class extends Controller {
       await this.pause(800)
       await this.say("inf", "Hi hi! I'm ∞. Nobody ships alone, so I'll keep you company.")
       this.meet("inf")
-      if (await this.newcomer()) await this.explain("ship", "inf", "“Shipping” is Hack Club for putting what you made out in the real world, to find out if it works. Here, that's people watching your video.")
+      if (await this.newcomer()) await this.explain("ship", "inf", "“Shipping” is what makers call putting what you made out in the real world, to find out if it works. Here, that's people watching your video.")
     }
     const slots = Object.keys(this.slotsValue)
     const when = await this.say("inf", "When do you usually have time?", { choices: slots.map(s => ({ label: s })), back: true })
