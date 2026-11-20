@@ -43,7 +43,7 @@
       <% end %>
       <div class="app__spacer"></div>
       <% if signed_in? %>
-        <%= button_to logout_path, method: :delete, class: "app__me", title: "Signed in as #{current_user.display_name}. Sign out", form: { class: "app__me-form", data: { turbo: false } } do %>
+        <%= button_to logout_path, method: :delete, class: "app__me", title: "Signed in as #{current_user.display_name}. Sign out", form: { class: "app__me-form", data: { turbo: false, posthog_reset: true } } do %>
           <%= avatar current_user.initial, current_user.avatar_color %>
         <% end %>
       <% else %>

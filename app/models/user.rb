@@ -95,6 +95,12 @@ class User < ApplicationRecord
     update_column(:slack_dmed_at, at) if slack_dmed_at.nil? || at > slack_dmed_at
   end
 
+  # Who you are in PostHog: your Hack Club ID, which is the same in every Hack Club program sharing a project. Outside
+  # production it's prefixed, since development's people aren't real.
+  def posthog_distinct_id
+    Rails.env.production? ? hca_id : "#{Rails.env}-#{hca_id}"
+  end
+
   def display_name
     first_name.presence || name.presence || "you"
   end

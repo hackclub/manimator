@@ -24,9 +24,10 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= render "layouts/posthog" %>
   </head>
 
-  <body>
+  <%= tag.body data: { posthog_user_id: current_user&.posthog_distinct_id } do %>
     <%= yield %>
-  </body>
+  <% end %>
 </html>
