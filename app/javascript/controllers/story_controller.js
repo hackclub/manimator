@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { capture } from "analytics"
 import { audio } from "audio"
 import { sfx } from "sfx"
+import { Pen, QUESTIONS } from "onboarding/sketches"
 
 // Onboarding (/start, onboarding/story.html.erb), as a story. π drops into a vector field, and as the story goes on you
 // meet friends, each a math symbol, who show you something and bring a tool along: ∫ the examples, { } the code, ∞ your
@@ -27,7 +28,8 @@ const PI_FEET = .79
 const ACTOR = 1.35 // a character's height, in units
 const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
-const MORE = Symbol("more") // the prize step's "show me the rest" card
+const MORE = Symbol("more") // the prize step's "show me the rest" card, and the idea step's "show me the other four"
+const STAGE_BG = "#0b0c0e"
 const videos = n => n === 1 ? "your first video" : `${n} videos`
 
 // The friends, in the editor rail's order. How they look comes from FriendsHelper (the rail's markup is cloned for
@@ -117,8 +119,8 @@ const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
   static targets = ["canvas", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn"]
-  static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object, classes: Array,
-    drawUrl: String, claimUrl: String, pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number,
+  static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
+    pledgeUrl: String, scenesUrl: String, editorUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String }
 
   connect() {
@@ -126,7 +128,12 @@ export default class extends Controller {
     this.startedAt = performance.now()
     this.show = { bar: false, rail: false, code: false, timeline: false, dialog: false, frame: false }
     this.rect = { x: 0, y: 0, w: innerWidth, h: innerHeight }
-    this.scene = { field: 0, epi: 0, title: 0, k: 1 }
+    this.scene = { field: 0, epi: 0, sketch: 0, k: 1 }
+    this.screens = new Map() // the idea step's cards, each canvas and the clip playing on it
+    this.touch = matchMedia("(hover: none)").matches
+    // A build, a game, a classroom and a sport lead, so the first four aren't all for one kind of person.
+    this.order = QUESTIONS.map((q, i) => [[0, 1, 3, 5].includes(i) ? i : 6 + Math.random(), q]).sort((a, b) => a[0] - b[0]).map(([, q]) => q)
+    this.offset = 0
     this.want = { field: 1, epi: 0 }
     this.actors = {}
     this.met = new Set()
@@ -206,7 +213,9 @@ export default class extends Controller {
     const pad = W < 760 ? 10 : 20
     const left = px("--rail") + (this.show.code ? this.codeTarget.getBoundingClientRect().width : 0) + pad
     const top = px("--bar") + pad
-    const bottom = px("--tl") + (this.show.dialog ? Math.min(this.dialogTarget.offsetHeight, 150) + 24 : 0) + pad
+    // While you choose your idea, the stage sits wholly above the dialogue, since π's sketch fills all of it.
+    const dialog = this.show.dialog ? (this.choosing ? this.dialogTarget.offsetHeight : Math.min(this.dialogTarget.offsetHeight, 150)) + 24 : 0
+    const bottom = px("--tl") + dialog + pad
     return { x: left, y: top, w: Math.max(100, W - left - pad), h: Math.max(80, H - top - bottom) }
   }
 
@@ -305,7 +314,8 @@ export default class extends Controller {
 
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-  async say(who, text, { pose, choices, input, hold, slider, until, back } = {}) {
+  // pick(el, done) lays out a question of its own in the choices and calls done with the answer.
+  async say(who, text, { pose, choices, input, hold, slider, pick, until, back } = {}) {
     if (this.gone) return new Promise(() => {})
     if (!this.show.dialog) this.reveal("dialog")
     if (pose) this.setPose(pose)
@@ -314,9 +324,11 @@ export default class extends Controller {
     this.nameTarget.textContent = f.name
     this.nameTarget.style.color = f.color
     this.choicesTarget.replaceChildren()
+    this.choicesTarget.className = "story__choices"
+    this.screens.clear()
     this.nextTarget.hidden = true
     this.dialogTarget.classList.remove("story__dialog--pop"); void this.dialogTarget.offsetWidth; this.dialogTarget.classList.add("story__dialog--pop")
-    const decision = !!(choices || input || hold || slider)
+    const decision = !!(choices || input || hold || slider || pick)
     if (decision) this.skipping = false
     this.skipTarget.hidden = decision
     this.backTarget.hidden = true
@@ -330,7 +342,8 @@ export default class extends Controller {
     if (!decision && this.skipping) return
     if (decision) {
       // ◂ back answers the question with BACK, and whoever asked steps back.
-      const answer = choices ? this.offer(choices) : input ? this.ask(input) : slider ? this.slide(slider) : this.holdToSign(hold)
+      const answer = choices ? this.offer(choices) : input ? this.ask(input) : slider ? this.slide(slider)
+        : pick ? new Promise(done => pick(this.choicesTarget, done)) : this.holdToSign(hold)
       this.backTarget.hidden = !back
       const result = await Promise.race([answer, new Promise(r => { this.goBack = back ? () => r(BACK) : null })])
       this.goBack = null
@@ -583,23 +596,158 @@ export default class extends Controller {
     await this.handOff()
   }
 
-  // Your idea, written onto the stage as the scene's title.
+  // Your idea: π's sketch of it plays on the stage from here on.
   async askIdea() {
     this.step("idea")
-    const again = !!this.answers.idea
-    Object.assign(this.answers, await this.pickIdea())
+    this.choose(true)
+    const idea = await this.pickIdea()
+    this.choose(false)
+    Object.assign(this.answers, idea)
+    capture("onboarding_idea_picked", { variant: "story", question: idea.question, whatif: idea.whatif, number: idea.number, bet: idea.bet, named: idea.idea !== QUESTIONS[idea.qi].name })
     this.renderCode()
-    this.light("title")
-    this.titleStart = this.clock
-    sfx.write(1.6)
     this.reveal("timeline")
     this.renderTimeline()
-    await this.pause(1700)
-    this.light(null)
-    await this.say("pi", again ? "A new first frame. Look at it!" : "That's your first frame. Look at it!", { pose: "awe" })
   }
 
-  // ∞ and your buddy: when, how often, how long.
+  // While you choose, the cast steps out of the way of the sketch, and the stage sits above the dialogue.
+  choose(on) {
+    this.choosing = on
+    this.element.toggleAttribute("data-choosing", on)
+  }
+
+  // Something that's bugged you, then a what-if π blurts out, then your own number in it and a bet on what scene two
+  // will show, then its name. ◂ back steps back through them.
+  async pickIdea() {
+    let q, n, bet
+    for (let at = "question"; ;) {
+      if (at === "question") { q = await this.pickQuestion(); at = "whatif" }
+      else if (at === "whatif") {
+        n = await this.pickWhatIf(q)
+        if (n === BACK) { at = "question"; continue }
+        this.mine = { v: (q.whatifs[n][6]?.code ?? q.code)[1](q.whatifs[n][0]) } // π's number, until you drag it
+        at = "bet"
+      } else if (at === "bet") { bet = await this.pickBet(q, n); at = bet === BACK ? "whatif" : "name" }
+      else {
+        const name = await this.pickName(q, n, bet)
+        if (name === BACK) { at = "bet"; continue }
+        return { idea: name, qi: QUESTIONS.indexOf(q), wi: n, question: q.title, whatif: `What if ${q.whatifs[n][1]}`, bet, number: this.mine.v }
+      }
+    }
+  }
+
+  async pickQuestion() {
+    for (let again = false; ; again = true) {
+      const shown = [0, 1, 2, 3].map(i => this.order[(this.offset + i) % this.order.length])
+      shown.forEach(q => { q.plain ??= q.clip() })
+      this.tagName = null
+      this.perform(shown[0].plain)
+      const q = await this.say("pi", again ? "Which one, then?" : "That's Manimator: write a little, and math moves. Now you. Pick something that's actually bugged you, and I'll draw your first scene.",
+        { pose: again ? "speaking" : "happy", pick: (el, done) => this.questionCards(el, shown, done) })
+      if (q !== MORE) return q
+      this.offset = (this.offset + 4) % this.order.length
+    }
+  }
+
+  // Cards that each play their sketch; pointing at one plays it on the stage too. With no pointer to hover with, the
+  // first tap plays a card on the stage and the second chooses it.
+  questionCards(el, shown, done) {
+    el.className = "pick__choices pick__choices--four"
+    el.innerHTML = shown.map((q, i) => `<button type="button" class="pick__card" style="--i:${i}"><canvas></canvas>
+      <span class="pick__card-title">${esc(q.title)}</span><span class="pick__card-go">Choose this</span></button>`).join("") +
+      `<div class="pick__row"><button type="button" class="story__choice" data-more>Show me the other four</button></div>`
+    const buttons = [...el.querySelectorAll(".pick__card")]
+    buttons.forEach((button, i) => {
+      const q = shown[i]
+      this.screens.set(button.querySelector("canvas"), { clip: q.plain, t0: performance.now() })
+      const show = () => {
+        buttons.forEach(b => b.classList.toggle("pick__card--on", b === button))
+        if (this.sketch?.clip !== q.plain) this.perform(q.plain)
+      }
+      button.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") show() })
+      button.addEventListener("focus", show)
+      button.addEventListener("click", () => { if (this.touch && !button.classList.contains("pick__card--on")) return show(); sfx.tick(i); done(q) })
+    })
+    if (this.touch) buttons[0]?.classList.add("pick__card--on")
+    el.querySelector("[data-more]").addEventListener("click", () => { sfx.tick(5); done(MORE) })
+  }
+
+  // π blurts "what if…", three cards turn over one after another, and you take one. Pointing at a card plays its
+  // sketch on the stage, so you're choosing with your eyes open.
+  pickWhatIf(q) {
+    this.perform(q.plain)
+    return this.say("pi", "Ooh, I like that one. Wait. Wait wait wait. What if…", { pose: "thinking", back: true, pick: (el, done) => {
+      const order = q.whatifs.map((w, n) => n).sort(() => Math.random() - .5)
+      el.className = "pick__choices"
+      el.innerHTML = `<div class="pick__pulls pick__pulls--open">${order.map((n, i) => `<button type="button" class="pick__pull" style="--i:${i}">
+        <span class="pick__pull-back">π</span><span class="pick__pull-face">What if ${esc(q.whatifs[n][1])}</span></button>`).join("")}</div>`
+      el.querySelectorAll(".pick__pull").forEach((card, i) => {
+        const n = order[i], clip = q.clip(q.whatifs[n][0], {})
+        setTimeout(() => { card.classList.add("pick__pull--up"); sfx.tick(i + 2) }, 250 + i * 280)
+        const show = () => { if (this.sketch?.clip !== clip) this.perform(clip) }
+        card.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") show() })
+        card.addEventListener("focus", show)
+        card.addEventListener("click", () => { sfx.tick(i); done(n) })
+      })
+    } })
+  }
+
+  // Your number on a slider, and the bet. π asks both in one breath; the sketch redraws as you drag; the two sides
+  // of the bet are the way on.
+  pickBet(q, n) {
+    const [mode, , , , [question, ...sides], , own] = q.whatifs[n], mine = this.mine, ctl = { ...q, ...own }, [before, num, after] = ctl.code, [min, max, step] = ctl.range
+    const show = v => step < .1 ? (+v).toFixed(2) : step < 1 ? (+v).toFixed(1) : `${v}`
+    this.perform(q.clip(mode, mine))
+    this.tagName = q.name
+    return this.say("pi", `${ctl.ask(num(mode))} Then bet me. ${question}`, { pose: "tease", back: true, pick: (el, done) => {
+      el.className = "pick__choices"
+      el.innerHTML = `<div class="story__slider pick__yours">
+          <code class="pick__line">${esc(before)}<b>${show(mine.v)}</b>${esc(after)}</code>
+          <input type="range" min="${min}" max="${max}" step="${step}" value="${clamp(mine.v, min, max)}" aria-label="your number">
+        </div>
+        <div class="pick__row pick__sides">${sides.map((side, i) => `<button type="button" class="story__choice" data-side="${i}">${esc(side)}</button>`).join("")}</div>`
+      const range = el.querySelector("input"), out = el.querySelector(".pick__line b"), slider = el.querySelector(".story__slider")
+      let tenth
+      range.addEventListener("input", () => {
+        mine.v = +range.value; out.textContent = show(mine.v); slider.classList.add("story__slider--moved")
+        const at = Math.round((mine.v - min) / (max - min) * 7)
+        if (at !== tenth) { sfx.tick(at); tenth = at }
+      })
+      el.querySelectorAll("[data-side]").forEach(b => b.addEventListener("click", () => { sfx.tick(4); done(sides[+b.dataset.side]) }))
+      range.focus({ preventScroll: true })
+    } })
+  }
+
+  // π takes the bet, says what scene two is, and asks the one thing nobody has to answer: its name. π's name for it
+  // stands in, so the button works either way.
+  async pickName(q, n, bet) {
+    const next = q.whatifs[n][5]
+    const name = await this.say("pi", `“${bet}.” You're on. Scene one's done. Scene two settles it: ${next}. What are we calling this?`, { pose: "hooray", back: true, pick: (el, done) => {
+      el.className = "pick__choices"
+      el.innerHTML = `<form class="story__ask pick__naming-ask"><input class="story__input" maxlength="40" spellcheck="false" autocomplete="off" placeholder="${esc(q.name)}">
+        <button class="story__choice">Call it that</button></form>`
+      const form = el.querySelector("form"), input = form.querySelector("input")
+      input.addEventListener("input", () => { this.tagName = input.value.trim() || q.name })
+      form.addEventListener("submit", e => { e.preventDefault(); sfx.tick(3); done(input.value.trim() || q.name) })
+      if (!this.touch) input.focus({ preventScroll: true })
+    } })
+    if (name === BACK) return BACK
+    this.tagName = name
+    await this.say("pi", `“${name}” it is. Look at it go!`, { pose: "awe" })
+    return name
+  }
+
+  // The sketch on the stage, from its beginning.
+  perform(clip) { this.sketch = { clip, t0: this.clock } }
+
+  // π's sketch of the idea in answers, as you left it.
+  showIdea({ qi, wi, number }) {
+    const q = QUESTIONS[qi]
+    if (!q?.whatifs[wi]) return
+    this.mine = { v: number }
+    this.perform(q.clip(q.whatifs[wi][0], this.mine))
+    this.tagName = this.answers.idea
+  }
+
   async askWhen() {
     this.step("buddy")
     if (!this.actors.inf) {
@@ -701,11 +849,7 @@ export default class extends Controller {
   // answers wait in this tab while Hack Club Auth signs you in, and back on /start, resume() signs it.
   async signHere() {
     if (!this.signedInValue) return this.signIn()
-    if (await this.sign()) return
-    // Someone claimed your drawn idea while you were deciding: pick again, then sign again.
-    await this.say("pi", "Oh no, someone just took that idea! Let's find you another.", { pose: "erm" })
-    await this.askIdea()
-    return this.askSign()
+    await this.sign()
   }
 
   signIn() {
@@ -745,7 +889,7 @@ export default class extends Controller {
     for (const part of ["frame", "code", "timeline"]) this.reveal(part)
     this.renderCode()
     this.renderTimeline()
-    this.titleStart = this.clock - 2
+    this.showIdea(this.answers)
     if (this.signedInValue) {
       this.step("signed_in")
       if (await this.signHere() === BACK) await this.questions(4)
@@ -755,59 +899,6 @@ export default class extends Controller {
       await this.questions(5)
     }
     await this.finish()
-  }
-
-  // Your own idea, or one drawn from your class. ◂ back steps through it too: ideas → class → how.
-  async pickIdea() {
-    for (;;) {
-      const how = await this.say("pi", "That's Manimator: write a little, and math moves. Your turn! What do you wish someone could finally see?",
-        { pose: "happy", choices: [{ label: "Surprise me", value: "draw" }, { label: "I have an idea", value: "own" }] })
-      if (how === "own") {
-        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
-        if (idea !== BACK) return { idea, ideaId: null }
-        continue
-      }
-      for (;;) {
-        const klass = await this.say("pi", "What math class are you in? I'll find you ideas nobody else has.",
-          { pose: "thinking", choices: this.classesValue.map(c => ({ label: c.label, value: c.key })), back: true })
-        if (klass === BACK) break
-        const picked = await this.pickDrawn(klass)
-        if (picked !== BACK) return picked
-      }
-    }
-  }
-
-  async pickDrawn(klass) {
-    let seen = []
-    for (;;) {
-      const ideas = await this.drawIdeas(klass, seen)
-      if (!ideas) {
-        const next = await this.say("pi", "Hmm, I couldn't reach the idea pile.",
-          { pose: "erm", choices: [{ label: "Try again", value: "retry" }, { label: "I'll tell you mine", value: "own" }], back: true })
-        if (next === BACK) return BACK
-        if (next === "retry") continue
-        const idea = await this.say("pi", "Tell me! Anything you can show with moving pictures.", { pose: "awe", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
-        return idea === BACK ? BACK : { idea, ideaId: null }
-      }
-      if (!ideas.length) {
-        const idea = await this.say("pi", "Huh, they're all taken! Tell me your own instead.", { pose: "erm", input: { placeholder: "why a triangle’s angles add up to 180°", button: "That one" }, back: true })
-        return idea === BACK ? BACK : { idea, ideaId: null }
-      }
-      seen = [...seen, ...ideas.map(i => i.id)]
-      const pick = await this.say("pi", "Here are three. Whichever you pick, nobody else gets it.",
-        { pose: "speaking", choices: [...ideas.map(i => ({ label: i.title, sub: i.line, value: i.id, link: i.source_url && { href: i.source_url, label: i.source_title } })), { label: "Show me others", value: "more" }], back: true })
-      if (pick === BACK) return BACK
-      if (pick !== "more") { const idea = ideas.find(i => i.id === pick); return { idea: idea.title, ideaId: idea.id } }
-    }
-  }
-
-  // Ideas for your class; [] when they're all taken (204), null when the request failed.
-  async drawIdeas(klass, except) {
-    try {
-      const response = await this.post(this.drawUrlValue, { klass, except })
-      if (response.status === 204) return []
-      return response.ok ? await response.json() : null
-    } catch { return null }
   }
 
   // When your sessions add up to this many hours (a first video by default), at the pace you picked.
@@ -822,19 +913,16 @@ export default class extends Controller {
   // How many days from today your nth session lands.
   sessionDay(n) { return Math.max(n - 1, Math.ceil(n / this.answers.days * 7)) }
 
-  // Keeps your Pledge, and leaves your idea in the editor. False if your drawn idea was taken.
+  // Keeps your Pledge, and leaves your idea in the editor.
   async sign() {
     const a = this.answers
-    if (a.ideaId) {
-      try { if ((await this.post(this.claimUrlValue.replace("ID", a.ideaId))).status === 409) return false } catch { /* offline: keep going */ }
-    }
     try {
       await this.post(this.pledgeUrlValue, { pledge: {
-        idea: a.idea, idea_record_id: a.ideaId, prize: a.prize, build_time: a.when, days_per_week: a.days,
+        idea: a.idea, prize: a.prize, build_time: a.when, days_per_week: a.days,
         session_minutes: a.minutes, timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, ship_by: a.shipBy.toISOString().slice(0, 10),
       } })
     } catch { /* offline */ }
-    capture("onboarding_pledge_signed", { variant: "story", idea: a.idea, prize: a.prize, when: a.when, days: a.days, minutes: a.minutes })
+    capture("onboarding_pledge_signed", { variant: "story", idea: a.idea, question: a.question, whatif: a.whatif, prize: a.prize, when: a.when, days: a.days, minutes: a.minutes })
     // Your scene, saved now, so the editor opens this one even if you have others. Offline, it waits in localStorage
     // instead, which the editor turns into a scene when you have none yet.
     try {
@@ -845,7 +933,6 @@ export default class extends Controller {
       if (!this.sceneId) localStorage.setItem(CODE_KEY, sceneCode(a.idea, this.scene.k))
       localStorage.setItem(VIEW_KEY, "code")
     } catch { /* storage unavailable */ }
-    return true
   }
 
   post(url, body = {}) {
@@ -1005,7 +1092,9 @@ export default class extends Controller {
     this.scene.curve = ease(this.scene.curve ?? 0, this.showCurve ? 1 : 0, dt, 4)
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
-    if (this.titleStart !== undefined) this.scene.title = clamp((this.clock - this.titleStart) / 1.6, 0, 1)
+    // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
+    this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? .15 : .45, dt, 4)
+    this.scene.idea = ease(this.scene.idea ?? 0, this.sketch ? 1 : 0, dt, 4) // once there's a sketch, the field is gone for good
     if (this.kFrom !== undefined) {
       const u = this.clock - this.kFrom, keys = [[0, 1], [2, 2.4], [4.4, .5], [6.2, 1.5], [K_SWEEP, 1]]
       let k = 1
@@ -1026,6 +1115,7 @@ export default class extends Controller {
 
     this.moveActors(dt)
     this.draw()
+    this.drawScreens(now)
   }
 
   px(x, y) { const r = this.rect; return [r.x + r.w / 2 + x * this.s, r.y + r.h / 2 - y * this.s] }
@@ -1038,9 +1128,10 @@ export default class extends Controller {
     ctx.fillRect(0, 0, W, H)
     ctx.save()
     ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, this.show.frame ? 10 : 0); ctx.clip()
-    ctx.fillStyle = "#0b0c0e"; ctx.fillRect(r.x, r.y, r.w, r.h)
+    ctx.fillStyle = STAGE_BG; ctx.fillRect(r.x, r.y, r.w, r.h)
+    if (this.scene.sketch > .01) this.drawSketch(this.scene.sketch)
 
-    const ux = r.w / 2 / s, uy = r.h / 2 / s, field = this.scene.field
+    const ux = r.w / 2 / s, uy = r.h / 2 / s, field = this.scene.field * (1 - this.scene.idea)
     // The plane.
     ctx.lineWidth = 1
     ctx.strokeStyle = `rgba(88,196,221,${.06 * field})`
@@ -1098,7 +1189,7 @@ export default class extends Controller {
     if (this.scene.epi > .01) this.drawEpicycles(this.scene.epi)
     if (this.scene.kShow > .01) this.drawK(this.scene.kShow)
     if (this.scene.curve > .01 && this.curve) this.drawCurve(this.scene.curve)
-    if (this.answers.idea && this.titleStart !== undefined) this.drawTitle(this.answers.idea, this.scene.title)
+    if (this.tagName && this.scene.sketch > .01) this.drawTag(this.tagName, this.scene.sketch)
     this.drawSparks()
     ctx.restore()
 
@@ -1287,25 +1378,41 @@ export default class extends Controller {
     ctx.restore()
   }
 
-  // Your idea, written on the way manim's Write does: the outline draws on, then it fills.
-  drawTitle(str, p) {
-    const ctx = this.ctx, s = this.s
-    let size = .62
-    ctx.font = `${size * s}px ${this.serif}`
-    const max = (W_UNITS - 1.6) * s, w = ctx.measureText(str).width
-    if (w > max) { size *= max / w; ctx.font = `${size * s}px ${this.serif}` }
-    const width = ctx.measureText(str).width, [X, Y] = this.px(0, 3.14) // where title.to_edge(UP) puts it
-    ctx.textAlign = "center"; ctx.textBaseline = "middle"
-    const drawn = clamp(p / .65, 0, 1), fill = clamp((p - .55) / .45, 0, 1)
+  // π's sketch of your idea, filling the stage. Each loop fades in and out, so the jump back to the start isn't a cut.
+  drawSketch(alpha) {
+    const ctx = this.ctx, r = this.rect, { clip, t0 } = this.sketch, t = (this.clock - t0) % clip.dur
     ctx.save()
-    ctx.beginPath(); ctx.rect(X - width / 2 - 4, Y - size * s, width * drawn + 8, size * s * 2); ctx.clip()
-    ctx.lineWidth = 1.1; ctx.strokeStyle = "#ece9e2"; ctx.strokeText(str, X, Y)
+    ctx.translate(r.x, r.y)
+    clip.draw(new Pen(ctx, r.w, r.h), t)
+    const fade = clip.seamless ? 0 : Math.max(1 - smooth(clamp(t / .35, 0, 1)), smooth(clamp((t - clip.dur + .35) / .35, 0, 1)))
+    ctx.globalAlpha = 1 - (1 - fade) * alpha; ctx.fillStyle = STAGE_BG; ctx.fillRect(0, 0, r.w, r.h)
     ctx.restore()
-    if (fill > 0) { ctx.globalAlpha = fill; ctx.fillStyle = "#ece9e2"; ctx.shadowColor = "#0b0c0e"; ctx.shadowBlur = 12; ctx.fillText(str, X, Y); ctx.shadowBlur = 0; ctx.globalAlpha = 1 }
-    if (drawn > 0 && drawn < 1) {
-      const pen = X - width / 2 + width * drawn, g = ctx.createRadialGradient(pen, Y, 0, pen, Y, size * s)
-      g.addColorStop(0, "rgba(244,211,69,.55)"); g.addColorStop(1, "rgba(244,211,69,0)")
-      ctx.fillStyle = g; ctx.fillRect(pen - size * s, Y - size * s, size * s * 2, size * s * 2)
+  }
+
+  // What the video is called, pinned to the stage's top corner.
+  drawTag(name, alpha) {
+    const ctx = this.ctx, r = this.rect, size = clamp(r.w / 60, 11, 15)
+    ctx.font = `${size}px ${this.serif}`
+    const w = ctx.measureText(name).width + size * 1.6, h = size * 2, x = r.x + r.w - w - 12, y = r.y + 10
+    ctx.globalAlpha = alpha
+    ctx.fillStyle = "rgba(8,9,10,.8)"; ctx.strokeStyle = "#F4D345"; ctx.lineWidth = 1
+    ctx.beginPath(); ctx.roundRect(x, y, w, h, h / 2); ctx.fill(); ctx.stroke()
+    ctx.fillStyle = "#F4D345"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(name, x + w / 2, y + h / 2 + 1)
+    ctx.globalAlpha = 1
+  }
+
+  // The idea step's cards, each playing its own sketch.
+  drawScreens(now) {
+    const ratio = Math.min(2, devicePixelRatio || 1)
+    for (const [canvas, { clip, t0 }] of this.screens) {
+      const w = Math.round(canvas.clientWidth * ratio), h = Math.round(canvas.clientHeight * ratio)
+      if (!w || !h) continue
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h }
+      const ctx = canvas.getContext("2d"), t = (now - t0) / 1000 % clip.dur
+      ctx.clearRect(0, 0, w, h)
+      clip.draw(new Pen(ctx, w, h), t)
+      const fade = clip.seamless ? 0 : Math.max(1 - smooth(clamp(t / .35, 0, 1)), smooth(clamp((t - clip.dur + .35) / .35, 0, 1)))
+      if (fade > 0) { ctx.globalAlpha = fade; ctx.fillStyle = "#08090a"; ctx.fillRect(0, 0, w, h); ctx.globalAlpha = 1 }
     }
   }
 

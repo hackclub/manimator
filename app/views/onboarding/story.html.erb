@@ -2,16 +2,14 @@
 
 <%# Onboarding (/start), as a story. π drops into a vector field, and as you go you meet friends who
     each show you something and bring a tool with them: ∫ the examples, { } the code, ∞ your buddy, Σ the board. The
-    editor assembles itself around you as they arrive, and you leave with a signed Pledge and your idea in the editor. %>
+    editor assembles itself around you as they arrive, and you leave with a signed Pledge and your idea in the editor. Your idea is π's sketch on the stage, from
+    onboarding/sketches.js. %>
 <div class="story" data-controller="story"
      data-story-poses-value="<%= pi_pose_urls %>"
      data-story-prizes-value="<%= onboarding_prizes.map { |p| p.slice(:id, :name, :hours, :videos, :featured, :made_at_hours, :with_every_prize).merge(image: image_path(p[:image])) }.to_json %>"
      data-story-slots-value="<%= Pledge::SLOTS.to_json %>"
      data-story-days-value="<%= onboarding_days.to_json %>"
      data-story-sessions-value="<%= onboarding_sessions.to_json %>"
-     data-story-classes-value="<%= onboarding_classes.map { |key, c| { key:, label: c[:label] } }.to_json %>"
-     data-story-draw-url-value="<%= draw_ideas_path %>"
-     data-story-claim-url-value="<%= claim_idea_path("ID") %>"
      data-story-pledge-url-value="<%= pledge_path %>"
      data-story-hours-value="<%= Pledge::HOURS_PER_VIDEO %>"
      data-story-scenes-url-value="<%= scenes_path %>"

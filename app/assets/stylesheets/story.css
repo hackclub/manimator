@@ -198,6 +198,13 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 }
 .story__input:focus { border-color: var(--yellow); }
 .story__ask .story__choice { padding-left: 16px; }
+
+/* Choosing your idea (onboarding/sketches.js, with the idea step's cards from ideas_demo.css): the cast steps out of the
+   way of π's sketch, and the dialogue keeps one height so the stage above it keeps its size. */
+.story__cast { transition: opacity .5s; }
+.story[data-choosing] .story__cast { opacity: 0; }
+.story[data-choosing] .story__dialog { max-height: calc(100% - var(--bar) - var(--tl) - 120px); overflow-y: auto; }
+@media (min-width: 761px) and (hover: hover) { .story[data-choosing] .story__dialog { min-height: 250px; } }
 .story__ask .story__choice::before { display: none; }
 
 .story__hold {
