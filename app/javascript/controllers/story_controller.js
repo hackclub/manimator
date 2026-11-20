@@ -659,7 +659,7 @@ export default class extends Controller {
     el.innerHTML = `<div class="story__email"><form class="story__ask">
         <input class="story__input" type="email" maxlength="254" spellcheck="false" autocomplete="email" placeholder="kartikey@hackclub.com" required>
         <button class="story__choice" disabled>Let's go</button></form>
-      <p class="story__fine">Just Manimator things, from Hack Club. Unsubscribe anytime.</p></div>`
+      <p class="story__fine">PS: we don't sell your data and won't spam you. <a href="https://hackclub.com/privacy-and-terms" target="_blank" rel="noopener">Privacy policy</a></p></div>`
     const form = el.querySelector("form"), input = form.querySelector("input"), ok = form.querySelector("button")
     input.addEventListener("input", () => { ok.disabled = !input.checkValidity() })
     form.addEventListener("submit", e => { e.preventDefault(); if (input.checkValidity()) { sfx.tick(3); done(input.value.trim()) } })

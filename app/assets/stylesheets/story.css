@@ -202,6 +202,8 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__email { display: flex; flex-direction: column; gap: 8px; width: 100%; }
 .story__email .story__ask { flex-wrap: wrap; }
 .story__fine { margin: 0; color: var(--ink-faint); font: 12px var(--mono); }
+.story__fine a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.story__fine a:hover { color: var(--ink-muted); }
 
 /* Choosing your idea (onboarding/sketches.js, with the idea step's cards from ideas_demo.css): the cast steps out of the
    way of π's sketch, and the dialogue keeps one height so the stage above it keeps its size. */
