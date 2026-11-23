@@ -36,9 +36,9 @@ const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
 const MORE = Symbol("more") // the prize step's "show me the rest" card, and the idea step's "show me the other four"
 const STAGE_BG = "#0b0c0e"
 // The portal to Hack Club Auth that π opens before signing in: its centre and radius on the stage, in units.
-const PORTAL = { x: 0, y: 1.35, r: 2.5 }
-const SLIDE = 2.8 // seconds each photo of Hack Club stays in the portal
+const PORTAL = { x: 0, y: 1.1, r: 2.4 }
 const HC_RED = "#ec3750"
+const HC_RAINBOW = ["#ec3750", "#ff8c37", "#f1c40f", "#33d6a6", "#338eda", "#a633d6"] // hackclub.com's
 // π's number for a question's what-if: the one the sketch is drawn with and the scene's code starts from.
 const guess = (q, n) => { const [mode, , , , , , own] = q.whatifs[n]; return (own?.code ?? q.code)[1](mode) }
 const videos = n => n === 1 ? "your first video" : `${n} videos`
@@ -120,10 +120,10 @@ function epicycles(points, n = 96) {
 const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
-  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint", "through", "slides", "cove"]
+  static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint", "world"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
-    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String, photos: Array, treasure: Array }
+    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
 
   connect() {
     this.clock = 0
@@ -495,9 +495,9 @@ export default class extends Controller {
 
   // hold is the button's label, or { label, note } for a line under it saying what holding means.
   holdToSign(hold) {
-    const { label, note } = typeof hold === "string" ? { label: hold } : hold
+    const { label, note, hc } = typeof hold === "string" ? { label: hold } : hold
     return new Promise(resolve => {
-      this.choicesTarget.innerHTML = `<div class="story__holding"><button type="button" class="story__hold"><span class="story__hold-fill"></span><span class="story__hold-label">${esc(label)}</span></button>
+      this.choicesTarget.innerHTML = `<div class="story__holding"><button type="button" class="story__hold${hc ? " story__hold--hc" : ""}"><span class="story__hold-fill"></span><span class="story__hold-label">${esc(label)}</span></button>
         ${note ? `<p class="story__fine">${esc(note)}</p>` : ""}</div>`
       const b = this.choicesTarget.querySelector("button"), fill = b.querySelector(".story__hold-fill")
       let held = false, k = 0, last = 0
@@ -975,7 +975,6 @@ export default class extends Controller {
   async throughPortal(name) {
     await this.say("pi", "Oh no. The plane snapped shut on us!", { pose: "erm" })
     this.step("portal")
-    this.fillThrough()
     this.portal = { openAt: this.clock, show: "photos", showAt: this.clock, suckAt: this.clock + .6 } // your sketch goes first
     sfx.land()
     await this.say("pi", "Wait, there's a crack in it. It's a portal to Hack Club, the people who make Manimator.", { pose: "awe" })
@@ -992,18 +991,12 @@ export default class extends Controller {
     this.showThrough("auth")
     const lead = this.hackClubber ? "" : "Then you're straight back here with us, so keep this tab open. "
     return this.say("pi", `${lead}Hold the button${name ? `, ${name},` : ""} to open the portal and break us out!`,
-      { pose: "erm", hold: "Hold to open the portal", back: true })
+      { pose: "erm", hold: { label: "Hold to open the portal", hc: true }, back: true })
   }
 
   showThrough(show) { if (this.portal) Object.assign(this.portal, { show, showAt: this.clock }) }
 
-  // The portal's window, filled once: photos of Hack Clubbers, and #treasure-cove's prizes, each with a caption.
-  fillThrough() {
-    if (this.slidesTarget.childElementCount) return
-    this.slidesTarget.innerHTML = this.photosValue.map(src => `<img class="story__slide" src="${esc(src)}" alt="" decoding="async">`).join("")
-    this.coveTarget.innerHTML = this.treasureValue.map(t => `<figure class="cove__post"><img class="story__slide" src="${esc(t.image)}" alt="${esc(t.what)}" decoding="async">
-      <figcaption class="cove__caption"><b>#treasure-cove</b> ${esc(t.what)}, from #${esc(t.from)}</figcaption></figure>`).join("")
-  }
+
 
   // Bars drop around the whole cast, and everyone looks worried.
   trap() {
@@ -1438,9 +1431,7 @@ export default class extends Controller {
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     // Opened a crack, then all the way as you hold the button.
-    this.vortex = this.portalOpen() * lerp(.82, 1, smooth(this.holdK ?? 0))
-    this.scene.card = ease(this.scene.card ?? 0, this.portal?.show === "auth" ? 1 : 0, dt, 4)
-    this.scene.through = ease(this.scene.through ?? 0, ["photos", "treasure"].includes(this.portal?.show) ? 1 : 0, dt, 4)
+    this.vortex = this.portalOpen() * lerp(.64, 1, smooth(this.holdK ?? 0))
     // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
     this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? 0 : this.cage ? .12 : .45, dt, 4)
     this.scene.idea = ease(this.scene.idea ?? 0, this.sketch ? 1 : 0, dt, 4) // once there's a sketch, the field is gone for good
@@ -1464,7 +1455,7 @@ export default class extends Controller {
 
     this.moveActors(dt)
     this.draw()
-    this.placeThrough()
+    this.placeWorld()
     this.drawCage(dt)
     this.drawRim()
     this.drawDive()
@@ -1770,35 +1761,32 @@ export default class extends Controller {
     return p.closeAt === undefined ? open : open * (1 - smooth(clamp((this.clock - p.closeAt) / .9, 0, 1)))
   }
 
-  // Hack Club's side of the portal, on the stage under the cast: the sign-in card shows once π gets to what signing
-  // in asks. The photos and #treasure-cove are a window over it (placeThrough), and the rim is in front (drawRim).
+  // The portal, on the stage under the cast: a warm doorway, breathing. What's through it is the world over the stage
+  // (placeWorld), and the rim is in front (drawRim).
   drawPortal() {
-    const ctx = this.ctx, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex
-    ctx.save()
-    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.clip()
-    this.drawAuthSide(ctx, X, Y, X, Y, this.cardFit() * this.vortex, this.scene.card)
-    ctx.restore()
+    const ctx = this.ctx, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex * (1 + Math.sin(this.clock * 2) * .015)
+    const glow = ctx.createRadialGradient(X, Y, R * .6, X, Y, R * 1.7)
+    glow.addColorStop(0, "rgba(255,140,55,.35)"); glow.addColorStop(1, "rgba(236,55,80,0)")
+    ctx.fillStyle = glow
+    ctx.beginPath(); ctx.arc(X, Y, R * 1.7, 0, Math.PI * 2); ctx.fill()
+    const door = ctx.createRadialGradient(X, Y - R * .1, 0, X, Y, R)
+    door.addColorStop(0, "#fff7ed"); door.addColorStop(.3, "#fed7aa"); door.addColorStop(.58, "#ff8c37"); door.addColorStop(.82, "#ec3750"); door.addColorStop(1, "#7f1d1d")
+    ctx.fillStyle = door
+    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.fill()
   }
 
-  // The window through the portal: over the stage, the portal's size, with a photo of Hack Club in it (a new one
-  // every SLIDE seconds), or #treasure-cove's feed.
-  placeThrough() {
-    const el = this.throughTarget, a = this.scene.through ?? 0, p = this.portal
-    if (a < .01 || !this.vortex || !p) { if (el.style.opacity !== "0") el.style.opacity = "0"; this.shownSlide = -1; return }
-    const [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex
-    el.style.opacity = a
-    el.style.width = el.style.height = `${2 * R}px`
-    el.style.transform = `translate(${X - R}px, ${Y - R}px)`
-    // Photos, then prizes: whichever is showing moves on every SLIDE seconds (prizes a little faster).
-    const set = p.show === "treasure" ? this.coveTarget : this.slidesTarget, every = p.show === "treasure" ? SLIDE * .7 : SLIDE
-    const slide = `${p.show}:${Math.floor((this.clock - p.showAt) / every) % set.childElementCount}`
-    if (slide !== this.shownSlide) {
-      this.shownSlide = slide
-      const n = +slide.split(":")[1]
-      const on = set === this.coveTarget ? "cove__post--on" : "story__slide--on"
-      ;[...set.children].forEach((el, i) => el.classList.toggle(on, i === n))
-    }
-    this.coveTarget.classList.toggle("story__cove--on", p.show === "treasure")
+  // Hack Club's world over the stage: the stage's box, its unit, the portal's centre, and which part π is on, so CSS
+  // can fly each print, polaroid and note out of the portal to its place.
+  placeWorld() {
+    const el = this.worldTarget, p = this.portal, show = p && p.diveAt === undefined && p.show !== "none" ? p.show : null
+    if ((el.dataset.show ?? null) !== show) { if (show) el.dataset.show = show; else delete el.dataset.show }
+    el.toggleAttribute("data-holding", (this.holdK ?? 0) > .02 && !!show)
+    if (!show && !el.style.width) return
+    const r = this.rect
+    el.style.transform = `translate(${r.x}px, ${r.y}px)`
+    el.style.width = `${r.w}px`; el.style.height = `${r.h}px`
+    el.style.setProperty("--u", `${this.s}px`)
+    el.style.setProperty("--pcx", PORTAL.x); el.style.setProperty("--pcy", PORTAL.y)
   }
 
   // The portal's rim, in front of everything on the stage: red, with arcs spinning round it and sparks.
@@ -1807,22 +1795,25 @@ export default class extends Controller {
     const ctx = this.fctx, r = this.rect, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex
     ctx.save()
     ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, 10); ctx.clip()
-    ctx.shadowColor = "rgba(236,55,80,.9)"; ctx.shadowBlur = 22
-    ctx.strokeStyle = HC_RED; ctx.lineWidth = 4
+    // Hack Club's rainbow, turning, and faster as you hold.
+    const spin = this.clock * (1.2 + 4 * (this.holdK ?? 0)), rainbow = ctx.createConicGradient(spin, X, Y)
+    HC_RAINBOW.forEach((c, i) => rainbow.addColorStop(i / HC_RAINBOW.length, c))
+    rainbow.addColorStop(1, HC_RAINBOW[0])
+    ctx.shadowColor = "rgba(255,140,55,.8)"; ctx.shadowBlur = 24
+    ctx.strokeStyle = rainbow; ctx.lineWidth = 7
     ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.stroke()
     ctx.lineCap = "round"; ctx.lineWidth = 3
-    const spin = 2.2 + 4 * (this.holdK ?? 0) // faster as you hold
-    for (let i = 0; i < 8; i++) {
-      const a = i * Math.PI / 4 + this.clock * spin
-      ctx.strokeStyle = i % 2 ? "#F4D345" : "#FC6255"
-      ctx.beginPath(); ctx.arc(X, Y, R + 7 + (i % 2) * 7, a, a + .55); ctx.stroke()
+    for (let i = 0; i < 6; i++) {
+      const a = i * Math.PI / 3 - spin * 1.4
+      ctx.strokeStyle = HC_RAINBOW[i]
+      ctx.beginPath(); ctx.arc(X, Y, R + 11 + (i % 2) * 6, a, a + .5); ctx.stroke()
     }
     ctx.shadowBlur = 0
     ctx.globalCompositeOperation = "lighter"
     for (let i = 0; i < 26; i++) {
       const a = i * 2.39996 + this.clock * (1 + (i % 3) * .35) * (i % 2 ? 1 : -1), rr = R + 10 + 9 * Math.sin(this.clock * 3 + i)
       ctx.globalAlpha = this.portalOpen() * (.45 + .4 * Math.sin(this.clock * 5 + i * 1.3))
-      ctx.fillStyle = i % 3 ? "#F4D345" : "#FC6255"
+      ctx.fillStyle = HC_RAINBOW[i % HC_RAINBOW.length]
       ctx.beginPath(); ctx.arc(X + Math.cos(a) * rr, Y + Math.sin(a) * rr, 1.6 + (i % 4) * .5, 0, Math.PI * 2); ctx.fill()
     }
     ctx.restore()

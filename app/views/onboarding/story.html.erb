@@ -21,9 +21,7 @@
      data-story-signed-in-value="<%= signed_in? %>"
      data-story-name-value="<%= current_user&.first_name %>"
      data-story-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
-     data-story-alert-value="<%= alert %>"
-     data-story-photos-value="<%= hack_club_photos.to_json %>"
-     data-story-treasure-value="<%= treasure_cove.to_json %>">
+     data-story-alert-value="<%= alert %>">
   <%# Signing the pledge is signing in, as in hackclub/wrong-tool: holding the button sends this form to Hack Club
       Auth, and you come back to /start, where your answers wait in this tab and the pledge signs itself. The email π has
       for you goes along as login_hint, so Hack Club Auth's email box is already filled in. %>
@@ -55,16 +53,51 @@
     <div class="story__clips" data-story-target="timeline"></div>
   </div>
 
-  <%# Through the portal to Hack Club (story#throughPortal): photos of Hack Clubbers, then #treasure-cove's latest hauls.
-      The portal's rim is drawn on the front canvas; this window just shows what's on the other side. %>
-  <div class="story__through" data-story-target="through" aria-hidden="true">
-    <div class="story__slides" data-story-target="slides"></div>
-    <div class="story__cove" data-story-target="cove"></div>
-  </div>
-
   <div class="story__cast" data-story-target="cast"></div>
   <%# In front of the cast: the cage that traps them at the end, which holding the button breaks (story#askSign). %>
   <canvas class="story__front" data-story-target="front" aria-hidden="true"></canvas>
+
+  <%# Through the portal to Hack Club (story#throughPortal), the way hackclub.com shows itself: real photos as tilted
+      prints, Hack Club's stickers, prizes from #treasure-cove as polaroids, and what signing in takes on sticky notes.
+      Everything starts at the portal and flies out to its place (--x, --y in the stage's units) as π gets to it; the
+      world covers the stage, and story#placeWorld keeps it there. %>
+  <div class="story__world" data-story-target="world" aria-hidden="true">
+    <% world = onboarding_world %>
+    <% world[:prints].each_with_index do |p, i| %>
+      <figure class="world__print" style="--x: <%= p[:x] %>; --y: <%= p[:y] %>; --w: <%= p[:w] %>; --r: <%= p[:r] %>deg; --i: <%= i %>">
+        <%= image_tag p[:image], alt: p[:alt], loading: "lazy", decoding: "async" %>
+      </figure>
+    <% end %>
+    <% world[:stickers].each_with_index do |k, i| %>
+      <%= image_tag k[:image], alt: "", class: "world__sticker", loading: "lazy", style: "--x: #{k[:x]}; --y: #{k[:y]}; --w: #{k[:w]}; --r: #{k[:r]}deg; --i: #{i}" %>
+    <% end %>
+    <% world[:prizes].each_with_index do |t, i| %>
+      <figure class="world__polaroid" style="--x: <%= t[:x] %>; --y: <%= t[:y] %>; --w: <%= t[:w] %>; --r: <%= t[:r] %>deg; --tape: <%= t[:tape] %>deg; --i: <%= i %>">
+        <%= image_tag t[:image], alt: t[:what], loading: "lazy", decoding: "async" %>
+        <figcaption><span class="world__pen"><%= t[:what] %></span><span class="world__channel">#<%= t[:from] %></span></figcaption>
+        <%= image_tag t[:sticker], alt: "", class: "world__slap", loading: "lazy" if t[:sticker] %>
+      </figure>
+    <% end %>
+    <%# What signing in takes, drawn the way manim would: boxes and arrows writing themselves on, in the stage's own
+        units (the viewBox is the stage, y flipped), so it sits in the scene like everything else. %>
+    <svg class="world__steps" viewBox="-7.1 -4 14.2 8" preserveAspectRatio="xMidYMid meet">
+      <defs><marker id="world-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ece9e2"/></marker></defs>
+      <rect class="step step--1" x="-5.7" y="-1.6" width="3.0" height="1.05" rx=".12" pathLength="1"/>
+      <text class="step-text step--1" x="-4.2" y="-0.92">your email</text>
+      <line class="step-arrow step--2" x1="-2.55" y1="-1.08" x2="-1.95" y2="-1.08" pathLength="1" marker-end="url(#world-tip)"/>
+      <rect class="step step--2 step--code" x="-1.8" y="-1.6" width="3.6" height="1.05" rx=".12" pathLength="1"/>
+      <% "482913".chars.each_with_index do |digit, i| %>
+        <rect class="step-cell" x="<%= -1.62 + i * 0.56 %>" y="-1.44" width=".46" height=".73" rx=".06" pathLength="1" style="--d: <%= i %>"/>
+        <text class="step-digit" x="<%= -1.39 + i * 0.56 %>" y="-0.92" style="--d: <%= i %>"><%= digit %></text>
+      <% end %>
+      <line class="step-arrow step--3" x1="1.95" y1="-1.08" x2="2.55" y2="-1.08" pathLength="1" marker-end="url(#world-tip)"/>
+      <rect class="step step--3 step--back" x="2.7" y="-1.6" width="3.0" height="1.05" rx=".12" pathLength="1"/>
+      <text class="step-text step--3" x="4.2" y="-0.92">back here</text>
+    </svg>
+    <h2 class="world__head" data-for="photos">This is <em>Hack Club</em>.</h2>
+    <h2 class="world__head" data-for="treasure">The prizes are <em>real</em>.</h2>
+    <h2 class="world__head" data-for="auth">One account for <em>all</em> of Hack Club.</h2>
+  </div>
 
   <section class="story__dialog" data-story-target="dialog" aria-live="polite">
     <div class="story__portrait" data-story-target="portrait"></div>
