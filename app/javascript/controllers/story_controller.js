@@ -1785,7 +1785,7 @@ export default class extends Controller {
   // every SLIDE seconds), or #treasure-cove's feed.
   placeThrough() {
     const el = this.throughTarget, a = this.scene.through ?? 0, p = this.portal
-    if (a < .01 || !this.vortex || !p) { if (el.style.opacity !== "0") el.style.opacity = "0"; this.slide = -1; return }
+    if (a < .01 || !this.vortex || !p) { if (el.style.opacity !== "0") el.style.opacity = "0"; this.shownSlide = -1; return }
     const [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex
     el.style.opacity = a
     el.style.width = el.style.height = `${2 * R}px`
@@ -1793,8 +1793,8 @@ export default class extends Controller {
     // Photos, then prizes: whichever is showing moves on every SLIDE seconds (prizes a little faster).
     const set = p.show === "treasure" ? this.coveTarget : this.slidesTarget, every = p.show === "treasure" ? SLIDE * .7 : SLIDE
     const slide = `${p.show}:${Math.floor((this.clock - p.showAt) / every) % set.childElementCount}`
-    if (slide !== this.slide) {
-      this.slide = slide
+    if (slide !== this.shownSlide) {
+      this.shownSlide = slide
       const n = +slide.split(":")[1]
       const on = set === this.coveTarget ? "cove__post--on" : "story__slide--on"
       ;[...set.children].forEach((el, i) => el.classList.toggle(on, i === n))
