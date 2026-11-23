@@ -22,7 +22,8 @@
      data-story-name-value="<%= current_user&.first_name %>"
      data-story-whoami-url-value="<%= Rails.configuration.x.hack_club_auth_whoami_url %>"
      data-story-alert-value="<%= alert %>"
-     data-story-photos-value="<%= (1..10).map { |i| image_path(format("hack_club/%02d.jpg", i)) }.to_json %>">
+     data-story-photos-value="<%= hack_club_photos.to_json %>"
+     data-story-treasure-value="<%= treasure_cove.to_json %>">
   <%# Signing the pledge is signing in, as in hackclub/wrong-tool: holding the button sends this form to Hack Club
       Auth, and you come back to /start, where your answers wait in this tab and the pledge signs itself. The email π has
       for you goes along as login_hint, so Hack Club Auth's email box is already filled in. %>
@@ -54,7 +55,7 @@
     <div class="story__clips" data-story-target="timeline"></div>
   </div>
 
-  <%# Through the portal to Hack Club (story#askSign): photos from hackclub.com, then #treasure-cove's latest hauls.
+  <%# Through the portal to Hack Club (story#throughPortal): photos of Hack Clubbers, then #treasure-cove's latest hauls.
       The portal's rim is drawn on the front canvas; this window just shows what's on the other side. %>
   <div class="story__through" data-story-target="through" aria-hidden="true">
     <div class="story__slides" data-story-target="slides"></div>

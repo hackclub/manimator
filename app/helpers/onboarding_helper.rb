@@ -34,6 +34,20 @@ module OnboardingHelper
   ].map { |prize| { image: "prizes/#{prize[:id]}.jpg", featured: false }.merge(prize) }
    .map { |prize| prize.merge(videos: [ (prize[:hours].to_f / Pledge::HOURS_PER_VIDEO).ceil, 1 ].max) }.freeze
 
+  # Through the portal to Hack Club at the end of the story (story_controller#throughPortal): photos from Haven NYC
+  # and hackclub.com, then prizes people posted in #treasure-cove (Nov 2026), each with what it is and which program
+  # sent it.
+  HACK_CLUB_PHOTOS = (1..17).map { |i| format("hack_club/%02d.jpg", i) }.freeze
+  TREASURE_COVE = [
+    [ "macbook", "a MacBook", "stardance" ], [ "console", "a handheld console", "wrong" ], [ "hackpad", "a hackpad kit", "stardance" ],
+    [ "goggles", "FPV goggles", "forge" ], [ "tamagotchi", "a tamagotchi", "milkyway" ], [ "controller", "a controller", "embassy" ],
+    [ "keyboard", "a keyboard", "embassy" ], [ "stickers", "a pile of stickers", "stardance" ],
+    [ "postcard", "stickers and a postcard", "stardance" ], [ "cookies", "a cookie grant", "bakebuild" ]
+  ].each_with_index.map { |(file, what, from), i| { image: format("treasure_cove/%02d-%s.jpg", i + 1, file), what:, from: } }.freeze
+
+  def hack_club_photos = HACK_CLUB_PHOTOS.map { image_path(it) }
+  def treasure_cove = TREASURE_COVE.map { it.merge(image: image_path(it[:image])) }
+
   def onboarding_classes = Idea::CLASSES
   def onboarding_prizes = PRIZES
   def onboarding_days = Pledge::DAYS

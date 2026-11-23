@@ -36,11 +36,7 @@ const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
 const MORE = Symbol("more") // the prize step's "show me the rest" card, and the idea step's "show me the other four"
 const STAGE_BG = "#0b0c0e"
 // The portal to Hack Club Auth that π opens before signing in: its centre and radius on the stage, in units.
-const PORTAL = { x: 0, y: 1.1, r: 2.3 }
-// What's turned up in people's mail lately, from #treasure-cove (Nov 2026), without who posted it.
-const TREASURE = [["a hackpad kit", "stardance"], ["my first controller", "embassy"], ["FPV goggles", "forge"], ["Minecraft!", "pixl"],
-  ["a keyboard and a mouse", "tabbed"], ["a tamagotchi", "milkyway"], ["stickers and a postcard", "stardance"], ["a backpack", "embassy"],
-  ["sensors and a wifi plug", "macondo"], ["hackathon merch", "haven-delhi"], ["a cookie grant", "bakebuild"], ["a hardware grant", "pixl"]]
+const PORTAL = { x: 0, y: 1.35, r: 2.5 }
 const SLIDE = 2.8 // seconds each photo of Hack Club stays in the portal
 const HC_RED = "#ec3750"
 // π's number for a question's what-if: the one the sketch is drawn with and the scene's code starts from.
@@ -127,7 +123,7 @@ export default class extends Controller {
   static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint", "through", "slides", "cove"]
   static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
-    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String, photos: Array }
+    signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String, photos: Array, treasure: Array }
 
   connect() {
     this.clock = 0
@@ -1002,12 +998,12 @@ export default class extends Controller {
 
   showThrough(show) { if (this.portal) Object.assign(this.portal, { show, showAt: this.clock }) }
 
-  // The portal's window, filled once: the photos, and #treasure-cove twice over so its feed can scroll round forever.
+  // The portal's window, filled once: photos of Hack Clubbers, and #treasure-cove's prizes, each with a caption.
   fillThrough() {
     if (this.slidesTarget.childElementCount) return
     this.slidesTarget.innerHTML = this.photosValue.map(src => `<img class="story__slide" src="${esc(src)}" alt="" decoding="async">`).join("")
-    const posts = TREASURE.map(([what, from]) => `<div class="cove__post"><span class="cove__what">${esc(what)}</span><span class="cove__from">from #${esc(from)}</span></div>`).join("")
-    this.coveTarget.innerHTML = `<p class="cove__title">#treasure-cove</p><div class="cove__feed"><div class="cove__list">${posts}${posts}</div></div>`
+    this.coveTarget.innerHTML = this.treasureValue.map(t => `<figure class="cove__post"><img class="story__slide" src="${esc(t.image)}" alt="${esc(t.what)}" decoding="async">
+      <figcaption class="cove__caption"><b>#treasure-cove</b> ${esc(t.what)}, from #${esc(t.from)}</figcaption></figure>`).join("")
   }
 
   // Bars drop around the whole cast, and everyone looks worried.
@@ -1443,7 +1439,7 @@ export default class extends Controller {
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
     // Opened a crack, then all the way as you hold the button.
-    this.vortex = this.portalOpen() * lerp(.72, 1, smooth(this.holdK ?? 0))
+    this.vortex = this.portalOpen() * lerp(.82, 1, smooth(this.holdK ?? 0))
     this.scene.card = ease(this.scene.card ?? 0, this.portal?.show === "auth" ? 1 : 0, dt, 4)
     this.scene.through = ease(this.scene.through ?? 0, ["photos", "treasure"].includes(this.portal?.show) ? 1 : 0, dt, 4)
     // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
@@ -1794,10 +1790,14 @@ export default class extends Controller {
     el.style.opacity = a
     el.style.width = el.style.height = `${2 * R}px`
     el.style.transform = `translate(${X - R}px, ${Y - R}px)`
-    const slide = p.show === "photos" ? Math.floor((this.clock - p.showAt) / SLIDE) % this.slidesTarget.childElementCount : this.slide
+    // Photos, then prizes: whichever is showing moves on every SLIDE seconds (prizes a little faster).
+    const set = p.show === "treasure" ? this.coveTarget : this.slidesTarget, every = p.show === "treasure" ? SLIDE * .7 : SLIDE
+    const slide = `${p.show}:${Math.floor((this.clock - p.showAt) / every) % set.childElementCount}`
     if (slide !== this.slide) {
       this.slide = slide
-      ;[...this.slidesTarget.children].forEach((img, i) => img.classList.toggle("story__slide--on", i === slide))
+      const n = +slide.split(":")[1]
+      const on = set === this.coveTarget ? "cove__post--on" : "story__slide--on"
+      ;[...set.children].forEach((el, i) => el.classList.toggle(on, i === n))
     }
     this.coveTarget.classList.toggle("story__cove--on", p.show === "treasure")
   }
