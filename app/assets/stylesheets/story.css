@@ -108,6 +108,31 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 /* The cast, over the stage */
 .story__cast { position: absolute; inset: 0; pointer-events: none; }
 .story__front { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+
+/* The window through the portal to Hack Club: placed and sized every frame by story#frame, round, and faded in only
+   while there's something to look at (photos, then #treasure-cove). */
+.story__through {
+  position: absolute; left: 0; top: 0; width: 0; height: 0; border-radius: 50%; overflow: hidden; pointer-events: none;
+  opacity: 0; background: #f9fafc; transform: translateZ(0);
+}
+.story__slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s; }
+.story__slide--on { opacity: 1; animation: slide-drift 4s linear both; }
+@keyframes slide-drift { from { transform: scale(1.14) translateX(3%); } to { transform: scale(1.02) translateX(-2%); } }
+/* #treasure-cove: what showed up in people's mail lately, scrolling up the middle of the portal like the channel does. */
+.story__cove {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #f9fafc; opacity: 0; transition: opacity .6s; font-family: system-ui, sans-serif;
+}
+.story__cove--on { opacity: 1; }
+.cove__title { flex: none; margin: 0 0 6px; font-weight: 700; font-size: 13px; color: #1f2d3d; }
+.cove__feed { width: 74%; height: 62%; overflow: hidden; mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
+.cove__list { display: flex; flex-direction: column; gap: 6px; }
+.story__cove--on .cove__list { animation: cove-scroll 16s linear infinite; }
+@keyframes cove-scroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+.cove__post { display: flex; flex-direction: column; gap: 1px; padding: 6px 9px; border-radius: 8px; background: #fff; box-shadow: 0 1px 3px rgba(31, 45, 61, .12); }
+.cove__what { font-size: 12.5px; color: #1f2d3d; }
+.cove__from { font-size: 11px; color: #ec3750; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .story__slide--on, .story__cove--on .cove__list { animation: none; } }
 .story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); transition: opacity .4s; }
 /* Over π's sketch, whoever isn't talking steps back. */
 .story__actor--back { opacity: .3; }
