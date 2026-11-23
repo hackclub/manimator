@@ -35,6 +35,10 @@ const EPI_LOOP = 7  // seconds for ∫'s circles to draw π once
 const REPLAY_VIDEO = .9 // seconds the prize replay spends on each video
 const MORE = Symbol("more") // the prize step's "show me the rest" card, and the idea step's "show me the other four"
 const STAGE_BG = "#0b0c0e"
+// The portal to Hack Club Auth that π opens before signing in: its centre and radius on the stage, in units.
+const PORTAL = { x: 0, y: 1.1, r: 1.9 }
+const COUNTDOWN = 3.4 // seconds the ring around the portal takes to run out before we dive in
+const HC_RED = "#ec3750"
 // π's number for a question's what-if: the one the sketch is drawn with and the scene's code starts from.
 const guess = (q, n) => { const [mode, , , , , , own] = q.whatifs[n]; return (own?.code ?? q.code)[1](mode) }
 const videos = n => n === 1 ? "your first video" : `${n} videos`
@@ -163,6 +167,10 @@ export default class extends Controller {
     this.codeTarget.addEventListener("click", this.onPart)
     this.onLeave = () => this.abandoned()
     addEventListener("pagehide", this.onLeave)
+    // Back from Hack Club Auth with the browser's back button, the page comes out of the cache mid-dive, covered by
+    // the portal: start over, and resume() picks up your answers.
+    this.onShow = e => { if (e.persisted && this.signingIn) location.reload() }
+    addEventListener("pageshow", this.onShow)
     this.size()
 
     this.last = performance.now()
@@ -185,6 +193,7 @@ export default class extends Controller {
     removeEventListener("keydown", this.onKey)
     removeEventListener("pointermove", this.onMove)
     removeEventListener("pagehide", this.onLeave)
+    removeEventListener("pageshow", this.onShow)
     this.codeTarget.removeEventListener("click", this.onPart)
     this.choicesTarget.removeEventListener("click", this.onEarly, true)
     this.abandoned()
@@ -948,7 +957,7 @@ export default class extends Controller {
     const prize = this.prizesValue.find(p => p.id === this.answers.prize)
     const reward = prize.with_every_prize ? `Then the ${prize.name.toLowerCase()} is yours.` : `Every video counts toward the ${prize.name}, and your postcard comes with it.`
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
-    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club: teenagers who build things with technology, and grow into great humans who happen to be great engineers. You'll sign in with a free Hack Club account.", { pose: "happy" })
+    if (await this.newcomer()) await this.explain("hack_club", "pi", "Oh, and Manimator is made by Hack Club: teenagers who build things with technology, and grow into great humans who happen to be great engineers.", { pose: "happy" })
     this.trap()
     const name = this.nameValue || this.whoName
     const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}${this.signedInValue ? "" : ". It signs you in with Hack Club"}.`
@@ -1037,15 +1046,69 @@ export default class extends Controller {
     await this.sign()
   }
 
-  signIn() {
+  async signIn() {
     try {
       sessionStorage.setItem(SIGNING_KEY, JSON.stringify({ answers: this.answers, k: this.scene.k }))
     } catch { /* storage unavailable: you'll come back to the start of the story */ }
+    await this.portalOut()
     this.step("sign_in")
     this.signingIn = true
     if (typeof this.email === "string") this.loginHintTarget.value = this.email // asked for, or from whoami, on this page
     this.signInTarget.submit()
     return new Promise(() => {}) // the page is leaving
+  }
+
+  // Before Hack Club Auth, a portal: the field curls into it, π says what's on the other side and what to expect
+  // (one account for all of Hack Club, a code by email, keep this tab), your sketch spirals through, and after a
+  // countdown (or Go now) we dive in and the browser follows. Most newcomers sent to Hack Club Auth never come back
+  // signed in, so nobody should land there wondering where they are.
+  async portalOut() {
+    this.step("portal")
+    this.portal = { openAt: this.clock + .15 }
+    sfx.land()
+    await this.say("pi", `“${this.answers.idea}” is waiting on the other side of this portal.`, { pose: "awe" })
+    if (this.hackClubber) {
+      await this.say("pi", "It's Hack Club's door, and you already have an account there, so this is quick: in and straight back.", { pose: "happy" })
+      this.portal.suckAt = this.clock
+    } else {
+      await this.say("pi", "It makes your free Hack Club account: one account for Manimator, Slack, and every other Hack Club program.", { pose: "speaking" })
+      this.portal.suckAt = this.clock
+      await this.say("pi", "They'll email you a 6-digit code. Keep this tab open, I'll hold the portal.", { pose: "happy" })
+    }
+    this.portal.countAt = this.clock
+    const go = this.say("pi", "Off you go! See you on the other side.", { pose: "hooray", choices: [{ label: "Go now" }] })
+    await Promise.race([go, wait(COUNTDOWN * 1000)])
+    this.portal.diveAt = this.clock
+    this.reveal("dialog", false)
+    sfx.launch()
+    await wait(1400)
+  }
+
+  // Back from Hack Club Auth, signed in: the portal is still open, π hops out of it, and it closes behind them.
+  async portalBack() {
+    const pi = this.actors.pi
+    this.portal = { openAt: this.clock - 9, back: true }
+    const to = [pi.x, pi.y]
+    pi.falling = true; pi.x = PORTAL.x; pi.y = PORTAL.y - .9; pi.sx = pi.sy = .15
+    await wait(700)
+    sfx.land()
+    const from = this.clock
+    await new Promise(resolve => {
+      const hop = () => {
+        const f = clamp((this.clock - from) / .8, 0, 1), e = smooth(f)
+        pi.x = lerp(PORTAL.x, to[0], e); pi.y = lerp(PORTAL.y - .9, to[1], e) + Math.sin(f * Math.PI) * 1.4
+        pi.sx = pi.sy = lerp(.15, 1, Math.min(1, f * 1.5))
+        if (f < 1) return requestAnimationFrame(hop)
+        pi.falling = false
+        resolve()
+      }
+      hop()
+    })
+    this.burst(to[0], to[1] + .7, 24)
+    this.cheer()
+    this.portal.closeAt = this.clock + .5
+    await this.say("pi", "You're back! Your account works for all of Hack Club now. Let's make it move.", { pose: "hooray" })
+    this.portal = null
   }
 
   // New to Hack Club: not signed in here, and Hack Club Auth's whoami had no email for you. Only newcomers get the
@@ -1103,6 +1166,7 @@ export default class extends Controller {
     this.showIdea(this.answers)
     if (this.signedInValue) {
       this.step("signed_in")
+      await this.portalBack()
       if (await this.signHere() === BACK) await this.questions(4)
     } else {
       this.step("sign_in_failed")
@@ -1306,6 +1370,11 @@ export default class extends Controller {
   F(x, y) {
     const k = this.scene.k
     let fx = Math.sin(k * y), fy = Math.sin(k * x)
+    if (this.vortex) {
+      const dx = x - PORTAL.x, dy = y - PORTAL.y, r = Math.hypot(dx, dy) + 1e-6
+      const w = this.vortex * Math.exp(-Math.max(0, r - PORTAL.r) / 1.6) * 2.4
+      fx += (-dy / r * 1.6 - dx / r * .8) * w; fy += (dx / r * 1.6 - dy / r * .8) * w
+    }
     const p = this.pointer
     if (p) {
       const dx = x - p.x, dy = y - p.y, g = Math.exp(-(dx * dx + dy * dy) / 2.2)
@@ -1346,6 +1415,7 @@ export default class extends Controller {
     this.scene.curve = ease(this.scene.curve ?? 0, this.showCurve ? 1 : 0, dt, 4)
     if (this.curve) this.scene.fill = ease(this.scene.fill ?? 0, this.fillTarget(), dt, this.curve.pickedAt === undefined ? 5 : 9)
     this.scene.epi = ease(this.scene.epi, this.want.epi, dt, 3)
+    this.vortex = this.portalOpen()
     // π's sketch: full while you choose and at the end, dimmed while the others talk over it, nearly gone under Σ's curve.
     this.scene.sketch = ease(this.scene.sketch, !this.sketch ? 0 : this.choosing || this.final ? 1 : this.showCurve ? 0 : this.cage ? .12 : .45, dt, 4)
     this.scene.idea = ease(this.scene.idea ?? 0, this.sketch ? 1 : 0, dt, 4) // once there's a sketch, the field is gone for good
@@ -1362,7 +1432,7 @@ export default class extends Controller {
     for (const q of this.p) {
       const [fx, fy] = this.F(q.x, q.y)
       q.x += fx * dt * .9; q.y += fy * dt * .9; q.age += dt
-      if (q.age > q.life || Math.abs(q.x) > 8 || Math.abs(q.y) > 5) this.spawn(q)
+      if (q.age > q.life || Math.abs(q.x) > 8 || Math.abs(q.y) > 5 || (this.vortex && Math.hypot(q.x - PORTAL.x, q.y - PORTAL.y) < PORTAL.r * this.vortex)) this.spawn(q)
     }
     const drag = Math.exp(-dt * 3)
     this.sparks = this.sparks.filter(q => { q.life += dt; q.vx *= drag; q.vy = q.vy * drag - 2.5 * dt; q.x += q.vx * dt; q.y += q.vy * dt; return q.life < q.max })
@@ -1370,6 +1440,7 @@ export default class extends Controller {
     this.moveActors(dt)
     this.draw()
     this.drawCage(dt)
+    this.drawDive()
     this.drawScreens(now)
   }
 
@@ -1386,7 +1457,7 @@ export default class extends Controller {
     ctx.fillStyle = STAGE_BG; ctx.fillRect(r.x, r.y, r.w, r.h)
     if (this.scene.sketch > .01) this.drawSketch(this.scene.sketch)
 
-    const ux = r.w / 2 / s, uy = r.h / 2 / s, field = this.scene.field * (1 - this.scene.idea)
+    const ux = r.w / 2 / s, uy = r.h / 2 / s, field = Math.max(this.scene.field * (1 - this.scene.idea), this.vortex ?? 0)
     // The plane.
     ctx.lineWidth = 1
     ctx.strokeStyle = `rgba(88,196,221,${.06 * field})`
@@ -1400,6 +1471,7 @@ export default class extends Controller {
     ctx.lineCap = "round"
     ctx.lineWidth = clamp(s / 40, 1, 1.8)
     for (let gx = -Math.floor(ux * 2) / 2 + .25; gx < ux; gx += .5) for (let gy = -Math.floor(uy * 2) / 2 + .25; gy < uy; gy += .5) {
+      if (this.vortex && Math.hypot(gx - PORTAL.x, gy - PORTAL.y) < PORTAL.r * this.vortex + .2) continue
       const [fx, fy] = this.F(gx, gy), mag = Math.hypot(fx, fy) + 1e-6
       const d = Math.hypot(gx, gy - (this.landY ?? 0))
       const wake = since < 0 ? 0 : smooth(clamp((reach - d) / 1.4, 0, 1))
@@ -1441,6 +1513,7 @@ export default class extends Controller {
       ctx.beginPath(); ctx.arc(cx, cy, tn * 9 * s * (1 - n * .12), 0, Math.PI * 2); ctx.stroke()
     }
 
+    if (this.vortex) this.drawPortal()
     if (this.scene.epi > .01) this.drawEpicycles(this.scene.epi)
     if (this.scene.kShow > .01) this.drawK(this.scene.kShow)
     if (this.scene.curve > .01 && this.curve) this.drawCurve(this.scene.curve)
@@ -1637,6 +1710,12 @@ export default class extends Controller {
   drawSketch(alpha) {
     const ctx = this.ctx, r = this.rect, { clip, t0 } = this.sketch, t = (this.clock - t0) % clip.dur
     ctx.save()
+    const suck = this.portal?.suckAt === undefined ? 0 : smooth(clamp((this.clock - this.portal.suckAt) / 1.8, 0, 1))
+    if (suck) {
+      const [X, Y] = this.px(PORTAL.x, PORTAL.y)
+      ctx.translate(X, Y); ctx.rotate(suck * 2.6); ctx.scale(1 - suck, 1 - suck); ctx.translate(-X, -Y)
+      alpha *= 1 - suck
+    }
     ctx.translate(r.x, r.y)
     clip.draw(new Pen(ctx, r.w, r.h), t)
     const fade = clip.seamless ? 0 : Math.max(1 - smooth(clamp(t / .35, 0, 1)), smooth(clamp((t - clip.dur + .35) / .35, 0, 1)))
@@ -1654,6 +1733,137 @@ export default class extends Controller {
     ctx.beginPath(); ctx.roundRect(x, y, w, h, h / 2); ctx.fill(); ctx.stroke()
     ctx.fillStyle = "#F4D345"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(name, x + w / 2, y + h / 2 + 1)
     ctx.globalAlpha = 1
+  }
+
+  // How open the portal to Hack Club Auth is, 0 to 1 (portalOut, portalBack).
+  portalOpen() {
+    const p = this.portal
+    if (!p) return 0
+    const open = smooth(clamp((this.clock - p.openAt) / 1.6, 0, 1))
+    return p.closeAt === undefined ? open : open * (1 - smooth(clamp((this.clock - p.closeAt) / .9, 0, 1)))
+  }
+
+  // The portal on the stage: Hack Club's side through the hole, a red rim with arcs spinning round it, sparks, and
+  // the countdown ring running out.
+  drawPortal() {
+    const ctx = this.ctx, p = this.portal, s = this.s, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * s * this.vortex
+    ctx.save()
+    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.clip()
+    const card = p.back ? 0 : smooth(clamp((this.clock - p.openAt - 1.1) / .8, 0, 1))
+    this.drawAuthSide(ctx, X, Y, X, Y, this.cardFit() * this.vortex, card)
+    ctx.restore()
+
+    ctx.save()
+    ctx.shadowColor = "rgba(236,55,80,.9)"; ctx.shadowBlur = 22
+    ctx.strokeStyle = HC_RED; ctx.lineWidth = 4
+    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.stroke()
+    ctx.lineCap = "round"; ctx.lineWidth = 3
+    for (let i = 0; i < 8; i++) {
+      const a = i * Math.PI / 4 + this.clock * 2.2
+      ctx.strokeStyle = i % 2 ? "#F4D345" : "#FC6255"
+      ctx.beginPath(); ctx.arc(X, Y, R + 7 + (i % 2) * 7, a, a + .55); ctx.stroke()
+    }
+    ctx.shadowBlur = 0
+    ctx.globalCompositeOperation = "lighter"
+    for (let i = 0; i < 26; i++) {
+      const a = i * 2.39996 + this.clock * (1 + (i % 3) * .35) * (i % 2 ? 1 : -1), rr = R + 10 + 9 * Math.sin(this.clock * 3 + i)
+      ctx.globalAlpha = this.vortex * (.45 + .4 * Math.sin(this.clock * 5 + i * 1.3))
+      ctx.fillStyle = i % 3 ? "#F4D345" : "#FC6255"
+      ctx.beginPath(); ctx.arc(X + Math.cos(a) * rr, Y + Math.sin(a) * rr, 1.6 + (i % 4) * .5, 0, Math.PI * 2); ctx.fill()
+    }
+    ctx.globalCompositeOperation = "source-over"
+    if (p.countAt !== undefined && p.diveAt === undefined) {
+      const u = (this.clock - p.countAt) / COUNTDOWN
+      ctx.globalAlpha = smooth(clamp(u * 8, 0, 1))
+      ctx.strokeStyle = "#F4D345"; ctx.lineWidth = 3
+      ctx.beginPath(); ctx.arc(X, Y, R + 24, -Math.PI / 2, -Math.PI / 2 + clamp(1 - u, 0, 1) * Math.PI * 2); ctx.stroke()
+    }
+    ctx.restore()
+  }
+
+  // The card's scale that fits it inside the portal (it's 228 by 200, so about 151 from its centre to a corner).
+  cardFit() { return .92 * PORTAL.r * this.s / 151 }
+
+  // Through the portal, after the countdown: the hole grows over the whole screen, editor and all, and the card comes
+  // up to the middle, so the jump to Hack Club Auth's own page feels like arriving where the portal led.
+  drawDive() {
+    const p = this.portal
+    if (p?.diveAt === undefined) return
+    const ctx = this.fctx, W = innerWidth, H = innerHeight, d = smooth(clamp((this.clock - p.diveAt) / 1.1, 0, 1))
+    const [X, Y] = this.px(PORTAL.x, PORTAL.y), R = lerp(PORTAL.r * this.s, Math.hypot(W, H), d * d)
+    ctx.save()
+    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.clip()
+    this.drawAuthSide(ctx, X, Y, lerp(X, W / 2, d), lerp(Y, H / 2, d), lerp(this.cardFit(), Math.min(1.6, W / 360), d), 1)
+    const pill = smooth(clamp((this.clock - p.diveAt - .8) / .5, 0, 1))
+    if (pill) {
+      ctx.globalAlpha = pill
+      ctx.fillStyle = "#fff"; ctx.strokeStyle = "#e0e6ed"; ctx.lineWidth = 1
+      ctx.beginPath(); ctx.roundRect(W / 2 - 92, 20, 184, 30, 15); ctx.fill(); ctx.stroke()
+      ctx.fillStyle = "#8492a6"; ctx.font = "13px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"
+      ctx.fillText("auth.hackclub.com", W / 2, 35)
+    }
+    ctx.restore()
+    if (d < 1) {
+      ctx.save()
+      ctx.shadowColor = "rgba(236,55,80,.9)"; ctx.shadowBlur = 22; ctx.strokeStyle = HC_RED; ctx.lineWidth = 4
+      ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.stroke()
+      ctx.restore()
+    }
+  }
+
+  // Hack Club's side of the portal, centred on (gx, gy): a light page with a faint red grid turning slowly, and the
+  // card Hack Club Auth will show at (cx, cy), scaled by k: π's badge next to Hack Club's, "Continue to Manimator",
+  // and your email already in, if we have it (it goes along as login_hint).
+  drawAuthSide(ctx, gx, gy, cx, cy, k, cardA) {
+    ctx.fillStyle = "#f9fafc"
+    ctx.fillRect(0, 0, innerWidth, innerHeight)
+    ctx.save()
+    ctx.translate(gx, gy); ctx.rotate(this.clock * .15)
+    ctx.strokeStyle = "rgba(236,55,80,.09)"; ctx.lineWidth = 1
+    ctx.beginPath()
+    const far = Math.hypot(innerWidth, innerHeight)
+    for (let v = -far; v <= far; v += 28) { ctx.moveTo(v, -far); ctx.lineTo(v, far); ctx.moveTo(-far, v); ctx.lineTo(far, v) }
+    ctx.stroke()
+    ctx.restore()
+    if (cardA <= 0 || k <= 0) return
+
+    const w = 228, h = 200, L = -w / 2, T = -h / 2, email = typeof this.email === "string" ? this.email : null
+    ctx.save()
+    ctx.globalAlpha = cardA
+    ctx.translate(cx, cy); ctx.scale(k, k)
+    ctx.shadowColor = "rgba(31,45,61,.18)"; ctx.shadowBlur = 24; ctx.shadowOffsetY = 6
+    ctx.fillStyle = "#fff"
+    ctx.beginPath(); ctx.roundRect(L, T, w, h, 14); ctx.fill()
+    ctx.shadowColor = "transparent"
+    ctx.fillStyle = "#0e0f11"
+    ctx.beginPath(); ctx.roundRect(-42, T + 16, 32, 32, 8); ctx.fill()
+    const pi = this.images.happy
+    if (pi?.naturalWidth) ctx.drawImage(pi, -40, T + 18, 28, 28)
+    ctx.textAlign = "center"; ctx.textBaseline = "middle"
+    ctx.fillStyle = "#c0ccda"; ctx.font = "600 14px system-ui, sans-serif"
+    ctx.fillText("+", 0, T + 32)
+    ctx.fillStyle = HC_RED
+    ctx.beginPath(); ctx.roundRect(10, T + 16, 32, 32, 8); ctx.fill()
+    ctx.fillStyle = "#fff"; ctx.font = "800 13px system-ui, sans-serif"
+    ctx.fillText("hc", 26, T + 32)
+    ctx.fillStyle = "#1f2d3d"; ctx.font = "700 17px system-ui, sans-serif"
+    ctx.fillText("Continue to Manimator", 0, T + 70)
+    ctx.fillStyle = "#8492a6"; ctx.font = "11.5px system-ui, sans-serif"
+    ctx.fillText("One account for all of Hack Club", 0, T + 90)
+    ctx.fillStyle = "#f9fafc"; ctx.strokeStyle = "#e0e6ed"; ctx.lineWidth = 1
+    ctx.beginPath(); ctx.roundRect(L + 18, T + 106, w - 36, 32, 8); ctx.fill(); ctx.stroke()
+    ctx.save()
+    ctx.beginPath(); ctx.rect(L + 26, T + 106, w - 52, 32); ctx.clip()
+    ctx.textAlign = "left"; ctx.fillStyle = email ? "#3c4858" : "#a0aec0"; ctx.font = "12.5px system-ui, sans-serif"
+    ctx.fillText(email ?? "your email", L + 30, T + 122)
+    ctx.restore()
+    ctx.fillStyle = HC_RED
+    ctx.beginPath(); ctx.roundRect(L + 18, T + 146, w - 36, 32, 8); ctx.fill()
+    ctx.fillStyle = "#fff"; ctx.font = "600 13px system-ui, sans-serif"
+    ctx.fillText("Send me a code", 0, T + 162)
+    ctx.fillStyle = "#8492a6"; ctx.font = "10.5px system-ui, sans-serif"
+    ctx.fillText("We'll email you a 6-digit code", 0, T + 191)
+    ctx.restore()
   }
 
   // The idea step's cards, each playing its own sketch.
