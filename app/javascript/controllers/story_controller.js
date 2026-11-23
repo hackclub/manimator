@@ -959,11 +959,10 @@ export default class extends Controller {
     await this.say("pi", `So: "${this.answers.idea}". Your first video by ${shortDate(this.answers.shipBy)}. ${reward}`, { pose: "speaking" })
     this.trap()
     const name = this.nameValue || this.whoName
-    const promise = `Your promise: “${this.answers.idea}” by ${shortDate(this.answers.shipBy)}.`
     const held = this.signedInValue
       ? await this.say("pi", `Oh no. The plane snapped shut on us! Hold the button${name ? `, ${name},` : ""} and break us out.`,
-        { pose: "erm", hold: { label: "Hold to free them", note: promise }, back: true })
-      : await this.throughPortal(name, promise)
+        { pose: "erm", hold: "Hold to free them", back: true })
+      : await this.throughPortal(name)
     if (held === BACK) { this.cage = null; this.portal = null; return BACK }
     await this.breakFree()
     return this.signHere()
@@ -973,7 +972,7 @@ export default class extends Controller {
   // from hackclub.com, then #treasure-cove), what the account is for, and exactly what signing in will ask, and
   // holding the button opens it all the way. Most newcomers sent to Hack Club Auth never come back signed in, so
   // nobody should land there wondering where they are, or whether any of this is real.
-  async throughPortal(name, promise) {
+  async throughPortal(name) {
     await this.say("pi", "Oh no. The plane snapped shut on us!", { pose: "erm" })
     this.step("portal")
     this.fillThrough()
@@ -991,9 +990,9 @@ export default class extends Controller {
       await this.say("pi", "On the other side, you type your email, Hack Club emails you a 6-digit code, and you type it in. New there? They'll ask your name and birthday too.", { pose: "speaking" })
     }
     this.showThrough("auth")
-    const lead = this.hackClubber ? "" : "Then you're straight back here with us. "
+    const lead = this.hackClubber ? "" : "Then you're straight back here with us, so keep this tab open. "
     return this.say("pi", `${lead}Hold the button${name ? `, ${name},` : ""} to open the portal and break us out!`,
-      { pose: "erm", hold: { label: "Hold to open the portal", note: `${promise} Keep this tab open while you sign in.` }, back: true })
+      { pose: "erm", hold: "Hold to open the portal", back: true })
   }
 
   showThrough(show) { if (this.portal) Object.assign(this.portal, { show, showAt: this.clock }) }
