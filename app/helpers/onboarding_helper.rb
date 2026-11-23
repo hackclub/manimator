@@ -48,14 +48,14 @@ module OnboardingHelper
   HACK_CLUB_STICKERS = [
     [ 1, -6.2, 3.6, 1.6, -10 ], [ 3, 6.3, 3.5, 1.5, 12 ], [ 2, -4.3, -0.4, 0.9, -12 ], [ 7, 4.4, -0.3, 1.2, 10 ], [ 9, 2.0, -0.7, 0.8, 14 ]
   ].map { |(n, x, y, w, r)| { x:, y:, w:, r:, image: "hack_club/stickers/#{n}.webp" } }.freeze
-  # Prizes from #treasure-cove as polaroids, each taped up, some with a Hack Club sticker slapped on, and a note in pen.
+  # Prizes from #treasure-cove as polaroids, some with a Hack Club sticker slapped on, and a note in pen.
   TREASURE_COVE = [
     [ "macbook", "MacBook!!", "stardance", 3 ], [ "console", "handheld console", "wrong", nil ], [ "hackpad", "hackpad kit", "stardance", 9 ],
     [ "goggles", "FPV goggles", "forge", nil ], [ "tamagotchi", "tamagotchi :)", "milkyway", 2 ], [ "controller", "first controller", "embassy", nil ]
   ].each_with_index.map { |(file, what, from, sticker), i|
     x = -4.6 + i * 1.84
     { image: format("treasure_cove/%02d-%s.jpg", i + 1, file), what:, from:, x: x.round(2), y: (1.0 - (x / 4.6)**2 * 0.5).round(2), w: 1.9,
-      r: (i - 2.5) * 3.5 + (i.even? ? -2 : 2), tape: (i.even? ? -6 : 5) + i, sticker: sticker && "hack_club/stickers/#{sticker}.webp" }
+      r: (i - 2.5) * 3.5 + (i.even? ? -2 : 2), sticker: sticker && "hack_club/stickers/#{sticker}.webp" }
   }.freeze
 
   def onboarding_world = { prints: HACK_CLUB_PRINTS, stickers: HACK_CLUB_STICKERS, prizes: TREASURE_COVE }

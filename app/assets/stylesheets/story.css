@@ -133,22 +133,17 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__world .world__print { width: calc(var(--w) * var(--u)); border: 4px solid #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); background: #fff; }
 .world__print img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .story__world .world__sticker { width: calc(var(--w) * var(--u)); height: auto; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .4)); }
-/* A polaroid as people actually post them: square corners, a strip of tape across the top, a sticker slapped on some,
-   and a note in pen next to the channel it came from. */
+/* A polaroid as people actually post them: square corners, a sticker slapped on some, and a note in pen over the
+   channel it came from. */
 .story__world .world__polaroid {
   width: calc(var(--w) * var(--u)); padding: calc(var(--u) * .09) calc(var(--u) * .09) calc(var(--u) * .1); border-radius: 2px;
   background: #fbfaf7; box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 14px 28px rgba(0, 0, 0, .5), 0 2px 3px rgba(0, 0, 0, .3);
-}
-.world__polaroid::before {
-  content: ""; position: absolute; left: 50%; top: calc(var(--u) * -.12); width: 46%; height: calc(var(--u) * .3);
-  transform: translateX(-50%) rotate(var(--tape)); background: repeating-linear-gradient(90deg, rgba(255, 246, 235, .72) 0 6px, rgba(255, 236, 210, .62) 6px 12px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .15); clip-path: polygon(0 8%, 4% 0, 9% 10%, 15% 2%, 22% 9%, 30% 0, 100% 4%, 96% 100%, 88% 92%, 80% 100%, 70% 93%, 0 100%, 3% 50%);
 }
 .world__polaroid img:not(.world__slap) { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
 .world__polaroid figcaption { display: flex; flex-direction: column; gap: calc(var(--u) * .04); padding: calc(var(--u) * .08) calc(var(--u) * .03) 0; }
 .world__pen { font: 700 calc(var(--u) * .28) / 1 Caveat, cursive; color: #1d2a6b; transform: rotate(-2deg); transform-origin: left; }
 .world__channel { align-self: flex-end; font: 600 calc(var(--u) * .15) / 1 "Phantom Sans", system-ui, sans-serif; color: #be1e3a; }
-.world__slap { position: absolute; right: calc(var(--u) * -.22); bottom: calc(var(--u) * .4); width: calc(var(--u) * .62); transform: rotate(14deg); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); }
+.world__slap { position: absolute; right: calc(var(--u) * -.2); top: calc(var(--u) * -.18); width: calc(var(--u) * .62); transform: rotate(14deg); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); }
 /* The sign-in steps, drawn like manim: each box's outline is created, then its words written, left to right. */
 .story__world .world__steps { left: 0; top: 0; width: 100%; height: 100%; transform: none; opacity: 1; overflow: visible; }
 .world__steps :is(.step, .step-arrow, .step-cell) { fill: none; stroke-width: .035; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s cubic-bezier(.45, 0, .2, 1); }

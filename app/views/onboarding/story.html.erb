@@ -72,7 +72,7 @@
       <%= image_tag k[:image], alt: "", class: "world__sticker", loading: "lazy", style: "--x: #{k[:x]}; --y: #{k[:y]}; --w: #{k[:w]}; --r: #{k[:r]}deg; --i: #{i}" %>
     <% end %>
     <% world[:prizes].each_with_index do |t, i| %>
-      <figure class="world__polaroid" style="--x: <%= t[:x] %>; --y: <%= t[:y] %>; --w: <%= t[:w] %>; --r: <%= t[:r] %>deg; --tape: <%= t[:tape] %>deg; --i: <%= i %>">
+      <figure class="world__polaroid" style="--x: <%= t[:x] %>; --y: <%= t[:y] %>; --w: <%= t[:w] %>; --r: <%= t[:r] %>deg; --i: <%= i %>">
         <%= image_tag t[:image], alt: t[:what], loading: "lazy", decoding: "async" %>
         <figcaption><span class="world__pen"><%= t[:what] %></span><span class="world__channel">#<%= t[:from] %></span></figcaption>
         <%= image_tag t[:sticker], alt: "", class: "world__slap", loading: "lazy" if t[:sticker] %>
