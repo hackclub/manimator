@@ -175,7 +175,7 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__world:not([data-show="auth"]) .world__steps * { transition-delay: 0s; transition-duration: .3s; }
 /* The line over it all, in hackclub.com's serif, with its rainbow word. */
 .story__world .world__head {
-  left: 50%; top: calc(50% - 3.3 * var(--u)); width: 92%; transform: translate(-50%, -50%); text-align: center;
+  left: 50%; top: calc(50% - 3.42 * var(--u)); width: 92%; transform: translate(-50%, -50%); text-align: center;
   font: 400 calc(var(--u) * .66) / .95 Zarathustra, Georgia, serif; color: #fff6eb; text-shadow: 0 2px 18px rgba(0, 0, 0, .6);
   transition: opacity .5s;
 }

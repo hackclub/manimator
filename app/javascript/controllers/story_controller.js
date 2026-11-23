@@ -38,7 +38,15 @@ const STAGE_BG = "#0b0c0e"
 // The portal to Hack Club Auth that π opens before signing in: its centre and radius on the stage, in units.
 const PORTAL = { x: 0, y: 1.1, r: 2.4 }
 const HC_RED = "#ec3750"
-const HC_RAINBOW = ["#ec3750", "#ff8c37", "#f1c40f", "#33d6a6", "#338eda", "#a633d6"] // hackclub.com's
+// π's digits, for the portal: its rim is rings of them, and more spiral down into it.
+const PI_DIGITS = "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132"
+// manim's BLUE_C, TEAL_C, GREEN_C, YELLOW_C, GOLD_C, RED_C, as u goes 0 to 1.
+const MANIM_RAMP = [[88, 196, 221], [92, 208, 179], [131, 193, 103], [244, 211, 69], [240, 172, 95], [252, 98, 85]]
+const manimRamp = u => {
+  const x = clamp(u, 0, .9999) * (MANIM_RAMP.length - 1), i = Math.floor(x), f = x - i, a = MANIM_RAMP[i], b = MANIM_RAMP[i + 1]
+  return a.map((v, k) => Math.round(v + (b[k] - v) * f))
+}
+const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`
 // π's number for a question's what-if: the one the sketch is drawn with and the scene's code starts from.
 const guess = (q, n) => { const [mode, , , , , , own] = q.whatifs[n]; return (own?.code ?? q.code)[1](mode) }
 const videos = n => n === 1 ? "your first video" : `${n} videos`
@@ -1761,18 +1769,26 @@ export default class extends Controller {
     return p.closeAt === undefined ? open : open * (1 - smooth(clamp((this.clock - p.closeAt) / .9, 0, 1)))
   }
 
-  // The portal, on the stage under the cast: a warm doorway, breathing. What's through it is the world over the stage
-  // (placeWorld), and the rim is in front (drawRim).
+  // The portal, on the stage under the cast: a dark well with π's digits spiralling down into it, shrinking and
+  // warming (through manim's colours) as they fall towards the light in the middle. The rings of digits round its rim
+  // are in front (drawRim), and Hack Club's world is over the stage (placeWorld).
   drawPortal() {
-    const ctx = this.ctx, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex * (1 + Math.sin(this.clock * 2) * .015)
-    const glow = ctx.createRadialGradient(X, Y, R * .6, X, Y, R * 1.7)
-    glow.addColorStop(0, "rgba(255,140,55,.35)"); glow.addColorStop(1, "rgba(236,55,80,0)")
-    ctx.fillStyle = glow
-    ctx.beginPath(); ctx.arc(X, Y, R * 1.7, 0, Math.PI * 2); ctx.fill()
-    const door = ctx.createRadialGradient(X, Y - R * .1, 0, X, Y, R)
-    door.addColorStop(0, "#fff7ed"); door.addColorStop(.3, "#fed7aa"); door.addColorStop(.58, "#ff8c37"); door.addColorStop(.82, "#ec3750"); door.addColorStop(1, "#7f1d1d")
-    ctx.fillStyle = door
-    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.fill()
+    const ctx = this.ctx, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex, k = R / 118
+    if (R < 2) return
+    ctx.save()
+    ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.clip()
+    const well = ctx.createRadialGradient(X, Y, 0, X, Y, R)
+    well.addColorStop(0, "#fff7ed"); well.addColorStop(.25, "#2a2440"); well.addColorStop(1, "#07080a")
+    ctx.fillStyle = well; ctx.fillRect(X - R, Y - R, 2 * R, 2 * R)
+    ctx.textAlign = "center"; ctx.textBaseline = "middle"
+    const fall = this.clock * (.06 + .12 * (this.holdK ?? 0))
+    for (let i = 0; i < 140; i++) {
+      const u = (i / 140 + fall) % 1, r = R * (1 - u) * .95, a = i * .52 + u * 9
+      ctx.fillStyle = rgba(manimRamp(u), .35 + .6 * (1 - u))
+      ctx.font = `${(6 + 12 * (1 - u)) * k}px ${this.serif}`
+      ctx.fillText(PI_DIGITS[(i * 7) % PI_DIGITS.length], X + Math.cos(a) * r, Y + Math.sin(a) * r)
+    }
+    ctx.restore()
   }
 
   // Hack Club's world over the stage: the stage's box, its unit, the portal's centre, and which part π is on, so CSS
@@ -1789,33 +1805,29 @@ export default class extends Controller {
     el.style.setProperty("--pcx", PORTAL.x); el.style.setProperty("--pcy", PORTAL.y)
   }
 
-  // The portal's rim, in front of everything on the stage: red, with arcs spinning round it and sparks.
+  // The portal's rim, in front of everything on the stage: a white circle, and round it π's digits in two rings
+  // turning opposite ways, faster as you hold.
   drawRim() {
     if (!this.vortex || this.portal?.diveAt !== undefined || !this.s) return
-    const ctx = this.fctx, r = this.rect, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex
+    const ctx = this.fctx, r = this.rect, [X, Y] = this.px(PORTAL.x, PORTAL.y), R = PORTAL.r * this.s * this.vortex, k = R / 118
+    const spin = this.clock + 3 * (this.holdK ?? 0) * this.clock
     ctx.save()
     ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, 10); ctx.clip()
-    // Hack Club's rainbow, turning, and faster as you hold.
-    const spin = this.clock * (1.2 + 4 * (this.holdK ?? 0)), rainbow = ctx.createConicGradient(spin, X, Y)
-    HC_RAINBOW.forEach((c, i) => rainbow.addColorStop(i / HC_RAINBOW.length, c))
-    rainbow.addColorStop(1, HC_RAINBOW[0])
-    ctx.shadowColor = "rgba(255,140,55,.8)"; ctx.shadowBlur = 24
-    ctx.strokeStyle = rainbow; ctx.lineWidth = 7
+    ctx.globalAlpha = smooth(clamp(this.portalOpen(), 0, 1))
+    ctx.strokeStyle = "#ece9e2"; ctx.lineWidth = 2.5
     ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.stroke()
-    ctx.lineCap = "round"; ctx.lineWidth = 3
-    for (let i = 0; i < 6; i++) {
-      const a = i * Math.PI / 3 - spin * 1.4
-      ctx.strokeStyle = HC_RAINBOW[i]
-      ctx.beginPath(); ctx.arc(X, Y, R + 11 + (i % 2) * 6, a, a + .5); ctx.stroke()
+    ctx.textAlign = "center"; ctx.textBaseline = "middle"
+    const ring = (radius, size, speed, color, from) => {
+      const step = size * .62 / radius, n = Math.floor(Math.PI * 2 / step)
+      ctx.font = `${size}px ${this.serif}`; ctx.fillStyle = color
+      for (let i = 0; i < n; i++) {
+        const a = i * step + spin * speed
+        ctx.save(); ctx.translate(X + Math.cos(a) * radius, Y + Math.sin(a) * radius); ctx.rotate(a + Math.PI / 2)
+        ctx.fillText(PI_DIGITS[(from + i) % PI_DIGITS.length], 0, 0); ctx.restore()
+      }
     }
-    ctx.shadowBlur = 0
-    ctx.globalCompositeOperation = "lighter"
-    for (let i = 0; i < 26; i++) {
-      const a = i * 2.39996 + this.clock * (1 + (i % 3) * .35) * (i % 2 ? 1 : -1), rr = R + 10 + 9 * Math.sin(this.clock * 3 + i)
-      ctx.globalAlpha = this.portalOpen() * (.45 + .4 * Math.sin(this.clock * 5 + i * 1.3))
-      ctx.fillStyle = HC_RAINBOW[i % HC_RAINBOW.length]
-      ctx.beginPath(); ctx.arc(X + Math.cos(a) * rr, Y + Math.sin(a) * rr, 1.6 + (i % 4) * .5, 0, Math.PI * 2); ctx.fill()
-    }
+    ring(R + 16 * k, 19 * k, .22, "#F4D345", 0)
+    ring(R + 40 * k, 14 * k, -.14, "rgba(88,196,221,.8)", 120)
     ctx.restore()
   }
 
@@ -1843,7 +1855,7 @@ export default class extends Controller {
     ctx.restore()
     if (d < 1) {
       ctx.save()
-      ctx.shadowColor = "rgba(236,55,80,.9)"; ctx.shadowBlur = 22; ctx.strokeStyle = HC_RED; ctx.lineWidth = 4
+      ctx.strokeStyle = "#ece9e2"; ctx.lineWidth = 3
       ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.stroke()
       ctx.restore()
     }
