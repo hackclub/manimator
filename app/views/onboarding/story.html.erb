@@ -6,6 +6,7 @@
     onboarding/sketches.js. %>
 <div class="story" data-controller="story"
      data-story-poses-value="<%= pi_pose_urls %>"
+     data-story-auth-images-value="<%= %w[bg-light bg-dark].to_h { |n| [ n, image_path("hack_club_auth/#{n}.webp") ] }.merge("hc" => image_path("hack_club_auth/hc-square.png"), "pi" => image_path("hack_club_auth/pi.png")).to_json %>"
      data-story-prizes-value="<%= onboarding_prizes.map { |p| p.slice(:id, :name, :hours, :videos, :featured, :made_at_hours, :with_every_prize).merge(image: image_path(p[:image])) }.to_json %>"
      data-story-slots-value="<%= Pledge::SLOTS.to_json %>"
      data-story-days-value="<%= onboarding_days.to_json %>"

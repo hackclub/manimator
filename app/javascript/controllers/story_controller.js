@@ -37,7 +37,17 @@ const MORE = Symbol("more") // the prize step's "show me the rest" card, and the
 const STAGE_BG = "#0b0c0e"
 // The portal to Hack Club Auth that π opens before signing in: its centre and radius on the stage, in units.
 const PORTAL = { x: 0, y: 1.1, r: 2.4 }
-const HC_RED = "#ec3750"
+// Hack Club Auth's Manimator page (drawAuthSide), in hackclub/auth's colours: its light and dark themes, with the
+// manimator scenario's frame round the card. AUTH_HOLE is the radius of the hole in its background (1920 by 1080).
+const AUTH_HOLE = 411
+const AUTH_LIGHT = { page: "#faf7f0", card: ["#fafafa", "#f5f5f5"], rim: "rgba(40,42,52,.28)", ring: "rgba(250,247,240,.75)",
+  shadow: "rgba(40,42,52,.18)", strong: "#1a1d23", muted: "#6b7280", text: "#373c44", input: "#ffffff", inputBorder: "#d5d9e0",
+  placeholder: "#8891a0", button: ["#ee4560", "#e0304a"], buttonBorder: "#d02a43", divider: "rgba(0,0,0,.08)", link: "#ec3750",
+  logoBox: "#ffffff", logoBorder: "#e5e7eb" }
+const AUTH_DARK = { page: "#0b0c0e", card: ["#252932", "#1f2329"], rim: "rgba(236,233,226,.4)", ring: "rgba(11,12,14,.55)",
+  shadow: "rgba(0,0,0,.65)", strong: "#f5f7fa", muted: "#9ca3af", text: "#c2c7d0", input: "#1c212b", inputBorder: "#374151",
+  placeholder: "#6b7280", button: ["#f03d58", "#d92c47"], buttonBorder: "#c22640", divider: "rgba(255,255,255,.08)", link: "#f03d58",
+  logoBox: "#1f2329", logoBorder: "#374151" }
 // π's digits, for the portal: its rim is rings of them, and more spiral down into it.
 const PI_DIGITS = "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132"
 // manim's BLUE_C, TEAL_C, GREEN_C, YELLOW_C, GOLD_C, RED_C, as u goes 0 to 1.
@@ -129,7 +139,7 @@ const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
   static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint", "world"]
-  static values = { poses: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
+  static values = { poses: Object, authImages: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
 
@@ -156,6 +166,10 @@ export default class extends Controller {
     this.mono = getComputedStyle(document.documentElement).getPropertyValue("--mono").trim() || "ui-monospace, monospace"
     this.images = {}
     for (const [pose, src] of Object.entries(this.posesValue)) { const img = new Image(); img.src = src; this.images[pose] = img }
+    // Hack Club Auth's Manimator page, drawn as you dive through the portal (drawAuthSide): its own pictures, from
+    // hackclub/auth, fetched when the browser gets to them.
+    this.authImages = {}
+    for (const [name, src] of Object.entries(this.authImagesValue)) { const img = new Image(); img.src = src; this.authImages[name] = img }
 
     this.layout()
     this.particles()
@@ -1833,27 +1847,19 @@ export default class extends Controller {
     ctx.restore()
   }
 
-  // The card's scale that fits it inside the portal (it's 228 by 200, so about 151 from its centre to a corner).
-  cardFit() { return .92 * PORTAL.r * this.s / 151 }
-
-  // Through the portal, after the countdown: the hole grows over the whole screen, editor and all, and the card comes
-  // up to the middle, so the jump to Hack Club Auth's own page feels like arriving where the portal led.
+  // Through the portal, after the countdown: the hole grows over the whole screen, editor and all, and Hack Club
+  // Auth's own page for Manimator comes up through it. It starts small enough that its background's ring of π's digits
+  // sits on this portal's rim, and ends at full size where the browser is about to put the real page, so the jump to
+  // Hack Club Auth feels like arriving where the portal led.
   drawDive() {
     const p = this.portal
     if (p?.diveAt === undefined) return
     const ctx = this.fctx, W = innerWidth, H = innerHeight, d = smooth(clamp((this.clock - p.diveAt) / 1.1, 0, 1))
     const [X, Y] = this.px(PORTAL.x, PORTAL.y), R = lerp(PORTAL.r * this.s, Math.hypot(W, H), d * d)
+    const k0 = PORTAL.r * this.s / (AUTH_HOLE * Math.max(W / 1920, H / 1080))
     ctx.save()
     ctx.beginPath(); ctx.arc(X, Y, R, 0, Math.PI * 2); ctx.clip()
-    this.drawAuthSide(ctx, X, Y, lerp(X, W / 2, d), lerp(Y, H / 2, d), lerp(this.cardFit(), Math.min(1.6, W / 360), d), 1)
-    const pill = smooth(clamp((this.clock - p.diveAt - .8) / .5, 0, 1))
-    if (pill) {
-      ctx.globalAlpha = pill
-      ctx.fillStyle = "#fff"; ctx.strokeStyle = "#e0e6ed"; ctx.lineWidth = 1
-      ctx.beginPath(); ctx.roundRect(W / 2 - 92, 20, 184, 30, 15); ctx.fill(); ctx.stroke()
-      ctx.fillStyle = "#8492a6"; ctx.font = "13px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"
-      ctx.fillText("auth.hackclub.com", W / 2, 35)
-    }
+    this.drawAuthSide(ctx, lerp(X, W / 2, d), lerp(Y, H / 2, d), k0 * (1 / k0) ** d)
     ctx.restore()
     if (d < 1) {
       ctx.save()
@@ -1863,58 +1869,108 @@ export default class extends Controller {
     }
   }
 
-  // Hack Club's side of the portal, centred on (gx, gy): a light page with a faint red grid turning slowly, and the
-  // card Hack Club Auth will show at (cx, cy), scaled by k: π's badge next to Hack Club's, "Continue to Manimator",
-  // and your email already in, if we have it (it goes along as login_hint).
-  drawAuthSide(ctx, gx, gy, cx, cy, k, cardA) {
-    ctx.fillStyle = "#f9fafc"
-    ctx.fillRect(0, 0, innerWidth, innerHeight)
+  // Hack Club Auth's welcome page as it looks for Manimator (hackclub/auth's AuthWelcome with the manimator
+  // onboarding scenario), laid out for this window and drawn with its centre at (cx, cy), scaled by k: the portal
+  // behind it, Hack Club's logo × π's, the card in its manim frame, "You made it through the portal" in Computer
+  // Modern, the email box (with your email already in, if we have it: it goes along as login_hint), Continue →, and
+  // the footer. Light or dark the way Hack Club Auth picks it, from your system's setting.
+  drawAuthSide(ctx, cx, cy, k) {
+    const W = innerWidth, H = innerHeight, dark = matchMedia("(prefers-color-scheme: dark)").matches
+    const c = dark ? AUTH_DARK : AUTH_LIGHT, img = this.authImages, sans = "Inter, system-ui, sans-serif"
+    const email = typeof this.email === "string" ? this.email : null
+    ctx.fillStyle = c.page
+    ctx.fillRect(0, 0, W, H)
     ctx.save()
-    ctx.translate(gx, gy); ctx.rotate(this.clock * .15)
-    ctx.strokeStyle = "rgba(236,55,80,.09)"; ctx.lineWidth = 1
-    ctx.beginPath()
-    const far = Math.hypot(innerWidth, innerHeight)
-    for (let v = -far; v <= far; v += 28) { ctx.moveTo(v, -far); ctx.lineTo(v, far); ctx.moveTo(-far, v); ctx.lineTo(far, v) }
-    ctx.stroke()
-    ctx.restore()
-    if (cardA <= 0 || k <= 0) return
+    ctx.translate(cx, cy); ctx.scale(k, k); ctx.translate(-W / 2, -H / 2)
 
-    const w = 228, h = 200, L = -w / 2, T = -h / 2, email = typeof this.email === "string" ? this.email : null
-    ctx.save()
-    ctx.globalAlpha = cardA
-    ctx.translate(cx, cy); ctx.scale(k, k)
-    ctx.shadowColor = "rgba(31,45,61,.18)"; ctx.shadowBlur = 24; ctx.shadowOffsetY = 6
-    ctx.fillStyle = "#fff"
-    ctx.beginPath(); ctx.roundRect(L, T, w, h, 14); ctx.fill()
-    ctx.shadowColor = "transparent"
-    ctx.fillStyle = "#0e0f11"
-    ctx.beginPath(); ctx.roundRect(-42, T + 16, 32, 32, 8); ctx.fill()
-    const pi = this.images.happy
-    if (pi?.naturalWidth) ctx.drawImage(pi, -40, T + 18, 28, 28)
+    const bg = img[dark ? "bg-dark" : "bg-light"]
+    if (bg?.naturalWidth) {
+      const s = Math.max(W / bg.naturalWidth, H / bg.naturalHeight), w = bg.naturalWidth * s, h = bg.naturalHeight * s
+      ctx.drawImage(bg, (W - w) / 2, (H - h) / 2, w, h)
+    }
+
+    // The card's lines, wrapped to its width the way the browser would.
+    const cw = Math.min(610, W - 32), inner = cw - 82
+    const wrap = (text, font) => {
+      ctx.font = font
+      const lines = [""]
+      for (const word of text.split(" ")) {
+        const line = lines.at(-1) ? `${lines.at(-1)} ${word}` : word
+        if (lines.at(-1) && ctx.measureText(line).width > inner) lines.push(word); else lines[lines.length - 1] = line
+      }
+      return lines
+    }
+    const h1Font = `400 29.6px "Computer Modern Serif", Georgia, serif`, subFont = `15.2px ${sans}`, helpFont = `13.33px ${sans}`
+    const h1 = wrap("You made it through the portal", h1Font)
+    const sub = wrap("Enter your email and we'll send you a code. π's holding the portal open.", subFont)
+    const help = wrap("This'll be the email you use across Hack Club. We recommend using your personal email. If you already have a Hack Club account, just put your existing email in here :-)", helpFont)
+    const yInput = 41 + h1.length * 33.3 + 12 + sub.length * 22.8 + 47, yHelp = yInput + 38 + 24
+    const yButton = yHelp + help.length * 16.67 + 33, yFooter = yButton + 38 + 63, ch = yFooter + 153
+    const top = Math.max(32, (H - (56 + ch)) / 2 + 15), L = (W - cw) / 2, T = top + 56
+
+    // Hack Club × π
+    const logo = (image, x, framed) => {
+      ctx.save()
+      ctx.beginPath(); ctx.roundRect(x, top, 36, 36, 8)
+      if (framed) { ctx.fillStyle = c.logoBox; ctx.fill(); ctx.strokeStyle = c.logoBorder; ctx.lineWidth = 1; ctx.stroke() }
+      ctx.clip()
+      if (image?.naturalWidth) ctx.drawImage(image, x + (framed ? 1 : 0), top + (framed ? 1 : 0), framed ? 34 : 36, framed ? 34 : 36)
+      ctx.restore()
+    }
+    logo(img.hc, W / 2 - 49, false)
     ctx.textAlign = "center"; ctx.textBaseline = "middle"
-    ctx.fillStyle = "#c0ccda"; ctx.font = "600 14px system-ui, sans-serif"
-    ctx.fillText("+", 0, T + 32)
-    ctx.fillStyle = HC_RED
-    ctx.beginPath(); ctx.roundRect(10, T + 16, 32, 32, 8); ctx.fill()
-    ctx.fillStyle = "#fff"; ctx.font = "800 13px system-ui, sans-serif"
-    ctx.fillText("hc", 26, T + 32)
-    ctx.fillStyle = "#1f2d3d"; ctx.font = "700 17px system-ui, sans-serif"
-    ctx.fillText("Continue to Manimator", 0, T + 70)
-    ctx.fillStyle = "#8492a6"; ctx.font = "11.5px system-ui, sans-serif"
-    ctx.fillText("One account for all of Hack Club", 0, T + 90)
-    ctx.fillStyle = "#f9fafc"; ctx.strokeStyle = "#e0e6ed"; ctx.lineWidth = 1
-    ctx.beginPath(); ctx.roundRect(L + 18, T + 106, w - 36, 32, 8); ctx.fill(); ctx.stroke()
+    ctx.globalAlpha = .5; ctx.fillStyle = c.muted; ctx.font = `500 15.2px ${sans}`
+    ctx.fillText("×", W / 2, top + 18)
+    ctx.globalAlpha = 1
+    logo(img.pi, W / 2 + 13, true)
+
+    // The card, in the manimator scenario's frame: a thin rim, and a band of paper (or night) round it.
     ctx.save()
-    ctx.beginPath(); ctx.rect(L + 26, T + 106, w - 52, 32); ctx.clip()
-    ctx.textAlign = "left"; ctx.fillStyle = email ? "#3c4858" : "#a0aec0"; ctx.font = "12.5px system-ui, sans-serif"
-    ctx.fillText(email ?? "your email", L + 30, T + 122)
+    ctx.shadowColor = c.shadow; ctx.shadowBlur = 90; ctx.shadowOffsetY = 30
+    ctx.fillStyle = c.ring
+    ctx.beginPath(); ctx.roundRect(L - 8, T - 8, cw + 16, ch + 16, 24); ctx.fill()
     ctx.restore()
-    ctx.fillStyle = HC_RED
-    ctx.beginPath(); ctx.roundRect(L + 18, T + 146, w - 36, 32, 8); ctx.fill()
-    ctx.fillStyle = "#fff"; ctx.font = "600 13px system-ui, sans-serif"
-    ctx.fillText("Send me a code", 0, T + 162)
-    ctx.fillStyle = "#8492a6"; ctx.font = "10.5px system-ui, sans-serif"
-    ctx.fillText("We'll email you a 6-digit code", 0, T + 191)
+    const face = ctx.createLinearGradient(L, T, L + cw * .26, T + ch)
+    face.addColorStop(0, c.card[0]); face.addColorStop(1, c.card[1])
+    ctx.fillStyle = face; ctx.strokeStyle = c.rim; ctx.lineWidth = 1
+    ctx.beginPath(); ctx.roundRect(L + .5, T + .5, cw - 1, ch - 1, 16); ctx.fill(); ctx.stroke()
+
+    ctx.fillStyle = c.strong; ctx.font = h1Font
+    h1.forEach((line, i) => ctx.fillText(line, W / 2, T + 41 + 16.6 + i * 33.3))
+    ctx.fillStyle = c.muted; ctx.font = subFont
+    const ySub = T + 41 + h1.length * 33.3 + 12
+    sub.forEach((line, i) => ctx.fillText(line, W / 2, ySub + 11.4 + i * 22.8))
+
+    // The email box, then the help under it.
+    ctx.fillStyle = c.input; ctx.strokeStyle = c.inputBorder
+    ctx.beginPath(); ctx.roundRect(L + 41.5, T + yInput + .5, inner - 1, 37, 10); ctx.fill(); ctx.stroke()
+    ctx.save()
+    ctx.beginPath(); ctx.rect(L + 58, T + yInput, inner - 34, 38); ctx.clip()
+    ctx.textAlign = "left"; ctx.fillStyle = email ? c.strong : c.placeholder; ctx.font = `16px ${sans}`
+    ctx.fillText(email ?? "orpheus@dino.mail", L + 58, T + yInput + 19)
+    ctx.restore()
+    ctx.textAlign = "left"; ctx.fillStyle = c.text; ctx.font = helpFont
+    help.forEach((line, i) => ctx.fillText(line, L + 41, T + yHelp + 8.3 + i * 16.67))
+
+    // Continue →, in Hack Club's red.
+    const red = ctx.createLinearGradient(0, T + yButton, 0, T + yButton + 38)
+    red.addColorStop(0, c.button[0]); red.addColorStop(1, c.button[1])
+    ctx.fillStyle = red; ctx.strokeStyle = c.buttonBorder
+    ctx.beginPath(); ctx.roundRect(L + 41.5, T + yButton + .5, inner - 1, 37, 10); ctx.fill(); ctx.stroke()
+    ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.font = `600 16px ${sans}`
+    ctx.fillText("Continue →", W / 2, T + yButton + 19)
+
+    // The footer: who to email if it goes wrong, and the links.
+    ctx.fillStyle = c.divider
+    ctx.fillRect(L + 41, T + yFooter, inner, 1)
+    const run = (parts, y, font) => {
+      ctx.font = font
+      let x = W / 2 - parts.reduce((sum, [text]) => sum + ctx.measureText(text).width, 0) / 2
+      ctx.textAlign = "left"
+      for (const [text, color] of parts) { ctx.fillStyle = color; ctx.fillText(text, x, y); x += ctx.measureText(text).width }
+    }
+    run([["If you're having trouble logging in, please email ", c.muted], ["auth@hackclub.com", c.link], [".", c.muted]], T + yFooter + 50, `14.4px ${sans}`)
+    run([["Privacy", c.link], [" • ", c.muted], ["Terms", c.link], [" • ", c.muted], ["Contact", c.link]], T + yFooter + 76, `500 14.4px ${sans}`)
     ctx.restore()
   }
 
