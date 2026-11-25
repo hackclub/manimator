@@ -32,6 +32,11 @@ class OnboardingController < ApplicationController
     16 => { tries: "The slider moves the thing your what-if is about (gravity on the Moon, how far out you shoot, how much crust you leave), and every sketch visibly answers it.", scores: { clear: 7.3, want: 6.8, start: 5.3, mine: 5.0 } }
   }.freeze
 
+  # Hack Club Auth's build line, for the copy of its sign-in page in the portal (HackClubAuthBuild).
+  def auth_build
+    render json: HackClubAuthBuild.current
+  end
+
   def ideas
     @gen = (params[:gen] || IDEA_GENS.keys.max).to_i
     head :not_found unless IDEA_GENS.key?(@gen)

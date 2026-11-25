@@ -4,22 +4,40 @@
 # Register the app at https://auth.hackclub.com/developer/apps with the redirect URI <APP_URL>/auth/hackclub/callback,
 # then set the client ID and secret in credentials (hack_club_auth: client_id, client_secret) or the environment
 # (HACK_CLUB_AUTH_CLIENT_ID, HACK_CLUB_AUTH_CLIENT_SECRET).
-hack_club_auth = ->(key) { Rails.application.credentials.dig(:hack_club_auth, key) || ENV["HACK_CLUB_AUTH_#{key.upcase}"] }
 
 # Only what the editor needs: who you are, your Slack ID (for π's messages), whether you're eligible for prizes, and
 # your address (for the sticker and the prizes we post).
 Rails.application.config.x.hack_club_auth_scopes = %i[openid profile email address slack_id verification_status]
 
+# A Hack Club Auth running locally (hackclub/auth's bin/dev), for working on our onboarding scenario there: set
+# HACK_CLUB_AUTH_URL to it (http://localhost:3002). Its development issuer is always http://localhost:3000 whatever
+# port it's on, so its endpoints are given here rather than discovered. Unset, it's auth.hackclub.com.
+local_auth = ENV["HACK_CLUB_AUTH_URL"].presence && URI(ENV["HACK_CLUB_AUTH_URL"])
+Rails.application.config.x.hack_club_auth_url = local_auth&.to_s || "https://auth.hackclub.com"
+endpoints = if local_auth
+  { scheme: local_auth.scheme, host: local_auth.host, port: local_auth.port, authorization_endpoint: "/oauth/authorize",
+    token_endpoint: "/oauth/token", userinfo_endpoint: "/oauth/userinfo", jwks_uri: "#{local_auth.to_s.chomp("/")}/oauth/discovery/keys" }
+else
+  {}
+end
+
+# Against a local Hack Club Auth, its own app's ID and secret (the environment's) win over our credentials.
+hack_club_auth = ->(key) {
+  env = ENV["HACK_CLUB_AUTH_#{key.upcase}"]
+  local_auth ? env : Rails.application.credentials.dig(:hack_club_auth, key) || env
+}
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :openid_connect,
     name: :hackclub,
-    issuer: "https://auth.hackclub.com",
-    discovery: true,
+    issuer: local_auth ? ENV.fetch("HACK_CLUB_AUTH_ISSUER", "http://localhost:3000") : "https://auth.hackclub.com",
+    discovery: !local_auth,
     response_type: :code,
     scope: Rails.configuration.x.hack_club_auth_scopes,
     client_options: {
       identifier: hack_club_auth.(:client_id),
-      secret: hack_club_auth.(:client_secret)
+      secret: hack_club_auth.(:client_secret),
+      **endpoints
     },
     # The callback goes back to whichever host the sign-in started on, so the session (and its OAuth state) is the
     # same one, on prod, localhost or an ngrok tunnel, without APP_URL having to be right. A credentials/env

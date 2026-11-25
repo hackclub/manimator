@@ -8,6 +8,9 @@
 @font-face { font-family: "Computer Modern Typewriter"; src: url("cmuntt.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Phantom Sans"; src: url("PhantomSans-Regular.woff2") format("woff2"); font-weight: 400; }
 @font-face { font-family: "Phantom Sans"; src: url("PhantomSans-Bold.woff2") format("woff2"); font-weight: 700; }
+/* hackclub.com's headline serif and its handwriting, for the portal to Hack Club at the end of onboarding. */
+@font-face { font-family: "Zarathustra"; src: url("Zarathustra.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Caveat"; src: url("Caveat.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
 
 :root {
   color-scheme: dark;

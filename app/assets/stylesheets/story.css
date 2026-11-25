@@ -108,6 +108,80 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 /* The cast, over the stage */
 .story__cast { position: absolute; inset: 0; pointer-events: none; }
 .story__front { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+
+/* Through the portal to Hack Club (story#throughPortal), as hackclub.com's hero shows it: photos as tilted prints with
+   a white border, Hack Club's stickers, prizes as polaroids, sign-in steps on sticky notes, and a big serif line with a
+   rainbow word. The world covers the stage (story#placeWorld sets its box and --u, one stage unit in px); everything in
+   it starts small at the portal and flies out to (--x, --y) when π gets to it (data-show). */
+.story__world {
+  position: absolute; left: 0; top: 0; width: 0; height: 0; overflow: hidden; pointer-events: none; border-radius: 10px;
+  --u: 60px; font-family: "Phantom Sans", system-ui, sans-serif; color: #fff6eb;
+}
+.story__world > * {
+  position: absolute; margin: 0; box-sizing: border-box; left: calc(50% + var(--pcx, 0) * var(--u)); top: calc(50% - var(--pcy, 0) * var(--u));
+  transform: translate(-50%, -50%) rotate(0deg) scale(.1); opacity: 0;
+  transition: left .9s cubic-bezier(.2, 1.25, .4, 1), top .9s cubic-bezier(.2, 1.25, .4, 1), transform .9s cubic-bezier(.2, 1.25, .4, 1), opacity .5s, filter .5s;
+}
+.story__world[data-show] :is(.world__print, .world__sticker),
+.story__world[data-show="treasure"] .world__polaroid {
+  left: calc(50% + var(--x) * var(--u)); top: calc(50% - var(--y) * var(--u)); transform: translate(-50%, -50%) rotate(var(--r)) scale(1); opacity: 1;
+  transition-delay: calc(var(--i) * 380ms);
+}
+.story__world[data-show] .world__sticker { transition-delay: calc(1.4s + var(--i) * 450ms); }
+/* Once the prizes come out, the photos step back so the prizes are what you look at. */
+.story__world:is([data-show="treasure"], [data-show="auth"]) :is(.world__print, .world__sticker) { opacity: .3; filter: saturate(.6); transition-delay: 0s; }
+.story__world .world__print { width: calc(var(--w) * var(--u)); border: 4px solid #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); background: #fff; }
+.world__print img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.story__world .world__sticker { width: calc(var(--w) * var(--u)); height: auto; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .4)); }
+/* A polaroid as people actually post them: square corners, a sticker slapped on some, and a note in pen over the
+   channel it came from. */
+.story__world .world__polaroid {
+  width: calc(var(--w) * var(--u)); padding: calc(var(--u) * .09) calc(var(--u) * .09) calc(var(--u) * .1); border-radius: 2px;
+  background: #fbfaf7; box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 14px 28px rgba(0, 0, 0, .5), 0 2px 3px rgba(0, 0, 0, .3);
+}
+.world__polaroid img:not(.world__slap) { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.world__polaroid figcaption { display: flex; flex-direction: column; gap: calc(var(--u) * .04); padding: calc(var(--u) * .08) calc(var(--u) * .03) 0; }
+.world__pen { font: 700 calc(var(--u) * .28) / 1 Caveat, cursive; color: #1d2a6b; transform: rotate(-2deg); transform-origin: left; }
+.world__channel { align-self: flex-end; font: 600 calc(var(--u) * .15) / 1 "Phantom Sans", system-ui, sans-serif; color: #be1e3a; }
+.world__slap { position: absolute; right: calc(var(--u) * -.2); top: calc(var(--u) * -.18); width: calc(var(--u) * .62); transform: rotate(14deg); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); }
+/* The sign-in steps, drawn like manim: each box's outline is created, then its words written, left to right. */
+.story__world .world__steps { left: 0; top: 0; width: 100%; height: 100%; transform: none; opacity: 1; overflow: visible; }
+.world__steps :is(.step, .step-arrow, .step-cell) { fill: none; stroke-width: .035; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s cubic-bezier(.45, 0, .2, 1); }
+.world__steps .step { stroke: #58C4DD; fill: rgba(14, 15, 17, 0); transition: stroke-dashoffset 1s cubic-bezier(.45, 0, .2, 1), fill .6s; }
+.world__steps .step--code { stroke: #F4D345; }
+.world__steps .step--back { stroke: #83C167; }
+.world__steps .step-arrow { stroke: #ece9e2; stroke-width: .03; }
+.world__steps .step-cell { stroke: rgba(244, 211, 69, .55); stroke-width: .02; }
+.world__steps :is(.step-text, .step-digit) {
+  font: .42px "Computer Modern Serif", Georgia, serif; text-anchor: middle; fill: #ece9e2; opacity: 0;
+  clip-path: inset(0 100% 0 0); transition: opacity .3s, clip-path .8s cubic-bezier(.45, 0, .2, 1);
+}
+.world__steps .step-digit { font-size: .5px; fill: #F4D345; }
+.story__world[data-show="auth"] .world__steps :is(.step, .step-arrow, .step-cell) { stroke-dashoffset: 0; }
+.story__world[data-show="auth"] .world__steps .step { fill: rgba(14, 15, 17, .82); }
+.story__world[data-show="auth"] .world__steps :is(.step-text, .step-digit) { opacity: 1; clip-path: inset(0 0 0 0); }
+.world__steps .step--1 { transition-delay: .3s; }
+.world__steps .step--2 { transition-delay: 1.1s; }
+.world__steps .step-cell { transition-delay: calc(1.6s + var(--d) * .12s); }
+.world__steps .step-digit { transition-delay: calc(2s + var(--d) * .22s); }
+.world__steps .step--3 { transition-delay: 3.4s; }
+.world__steps text.step--1 { transition-delay: .9s; }
+.world__steps text.step--3 { transition-delay: 4s; }
+.story__world:not([data-show="auth"]) .world__steps * { transition-delay: 0s; transition-duration: .3s; }
+/* The line over it all, in hackclub.com's serif, with its rainbow word. */
+.story__world .world__head {
+  left: 50%; top: calc(50% - 3.42 * var(--u)); width: 92%; transform: translate(-50%, -50%); text-align: center;
+  font: 400 calc(var(--u) * .66) / .95 Zarathustra, Georgia, serif; color: #fff6eb; text-shadow: 0 2px 18px rgba(0, 0, 0, .6);
+  transition: opacity .5s;
+}
+.world__head em {
+  font-style: normal; background: repeating-linear-gradient(105deg, #ec3750 0%, #ff8c37 16%, #f1c40f 32%, #33d6a6 48%, #338eda 64%, #a633d6 80%, #ec3750 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: teens-gradient 6s linear infinite;
+}
+@keyframes teens-gradient { to { background-position: -200% 0; } }
+.story__world[data-show="photos"] .world__head[data-for="photos"], .story__world[data-show="treasure"] .world__head[data-for="treasure"],
+.story__world[data-show="auth"]:not([data-holding]) .world__head[data-for="auth"] { opacity: 1; transition-delay: .4s; }
+@media (prefers-reduced-motion: reduce) { .story__world > *, .world__head em { transition-duration: .01s; animation: none; } }
 .story__actor { position: absolute; left: 0; top: 0; will-change: transform; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .45)); transition: opacity .4s; }
 /* Over π's sketch, whoever isn't talking steps back. */
 .story__actor--back { opacity: .3; }
@@ -230,9 +304,15 @@ html:has(.story), body:has(.story) { overflow: hidden; overscroll-behavior: none
 .story__ask .story__choice::before { display: none; }
 
 .story__hold {
-  position: relative; overflow: hidden; width: min(360px, 100%); height: 50px; border-radius: 999px; border: 1px solid var(--yellow);
-  background: transparent; font: 500 15px var(--mono); cursor: pointer; touch-action: none;
+  position: relative; overflow: hidden; min-width: min(300px, 100%); height: 54px; padding: 0 36px; border-radius: 999px;
+  border: 1px solid var(--yellow); background: transparent; font: 500 15px var(--mono); cursor: pointer; touch-action: none;
 }
+/* Into Hack Club, the button is Hack Club's: their red, their type, cream filling up as you hold. */
+.story__hold--hc { border: 0; background: #ec3750; font: 700 18px "Phantom Sans", system-ui, sans-serif; box-shadow: 0 8px 24px rgba(236, 55, 80, .35); }
+.story__hold--hc .story__hold-fill { background: linear-gradient(90deg, #ff8c37, #f1c40f); }
+.story__hold--hc .story__hold-label { color: #fff6eb; mix-blend-mode: normal; }
+.story__hold--hc:focus { outline: none; }
+.story__hold--hc:focus-visible { outline: 3px solid #fff6eb; outline-offset: 3px; }
 .story__hold-fill { position: absolute; inset: 0; background: var(--yellow); transform: scaleX(0); transform-origin: left; }
 .story__hold-label { position: relative; color: var(--yellow); mix-blend-mode: difference; }
 /* What holding means, under the button: your promise, and that it signs you in. */

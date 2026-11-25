@@ -34,6 +34,32 @@ module OnboardingHelper
   ].map { |prize| { image: "prizes/#{prize[:id]}.jpg", featured: false }.merge(prize) }
    .map { |prize| prize.merge(videos: [ (prize[:hours].to_f / Pledge::HOURS_PER_VIDEO).ceil, 1 ].max) }.freeze
 
+  # Through the portal to Hack Club at the end of the story (story_controller#throughPortal), laid out the way
+  # hackclub.com's hero is: real photos as tilted prints round the portal, Hack Club's own stickers, then prizes people
+  # posted in #treasure-cove (Nov 2026) as polaroids, then what signing in takes on sticky notes. Places are in the
+  # stage's units (x right, y up, from its middle; the stage is 14.2 wide), with a width and a tilt.
+  HACK_CLUB_PRINTS = [
+    [ -5.4, 2.5, 3.0, -8, "Everyone at Haven NYC" ], [ 5.4, 2.5, 3.0, 8, "Hacking at a hackathon" ],
+    [ -5.7, -0.1, 2.6, 6, "Friends in propeller hats" ], [ 5.7, -0.1, 2.6, -6, "On the beach after a hackathon" ],
+    [ -3.3, 1.2, 2.2, -13, "A whole hackathon" ], [ 3.3, 1.2, 2.2, 12, "A film photo from Haven" ],
+    [ -4.6, 3.6, 1.9, 10, "A hackathon selfie" ], [ 4.6, 3.6, 1.9, -10, "Demos at Haven NYC" ],
+    [ -7.0, 1.3, 2.3, -4, "A team photo" ], [ 7.0, 1.1, 2.3, 5, "A bonfire" ]
+  ].each_with_index.map { |(x, y, w, r, alt), i| { x:, y:, w:, r:, alt:, image: format("hack_club/%02d.jpg", i + 1) } }.freeze
+  HACK_CLUB_STICKERS = [
+    [ 1, -6.2, 3.6, 1.6, -10 ], [ 3, 6.3, 3.5, 1.5, 12 ], [ 2, -4.3, -0.4, 0.9, -12 ], [ 7, 4.4, -0.3, 1.2, 10 ], [ 9, 2.0, -0.7, 0.8, 14 ]
+  ].map { |(n, x, y, w, r)| { x:, y:, w:, r:, image: "hack_club/stickers/#{n}.webp" } }.freeze
+  # Prizes from #treasure-cove as polaroids, some with a Hack Club sticker slapped on, and a note in pen.
+  TREASURE_COVE = [
+    [ "macbook", "MacBook!!", "stardance", 3 ], [ "console", "handheld console", "wrong", nil ], [ "hackpad", "hackpad kit", "stardance", 9 ],
+    [ "goggles", "FPV goggles", "forge", nil ], [ "tamagotchi", "tamagotchi :)", "milkyway", 2 ], [ "controller", "first controller", "embassy", nil ]
+  ].each_with_index.map { |(file, what, from, sticker), i|
+    x = -4.6 + i * 1.84
+    { image: format("treasure_cove/%02d-%s.jpg", i + 1, file), what:, from:, x: x.round(2), y: (1.0 - (x / 4.6)**2 * 0.5).round(2), w: 1.9,
+      r: (i - 2.5) * 3.5 + (i.even? ? -2 : 2), sticker: sticker && "hack_club/stickers/#{sticker}.webp" }
+  }.freeze
+
+  def onboarding_world = { prints: HACK_CLUB_PRINTS, stickers: HACK_CLUB_STICKERS, prizes: TREASURE_COVE }
+
   def onboarding_classes = Idea::CLASSES
   def onboarding_prizes = PRIZES
   def onboarding_days = Pledge::DAYS
