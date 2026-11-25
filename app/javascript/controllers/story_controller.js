@@ -41,13 +41,15 @@ const PORTAL = { x: 0, y: 1.1, r: 2.4 }
 // manimator scenario's frame round the card. AUTH_HOLE is the radius of the hole in its background (1920 by 1080).
 const AUTH_HOLE = 411
 const AUTH_LIGHT = { page: "#faf7f0", card: ["#fafafa", "#f5f5f5"], rim: "rgba(40,42,52,.28)", ring: "rgba(250,247,240,.75)",
-  shadow: "rgba(40,42,52,.18)", strong: "#1a1d23", muted: "#6b7280", text: "#373c44", input: "#ffffff", inputBorder: "#d5d9e0",
-  placeholder: "#8891a0", button: ["#ee4560", "#e0304a"], buttonBorder: "#d02a43", divider: "rgba(0,0,0,.08)", link: "#ec3750",
+  shadow: "rgba(40,42,52,.18)", strong: "#1a1d23", sub: "#6b7280", text: "#373c44", muted: "#646b79",
+  input: "rgb(251,251.5,252.25)", inputBorder: "#cfd5e2", inputText: "#23262c", placeholder: "#646b79",
+  button: ["#ec3750", "#d92d46"], buttonBorder: "#c7243c", divider: "rgb(231,234,239.5)", link: "#ec3750",
   logoBox: "#ffffff", logoBorder: "#e5e7eb" }
 const AUTH_DARK = { page: "#0b0c0e", card: ["#252932", "#1f2329"], rim: "rgba(236,233,226,.4)", ring: "rgba(11,12,14,.55)",
-  shadow: "rgba(0,0,0,.65)", strong: "#f5f7fa", muted: "#9ca3af", text: "#c2c7d0", input: "#1c212b", inputBorder: "#374151",
-  placeholder: "#6b7280", button: ["#f03d58", "#d92c47"], buttonBorder: "#c22640", divider: "rgba(255,255,255,.08)", link: "#f03d58",
-  logoBox: "#1f2329", logoBorder: "#374151" }
+  shadow: "rgba(0,0,0,.65)", strong: "#f5f7fa", sub: "#9ca3af", text: "#c2c7d0", muted: "#7b8495",
+  input: "rgb(28,33,43.5)", inputBorder: "#2a3140", inputText: "#e0e3e7", placeholder: "#8891a4",
+  button: ["#f03d58", "#dd2f4a"], buttonBorder: "#c62642", divider: "#202632", link: "#f03d58",
+  logoBox: "#181c25", logoBorder: "#374151" }
 // π's digits, for the portal: its rim is rings of them, and more spiral down into it.
 const PI_DIGITS = "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132"
 // manim's BLUE_C, TEAL_C, GREEN_C, YELLOW_C, GOLD_C, RED_C, as u goes 0 to 1.
@@ -1877,7 +1879,7 @@ export default class extends Controller {
   drawAuthSide(ctx, cx, cy, k) {
     const W = innerWidth, H = innerHeight, dark = matchMedia("(prefers-color-scheme: dark)").matches
     const c = dark ? AUTH_DARK : AUTH_LIGHT, img = this.authImages, sans = "Inter, system-ui, sans-serif"
-    const email = typeof this.email === "string" ? this.email : null
+    const email = (typeof this.email === "string" ? this.email : this.loginHintTarget.value) || null
     ctx.fillStyle = c.page
     ctx.fillRect(0, 0, W, H)
     ctx.save()
@@ -1919,7 +1921,7 @@ export default class extends Controller {
     }
     logo(img.hc, W / 2 - 49, false)
     ctx.textAlign = "center"; ctx.textBaseline = "middle"
-    ctx.globalAlpha = .5; ctx.fillStyle = c.muted; ctx.font = `500 15.2px ${sans}`
+    ctx.globalAlpha = .5; ctx.fillStyle = c.text; ctx.font = `500 15.2px ${sans}`
     ctx.fillText("×", W / 2, top + 18)
     ctx.globalAlpha = 1
     logo(img.pi, W / 2 + 13, true)
@@ -1937,7 +1939,7 @@ export default class extends Controller {
 
     ctx.fillStyle = c.strong; ctx.font = h1Font
     h1.forEach((line, i) => ctx.fillText(line, W / 2, T + 41 + 16.6 + i * 33.3))
-    ctx.fillStyle = c.muted; ctx.font = subFont
+    ctx.fillStyle = c.sub; ctx.font = subFont
     const ySub = T + 41 + h1.length * 33.3 + 12
     sub.forEach((line, i) => ctx.fillText(line, W / 2, ySub + 11.4 + i * 22.8))
 
@@ -1946,7 +1948,7 @@ export default class extends Controller {
     ctx.beginPath(); ctx.roundRect(L + 41.5, T + yInput + .5, inner - 1, 37, 10); ctx.fill(); ctx.stroke()
     ctx.save()
     ctx.beginPath(); ctx.rect(L + 58, T + yInput, inner - 34, 38); ctx.clip()
-    ctx.textAlign = "left"; ctx.fillStyle = email ? c.strong : c.placeholder; ctx.font = `16px ${sans}`
+    ctx.textAlign = "left"; ctx.fillStyle = email ? c.inputText : c.placeholder; ctx.font = `16px ${sans}`
     ctx.fillText(email ?? "orpheus@dino.mail", L + 58, T + yInput + 19)
     ctx.restore()
     ctx.textAlign = "left"; ctx.fillStyle = c.text; ctx.font = helpFont
