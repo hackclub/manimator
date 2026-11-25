@@ -394,7 +394,8 @@ export default class extends Controller {
   // ── Dialogue ─────────────────────────────────────────────────────────────────────────────────────────────────
 
   // pick(el, done) lays out a question of its own in the choices and calls done with the answer.
-  async say(who, text, { pose, choices, input, hold, slider, pick, until, rush, back } = {}) {
+  // linger(ms) holds the line that long once it's out and moves on by itself, no click.
+  async say(who, text, { pose, choices, input, hold, slider, pick, until, rush, back, linger } = {}) {
     if (this.gone) return new Promise(() => {})
     this.speaker = who
     if (!this.show.dialog) this.reveal("dialog")
@@ -438,6 +439,7 @@ export default class extends Controller {
       if (result === BACK) { cancelAnimationFrame(this.holdRaf); this.choicesTarget.replaceChildren() }
       return result
     }
+    if (linger) return this.pause(linger)
     this.nextTarget.hidden = false
     await new Promise(r => { this.advance = r })
     this.advance = null
@@ -714,7 +716,7 @@ export default class extends Controller {
     this.reveal("bar")
     this.burst(0, 1, 60)
     sfx.land()
-    await this.say("pi", "We're free, and it's official! Let's go make it move.", { pose: "hooray", choices: [{ label: "Open the editor →", value: "go" }] })
+    await this.say("pi", "We're free, and it's official! Let's go make it move.", { pose: "hooray", linger: 1600 })
     await this.handOff()
   }
 
