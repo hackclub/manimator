@@ -141,7 +141,7 @@ const CIRCLES = epicycles(PI_PATH)
 
 export default class extends Controller {
   static targets = ["canvas", "front", "bar", "rail", "code", "timeline", "cast", "dialog", "portrait", "name", "text", "choices", "next", "skip", "back", "signIn", "loginHint", "world"]
-  static values = { poses: Object, authImages: Object, prizes: Array, slots: Object, days: Array, sessions: Object,
+  static values = { poses: Object, authImages: Object, authBuildUrl: String, prizes: Array, slots: Object, days: Array, sessions: Object,
     pledgeUrl: String, scenesUrl: String, editorUrl: String, visitUrl: String, hours: Number,
     signedIn: Boolean, name: String, whoamiUrl: String, alert: String, progress: Object, emailArm: String }
 
@@ -172,6 +172,7 @@ export default class extends Controller {
     // hackclub/auth, fetched when the browser gets to them.
     this.authImages = {}
     for (const [name, src] of Object.entries(this.authImagesValue)) { const img = new Image(); img.src = src; this.authImages[name] = img }
+    if (this.authBuildUrlValue) fetch(this.authBuildUrlValue).then(r => r.json()).then(b => { this.authBuild = b }).catch(() => {})
 
     this.layout()
     this.particles()
@@ -1973,6 +1974,11 @@ export default class extends Controller {
     }
     run([["If you're having trouble logging in, please email ", c.muted], ["auth@hackclub.com", c.link], [".", c.muted]], T + yFooter + 50, `14.4px ${sans}`)
     run([["Privacy", c.link], [" • ", c.muted], ["Terms", c.link], [" • ", c.muted], ["Contact", c.link]], T + yFooter + 76, `500 14.4px ${sans}`)
+    if (this.authBuild?.sha) {
+      ctx.globalAlpha = .6
+      run([[`Build ${this.authBuild.sha} from ${this.authBuild.ago}`, c.muted]], T + yFooter + 104, `12px ${sans}`)
+      ctx.globalAlpha = 1
+    }
     ctx.restore()
   }
 

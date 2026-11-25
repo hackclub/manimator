@@ -13,6 +13,7 @@ Rails.application.config.x.hack_club_auth_scopes = %i[openid profile email addre
 # HACK_CLUB_AUTH_URL to it (http://localhost:3002). Its development issuer is always http://localhost:3000 whatever
 # port it's on, so its endpoints are given here rather than discovered. Unset, it's auth.hackclub.com.
 local_auth = ENV["HACK_CLUB_AUTH_URL"].presence && URI(ENV["HACK_CLUB_AUTH_URL"])
+Rails.application.config.x.hack_club_auth_url = local_auth&.to_s || "https://auth.hackclub.com"
 endpoints = if local_auth
   { scheme: local_auth.scheme, host: local_auth.host, port: local_auth.port, authorization_endpoint: "/oauth/authorize",
     token_endpoint: "/oauth/token", userinfo_endpoint: "/oauth/userinfo", jwks_uri: "#{local_auth.to_s.chomp("/")}/oauth/discovery/keys" }
